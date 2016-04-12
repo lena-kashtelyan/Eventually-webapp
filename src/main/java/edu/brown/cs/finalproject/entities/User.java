@@ -1,4 +1,4 @@
-package edu.brown.cs.finalproject.user;
+package edu.brown.cs.finalproject.entities;
 
 public interface User {
 	
