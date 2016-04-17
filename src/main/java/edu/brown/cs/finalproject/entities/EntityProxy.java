@@ -1,20 +1,19 @@
 package edu.brown.cs.finalproject.entities;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 import edu.brown.cs.finalproject.database.Database;
 
-public abstract class SQLEntityProxy<E extends Entity> implements Entity {
+public abstract class EntityProxy<E extends Entity> implements Entity {
   protected String id;
   protected E internal;
 
   private static Map<String, Entity> cache = new HashMap<>();
 
-  public SQLEntityProxy(String id) throws SQLException, ClassNotFoundException {
+  public EntityProxy(String id) throws ClassNotFoundException {
     this.id = id;
     loadCache();
   }
@@ -36,16 +35,13 @@ public abstract class SQLEntityProxy<E extends Entity> implements Entity {
     if (internal != null) {
       return;
     }
-    try {
-      Connection conn = Database.getConnection();
-      pullFromDB(conn);
-      cache.put(id, internal);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    Connection conn = Database.getConnection();
+    pullFromDB(conn);
+    cache.put(id, internal);
+
   }
 
-  abstract protected void pullFromDB(Connection conn) throws SQLException;
+  abstract protected void pullFromDB(Connection conn);
 
   @Override
   public int hashCode() {
