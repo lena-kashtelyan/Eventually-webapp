@@ -1,0 +1,71 @@
+package edu.brown.cs.finalproject.entities;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import edu.brown.cs.finalproject.database.Database;
+
+public abstract class SQLEntityProxy<E extends Entity> implements Entity {
+  protected String id;
+  protected E internal;
+
+  private static Map<String, Entity> cache = new HashMap<>();
+
+  public SQLEntityProxy(String id) throws SQLException, ClassNotFoundException {
+    this.id = id;
+    loadCache();
+  }
+
+  @Override
+  public String getID() {
+    return id;
+  }
+
+  private void loadCache() {
+    if (internal != null) {
+      return;
+    }
+    internal = (E) cache.get(id);
+  }
+
+  public void getInternal() {
+    loadCache();
+    if (internal != null) {
+      return;
+    }
+    try {
+      Connection conn = Database.getConnection();
+      pullFromDB(conn);
+      cache.put(id, internal);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  abstract protected void pullFromDB(Connection conn) throws SQLException;
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    try {
+      Entity e = (Entity) o;
+      return (id.equals(e.getID()));
+    } catch (ClassCastException e) {
+      return false;
+    }
+  }
+
+  @Override
+  public String toString() {
+    getInternal();
+    return internal.toString();
+  }
+
+}
