@@ -59,9 +59,9 @@ public class MapsSparkServer implements SparkServer {
      */
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> map = ImmutableMap.of("title", "Maps");
+      Map<String, Object> titleMap = ImmutableMap.of("title", "CS32: Final Project");
 
-      return new ModelAndView(map, "main.ftl");
+      return new ModelAndView(titleMap, "main.ftl");
     }
   }
 
