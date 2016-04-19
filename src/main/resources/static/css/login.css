@@ -45,7 +45,7 @@
 	height: 92%;
 }
 
-#buttons-container{
+#center-container{
 	position: fixed;
 	height: 33.3%;
 	width: 33.3%;
@@ -94,7 +94,7 @@ input:focus{
     margin: 8px 0;
 }
 
-#submit-btn{
+.submit-btn{
 	border : solid 2px #ffffff;
 	height: 39px;
 	width: 123px;
@@ -105,3 +105,13 @@ input:focus{
 	padding : 1px 10px;
 	margin: 8px 0px;
 }
+
+#bottom-container{
+	position: fixed;
+	height: 33.3%;
+	width: 33.3%;
+	bottom: 0;
+	top: 80%;
+	left: 33.3%;
+} 
+

@@ -70,7 +70,7 @@ public class Main {
         public ModelAndView handle(Request req, Response res) {
             System.out.println("In FrontHandler");
             Map<String, Object> variables = ImmutableMap.of(
-                    "title", "HopperMap");
+                    "title", "Hopper Map");
             return new ModelAndView(variables, "home.ftl");
         }
     }	
@@ -80,10 +80,20 @@ public class Main {
         public ModelAndView handle(Request req, Response res) {
             System.out.println("In LoginHandler");
             Map<String, Object> variables = ImmutableMap.of(
-                    "title", "HopperLogIn");
+                    "title", "Hopper LogIn");
             return new ModelAndView(variables, "login.ftl");
         }
-    }   
+    } 
+    
+    class SignUpHandler implements TemplateViewRoute {
+        @Override
+        public ModelAndView handle(Request req, Response res) {
+            System.out.println("In SignUpHandler");
+            Map<String, Object> variables = ImmutableMap.of(
+                    "title", "Hopper SignUp");
+            return new ModelAndView(variables, "signup.ftl");
+        }
+    } 
     /**
      * Handles the printing of exceptions
      */
@@ -111,5 +121,6 @@ public class Main {
         FreeMarkerEngine freeMarker = createEngine();
         Spark.get("/home", new FrontHandler(), freeMarker);
         Spark.get("/login", new LogInHandler(), freeMarker);
+        Spark.get("/signup", new SignUpHandler(), freeMarker);
     }
 }
