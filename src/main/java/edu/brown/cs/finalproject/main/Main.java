@@ -1,5 +1,6 @@
 package edu.brown.cs.finalproject.main;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,9 @@ import spark.Response;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
+=======
+import edu.brown.cs.finalproject.frontend.MapsSparkServer;
+>>>>>>> 93feb3225e51a95cb812cf0627b7882164041c91
 
 public class Main {
 	public static void main(String[] args) {
@@ -32,6 +36,7 @@ public class Main {
 	}
 
 	private void run() {
+<<<<<<< HEAD
 	    OptionParser parser = new OptionParser();
         parser.accepts("gui");
         OptionSet options = parser.parse(args);
@@ -112,4 +117,16 @@ public class Main {
         Spark.get("/home", new FrontHandler(), freeMarker);
         Spark.get("/login", new LogInHandler(), freeMarker);
     }
+=======
+		System.out.println("helloworld");
+
+//		lines to instantiate tables in the database and create indices; uncomment and change login name if you want to reset the tables
+//		Database db = new Database("/home/ipetrov/course/cs032/final_project/32final/database/finalproject.db");
+//		new DatabaseFactory(db).createAndIndexTables();	
+		
+		new MapsSparkServer().runSparkServer();
+		
+		System.out.println("all done");
+	}
+>>>>>>> 93feb3225e51a95cb812cf0627b7882164041c91
 }
