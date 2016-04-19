@@ -1,0 +1,56 @@
+#background-container {
+	z-index: 10;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#under-topbar-container {
+	z-index:20;
+	position: fixed;
+	top: 8%;
+	width: 100%;
+	height: 92%;
+}
+
+#buttons-container{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px; /* half the box' height */
+	margin-left: -130px; /* half the box' width */
+} 
+
+input[type=text]{
+	width: 150%;
+    padding: 12px 20px;
+    margin: 8px 0;
+}
+
+input[type=password]{
+	width: 150%;
+    padding: 12px 20px;
+    margin: 8px 0;
+}
+
+input:focus{
+	border: black;
+	border-opacity: 0.2;
+}
+
+#fb-btn-container{
+	position: absolute;
+	top: 0;
+}
+
+#login-info{
+	position: absolute;
+	top: 49px;
+}
+
+#fb-button {
+/*	position: absolute;
+*/	z-index:500;
+	margin-bottom: 10px;
+}
