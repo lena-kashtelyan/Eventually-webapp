@@ -1,3 +1,8 @@
+$(document).ready(function() {
+  console.log("hello world123");
+  embedMap("map-container");
+});
+
 console.log("hello world");
 
 window.fbAsyncInit = function() {
