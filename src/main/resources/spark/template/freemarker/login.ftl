@@ -25,8 +25,8 @@
 
       <div id="under-topbar-container">
       	<div id="buttons-container">
-      		<div class="facebook-btn">
-      			<div id="fb-button" class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+      		<div id="facebook-btn">
+      			<div id="fb-button" class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" scope="public_profile,email" onlogin="checkLoginState();"></div>
       		</div>
 	      	<div id="login-info">
 	      		<form action="">
@@ -36,15 +36,8 @@
 			     </div>
 		    </div>
       </div>
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button>
 
-    <div id="status">
-    </div>
-
-    <CENTER>
-      <p>whats up</p>
-    </CENTER>
-    </div>
+    <div id="status"></div>
+  </div>
   </body>
 </html>
