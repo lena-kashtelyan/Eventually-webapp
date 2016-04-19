@@ -41,6 +41,7 @@ input:focus{
 
 #fb-btn-container{
 	position: absolute;
+	width: 100;
 	top: 0;
 }
 
@@ -53,4 +54,5 @@ input:focus{
 /*	position: absolute;
 */	z-index:500;
 	margin-bottom: 10px;
+	right: 0;
 }
