@@ -31,9 +31,10 @@
 	      	<div id="login-info">
 	      		<form action="">
     					<input type="text" id="username" placeholder="username"> <br>
-    					<input type="password" id="password" placeholder="password">
+    					<input type="password" id="password" placeholder="password"> <br>
+              <input type="submit" id="submit-btn" value="Okay">
     				</form>
-			     </div>
+			    </div>
 		    </div>
       </div>
 
