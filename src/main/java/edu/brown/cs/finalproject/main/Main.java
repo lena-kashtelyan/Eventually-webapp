@@ -125,6 +125,7 @@ public class Main {
       fields[4] = qm.value("answer-one");
       fields[5] = qm.value("question-two");
       fields[6] = qm.value("answer-two");
+      System.out.println(fields[0]);
       SignUp.addUser(fields);
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper SignUp");
       return new ModelAndView(variables, "signup.ftl");

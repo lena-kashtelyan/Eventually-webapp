@@ -46,7 +46,7 @@ public class EventProxy extends EntityProxy<Event> implements Event {
       System.out.println("ERROR: ID not in Events Table");
       internal = null;
       return;
-    } catch (NullPointerException | ClassNotFoundException e) {
+    } catch (NullPointerException n) {
       System.out.println("ERROR: ID not in User Table");
       return;
     }
