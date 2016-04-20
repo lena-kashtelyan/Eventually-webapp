@@ -12,7 +12,9 @@ public class SignUp {
 
   public static boolean isUnique(String username) {
     Connection conn = Database.getConnection();
+    System.out.println(conn);
     String query = "SELECT COUNT(username) FROM users WHERE username=?";
+    System.out.println("Is unique username is: " + username);
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, username);
       try (ResultSet rs = prep.executeQuery()) {
@@ -23,7 +25,7 @@ public class SignUp {
           return false;
         }
       }
-    } catch (NullPointerException | SQLException n) {
+    } catch (SQLException n) {
       n.printStackTrace();
       return false;
     }

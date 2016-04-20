@@ -42,21 +42,21 @@ public class Main {
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
     OptionSet options = parser.parse(args);
+
+    System.out.println("helloworld");
+    // lines to instantiate tables in the database and create indices;
+    // uncomment and change login name if you want to reset the tables
+    try {
+      Database db = new Database("database/finalproject.db");
+    } catch (ClassNotFoundException | SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    // new DatabaseFactory(db).createAndIndexTables();
+    System.out.println("all done");
     if (options.has("gui")) {
 
       runSparkServer();
-    } else {
-      System.out.println("helloworld");
-      // lines to instantiate tables in the database and create indices;
-      // uncomment and change login name if you want to reset the tables
-      try {
-        Database db = new Database("database/finalproject.db");
-      } catch (ClassNotFoundException | SQLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      // new DatabaseFactory(db).createAndIndexTables();
-      System.out.println("all done");
     }
   }
 
@@ -118,7 +118,7 @@ public class Main {
     public ModelAndView handle(Request req, Response res) {
       System.out.println("In SignUpHandler");
       QueryParamsMap qm = req.queryMap();
-      String[] fields = new String[7];
+      String[] fields = new String[8];
       fields[0] = qm.value("username");
       fields[1] = qm.value("name");
       fields[2] = qm.value("password");
@@ -126,6 +126,7 @@ public class Main {
       fields[4] = qm.value("answer-one");
       fields[5] = qm.value("question-two");
       fields[6] = qm.value("answer-two");
+      fields[7] = "/defaultpath";
       System.out.println(fields[0]);
       SignUp.addUser(fields);
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper SignUp");
