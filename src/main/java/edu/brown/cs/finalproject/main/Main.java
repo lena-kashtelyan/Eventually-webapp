@@ -94,6 +94,47 @@ public class Main {
             return new ModelAndView(variables, "signup.ftl");
         }
     } 
+    
+    class ForgotHandler implements TemplateViewRoute {
+        @Override
+        public ModelAndView handle(Request req, Response res) {
+            System.out.println("In ForgotHandler");
+            Map<String, Object> variables = ImmutableMap.of(
+                    "title", "Hopper ForgotPassword");
+            return new ModelAndView(variables, "forgot.ftl");
+        }
+    } 
+    
+    class ForgotResponseHandler implements TemplateViewRoute {
+        @Override
+        public ModelAndView handle(Request req, Response res) {
+            System.out.println("In ForgotResponseHandler");
+            Map<String, Object> variables = ImmutableMap.of(
+                    "title", "Hopper ForgotPasswordResponse");
+            return new ModelAndView(variables, "response.ftl");
+        }
+    }
+    
+    class BrowseHandler implements TemplateViewRoute {
+        @Override
+        public ModelAndView handle(Request req, Response res) {
+            System.out.println("In BrowseHandler");
+            Map<String, Object> variables = ImmutableMap.of(
+                    "title", "Hopper Browse");
+            return new ModelAndView(variables, "browse.ftl");
+        }
+    }
+    
+    class StorystreamHandler implements TemplateViewRoute {
+        @Override
+        public ModelAndView handle(Request req, Response res) {
+            System.out.println("In StorystreamHandler");
+            Map<String, Object> variables = ImmutableMap.of(
+                    "title", "Hopper StorystreamHandlerResponse");
+            return new ModelAndView(variables, "storystream.ftl");
+        }
+    }
+    
     /**
      * Handles the printing of exceptions
      */
@@ -122,5 +163,9 @@ public class Main {
         Spark.get("/home", new FrontHandler(), freeMarker);
         Spark.get("/login", new LogInHandler(), freeMarker);
         Spark.get("/signup", new SignUpHandler(), freeMarker);
+        Spark.get("/forgot", new ForgotHandler(), freeMarker);
+        Spark.get("/response", new ForgotResponseHandler(), freeMarker);
+        Spark.get("/browse", new BrowseHandler(), freeMarker);
+        Spark.get("/stream", new StorystreamHandler(), freeMarker);
     }
 }
