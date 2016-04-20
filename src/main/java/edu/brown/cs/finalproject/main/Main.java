@@ -10,8 +10,10 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -37,6 +39,8 @@ public class Main {
     parser.accepts("gui");
     OptionSet options = parser.parse(args);
     if (options.has("gui")) {
+    	
+    	
       runSparkServer();
     } else {
       System.out.println("helloworld");
@@ -92,6 +96,14 @@ public class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       System.out.println("In SignUpHandler");
+		QueryParamsMap qm = req.queryMap();
+		String username = qm.value("username");
+		System.out.println(username);
+		String password = qm.value("password");
+		System.out.println(password);
+		
+		
+		
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper SignUp");
       return new ModelAndView(variables, "signup.ftl");
     }
