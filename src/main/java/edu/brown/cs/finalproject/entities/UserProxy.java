@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import edu.brown.cs.finalproject.database.Database;
+
 public class UserProxy extends EntityProxy<User> implements User {
 
-  public UserProxy(String id) throws ClassNotFoundException {
+  public UserProxy(String id) {
     super(id);
   }
 
@@ -27,8 +29,8 @@ public class UserProxy extends EntityProxy<User> implements User {
       prep.setString(1, id);
       try (ResultSet rs = prep.executeQuery()) {
         username = rs.getString(2);
-        password = rs.getString(4);
         fullname = rs.getString(3);
+        password = rs.getString(4);
         q1 = rs.getString(5);
         a1 = rs.getString(6);
         q2 = rs.getString(7);
@@ -150,4 +152,16 @@ public class UserProxy extends EntityProxy<User> implements User {
     return internal.setUserMediaPath(userMediaPath);
   }
 
+  public static UserProxy byUserName(String username) throws SQLException {
+    String query = "SELECT userID FROM users WHERE username=? LIMIT 1";
+    Connection conn = Database.getConnection();
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        String userID = rs.getString(1);
+        UserProxy user = new UserProxy(userID);
+        return user;
+      }
+    }
+  }
 }

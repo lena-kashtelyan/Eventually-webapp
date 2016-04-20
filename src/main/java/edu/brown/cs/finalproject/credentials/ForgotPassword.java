@@ -5,9 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import edu.brown.cs.finalproject.database.Database;
+
 public class ForgotPassword {
 
-  public static boolean checkUserName(String username, Connection conn) {
+  public static boolean checkUserName(String username) {
+    Connection conn = Database.getConnection();
     String query = "SELECT COUNT(username) FROM users WHERE username=?";
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, username);
@@ -25,8 +28,9 @@ public class ForgotPassword {
     }
   }
 
-  public static String[] getQuestions(String username, Connection conn) {
-    if (checkUserName(username, conn)) {
+  public static String[] getQuestions(String username) {
+    Connection conn = Database.getConnection();
+    if (checkUserName(username)) {
       String query = "SELECT q1,q2 FROM users WHERE username=?";
       try (PreparedStatement prep = conn.prepareStatement(query)) {
         prep.setString(1, username);
@@ -46,9 +50,9 @@ public class ForgotPassword {
     }
   }
 
-  public static boolean checkAnswers(String[] answers, String username,
-      Connection conn) {
-    if (checkUserName(username, conn)) {
+  public static boolean checkAnswers(String[] answers, String username) {
+    Connection conn = Database.getConnection();
+    if (checkUserName(username)) {
       String query = "SELECT a1,a2 FROM users WHERE username=?";
       try (PreparedStatement prep = conn.prepareStatement(query)) {
         prep.setString(1, username);

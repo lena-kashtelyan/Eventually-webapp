@@ -13,7 +13,7 @@ public abstract class EntityProxy<E extends Entity> implements Entity {
 
   private static Map<String, Entity> cache = new HashMap<>();
 
-  public EntityProxy(String id) throws ClassNotFoundException {
+  public EntityProxy(String id) {
     this.id = id;
     loadCache();
   }

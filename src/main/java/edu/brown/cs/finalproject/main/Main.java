@@ -21,8 +21,10 @@ import spark.template.freemarker.FreeMarkerEngine;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
+import edu.brown.cs.finalproject.credentials.Login;
 import edu.brown.cs.finalproject.credentials.SignUp;
 import edu.brown.cs.finalproject.database.Database;
+import edu.brown.cs.finalproject.entities.UserProxy;
 import freemarker.template.Configuration;
 
 public class Main {
@@ -91,6 +93,20 @@ public class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       System.out.println("In LoginHandler");
+      QueryParamsMap qm = req.queryMap();
+      String username = qm.value("username");
+      String password = qm.value("password");
+      boolean valid = Login.validLogin(username, password);
+      if (valid) {
+        try {
+          UserProxy curr_user = UserProxy.byUserName(username);
+        } catch (SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      } else {
+        // Handle case where user did not provide valid login
+      }
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper LogIn");
       return new ModelAndView(variables, "login.ftl");
     }
@@ -109,7 +125,7 @@ public class Main {
       fields[4] = qm.value("answer-one");
       fields[5] = qm.value("question-two");
       fields[6] = qm.value("answer-two");
-      SignUp.addUser(fields, Database.getConnection());
+      SignUp.addUser(fields);
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper SignUp");
       return new ModelAndView(variables, "signup.ftl");
     }
