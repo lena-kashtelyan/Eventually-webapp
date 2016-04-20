@@ -43,6 +43,7 @@ public class Main {
     parser.accepts("gui");
     OptionSet options = parser.parse(args);
     if (options.has("gui")) {
+
       runSparkServer();
     } else {
       System.out.println("helloworld");
