@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
 import java.util.Map;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -19,6 +21,8 @@ import spark.template.freemarker.FreeMarkerEngine;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
+import edu.brown.cs.finalproject.credentials.SignUp;
+import edu.brown.cs.finalproject.database.Database;
 import freemarker.template.Configuration;
 
 public class Main {
@@ -42,8 +46,12 @@ public class Main {
       System.out.println("helloworld");
       // lines to instantiate tables in the database and create indices;
       // uncomment and change login name if you want to reset the tables
-      // Database db = new
-      // Database("/home/ipetrov/course/cs032/final_project/32final/database/finalproject.db");
+      try {
+        Database db = new Database("database/finalproject.db");
+      } catch (ClassNotFoundException | SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       // new DatabaseFactory(db).createAndIndexTables();
       System.out.println("all done");
     }
@@ -92,6 +100,16 @@ public class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       System.out.println("In SignUpHandler");
+      QueryParamsMap qm = req.queryMap();
+      String[] fields = new String[7];
+      fields[0] = qm.value("username");
+      fields[1] = qm.value("name");
+      fields[2] = qm.value("password");
+      fields[3] = qm.value("question-one");
+      fields[4] = qm.value("answer-one");
+      fields[5] = qm.value("question-two");
+      fields[6] = qm.value("answer-two");
+      SignUp.addUser(fields, Database.getConnection());
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper SignUp");
       return new ModelAndView(variables, "signup.ftl");
     }

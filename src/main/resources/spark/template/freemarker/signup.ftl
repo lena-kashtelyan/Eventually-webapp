@@ -17,7 +17,7 @@
       <#include "topbar.ftl">
 
       <div id="user-info">
-        <form action="">       <!--WHERE DOES THIS LEAD?-->
+        <form id = "user-info-form">       <!--WHERE DOES THIS LEAD?-->
           <input type="text" id="username" placeholder="username"> <br>
           <input type="text" id="name" placeholder="name"> <br>
           <input type="password" id="password" placeholder="password"> <br>
