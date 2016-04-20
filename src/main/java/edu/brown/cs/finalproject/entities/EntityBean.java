@@ -2,31 +2,31 @@ package edu.brown.cs.finalproject.entities;
 
 import java.util.Objects;
 
-public abstract class EntityBean implements Entity {
-  protected String _id;
+public class EntityBean implements Entity {
 
-  public EntityBean(String id) {
-    this._id = id;
-  }
+	protected String id;
 
-  @Override
-  public String getID() {
-    return _id;
-  }
+	public EntityBean(String id) {
+		this.id = id;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(_id);
-  }
+	@Override
+	public String getID() {
+		return id;
+	}
 
-  @Override
-  public boolean equals(Object o) {
-    try {
-      Entity e = (Entity) o;
-      return (_id.equals(e.getID()));
-    } catch (ClassCastException e) {
-      return false;
-    }
-  }
+	@Override
+	public boolean equals(Object o) {
+		try {
+			Entity entity = (Entity) o;
+			return getID().equals(entity.getID());
+		} catch (ClassCastException cce) {
+			return false;
+		}
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(getID());
+	}
 }
