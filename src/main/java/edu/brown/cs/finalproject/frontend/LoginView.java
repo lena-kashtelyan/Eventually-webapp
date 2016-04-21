@@ -4,7 +4,9 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import edu.brown.cs.finalproject.credentials.AuthToken;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
@@ -13,7 +15,7 @@ import spark.TemplateViewRoute;
  * Private visible class to handle the serving of the login
  * ftl template.
  */
-public class LoginView implements TemplateViewRoute {
+public class LoginView extends BackendInteraction implements TemplateViewRoute {
   private String htmlUrl;
 
   LoginView(String htmlUrl) {
@@ -29,8 +31,25 @@ public class LoginView implements TemplateViewRoute {
    */
   @Override
   public ModelAndView handle(Request req, Response res) {
-    Map<String, Object> data = ImmutableMap.<String, Object> builder()
-        .put("title", "Login").build();
-    return new ModelAndView(data, htmlUrl);
+    QueryParamsMap qm = req.queryMap();
+    String authString = qm.value("auth");
+    if (authString != null) {
+      AuthToken authToken = AuthToken.generateAuthToken(authString);
+      if (auth.verifyAuthToken(authToken)) {
+        Map<String, Object> data = ImmutableMap.<String, Object> builder()
+            .put("alert",
+                "You are already logged in. Please log out to log into another account.")
+            .build();
+        return new ModelAndView(data, "map.ftl");
+      } else {
+        Map<String, Object> data = ImmutableMap.<String, Object> builder()
+            .put("title", "Login").build();
+        return new ModelAndView(data, htmlUrl);
+      }
+    } else {
+      Map<String, Object> data = ImmutableMap.<String, Object> builder()
+          .put("title", "Login").build();
+      return new ModelAndView(data, htmlUrl);
+    }
   }
 }
