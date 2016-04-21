@@ -8,77 +8,77 @@ public final class DatabaseFactory {
 
   public static void createAndIndexTables() {
     try {
-      createUsersTable();
+      createusersTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating USERS table.");
+      System.out.println("ERROR: Problem in creating users table.");
     }
 
     try {
-      createEventsTable();
+      createeventsTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating EVENTS table.");
+      System.out.println("ERROR: Problem in creating events table.");
     }
 
     try {
-      createGoingTable();
+      creategoingTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating GOING table.");
+      System.out.println("ERROR: Problem in creating going table.");
     }
 
     try {
-      createExternalTable();
+      createexternalTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating GOING table.");
+      System.out.println("ERROR: Problem in creating going table.");
     }
 
     try {
       createVisualMediaTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating GOING table.");
+      System.out.println("ERROR: Problem in creating going table.");
     }
 
     try {
-      createVenueTable();
+      createvenueTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating GOING table.");
+      System.out.println("ERROR: Problem in creating going table.");
     }
 
     try {
-      createInvitedTable();
+      createinvitedTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating GOING table.");
+      System.out.println("ERROR: Problem in creating going table.");
     }
 
     try {
-      createInterestedTable();
+      createinterestedTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating GOING table.");
+      System.out.println("ERROR: Problem in creating going table.");
     }
 
     try {
-      createNonUsersTable();
+      createnonusersTable();
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem in creating GOING table.");
+      System.out.println("ERROR: Problem in creating going table.");
     }
   }
 
-  private static void createUsersTable() throws SQLException {
+  private static void createusersTable() throws SQLException {
     Connection conn = Database.getConnection();
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS USERS;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS users;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE USERS("
+    String schema = "CREATE TABLE users("
         + "userID TEXT PRIMARY KEY     NOT NULL,"
         + "username           CHAR(30)    NOT NULL,"
         + "fullname            TEXT	NOT NULL,"
@@ -89,22 +89,22 @@ public final class DatabaseFactory {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX users_username ON USERS (username);";
+    String addIndex = "CREATE INDEX users_username ON users (username);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
   }
 
-  private static void createEventsTable() throws SQLException {
+  private static void createeventsTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS EVENTS;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS events;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE EVENTS("
+    String schema = "CREATE TABLE events("
         + "eventID TEXT PRIMARY KEY     NOT NULL,"
         + "name           TEXT    NOT NULL,"
         + "venueID            TEXT    NOT NULL,"
@@ -117,82 +117,82 @@ public final class DatabaseFactory {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX events_origintype ON EVENTS (origintype);";
+    String addIndex = "CREATE INDEX events_origintype ON events (origintype);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX events_creatorID ON EVENTS (creatorID);";
+    addIndex = "CREATE INDEX events_creatorID ON events (creatorID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX events_startDate ON EVENTS (startDate);";
+    addIndex = "CREATE INDEX events_startDate ON events (startDate);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX events_startTime ON EVENTS (startTime);";
+    addIndex = "CREATE INDEX events_startTime ON events (startTime);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX events_category ON EVENTS (category);";
+    addIndex = "CREATE INDEX events_category ON events (category);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX events_public ON EVENTS (public);";
+    addIndex = "CREATE INDEX events_public ON events (public);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
   }
 
-  private static void createGoingTable() throws SQLException {
+  private static void creategoingTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS GOING;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS going;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE GOING(" + "eventID TEXT NOT NULL,"
+    String schema = "CREATE TABLE going(" + "eventID TEXT NOT NULL,"
         + "userID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES USERS(userID),"
-        + "FOREIGN KEY(eventID) REFERENCES EVENTS(eventID)" + ");";
+        + "FOREIGN KEY(userID) REFERENCES users(userID),"
+        + "FOREIGN KEY(eventID) REFERENCES events(eventID)" + ");";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX going_eventID ON GOING (eventID);";
+    String addIndex = "CREATE INDEX going_eventID ON going (eventID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX going_userID ON GOING (userID);";
+    addIndex = "CREATE INDEX going_userID ON going (userID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
   }
 
-  private static void createExternalTable() throws SQLException {
+  private static void createexternalTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS EXTERNAL;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS external;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE EXTERNAL(" + "userID TEXT NOT NULL,"
+    String schema = "CREATE TABLE external(" + "userID TEXT NOT NULL,"
         + "externalID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES USERS(userID));";
+        + "FOREIGN KEY(userID) REFERENCES users(userID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX external_userID ON EXTERNAL (userID);";
+    String addIndex = "CREATE INDEX external_userID ON external (userID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
@@ -202,37 +202,37 @@ public final class DatabaseFactory {
   private static void createVisualMediaTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS VISUAL_MEDIA;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS visual_media;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE VISUAL_MEDIA(" + "mediaID TEXT NOT NULL,"
+    String schema = "CREATE TABLE visual_media(" + "mediaID TEXT NOT NULL,"
         + "eventID TEXT NOT NULL," + "userID TEXT NOT NULL,"
         + "path TEXT NOT NULL," + "timestamp DATETIME NOT NULL,"
         + "PRIMARY KEY(mediaID),"
-        + "FOREIGN KEY(userID) REFERENCES USERS(userID),"
-        + "FOREIGN KEY(eventID) REFERENCES EVENTS(eventID));";
+        + "FOREIGN KEY(userID) REFERENCES users(userID),"
+        + "FOREIGN KEY(eventID) REFERENCES events(eventID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX visual_media_eventID ON VISUAL_MEDIA (eventID);";
+    String addIndex = "CREATE INDEX visual_media_eventID ON visual_media (eventID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
   }
 
-  private static void createVenueTable() throws SQLException {
+  private static void createvenueTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS VENUE;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS venue;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE VENUE(" + "venueID TEXT NOT NULL,"
+    String schema = "CREATE TABLE venue(" + "venueID TEXT NOT NULL,"
         + "name TEXT NOT NULL," + "latitude FLOAT NOT NULL,"
         + "longitude FLOAT NOT NULL," + "PRIMARY KEY(venueID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
@@ -241,79 +241,79 @@ public final class DatabaseFactory {
 
   }
 
-  private static void createInvitedTable() throws SQLException {
+  private static void createinvitedTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS INVITED;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS invited;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE INVITED(" + "eventID TEXT NOT NULL,"
+    String schema = "CREATE TABLE invited(" + "eventID TEXT NOT NULL,"
         + "userID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES USERS(userID),"
-        + "FOREIGN KEY(eventID) REFERENCES EVENTS(eventID));";
+        + "FOREIGN KEY(userID) REFERENCES users(userID),"
+        + "FOREIGN KEY(eventID) REFERENCES events(eventID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX invited_eventID ON INVITED (eventID);";
+    String addIndex = "CREATE INDEX invited_eventID ON invited (eventID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX invited_userID ON INVITED (userID);";
+    addIndex = "CREATE INDEX invited_userID ON invited (userID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
   }
 
-  private static void createInterestedTable() throws SQLException {
+  private static void createinterestedTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS INTERESTED;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS interested;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE INTERESTED(" + "eventID TEXT NOT NULL,"
+    String schema = "CREATE TABLE interested(" + "eventID TEXT NOT NULL,"
         + "userID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES USERS(userID),"
-        + "FOREIGN KEY(eventID) REFERENCES EVENTS(eventID));";
+        + "FOREIGN KEY(userID) REFERENCES users(userID),"
+        + "FOREIGN KEY(eventID) REFERENCES events(eventID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX interested_eventID ON INTERESTED (eventID);";
+    String addIndex = "CREATE INDEX interested_eventID ON interested (eventID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX interested_userID ON INTERESTED (userID);";
+    addIndex = "CREATE INDEX interested_userID ON interested (userID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
 
   }
 
-  private static void createNonUsersTable() throws SQLException {
+  private static void createnonusersTable() throws SQLException {
     Connection conn = Database.getConnection();
 
-    String dropPrevTableQuery = "DROP TABLE IF EXISTS NONUSERS;";
+    String dropPrevTableQuery = "DROP TABLE IF EXISTS nonusers;";
     try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE NONUSERS(" + "facebookID TEXT NOT NULL,"
+    String schema = "CREATE TABLE nonusers(" + "facebookID TEXT NOT NULL,"
         + "userID TEXT NOT NULL,"
         + "fullname TEXT NOT NULL, PRIMARY KEY (facebookID),"
-        + "FOREIGN KEY(userID) REFERENCES USERS(userID));";
+        + "FOREIGN KEY(userID) REFERENCES users(userID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX nonusers_userID ON NONUSERS (userID);";
+    String addIndex = "CREATE INDEX nonusers_userID ON nonusers (userID);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
