@@ -5,15 +5,13 @@
     </style>
     <script src="js/jquery-2.1.1.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styling.css">
-
-
     <script src="js/bootstrap.min.js">
     </script>
   </head>
 
   <body id="body" class="noselect"> <!--onload="loadCanvas()"--> 
 
-    <#include "topbar.ftl">
+  <#include "topbar.ftl">
 
   <div id="event-list-container">
   	<div id="event-list">
