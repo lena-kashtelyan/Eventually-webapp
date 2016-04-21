@@ -1,5 +1,5 @@
-#body {
-	overflow: auto;
+html {
+	background-color: black;
 }
 
 
@@ -23,8 +23,9 @@ li {
 	position: static;
 }
 
-#sample-event-container {
+.sample-event-container {
 	/*display: list-item;*/
+	overflow: scroll;
 	position: absolute;
 	top: 2%;
 	right: 2%;
@@ -36,16 +37,20 @@ li {
 	margin-bottom: 100px;
 }
 
+.trial{
+	position: relative;
+}
+
 .event-image {
 	position: absolute;
 	top: 5%;
 	left: 2%;
 	width: 48%;
 	height: 90%;
-	overflow: hidden;
-	border-style: solid;
+	overflow: scroll;
+/*	border-style: solid;
 	border-width: 2px;
-	border-color: white;
+	border-color: white;*/
 }
 
 .event-info {
@@ -55,7 +60,19 @@ li {
 	width: 48%;
 	height: 90%;
 	padding: 5% 5%;
-	border-style: solid;
+/*	border-style: solid;
 	border-width: 2px;
-	border-color: white;
+	border-color: white;*/
+}
+
+#event2 {
+	top: 44%;
+}
+
+#event3 {
+	top: 88%;
+}
+
+#event4 {
+	top: 132%;
 }
