@@ -89,7 +89,8 @@ html, body{
       }
 
       li.dropbtn {
-        position: relative;
+        /*z-index: 100;*/
+        position: absolute;
         height:80%;
         margin-right:14%;
         padding:0;
@@ -114,6 +115,7 @@ html, body{
       }
 
       #flipicon{
+        /*z-index: 100;*/
         position: absolute;
         top: 15%;
         right: 106%;
@@ -122,6 +124,7 @@ html, body{
       }
 
       #search-area {
+        /*z-index:10;*/
         height: 100%;
         width: 100%;
         background-color: white;

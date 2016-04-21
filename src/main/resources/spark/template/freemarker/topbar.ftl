@@ -2,7 +2,7 @@
   <div id="right-block">
     <ul>
       <li class="dropdown">
-        <a href="#" class="dropbtn"><img id="menuicon" src="css/hamburger.png"/></a>
+        <button class="dropbtn"><img id="menuicon" src="css/hamburger.png"/></button>
         <div class="dropdown-content">
           <a href="/events">events</a>
           <a href="/now">now</a>

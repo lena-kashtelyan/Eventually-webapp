@@ -26,7 +26,7 @@
           <input type="text" id="answer-one" name = "answer-one" placeholder="answer to question 1"> <br>
           <input type="text" id="question-two" name = "question-two" placeholder="security question 2"> <br>
           <input type="text" id="answer-two" name = "answer-two" placeholder="answer to question 2"> <br>
-          <button type="submit" class="submit-btn" id="create-btn" value="create account">
+          <button type="submit" class="submit-btn" id="create-btn" value="create account"></button>
         </form>
       </div> 
       
