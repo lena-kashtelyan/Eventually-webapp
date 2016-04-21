@@ -21,23 +21,25 @@ public class MapsSparkServer implements SparkServer {
     FreeMarkerEngine freeMarker = createEngine();
 
     Spark.get("/", new MainView(), freeMarker);
-    Spark.get("/login", new LoginView("login.ftl"), freeMarker);
-    Spark.post("/login", new LoginHandler());
-    Spark.get("/forgot", new ForgotView("forgot.ftl"), freeMarker);
-    Spark.post("/forgot", new ForgotHandler());
-    Spark.get("/forgotresponse", new ForgotResponseView("forgotresponse.ftl"),
-        freeMarker);
-    Spark.get("/signup", new SignupView("signup.ftl"), freeMarker);
-    Spark.post("/signup", new SignupHandler());
-    Spark.get("/map", new MapView(), freeMarker);
-    Spark.get("/browse", null);
-    Spark.get("/myevents", null);
-    Spark.put("/create", null);
-    Spark.get("/event/?", null);
-    Spark.get("/storystream/?", null);
-    Spark.put("/post/?", null);
-    Spark.post("/myaccount", null);
-    Spark.post("/changepassword", null);
+    // Spark.get("/login", new LoginView("login.ftl"),
+    // freeMarker);
+    // Spark.post("/login", new LoginHandler());
+    // Spark.get("/forgot", new ForgotView("forgot.ftl"),
+    // freeMarker);
+    // Spark.post("/forgot", new ForgotHandler(),
+    // freeMarker);
+    // Spark.get("/signup", new SignupView("signup.ftl"),
+    // freeMarker);
+    // Spark.post("/signup", new SignupHandler());
+    // Spark.get("/map", new MapView(), freeMarker);
+    // Spark.get("/browse", null);
+    // Spark.get("/myevents", null);
+    // Spark.put("/create", null);
+    // Spark.get("/event/?", null);
+    // Spark.get("/storystream/?", null);
+    // Spark.put("/post/?", null);
+    // Spark.post("/myaccount", null);
+    // Spark.post("/changepassword", null);
 
   }
 

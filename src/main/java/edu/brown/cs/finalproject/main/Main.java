@@ -7,6 +7,13 @@ import java.io.StringWriter;
 import java.sql.SQLException;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+
+import edu.brown.cs.finalproject.credentials.Login;
+import edu.brown.cs.finalproject.database.Database;
+import edu.brown.cs.finalproject.entities.UserProxy;
+import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import spark.ExceptionHandler;
@@ -17,15 +24,6 @@ import spark.Response;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-
-import edu.brown.cs.finalproject.credentials.Login;
-import edu.brown.cs.finalproject.credentials.SignUp;
-import edu.brown.cs.finalproject.database.Database;
-import edu.brown.cs.finalproject.entities.UserProxy;
-import freemarker.template.Configuration;
 
 public class Main {
   public static void main(String[] args) {
@@ -44,8 +42,10 @@ public class Main {
     OptionSet options = parser.parse(args);
 
     System.out.println("helloworld");
-    // lines to instantiate tables in the database and create indices;
-    // uncomment and change login name if you want to reset the tables
+    // lines to instantiate tables in the database and
+    // create indices;
+    // uncomment and change login name if you want to reset
+    // the tables
     try {
       Database db = new Database("database/finalproject.db");
     } catch (ClassNotFoundException | SQLException e) {
@@ -106,7 +106,8 @@ public class Main {
           e.printStackTrace();
         }
       } else {
-        // Handle case where user did not provide valid login
+        // Handle case where user did not provide valid
+        // login
       }
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper LogIn");
       return new ModelAndView(variables, "login.ftl");
@@ -128,7 +129,7 @@ public class Main {
       fields[6] = qm.value("answer-two");
       fields[7] = "/defaultpath";
       System.out.println(fields[0]);
-      SignUp.addUser(fields);
+      // SignUp.addUser(fields);
       Map<String, Object> variables = ImmutableMap.of("title", "Hopper SignUp");
       return new ModelAndView(variables, "signup.ftl");
     }
