@@ -2,12 +2,14 @@
   <div id="right-block">
     <ul>
       <li class="dropdown">
-        <a href="#" class="dropbtn"><img id="menuicon" src="css/hamburger.png"/></a>
+      <div id="menu"
+        <button class="dropbtn"><img id="menuicon" src="css/hamburger.png"/></button>
         <div class="dropdown-content">
           <a href="/events">events</a>
           <a href="/now">now</a>
           <a href="/create">create</a>
           <a href="/account">account</a>
+        </div>
         </div>
       </li>
       <li>
