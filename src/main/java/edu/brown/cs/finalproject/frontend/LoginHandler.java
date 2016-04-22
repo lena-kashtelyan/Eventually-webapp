@@ -29,9 +29,9 @@ public class LoginHandler extends BackendInteraction implements Route {
       AuthToken authToken = auth.authenticate(usernameOrEmail, rawPassword);
       if (auth.verifyAuthToken(authToken)) {
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
-            .put("title", "Map").put("auth", authToken)
+            .put("title", "Map").put("auth", authToken.toString())
             .put("redirect", "/map.ftl").build();
-        return data;
+        return GSON.toJson(data);
       } else {
         throw new RuntimeException(
             "Oops! Something went wrong, please try again.");
@@ -40,7 +40,7 @@ public class LoginHandler extends BackendInteraction implements Route {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()
           .put("title", "Login").put("error", e.getLocalizedMessage())
           .put("redirect", "/login").build();
-      return data;
+      return GSON.toJson(data);
     }
   }
 }

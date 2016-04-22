@@ -32,7 +32,7 @@ public class MapView extends BackendInteraction implements TemplateViewRoute {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
-            .put("auth", authToken).build();
+            .put("auth", authToken.toString()).build();
         return new ModelAndView(data, "map.ftl");
       } else {
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")

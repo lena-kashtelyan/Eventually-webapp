@@ -12,8 +12,8 @@
     <title>${title}</title>
   </head>
 
-  <body id="body" class="noselect"> <!--onload="loadCanvas()"--> 
-
+  <body id="body" class="noselect"> <!--onload="loadCanvas()"-->
+    <div id="test">jalkajsklfdjsaklfdjlkasfjd</div>
     <#include "topbar.ftl">
 
    	<div id="center-container">
@@ -22,11 +22,11 @@
   			<div id="fb-button" class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" scope="public_profile,email" onlogin="checkLoginState();"></div>
   		</div>
     	<div id="login-info">
-    		<form action id="login-form">       
-					<input type="text" id="username" placeholder="username"> <br>
-					<input type="password" id="password" placeholder="password"> <br>
-            <input type="submit" class="submit-btn" id="okay-btn" value="okay">
-				</form>
+    	<form id="login-form" action="/">
+				<input type="text" id="username" placeholder="username" name="username"> <br>
+				<input type="password" id="password" placeholder="password" name="password"> <br>
+        <input type="submit" class="submit-btn" id="okay-btn" value="Submit">
+			</form>
 	    </div>
     </div>
 

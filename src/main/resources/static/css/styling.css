@@ -1,8 +1,15 @@
+html, body, #map-container {
+  width: 100%;
+  height: 100%;
+}
+
 html, body{
         font-family: "Times New Roman", Times, serif;
         font-size: 100%;
         font-weight: bold;
         background-color: black
+        height: 100%;
+        width: 100%;
       }
 
       .noselect {
@@ -11,7 +18,7 @@ html, body{
         -khtml-user-select: none;    /* Konqueror */
         -moz-user-select: none;      /* Firefox */
         -ms-user-select: none;       /* IE/Edge */
-        user-select: none;           
+        user-select: none;
       }
 
       ::-webkit-input-placeholder {
@@ -22,8 +29,8 @@ html, body{
          text-align: center;
       }
       :-moz-placeholder { /* Firefox 18- */
-         color: gray; 
-         font-family: "Times New Roman", Times, serif; 
+         color: gray;
+         font-family: "Times New Roman", Times, serif;
          font-size: 100%;
          font-weight: bold;
          text-align: center;
@@ -31,16 +38,16 @@ html, body{
       }
       ::-moz-placeholder {  /* Firefox 19+ */
          color: gray;
-         font-family: "Times New Roman", Times, serif; 
-         font-size: 100%; 
+         font-family: "Times New Roman", Times, serif;
+         font-size: 100%;
          font-weight: bold;
          text-align: center;
 
       }
-      :-ms-input-placeholder {  
+      :-ms-input-placeholder {
          color: gray;
          font-family: "Times New Roman", Times, serif;
-         font-size: 100%;  
+         font-size: 100%;
          font-weight: bold;
          text-align: center;
 
@@ -116,7 +123,7 @@ html, body{
         background-color: white;
         background-image: url("data:image/png;base64,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");
         background-size: 22px 22px;
-        background-position: right; 
+        background-position: right;
         background-repeat: no-repeat;
       }
 
@@ -161,7 +168,7 @@ html, body{
         width: 33.3%;
         top: 33.3%;
         left: 33.3%;
-      } 
+      }
 
       #facebook-btn{
         position: absolute;
@@ -216,7 +223,7 @@ html, body{
         bottom: 0;
         top: 80%;
         left: 33.3%;
-      } 
+      }
 
       #user-info{
         position: fixed;
@@ -293,4 +300,3 @@ html, body{
       #response {
         color: white;
       }
-
