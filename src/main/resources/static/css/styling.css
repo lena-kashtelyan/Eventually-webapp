@@ -229,7 +229,7 @@ html, body{
         margin: 0;
       }
 
-      #event-list-container {
+      #event-list-container, #storystream-container {
         position: fixed;
         overflow: scroll;
         border-style: solid;
@@ -245,10 +245,6 @@ html, body{
       #event-list {
 
       }
-
-/*      li {
-        position: static;
-      }*/
 
       .sample-event-container {
         /*display: list-item;*/
@@ -297,3 +293,4 @@ html, body{
       #response {
         color: white;
       }
+

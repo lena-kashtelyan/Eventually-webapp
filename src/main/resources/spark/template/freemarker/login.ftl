@@ -6,8 +6,10 @@
     <script src="js/jquery-2.1.1.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styling.css">
     <script src="js/facebooklogin.js"></script>
+    <script src="js/login.js"></script>
     <script src="js/bootstrap.min.js">
     </script>
+    <title>${title}</title>
   </head>
 
   <body id="body" class="noselect"> <!--onload="loadCanvas()"--> 
@@ -20,12 +22,10 @@
   			<div id="fb-button" class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" scope="public_profile,email" onlogin="checkLoginState();"></div>
   		</div>
     	<div id="login-info">
-    		<form action="/home">       
+    		<form action id="login-form">       
 					<input type="text" id="username" placeholder="username"> <br>
 					<input type="password" id="password" placeholder="password"> <br>
-          <!-- <div class="submit-btn-wrapper"> -->
             <input type="submit" class="submit-btn" id="okay-btn" value="okay">
-          <!-- </div> -->
 				</form>
 	    </div>
     </div>
