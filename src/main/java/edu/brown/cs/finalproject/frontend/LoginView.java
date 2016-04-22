@@ -33,6 +33,7 @@ public class LoginView extends BackendInteraction implements TemplateViewRoute {
   public ModelAndView handle(Request req, Response res) {
     QueryParamsMap qm = req.queryMap();
     String authString = qm.value("auth");
+    String errorString = qm.value("error");
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {
@@ -42,13 +43,13 @@ public class LoginView extends BackendInteraction implements TemplateViewRoute {
             .put("auth", authToken).build();
         return new ModelAndView(data, "map.ftl");
       } else {
-        Map<String, Object> data = ImmutableMap.<String, Object> builder()
-            .put("title", "Login").build();
+        Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
+            .put("error", errorString).build();
         return new ModelAndView(data, htmlUrl);
       }
     } else {
-      Map<String, Object> data = ImmutableMap.<String, Object> builder()
-          .put("title", "Login").build();
+      Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
+          .put("error", errorString).build();
       return new ModelAndView(data, htmlUrl);
     }
   }
