@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import edu.brown.cs.finalproject.credentials.Login;
 import edu.brown.cs.finalproject.database.Database;
 import edu.brown.cs.finalproject.entities.UserProxy;
+import edu.brown.cs.finalproject.search.PublicFBEventsFinder;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -57,6 +58,43 @@ public class Main {
     if (options.has("gui")) {
 
       runSparkServer();
+    } else {
+    	
+    	
+    	PublicFBEventsFinder publicEventsFinder = null;
+		try {
+			publicEventsFinder = new PublicFBEventsFinder();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			System.out.println("ERROR: Problem with running the public events application.");
+		}
+
+    	try {
+    		System.out.println("starting to request events");
+			publicEventsFinder.requestEvents(41.826119, -71.403112, 100, "CAACEdEose0cBAJFqi2vAL0xBJ2gWzOTwlU6CBxZCzsQUdXTgW0dFKYG33MNHHitzfR6whozGZAOtfUbz7wboaAjZCtYZAOtTrUXEgkZARkM814QDEVzR4KE9pFZBOUmjmD6vQZAJgB4QnOC7DL2RLCL4s23fFPmV852ZA8NXkQPxUD1VvoX1BX6y1O7EDJlegNuAZAciZBCxs1ryzFaN23unbA");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Fetching public events from Facebook.");
+		}
+    	
+//    	try {
+//    		
+//			//sleep 5 seconds
+//			Thread.sleep(5000);
+//			
+////			System.out.println("Testing..." + new Date());
+//			
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//    	
+//    	try {
+//    		System.out.println("starting to request events");
+//			publicEventsFinder.requestEvents(41.826119, -71.403112, 1000, "CAACEdEose0cBAJFqi2vAL0xBJ2gWzOTwlU6CBxZCzsQUdXTgW0dFKYG33MNHHitzfR6whozGZAOtfUbz7wboaAjZCtYZAOtTrUXEgkZARkM814QDEVzR4KE9pFZBOUmjmD6vQZAJgB4QnOC7DL2RLCL4s23fFPmV852ZA8NXkQPxUD1VvoX1BX6y1O7EDJlegNuAZAciZBCxs1ryzFaN23unbA");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			System.out.println("ERROR: Fetching public events from Facebook.");
+//		}
     }
   }
 
