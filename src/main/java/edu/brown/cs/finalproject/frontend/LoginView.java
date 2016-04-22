@@ -36,10 +36,10 @@ public class LoginView extends BackendInteraction implements TemplateViewRoute {
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {
-        Map<String, Object> data = ImmutableMap.<String, Object> builder()
+        Map<Object, Object> data = ImmutableMap.builder()
             .put("alert",
                 "You are already logged in. Please log out to log into another account.")
-            .build();
+            .put("auth", authToken).build();
         return new ModelAndView(data, "map.ftl");
       } else {
         Map<String, Object> data = ImmutableMap.<String, Object> builder()

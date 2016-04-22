@@ -26,11 +26,11 @@ public class LoginHandler extends BackendInteraction implements Route {
     System.out.println(usernameOrEmail + " " + rawPassword);
     try {
       System.out.println("Before auth");
-      AuthToken authToken = auth.authenticate("chansen2", "P@ssword1");
+      AuthToken authToken = auth.authenticate(usernameOrEmail, rawPassword);
       if (auth.verifyAuthToken(authToken)) {
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
-            .put("title", "Map").put("auth", authToken).put("redirect", "/")
-            .build();
+            .put("title", "Map").put("auth", authToken)
+            .put("redirect", "/map.ftl").build();
         return data;
       } else {
         throw new RuntimeException(

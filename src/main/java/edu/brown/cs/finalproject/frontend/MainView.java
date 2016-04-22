@@ -25,20 +25,23 @@ public class MainView extends BackendInteraction implements TemplateViewRoute {
    */
   @Override
   public ModelAndView handle(Request req, Response res) {
-    Map<String, Object> titleMap = ImmutableMap.of("title",
-        "CS32: Final Project");
-
     QueryParamsMap qm = req.queryMap();
     String authString = qm.value("auth");
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {
-        return new ModelAndView(titleMap, "map.ftl");
+        Map<Object, Object> data = ImmutableMap.builder()
+            .put("title", "CS32: Final Project").put("auth", authToken).build();
+        return new ModelAndView(data, "map.ftl");
       } else {
-        return new ModelAndView(titleMap, "login.ftl");
+        Map<String, Object> data = ImmutableMap.of("title",
+            "CS32: Final Project");
+        return new ModelAndView(data, "login.ftl");
       }
     } else {
-      return new ModelAndView(titleMap, "login.ftl");
+      Map<String, Object> data = ImmutableMap.of("title",
+          "CS32: Final Project");
+      return new ModelAndView(data, "login.ftl");
     }
   }
 }
