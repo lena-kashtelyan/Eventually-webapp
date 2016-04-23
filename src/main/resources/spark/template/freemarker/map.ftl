@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" />
-	  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
-    <link rel="stylesheet" type="text/css" href="css/styling.css">
-  </head>
+    <script src="js/jquery-2.1.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
+    <script src="js/facebooklogin.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/bootstrap.min.js"></script>  </head>
 
-  <body class="noselect"> <!--onload="loadCanvas()"-->
+  <body>
+    <#include "topbar.ftl">
 
-    <!--<#include "topbar.ftl">-->
+    <div class="container">
+            <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" placeholder="username">
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+        </div>
 
-    ajskldfj
-
-	  <div id="map-container"></div>
-
-    <div id="button-container"></div>
-
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
-	  <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-    <script src="js/map.js"></script>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-block btn-default">okay</button>
+          <a class="btn btn-block btn-social btn-facebook">
+            <span class="fa fa-facebook"></span> Sign in with Facebook
+          </a>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
   </body>
 </html>
