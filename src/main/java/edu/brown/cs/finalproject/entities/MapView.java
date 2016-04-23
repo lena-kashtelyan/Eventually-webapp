@@ -1,29 +1,19 @@
-package edu.brown.cs.finalproject.frontend;
+package edu.brown.cs.finalproject.entities;
 
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
+import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
-/**
- * Private class to handle the serving of the map ftl
- * template.
- */
 public class MapView extends BackendInteraction implements TemplateViewRoute {
 
-  /**
-   * The handle method.
-   * @param req
-   *          The request object.
-   * @param res
-   *          The response object.
-   */
   @Override
   public ModelAndView handle(Request req, Response res) {
     QueryParamsMap qm = req.queryMap();
@@ -32,18 +22,15 @@ public class MapView extends BackendInteraction implements TemplateViewRoute {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
-            .put("auth", authToken.toString()).build();
+            .put("auth", authToken).build();
         return new ModelAndView(data, "map.ftl");
       } else {
-        Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
-            .build();
+        Map<String, String> data = ImmutableMap.of("title", "Map");
         return new ModelAndView(data, "map.ftl");
       }
     } else {
-      Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
-          .build();
+      Map<String, String> data = ImmutableMap.of("title", "Map");
       return new ModelAndView(data, "map.ftl");
     }
   }
-
 }

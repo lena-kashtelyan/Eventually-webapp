@@ -12,6 +12,10 @@ public class AuthToken {
     authToken = "testString";
   }
 
+  private AuthToken(String authStr) {
+    authToken = authStr;
+  }
+
   @Override
   public boolean equals(Object o) {
     try {
@@ -27,7 +31,16 @@ public class AuthToken {
     return Objects.hash(authToken);
   }
 
-  static AuthToken generateAuthToken(Account account) {
+  @Override
+  public String toString() {
+    return authToken;
+  }
+
+  public static AuthToken generateAuthToken(Account account) {
     return new AuthToken(account);
+  }
+
+  public static AuthToken generateAuthToken(String authStr) {
+    return new AuthToken(authStr);
   }
 }
