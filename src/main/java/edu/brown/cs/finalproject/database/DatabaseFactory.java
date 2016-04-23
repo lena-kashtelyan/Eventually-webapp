@@ -236,8 +236,8 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE venue(" + "venueID TEXT NOT NULL,"
-        + "name TEXT NOT NULL," + "latitude FLOAT NOT NULL,"
-        + "longitude FLOAT NOT NULL," + "PRIMARY KEY(venueID));";
+        + "name TEXT NOT NULL," + "latitude TEXT NOT NULL,"
+        + "longitude TEXT NOT NULL," + "PRIMARY KEY(venueID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
