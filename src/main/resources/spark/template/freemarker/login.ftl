@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="js/jquery-2.1.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
     <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
-    <script src="js/facebooklogin.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/bootstrap.min.js"></script>  </head>
+  </head>
 
   <body>
-    <#include "topbar.ftl">
+    
+    <#include "topbar-min.ftl">
 
     <div class="container"> <!-- CENTER CONTAINER -->
 
@@ -56,6 +54,10 @@
       </div>
 
     </div>
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/facebooklogin.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
 

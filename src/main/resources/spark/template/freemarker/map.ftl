@@ -1,33 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="js/jquery-2.1.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
-    <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
-    <script src="js/facebooklogin.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/bootstrap.min.js"></script>  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" />
+	  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="stylesheet" type="text/css" href="css/topbar.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  </head>
 
   <body>
+
     <#include "topbar.ftl">
+    
+    <!--EMBED MAP-->
 
-    <div class="container">
-            <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-3">
-          <input type="text" class="form-control" placeholder="username">
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
-        </div>
-
-        <div class="col-md-3">
-          <button type="submit" class="btn btn-block btn-default">okay</button>
-          <a class="btn btn-block btn-social btn-facebook">
-            <span class="fa fa-facebook"></span> Sign in with Facebook
-          </a>
-        </div>
-        <div class="col-md-3"></div>
-      </div>
-    </div>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </body>
 </html>

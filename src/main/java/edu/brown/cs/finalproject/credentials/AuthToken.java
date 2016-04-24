@@ -37,6 +37,9 @@ public class AuthToken {
   }
 
   public static AuthToken generateAuthToken(Account account) {
+    /*
+     * Code that adds auth token to our database.
+     */
     return new AuthToken(account);
   }
 

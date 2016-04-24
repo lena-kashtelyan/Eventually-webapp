@@ -3,106 +3,120 @@
   <head>
     <style>
     </style>
-    <script src="js/jquery-2.1.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/styling.css">
-    <script src="js/bootstrap.min.js">
-    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   </head>
 
   <body id="body" class="noselect"> <!--onload="loadCanvas()"--> 
 
   <#include "topbar.ftl">
 
-  <div id="event-list-container">
-  	<div id="event-list">
-  		<ul>
-        <li>
-          <div class="sample-event-container" id="event1">
-            <div class="event-image">
-              <img src="http://images.all-free-download.com/images/graphicthumb/party_people_silhouette_vector_533375.jpg" />
-            </div>
-            <div class="event-info">
-              <div class="event-title">
-                <p> event title </p>
-              </div>
-              <div class="event-description">
-                <p> event description.... </p>
-              </div>
-              <div class="event-popularity">
-                <p> EVENT POPULARITY STATUS </p>
-              </div>
-              <div class"event-location">
-                <p> location </p>
-              </div>
-            </div>
-          </div>
-         </li>
-         <li> 
-          <div class="sample-event-container" id="event2">
-            <div class="event-image">
-              <img src="http://images.all-free-download.com/images/graphicthumb/party_people_silhouette_vector_533375.jpg" />
-            </div>
-            <div class="event-info">
-              <div class="event-title">
-                <p> event title </p>
-              </div>
-              <div class="event-description">
-                <p> event description.... </p>
-              </div>
-              <div class="event-popularity">
-                <p> EVENT POPULARITY STATUS </p>
-              </div>
-              <div class"event-location">
-                <p> location </p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li> 
-          <div class="sample-event-container" id="event3">
-            <div class="event-image">
-              <img src="http://images.all-free-download.com/images/graphicthumb/party_people_silhouette_vector_533375.jpg" />
-            </div>
-            <div class="event-info">
-              <div class="event-title">
-                <p> event title </p>
-              </div>
-              <div class="event-description">
-                <p> event description.... </p>
-              </div>
-              <div class="event-popularity">
-                <p> EVENT POPULARITY STATUS </p>
-              </div>
-              <div class"event-location">
-                <p> location </p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li> 
-          <div class="sample-event-container" id="event4">
-            <div class="event-image">
-              <img src="http://images.all-free-download.com/images/graphicthumb/party_people_silhouette_vector_533375.jpg" />
-            </div>
-            <div class="event-info">
-              <div class="event-title">
-                <p> event title </p>
-              </div>
-              <div class="event-description">
-                <p> event description.... </p>
-              </div>
-              <div class="event-popularity">
-                <p> EVENT POPULARITY STATUS </p>
-              </div>
-              <div class"event-location">
-                <p> location </p>
-              </div>
-            </div>
-          </div>
-        </li>
+    <div class="container">
+      <ul class="list-group">
 
+        <!--EVENT STUB START (replace w/variables) -->
+        <li class="list-group-item">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-md-4">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSmtYA3Ph_Ah0uwmO42azt0ZAz-Ey2FtECbCzGvwml04HOuPiyYEmCbDe0w" class="img-responsive" alt="Responsive image">
+              </div>
+              <div class="col-md-8">
+                <div class="row">
+                  <p> event title </p>
+                </div>
+                <div class="row">
+                  <p> event description.... </p>
+                </div>
+                <div class="row">
+                  <p> EVENT POPULARITY STATUS </p>
+                </div>
+                <div class="row">
+                  <p> location </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--EVENT STUB END-->
+
+        <!--EVENT STUB START-->
+        <li class="list-group-item">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-md-4">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSmtYA3Ph_Ah0uwmO42azt0ZAz-Ey2FtECbCzGvwml04HOuPiyYEmCbDe0w" class="img-responsive" alt="Responsive image">
+              </div>
+              <div class="col-md-8">
+                <div class="row">
+                  <p> event title </p>
+                </div>
+                <div class="row">
+                  <p> event description.... </p>
+                </div>
+                <div class="row">
+                  <p> EVENT POPULARITY STATUS </p>
+                </div>
+                <div class="row">
+                  <p> location </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--EVENT STUB END-->
+
+        <!--EVENT STUB START-->
+        <li class="list-group-item">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-md-4">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSmtYA3Ph_Ah0uwmO42azt0ZAz-Ey2FtECbCzGvwml04HOuPiyYEmCbDe0w" class="img-responsive" alt="Responsive image">
+              </div>
+              <div class="col-md-8">
+                <div class="row">
+                  <p> event title </p>
+                </div>
+                <div class="row">
+                  <p> event description.... </p>
+                </div>
+                <div class="row">
+                  <p> EVENT POPULARITY STATUS </p>
+                </div>
+                <div class="row">
+                  <p> location </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--EVENT STUB END-->
+
+        <!--EVENT STUB START-->
+        <li class="list-group-item">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-md-4">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSmtYA3Ph_Ah0uwmO42azt0ZAz-Ey2FtECbCzGvwml04HOuPiyYEmCbDe0w" class="img-responsive" alt="Responsive image">
+              </div>
+              <div class="col-md-8">
+                <div class="row">
+                  <p> event title </p>
+                </div>
+                <div class="row">
+                  <p> event description.... </p>
+                </div>
+                <div class="row">
+                  <p> EVENT POPULARITY STATUS </p>
+                </div>
+                <div class="row">
+                  <p> location </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--EVENT STUB END-->
       </ul>
     </div>
-  </div>  
   </body>
 </html>

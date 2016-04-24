@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" />
-    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+	  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   </head>
@@ -12,8 +12,23 @@
     <#include "topbar.ftl">
 
     <div class="container">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
+      <div class="col-md-6">
+        <img src="http://weknowyourdreamz.com/images/party-wallpaper/party-wallpaper-08.jpg" class="img-responsive" alt="Responsive image">
+        <div class="container-fluid">
+          <p> event title </p>
+        </div>
+        <div class="container-fluid">
+          <p> event description.... </p>
+        </div>
+        <div class="container-fluid">
+          <p> EVENT POPULARITY STATUS </p>
+        </div>
+        <div class="container-fluid">
+          <p> location </p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
         <ul class="list-group">
           <!-- EVENT STORYSTREAM ENTRY STUB STARTS -->
           <li class="list-group-item">
@@ -43,6 +58,7 @@
         </ul>
       </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
