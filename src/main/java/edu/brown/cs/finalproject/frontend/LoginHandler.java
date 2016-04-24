@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
+import edu.brown.cs.finalproject.credentials.Login;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -24,9 +25,10 @@ public class LoginHandler extends BackendInteraction implements Route {
     String usernameOrEmail = qm.value("usernameOrEmail");
     String rawPassword = qm.value("password");
     System.out.println(usernameOrEmail + " " + rawPassword);
+    Login login = new Login(usernameOrEmail, rawPassword);
     try {
       System.out.println("Before auth");
-      AuthToken authToken = auth.authenticate(usernameOrEmail, rawPassword);
+      AuthToken authToken = auth.authenticate(login);
       if (auth.verifyAuthToken(authToken)) {
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
             .put("title", "Map").put("auth", authToken.toString())

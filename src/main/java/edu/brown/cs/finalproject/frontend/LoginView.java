@@ -43,14 +43,26 @@ public class LoginView extends BackendInteraction implements TemplateViewRoute {
             .put("auth", authToken.toString()).build();
         return new ModelAndView(data, "map.ftl");
       } else {
+        if (errorString == null) {
+          Map<Object, Object> data = ImmutableMap.builder()
+              .put("title", "Login").build();
+          return new ModelAndView(data, htmlUrl);
+        } else {
+          Map<Object, Object> data = ImmutableMap.builder()
+              .put("title", "Login").put("error", errorString).build();
+          return new ModelAndView(data, htmlUrl);
+        }
+      }
+    } else {
+      if (errorString == null) {
+        Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
+            .build();
+        return new ModelAndView(data, htmlUrl);
+      } else {
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
             .put("error", errorString).build();
         return new ModelAndView(data, htmlUrl);
       }
-    } else {
-      Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
-          .put("error", errorString).build();
-      return new ModelAndView(data, htmlUrl);
     }
   }
 }

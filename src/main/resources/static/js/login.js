@@ -1,10 +1,4 @@
 $(document).ready(function() {
-	console.log("here");
-
-	$("#test").on("click", function(e) {
-		console.log("test");
-	});
-
 	$("#login-form").on('submit', function(e) {
 		console.log("handling the okay button click");
 		e.preventDefault();

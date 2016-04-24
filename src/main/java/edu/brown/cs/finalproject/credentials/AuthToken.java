@@ -1,6 +1,7 @@
 package edu.brown.cs.finalproject.credentials;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import com.stormpath.sdk.account.Account;
 
@@ -9,7 +10,12 @@ public class AuthToken {
   private String authToken;
 
   private AuthToken(Account account) {
-    authToken = "testString";
+    /*
+     * Code that adds auth token to our database.
+     */
+    UUID token = UUID.randomUUID();
+    String tokenString = token.toString();
+    authToken = tokenString;
   }
 
   private AuthToken(String authStr) {
@@ -37,9 +43,6 @@ public class AuthToken {
   }
 
   public static AuthToken generateAuthToken(Account account) {
-    /*
-     * Code that adds auth token to our database.
-     */
     return new AuthToken(account);
   }
 

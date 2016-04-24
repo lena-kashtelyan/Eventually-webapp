@@ -38,7 +38,7 @@ public class Authenticator {
     return true;
   }
 
-  public AuthToken authenticate(String usernameOrEmail, String rawPassword) {
+  public AuthToken authenticate(Login login) {
     // Capture the username and password, such as via an
     // SSL-encrypted web HTML form. We'll just simulate a
     // form lookup and use the values we used above:
@@ -48,7 +48,8 @@ public class Authenticator {
     System.out.println("It should be workin here?");
     @SuppressWarnings("rawtypes")
     AuthenticationRequest request = UsernamePasswordRequests.builder()
-        .setUsernameOrEmail(usernameOrEmail).setPassword(rawPassword).build();
+        .setUsernameOrEmail(login.getUsernameOrEmail())
+        .setPassword(login.getRawPassword()).build();
 
     // Now let's authenticate the account with the
     // application:
