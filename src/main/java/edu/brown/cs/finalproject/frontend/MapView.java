@@ -37,12 +37,12 @@ public class MapView extends BackendInteraction implements TemplateViewRoute {
       } else {
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
             .build();
-        return new ModelAndView(data, "map.ftl");
+        return new ModelAndView(data, "login.ftl");
       }
     } else {
       Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
           .build();
-      return new ModelAndView(data, "map.ftl");
+      return new ModelAndView(data, "login.ftl");
     }
   }
 

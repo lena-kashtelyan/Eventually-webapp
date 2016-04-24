@@ -32,6 +32,9 @@ public class Authenticator {
   }
 
   public boolean verifyAuthToken(AuthToken authToken) {
+    /**
+     * Code to check authToken in user database.
+     */
     return true;
   }
 
