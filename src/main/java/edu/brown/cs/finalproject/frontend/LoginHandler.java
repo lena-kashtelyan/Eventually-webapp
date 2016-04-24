@@ -24,10 +24,8 @@ public class LoginHandler extends BackendInteraction implements Route {
     QueryParamsMap qm = req.queryMap();
     String usernameOrEmail = qm.value("usernameOrEmail");
     String rawPassword = qm.value("password");
-    System.out.println(usernameOrEmail + " " + rawPassword);
     Login login = new Login(usernameOrEmail, rawPassword);
     try {
-      System.out.println("Before auth");
       AuthToken authToken = auth.authenticate(login);
       if (auth.verifyAuthToken(authToken)) {
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
