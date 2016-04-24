@@ -13,7 +13,7 @@
     <div class="container">
       <ul class="list-group">
 
-        <!--EVENT STUB START-->
+        <!--EVENT STUB START (replace w/variables) -->
         <li class="list-group-item">
           <div class="panel panel-default">
             <div class="panel-body">
