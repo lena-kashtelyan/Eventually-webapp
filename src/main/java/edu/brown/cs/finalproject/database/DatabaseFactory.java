@@ -1,8 +1,11 @@
 package edu.brown.cs.finalproject.database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.UUID;
 
 public final class DatabaseFactory {
 
@@ -233,8 +236,8 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE venue(" + "venueID TEXT NOT NULL,"
-        + "name TEXT NOT NULL," + "latitude FLOAT NOT NULL,"
-        + "longitude FLOAT NOT NULL," + "PRIMARY KEY(venueID));";
+        + "name TEXT NOT NULL," + "latitude TEXT NOT NULL,"
+        + "longitude TEXT NOT NULL," + "PRIMARY KEY(venueID));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
@@ -318,5 +321,51 @@ public final class DatabaseFactory {
       prep.execute();
     }
   }
+  
+  public static String addVenue(String name, double lat, double lng) {
+     Connection conn = Database.getConnection();
+     String query = "INSERT INTO users VALUES (?,?,?,?)";
+     
+     try (PreparedStatement prep = conn.prepareStatement(query)) {
+       String id = UUID.randomUUID().toString();
+       prep.setString(1, id );
+       prep.setString(2, name);
+       prep.setDouble(2, lat);
+       prep.setDouble(4, lng);
+       prep.addBatch();
+       prep.executeBatch();
+       return id;
+     } catch (NullPointerException | SQLException n) {
+       n.printStackTrace();
+       return null;
+     }
+  }
+ 
+  public static String addEvent(String name, String venueID, String originType, String creatorid, Date startDate,
+      Time startTime, Time endTime, boolean isPublic, String category, String description) {
+    Connection conn = Database.getConnection();
+    String query = "INSERT INTO users VALUES (?,?,?,?, ?,?,?,?, ?,?,?)";
+    
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      String id = UUID.randomUUID().toString();
+      prep.setString(1, id );
+      prep.setString(2, name);
+      prep.setString(3, name);
+      prep.setString(4, name);
+      prep.setString(5, name);
+      prep.setDate(6, startDate);
+      prep.setTime(7, startTime);
+      prep.setTime(8, endTime);
+      prep.setBoolean(9, isPublic);
+      prep.setString(10, category);
+      prep.setString(11, description);
+      prep.addBatch();
+      prep.executeBatch();
+      return id;
+    } catch (NullPointerException | SQLException n) {
+      n.printStackTrace();
+      return null;
+    }
+ }
 
 }

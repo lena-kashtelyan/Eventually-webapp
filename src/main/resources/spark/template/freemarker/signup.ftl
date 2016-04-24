@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-    </style>
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/signup.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/styling.css">
-    <script src="js/bootstrap.min.js">
-    </script>
+<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" /> -->
+<!--     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   </head>
 
-  <body id="body" class="noselect"> <!--onload="loadCanvas()"--> 
+  <body> 
 
-      <#include "topbar.ftl">
-      
-      <div id="user-info">
-        <form method="GET" action="/home">       
-          <input type="text" id="username" name="username" placeholder="username"> <br>
-          <input type="text" id="name" name="name" placeholder="name"> <br>
-          <input type="password" id="password" name="password" placeholder="password"> <br>
-          <input type="text" id="question-one" name="question-one" placeholder="security question 1"> <br>
-          <input type="text" id="answer-one" name = "answer-one" placeholder="answer to question 1"> <br>
-          <input type="text" id="question-two" name = "question-two" placeholder="security question 2"> <br>
-          <input type="text" id="answer-two" name = "answer-two" placeholder="answer to question 2"> <br>
-          <button type="submit" class="submit-btn" id="create-btn" value="create account"></button>
-        </form>
-      </div> 
-      
+    <#include "topbar-min.ftl">
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">email: </label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail3" placeholder="partyhopper@inbox.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">password:</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword3" placeholder="password">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Remember me
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-block btn-default">sign me up</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
+ </html> 
 
-</html>

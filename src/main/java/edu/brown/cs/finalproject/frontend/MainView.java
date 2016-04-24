@@ -35,12 +35,12 @@ public class MainView extends BackendInteraction implements TemplateViewRoute {
             .put("auth", authToken.toString()).build();
         return new ModelAndView(data, "map.ftl");
       } else {
-        Map<String, Object> data = ImmutableMap.of("title",
+        Map<String, String> data = ImmutableMap.of("title",
             "CS32: Final Project");
         return new ModelAndView(data, "login.ftl");
       }
     } else {
-      Map<String, Object> data = ImmutableMap.of("title",
+      Map<String, String> data = ImmutableMap.of("title",
           "CS32: Final Project");
       return new ModelAndView(data, "login.ftl");
     }
