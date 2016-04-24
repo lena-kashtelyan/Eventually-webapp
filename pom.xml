@@ -73,6 +73,11 @@
 	<version>1.22.0</version>
 </dependency>
 
+ <dependency>
+        <groupId>com.datumbox</groupId>
+        <artifactId>datumbox-framework-lib</artifactId>
+        <version>0.7.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.xerial</groupId>

@@ -49,7 +49,6 @@ public class UserProxy extends EntityProxy<User> implements User {
 
   @Override
   public String getUsername() {
-    // TODO Auto-generated method stub
     getInternal();
     return internal.getUsername();
   }
@@ -57,90 +56,77 @@ public class UserProxy extends EntityProxy<User> implements User {
   @Override
   public String getPassword() {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.getPassword();
   }
 
   @Override
   public String setPassword(String newPassword) {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.setPassword(newPassword);
   }
 
   @Override
   public String getFullName() {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.getFullName();
   }
 
   @Override
   public String setFullName(String newFullName) {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.setFullName(newFullName);
   }
 
   @Override
   public String getQ1() {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.getQ1();
   }
 
   @Override
   public String setQ1(String q1) {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.setQ1(q1);
   }
 
   @Override
   public String getA1() {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.getA1();
   }
 
   @Override
   public String setA1(String a1) {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.setA1(a1);
   }
 
   @Override
   public String getQ2() {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.getQ2();
   }
 
   @Override
   public String setQ2(String q2) {
-    // TODO Auto-generated method stub
     getInternal();
     return internal.setQ2(q2);
   }
 
   @Override
   public String getA2() {
-    // TODO Auto-generated method stub
     getInternal();
     return internal.getA2();
   }
 
   @Override
   public String setA2(String a2) {
-    // TODO Auto-generated method stub
     getInternal();
     return internal.setA2(a2);
   }
 
   @Override
   public String getUserMediaPath() {
-    // TODO Auto-generated method stub
     getInternal();
     return internal.getUserMediaPath();
   }
@@ -148,7 +134,6 @@ public class UserProxy extends EntityProxy<User> implements User {
   @Override
   public String setUserMediaPath(String userMediaPath) {
     getInternal();
-    // TODO Auto-generated method stub
     return internal.setUserMediaPath(userMediaPath);
   }
 
