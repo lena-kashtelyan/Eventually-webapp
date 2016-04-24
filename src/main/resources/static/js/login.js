@@ -1,22 +1,23 @@
 $(document).ready(function() {
-	$("#login-form").on('submit', function(e) {
-		console.log("handling the okay button click");
+	$("#submitLogin").on('click', function(e) {
 		e.preventDefault();
-		console.log("handling the okay button click");
-		var usernameOrEmail = $("#username").val();
-		var password = $("#password").val();
-
-		var params = { "usernameOrEmail" : usernameOrEmail, "password" : password };
-		$.post("/login", params, function(responseJSON){
-			var object = JSON.parse(responseJSON);
-			var redirect = object.redirect;
-			if (redirect == "/login") {
-				args = { "error" : object.error };
-				//fill error message and display it
-			} else {
-				console.log(object.auth);
-				window.location = "/map?" + $.param({"auth" : object.auth});
-			}
-		});
+		if ($("#username").val() != "" && $("#password").val() != "") {
+			var usernameOrEmail = $("#username").val();
+			var password = $("#password").val();
+			var auth = $("#auth").val();
+			var params = { "usernameOrEmail" : usernameOrEmail, "password" : password, "auth" : auth};
+			$.post("/login", params, function(responseJSON){
+				var object = JSON.parse(responseJSON);
+				var redirect = object.redirect;
+				if (redirect == "/login") {
+					alert("Invalid login. Please try again.");
+					args = { "error" : object.error };
+					//fill error message and display it
+				} else {
+					console.log(object.auth);
+					window.location = "/map?" + $.param({"auth" : object.auth});
+				}
+			});
+		}
 	});
 });
