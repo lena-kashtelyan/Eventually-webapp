@@ -10,11 +10,12 @@
   <body>
 
     <#include "topbar.ftl">
-    
+
     <!--EMBED MAP-->
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <span class="noshow"><#if ${auth}??>${auth}</#if></span>
+    <script src="js/map.js"></script>
+    <#if auth??><span class="noshow">${auth}</span></#if>
   </body>
 </html>

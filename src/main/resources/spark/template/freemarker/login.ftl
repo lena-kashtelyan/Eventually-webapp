@@ -58,6 +58,6 @@
     <script src="js/facebooklogin.js"></script>
     <script src="js/login.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <#if auth??><span class="noshow">${auth}</span></#if>
+    <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
   </body>
 </html>
