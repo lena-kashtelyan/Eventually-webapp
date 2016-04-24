@@ -22,6 +22,10 @@ public abstract class EntityProxy<E extends Entity> implements Entity {
   public String getID() {
     return id;
   }
+  
+  public Map<String,Entity> getCache() {
+	  return cache;
+  }
 
   private void loadCache() {
     if (internal != null) {

@@ -36,12 +36,17 @@ public class PublicFBEventsFinder {
 		
 		JsonObject publicEvents = new JsonObject();
     	try {
+    		try {
+				Thread.sleep(500);
+			} catch (InterruptedException e1) {
+				System.out.println("ERROR: Waiting thread has been interrupted.");
+			}
     		System.out.println("starting to request events");
     		publicEvents = queryEvents(latitude, longitude, radius, accessToken);
 		} catch (IOException e) {
 			try {
 				try {
-					Thread.sleep(1500);
+					Thread.sleep(3000);
 				} catch (InterruptedException e1) {
 					System.out.println("ERROR: Waiting thread has been interrupted.");
 				}
@@ -50,7 +55,7 @@ public class PublicFBEventsFinder {
 				}
 				catch (IOException e2) {
 					try {
-						Thread.sleep(3500);
+						Thread.sleep(3000);
 					} catch (InterruptedException e4) {
 						System.out.println("ERROR: Waiting thread has been interrupted.");
 					}
@@ -62,6 +67,7 @@ public class PublicFBEventsFinder {
 						System.out.println("ERROR: Fetching public events from Facebook.");
 					}
 				}
+			e.printStackTrace();
 			}
     	
     	Runtime.getRuntime().exec("pkill npm");
@@ -103,10 +109,8 @@ public class PublicFBEventsFinder {
 			response.append(inputLine);
 		}
 		in.close();
-
-		//print result
-//		System.out.println(response.toString());
-		System.out.println("Done");	
+		
+		System.out.println("Done with fetching public Facebook events.");	
 		
 		JsonParser parser = new JsonParser();
 		JsonObject results = parser.parse(response.toString()).getAsJsonObject();

@@ -45,24 +45,62 @@ public class Main {
     // System.out.println("helloworld");
     Login login = new Login("chansen2", "P@ssword1");
     System.out.println(auth.authenticate(login));
-    // lines to instantiate tables in the database and
-    // create indices;
-    Database db = null;
-    try {
-      db = new Database("database/finalproject.db");
-    } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
-      System.out.println("ERROR: Accessing the database file.");
-    }
-    // new DatabaseFactory().createAndIndexTables();
-    System.out.println("all done");
+
     if (options.has("gui")) {
       new BackendInteraction(auth);
       SparkServer server = new MapsSparkServer();
       server.runSparkServer();
+      // lines to instantiate tables in the database and
+      // create indices;
+      Database db = null;
+      try {
+        db = new Database("database/finalproject.db");
+      } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+        System.out.println("ERROR: Accessing the database file.");
+      }
+      // new DatabaseFactory().createAndIndexTables();
+      System.out.println("all done");
 
     } else {
 
+      // THIS IS HOW WE FETCH PUBLIC FACEBOOK EVENTS AND
+      // UPDATE LOCAL DATABASE
+
+      // PublicFBEventsFinder publicEventsFinder = null;
+      // try {
+      // publicEventsFinder = new PublicFBEventsFinder();
+      // } catch (Exception e1) {
+      // e1.printStackTrace();
+      // System.out.println("ERROR: Problem with running the
+      // public events application.");
+      // }
+      //
+      // JsonObject publicEvents = null;
+      // try {
+      // publicEvents =
+      // PublicFBEventsFinder.requestEvents(41.826119,
+      // -71.403112, 50,
+      // "CAACEdEose0cBAFhop73n1499EV6s6930HXx9zIX1jpyjmQJZA1jGjHKCrafGZCjI4hhbFRTIyqkPOzaZBoRiDgKoh4FjT1MDwZBmQQNfaKdQRK9tpjoWncfisiLJetG7i5qXhOknDFsYhvn85ZAxnD2PUEaEjarstOT5v3EGbWNt47FAjBCwdRylzXDWzqNuzIsfdMTEKvwZDZD");
+      // } catch (IOException e1) {
+      // e1.printStackTrace();
+      // System.out.println("ERROR: Fetching public Facebook
+      // events.");
+      // }
+      //
+      //
+      // System.out.println(publicEvents);
+      // PublicFBEventsWriter publicFBEventsWriter = new
+      // PublicFBEventsWriter();
+      // try {
+      // publicFBEventsWriter.updateDB(publicEvents);
+      // } catch (SQLException e) {
+      // e.printStackTrace();
+      // System.out.println("Problem updating database with
+      // public venues.");
+      // }
+      //
+      // EventsByName eventsByName = new EventsByName();
     }
 
   }

@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    
+
     <#include "topbar-min.ftl">
 
     <div class="container"> <!-- CENTER CONTAINER -->
@@ -58,12 +58,6 @@
     <script src="js/facebooklogin.js"></script>
     <script src="js/login.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <span class="noshow"><#if ${auth}??>${auth}</#if></span>
+    <#if auth??><span class="noshow">${auth}</span></#if>
   </body>
 </html>
-
-
-
-
-
-   
