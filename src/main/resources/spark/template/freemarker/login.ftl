@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
     <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
+    <title>${title}</title>
   </head>
 
   <body>
