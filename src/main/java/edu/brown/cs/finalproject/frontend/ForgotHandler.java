@@ -22,25 +22,23 @@ public class ForgotHandler extends BackendInteraction implements Route {
   @Override
   public Object handle(Request req, Response res) {
     QueryParamsMap qm = req.queryMap();
-    String userEmail = qm.value("userEmail");
+    String userEmail = qm.value("email");
     Forgot forgot = new Forgot(userEmail);
-//    Login login = new Login(usernameOrEmail, rawPassword);
-//    try {
-//      AuthToken authToken = auth.authenticate(login);
-//      if (auth.verifyAuthToken(authToken)) {
-//        Map<String, Object> data = ImmutableMap.<String, Object> builder()
-//            .put("title", "Map").put("auth", authToken.toString())
-//            .put("redirect", "/map.ftl").build();
-//        return GSON.toJson(data);
-//      } else {
-//        throw new RuntimeException(
-//            "Oops! Something went wrong, please try again.");
-//      }
-//    } catch (RuntimeException e) {
+    if (userEmail != null) {
+      AuthToken authToken = auth.forgotPassword(forgot);
+      if (auth.verifyAuthToken(authToken)) {
+        Map<String, Object> data = ImmutableMap.<String, Object> builder()
+            .put("title", "Map").put("auth", authToken.toString())
+            .put("redirect", "/map.ftl").build();
+        return GSON.toJson(data);
+      } else {
+        throw new RuntimeException(
+            "Oops! Something went wrong, please try again.");
+      }
+    } else {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()
-          .put("title", "Login").put("error", null)
-          .put("redirect", "/login").build();
+          .put("title", "Forgot Password").put("redirect", "/forgot").build();
       return GSON.toJson(data);
- //   }
+    }
   }
 }

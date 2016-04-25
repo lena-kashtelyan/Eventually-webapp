@@ -16,7 +16,11 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/map.js"></script>
+<<<<<<< HEAD
     <script src="js/topbar.js"></script>
     <#if auth??><span class="noshow">${auth}</span></#if>
+=======
+    <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
+>>>>>>> b45f986dd2f6f91036bd5c68770c3f270524a413
   </body>
 </html>
