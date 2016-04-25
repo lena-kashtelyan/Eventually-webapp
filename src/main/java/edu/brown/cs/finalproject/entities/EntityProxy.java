@@ -39,13 +39,12 @@ public abstract class EntityProxy<E extends Entity> implements Entity {
     if (internal != null) {
       return;
     }
-    Connection conn = Database.getConnection();
-    pullFromDB(conn);
+    pullFromDB();
     cache.put(id, internal);
 
   }
 
-  abstract protected void pullFromDB(Connection conn);
+  abstract protected void pullFromDB();
 
   @Override
   public int hashCode() {

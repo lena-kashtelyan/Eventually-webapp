@@ -1,8 +1,12 @@
 package edu.brown.cs.finalproject.main;
 
 import java.sql.SQLException;
+import java.util.Map;
 
+import com.cartodb.CartoDBClientIF;
 import com.cartodb.CartoDBException;
+import com.cartodb.impl.ApiKeyCartoDBClient;
+import com.cartodb.model.CartoDBResponse;
 import com.google.gson.JsonObject;
 
 import edu.brown.cs.finalproject.credentials.Authenticator;
@@ -12,6 +16,8 @@ import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.database.PublicFBEventsWriter;
+import edu.brown.cs.finalproject.entities.Event;
+import edu.brown.cs.finalproject.entities.EventProxy;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
@@ -48,28 +54,26 @@ public class Main {
     } catch (RuntimeException e) {
       System.out.println(e.getMessage());
     }
-
-<<<<<<< HEAD
-    // System.out.println("helloworld");
-    Login login = new Login("chansen2", "P@ssword1");
-=======
-     System.out.println("helloworld");
-
-//    Login login = new Login("chansen2", "P@ssword1");
->>>>>>> b45f986dd2f6f91036bd5c68770c3f270524a413
-//    System.out.println(auth.authenticate(login));
     
-
     Login login = new Login("chansen2", "P@ssword1");
     try {
       System.out.println(auth.authenticate(login));
     } catch (Exception e) {
-
+      e.printStackTrace();
     }
-
-
+    
     DatabaseManager dbManager = new DatabaseManager();
     FacebookDataManager facebookDataManager = new FacebookDataManager();
+
+    Database db = null;
+    try {
+      db = new Database("database/finalproject.db");
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+      System.out.println("ERROR: Accessing the database file.");
+    }
+    // new DatabaseFactory().createAndIndexTables();
+    System.out.println("all done");
 
     if (options.has("gui")) {
 //      new BackendInteraction(auth, dbManager, facebookDataManager);
@@ -77,15 +81,7 @@ public class Main {
       server.runSparkServer();
       // lines to instantiate tables in the database and
       // create indices;
-      Database db = null;
-      try {
-        db = new Database("database/finalproject.db");
-      } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();
-        System.out.println("ERROR: Accessing the database file.");
-      }
-      // new DatabaseFactory().createAndIndexTables();
-      System.out.println("all done");
+      
 
     } else {
 

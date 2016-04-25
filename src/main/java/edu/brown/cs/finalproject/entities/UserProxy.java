@@ -14,7 +14,7 @@ public class UserProxy extends EntityProxy<User> implements User {
   }
 
   @Override
-  protected void pullFromDB(Connection conn) {
+  protected void pullFromDB() {
     String userquery = "SELECT * FROM users WHERE userID=?;";
     String username;
     String password;
@@ -24,6 +24,7 @@ public class UserProxy extends EntityProxy<User> implements User {
     String q2;
     String a2;
     String usermediapath;
+    Connection conn = Database.getConnection();
 
     try (PreparedStatement prep = conn.prepareStatement(userquery)) {
       prep.setString(1, id);
