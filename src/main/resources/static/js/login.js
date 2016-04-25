@@ -18,6 +18,18 @@ $(document).ready(function() {
 					window.location = "/map?" + $.param({"auth" : object.auth});
 				}
 			});
+		} else {
+			alert("Username and password fields must not be empty!");
 		}
+	});
+
+	$("#signup").on("click", function(e) {
+		e.preventDefault();
+		window.location = "/signup";
+	});
+
+	$("#forgot").on("click", function(e) {
+		e.preventDefault();
+		window.location = "/forgot";
 	});
 });
