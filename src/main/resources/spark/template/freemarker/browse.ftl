@@ -4,14 +4,12 @@
     <style>
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <title>${title}</title>
   </head>
 
-  <body> <!--onload="loadCanvas()"--> 
-
-  <#include "topbar.ftl">
-
+  <body> 
+    <#include "topbar.ftl">
     <div class="container">
-
       <#list events>
         <ul class="list-group">
           <#items as event>
@@ -49,29 +47,29 @@
 </html>
 
 
-  <!--EVENT STUB START (just in case)
-        <li class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="col-md-4">
-                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSmtYA3Ph_Ah0uwmO42azt0ZAz-Ey2FtECbCzGvwml04HOuPiyYEmCbDe0w" class="img-responsive" alt="Responsive image">
-              </div>
-              <div class="col-md-8">
-                <div class="row">
-                  <p> event title </p>
-                </div>
-                <div class="row">
-                  <p> event description.... </p>
-                </div>
-                <div class="row">
-                  <p> EVENT POPULARITY STATUS </p>
-                </div>
-                <div class="row">
-                  <p> location </p>
-                </div>
-              </div>
-            </div>
+<!--EVENT STUB START (just in case)
+  <li class="list-group-item">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="col-md-4">
+          <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSmtYA3Ph_Ah0uwmO42azt0ZAz-Ey2FtECbCzGvwml04HOuPiyYEmCbDe0w" class="img-responsive" alt="Responsive image">
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <p> event title </p>
           </div>
-        </li>    -->
+          <div class="row">
+            <p> event description.... </p>
+          </div>
+          <div class="row">
+            <p> EVENT POPULARITY STATUS </p>
+          </div>
+          <div class="row">
+            <p> location </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>    -->
 
       
