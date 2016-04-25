@@ -1,5 +1,11 @@
 package edu.brown.cs.finalproject.database;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
@@ -20,10 +26,7 @@ public class PublicFBEventsWriter {
 	public PublicFBEventsWriter() {
 	}
 	
-	public void updateDB(JsonObject jsonResults) throws SQLException {
-		
-		try (Connection conn = Database.getConnection()) {
-			
+	public void updateDB(JsonObject jsonResults) throws SQLException, IOException {
 			JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"), JsonArray.class);
 			
 			System.out.println(eventsArray);
@@ -42,17 +45,7 @@ public class PublicFBEventsWriter {
 				System.out.println("venue long: " + venueLocationJSON.get("longitude").toString());
 				String venueLat = venueLocationJSON.get("latitude").toString();
 				String venueLong = venueLocationJSON.get("longitude").toString();
-				
-				try (PreparedStatement prep = conn
-						.prepareStatement("INSERT OR IGNORE INTO venue (venueID, name, latitude, longitude) VALUES (?,?,?,?);")) {
-					prep.setString(1, venueId);
-					prep.setString(2, venueName);
-					prep.setString(3, venueLat);
-					prep.setString(4, venueLong);
-
-					prep.execute();
-				}
-				
+								
 				String venueCoverPicture = eventJSON.get("venueCoverPicture").toString().replace("\"", "");
 				String venueProficePicture = eventJSON.get("venueProfilePicture").toString().replace("\"", "");
 				String eventId = eventJSON.get("eventId").toString().replace("\"", "");
@@ -64,8 +57,9 @@ public class PublicFBEventsWriter {
 				// Obtaining a java.util.Date from a date&time string.
 				String eventStarttimeString = eventJSON.get("eventStarttime").toString().replace("\"", "");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+				Date eventStarttime = null;
 				try {
-					Date eventStarttime = formatter.parse(eventStarttimeString);
+					eventStarttime = formatter.parse(eventStarttimeString);
 					System.out.println(eventStarttime);
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -97,8 +91,80 @@ public class PublicFBEventsWriter {
 				System.out.println("eventNoReplyCount: " + eventNoReplyCount);
 				
 				
+				
+//				StringBuilder urlBuilder = new StringBuilder();
+//				urlBuilder.append("https://cs32finalproject.cartodb.com/api/v2/sql?q=INSERT%20INTO%20events%20(name)%20VALUES%20(\"jo\")&api_key=ad54038628d84dceb55a7adb81eddfcf9976e994");
+				
+//				StringBuilder urlBuilder = new StringBuilder();
+//				urlBuilder.append("http://cs32finalproject.cartodb.com/api/v2/sql?q=");
+//				urlBuilder.append("INSERT INTO events (eventid, name, venuename, origintype, creatorid, "
+//						+ "startdate, enddate, category, description, public?, attendingCount, declinedCount, maybeCount, noReplyCount)"
+//						+ " VALUES (");
+//				urlBuilder.append(eventId);	// eventid
+//				urlBuilder.append(",");
+//				urlBuilder.append(eventName);	// name
+//				urlBuilder.append(",");
+//				urlBuilder.append(venueName);	// venuename
+//				urlBuilder.append(",");
+//				urlBuilder.append("facebook");	// origintype
+//				urlBuilder.append(",");
+//				urlBuilder.append("null");	// creatorid
+//				urlBuilder.append(",");
+//				urlBuilder.append(eventStarttime.toString());	// startdate
+//				urlBuilder.append(",");
+//				urlBuilder.append("null");	// enddate
+//				urlBuilder.append(",");
+//				urlBuilder.append("null");	// category
+//				urlBuilder.append(",");
+//				urlBuilder.append(eventDescription);	//description
+//				urlBuilder.append(",");
+//				urlBuilder.append(true);	// public?
+//				urlBuilder.append(",");
+//				urlBuilder.append(eventAttendingCount);	// attendingCount
+//				urlBuilder.append(",");
+//				urlBuilder.append(eventDeclinedCount);	// declinedCount
+//				urlBuilder.append(",");
+//				urlBuilder.append(eventMaybeCount);	// maybeCount
+//				urlBuilder.append(",");
+//				urlBuilder.append(eventNoReplyCount);	// noReplyCount
+//				urlBuilder.append(")&api_key=ad54038628d84dceb55a7adb81eddfcf9976e994");
+				
+				StringBuilder urlBuilder = new StringBuilder();
+				urlBuilder.append("https://cs32finalproject.cartodb.com/api/v2/sql?q=WITH%20n(");
+				urlBuilder.append("eventid,name,attendingCount)");
+				
+//				"https://cs32finalproject.cartodb.com/api/v2/sql?q=WITH%20n(eventid,name,attendingCount)%20AS%20(%20VALUES%20(%27123%27,%27a%27,12),%20(%27456%27,%27b%27,18),%20(%27789%27,%27c%27,4)%20),%20upsert%20AS%20(%20UPDATE%20events%20o%20SET%20name=n.name,%20attendingCount=n.attendingCount%20FROM%20n%20WHERE%20o.eventid%20=%20n.eventid%20RETURNING%20o.eventid%20)%20INSERT%20INTO%20events%20(eventid,name,attendingCount)%20SELECT%20n.eventid,%20n.name,%20n.attendingCount%20FROM%20n%20WHERE%20n.eventid%20NOT%20IN%20(%20SELECT%20eventid%20FROM%20upsert%20);&api_key=ad54038628d84dceb55a7adb81eddfcf9976e994";
+				
+				
+				System.out.println(urlBuilder.toString());
+				
+				URL url = new URL(urlBuilder.toString().replace(" ", "%20"));
+
+				HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+
+				httpConn.setRequestMethod("GET");
+				
+				BufferedReader in = null;
+				StringBuffer response = null;
+				
+
+				in = new BufferedReader(
+						new InputStreamReader(httpConn.getInputStream()));
+				String inputLine;
+				response = new StringBuffer();
+
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+				
+				System.out.println("Done with updating events table on CartoDB.");	
+				
+				
+				
+				
+				
 			}
-		}
 
 		
 	}

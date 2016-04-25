@@ -1,5 +1,7 @@
 package edu.brown.cs.finalproject.main;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 import edu.brown.cs.finalproject.credentials.Authenticator;
@@ -7,9 +9,11 @@ import edu.brown.cs.finalproject.credentials.Login;
 import edu.brown.cs.finalproject.credentials.SignUp;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
+import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
+import edu.brown.cs.finalproject.search.FacebookDataManager;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
@@ -45,9 +49,12 @@ public class Main {
     // System.out.println("helloworld");
     Login login = new Login("chansen2", "P@ssword1");
     System.out.println(auth.authenticate(login));
+    
+    DatabaseManager dbManager = new DatabaseManager();
+    FacebookDataManager facebookDataManager = new FacebookDataManager();
 
     if (options.has("gui")) {
-      new BackendInteraction(auth);
+      new BackendInteraction(auth, dbManager, facebookDataManager);
       SparkServer server = new MapsSparkServer();
       server.runSparkServer();
       // lines to instantiate tables in the database and
