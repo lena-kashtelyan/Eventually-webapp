@@ -6,53 +6,51 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Date;
+import java.util.Map;
+
+import com.cartodb.CartoDBClientIF;
+import com.cartodb.CartoDBException;
+import com.cartodb.impl.ApiKeyCartoDBClient;
+import com.cartodb.model.CartoDBResponse;
 
 public class EventProxy extends EntityProxy<Event> implements Event {
 
-  public EventProxy(String id) throws SQLException, ClassNotFoundException {
+  public EventProxy(String id) throws ClassNotFoundException {
     super(id);
   }
 
   @Override
   protected void pullFromDB(Connection conn) {
-    String eventquery = "SELECT * FROM events WHERE eventID=?;";
-    String name;
-    String venueID;
-    String originType;
-    User creator;
-    Date startDate;
-    Time startTime;
-    Time endTime;
-    boolean isPublic;
-    String category;
-    String description;
-
-    try (PreparedStatement prep = conn.prepareStatement(eventquery)) {
-      prep.setString(1, id);
-      try (ResultSet rs = prep.executeQuery()) {
-        name = rs.getString(2);
-        venueID = rs.getString(3);
-        originType = rs.getString(4);
-        String creatorID = rs.getString(5);
-        startDate = rs.getDate(6);
-        startTime = rs.getTime(7);
-        endTime = rs.getTime(8);
-        category = rs.getString(9);
-        isPublic = rs.getBoolean(10);
-        description = rs.getString(11);
-        creator = new UserProxy(creatorID);
-      }
-    } catch (SQLException s) {
-      System.out.println("ERROR: ID not in Events Table");
-      internal = null;
-      return;
-    } catch (NullPointerException n) {
-      System.out.println("ERROR: ID not in User Table");
+    CartoDBResponse<Map<String, Object>> res;
+    try {
+      CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      String query = String.format("SELECT * FROM events WHERE eventID=%s;", id);
+      res = cartoDBCLient.request(query);
+    } catch (CartoDBException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
       return;
     }
+    
+    String name = (String) res.getRows().get(0).get("name");
+    String venueName = (String) res.getRows().get(0).get("venuename");
+    String originType = (String) res.getRows().get(0).get("origintype");
+    String creatorID = (String) res.getRows().get(0).get("creatorid");
+    User creator = new UserProxy(creatorID);
+    String startDate = (String) res.getRows().get(0).get("startdate");
+    double lat = (double) res.getRows().get(0).get("latitude");
+    double lng = (double) res.getRows().get(0).get("longitude");
+    boolean isPublic = (boolean) res.getRows().get(0).get("public");
+    String category = (String) res.getRows().get(0).get("category");
+    String description = (String) res.getRows().get(0).get("description");
+    int attendingCount = (int) res.getRows().get(0).get("attendingcount");
+    int invitedCount = (int) res.getRows().get(0).get("invitedcount");
+    int maybeCount = (int) res.getRows().get(0).get("maybecount");
+    int noReplyCount = (int) res.getRows().get(0).get("noreplycount");
+    int declinedCount = (int) res.getRows().get(0).get("declinedcount");
 
-    internal = new EventBean(id, name, venueID, originType, creator, startDate,
-        startTime, endTime, isPublic, category, description);
+    internal = new EventBean(id, name, venueName, originType, creator, startDate,
+        attendingCount, declinedCount, noReplyCount, maybeCount, invitedCount, lat, lng, isPublic, category, description);
   }
 
   @Override
@@ -68,15 +66,9 @@ public class EventProxy extends EntityProxy<Event> implements Event {
   }
 
   @Override
-  public String getVenueID() {
+  public String getVenueName() {
     // TODO Auto-generated method stub
-    return internal.getVenueID();
-  }
-
-  @Override
-  public String setVenueID(String newVenueID) {
-    // TODO Auto-generated method stub
-    return internal.setVenueID(newVenueID);
+    return internal.getVenueName();
   }
 
   @Override
@@ -104,39 +96,15 @@ public class EventProxy extends EntityProxy<Event> implements Event {
   }
 
   @Override
-  public Date getStartDate() {
+  public String getStartDate() {
     // TODO Auto-generated method stub
     return internal.getStartDate();
   }
 
   @Override
-  public Date setStartDate(Date newStartDate) {
+  public String setStartDate(String newStartDate) {
     // TODO Auto-generated method stub
     return internal.setStartDate(newStartDate);
-  }
-
-  @Override
-  public Time getStartTime() {
-    // TODO Auto-generated method stub
-    return internal.getStartTime();
-  }
-
-  @Override
-  public Time setStartTime(Time newStartTime) {
-    // TODO Auto-generated method stub
-    return internal.setStartTime(newStartTime);
-  }
-
-  @Override
-  public Time getEndTime() {
-    // TODO Auto-generated method stub
-    return internal.getEndTime();
-  }
-
-  @Override
-  public Time setEndTime(Time newEndTime) {
-    // TODO Auto-generated method stub
-    return internal.setEndTime(newEndTime);
   }
 
   @Override
@@ -173,6 +141,48 @@ public class EventProxy extends EntityProxy<Event> implements Event {
   public String setDescription(String newDescription) {
     // TODO Auto-generated method stub
     return internal.setDescription(newDescription);
+  }
+
+  @Override
+  public double getLatitude() {
+    // TODO Auto-generated method stub
+    return internal.getLatitude();
+  }
+
+  @Override
+  public double getLongitude() {
+    // TODO Auto-generated method stub
+    return internal.getLongitude();
+  }
+
+  @Override
+  public int getInvitedCount() {
+    // TODO Auto-generated method stub
+    return internal.getInvitedCount();
+  }
+
+  @Override
+  public int getAttendingCount() {
+    // TODO Auto-generated method stub
+    return internal.getAttendingCount();
+  }
+
+  @Override
+  public int getMaybeCount() {
+    // TODO Auto-generated method stub
+    return internal.getMaybeCount();
+  }
+
+  @Override
+  public int getNoReplyCount() {
+    // TODO Auto-generated method stub
+    return internal.getNoReplyCount();
+  }
+
+  @Override
+  public int getDeclinedCount() {
+    // TODO Auto-generated method stub
+    return internal.getDeclinedCount();
   }
 
 }

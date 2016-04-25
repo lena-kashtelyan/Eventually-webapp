@@ -52,10 +52,10 @@
       <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-3">
-          <button type="submit" class="btn btn-block btn-default">sign up</button>
+          <button id="signup" type="submit" class="btn btn-block btn-default">sign up</button>
         </div>
         <div class="col-md-3">
-          <button type="button" class="btn btn-block btn-default">password reminder</button>
+          <button id="forgot" type="button" class="btn btn-block btn-default">password reminder</button>
         </div>
         <div class="col-md-3"></div>
       </div>

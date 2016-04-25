@@ -1,7 +1,5 @@
 package edu.brown.cs.finalproject.main;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 import com.cartodb.CartoDBException;
@@ -38,23 +36,33 @@ public class Main {
     parser.accepts("gui");
     OptionSet options = parser.parse(args);
 
-//    StormPathApplication stormPathApp = new StormPathApplication(
-//        "cs32FinalProject");
-//    Authenticator auth = new Authenticator(stormPathApp);
+    StormPathApplication stormPathApp = new StormPathApplication(
+        "cs32FinalProject");
+    Authenticator auth = new Authenticator(stormPathApp);
 
-//    SignUp test = new SignUp("Cole", "hansen", "chansen2",
-//        "cole_hansen@brown.edu", "P@ssword1");
+    SignUp test = new SignUp("Cole", "hansen", "chansen2",
+        "cole_hansen@brown.edu", "P@ssword1");
 
-//    try {
-//      auth.createAccount(test);
-//    } catch (RuntimeException e) {
-//      System.out.println(e.getMessage());
-//    }
+    try {
+      auth.createAccount(test);
+    } catch (RuntimeException e) {
+      System.out.println(e.getMessage());
+    }
 
-    // System.out.println("helloworld");
+     System.out.println("helloworld");
+
 //    Login login = new Login("chansen2", "P@ssword1");
 //    System.out.println(auth.authenticate(login));
     
+
+    Login login = new Login("chansen2", "P@ssword1");
+    try {
+      System.out.println(auth.authenticate(login));
+    } catch (Exception e) {
+
+    }
+
+
     DatabaseManager dbManager = new DatabaseManager();
     FacebookDataManager facebookDataManager = new FacebookDataManager();
 

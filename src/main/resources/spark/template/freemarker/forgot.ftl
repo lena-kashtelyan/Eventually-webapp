@@ -7,10 +7,10 @@
     <title>${title}</title>
   </head>
 
-  <body> 
+  <body>
 
     <#include "topbar-min.ftl">
-    
+
     <div class="container">
       <div class="row">
         <div class="col-md-3"></div>
@@ -19,10 +19,10 @@
             <div class="form-group">
               <label class="sr-only" for="userEmail">email</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="userEmail" placeholder="email">
+                <input type="text" class="form-control" id="email" placeholder="email">
               </div>
             </div>
-            <button type="submit" class="btn btn-default">send me my password</button>
+            <button id="submit" type="submit" class="btn btn-default">send me my password</button>
           </form>
         </div>
         <div class="col-md-3"></div>
@@ -30,9 +30,10 @@
     </div>
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/forgot.js"></script>
     <#if auth??><span class="noshow">${auth}</span></#if>
   </body>
- </html> 
+ </html>
 
 <!-- In case we still want sequrity questions for some reason
  -->

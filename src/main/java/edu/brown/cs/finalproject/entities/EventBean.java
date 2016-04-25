@@ -5,30 +5,40 @@ import java.util.Date;
 
 public class EventBean extends EntityBean implements Event {
   private String name;
-  private String venueID;
+  private String venueName;
   private String originType;
   private User creator;
-  private Date startDate;
-  private Time startTime;
-  private Time endTime;
+  private String startDate;
   private boolean isPublic;
   private String category;
   private String description;
+  private double latitude;
+  private double longitude;
+  private int attendingCount;
+  private int invitedCount;
+  private int declinedCount;
+  private int maybeCount;
+  private int noReplyCount;
 
-  public EventBean(String id, String Name, String venueID, String originType,
-      User creator, Date startdate, Time starttime, Time endTime,
-      boolean ispublic, String category, String description) {
+  public EventBean(String id, String Name, String venueName, String originType,
+      User creator, String startDate, int attendingCount, int declinedCount, int noReplyCount, int maybeCount,
+      int invitedCount, double latitude, double longitude, boolean ispublic, String category, String description) {
     super(id);
     this.name = Name;
-    this.venueID = venueID;
+    this.venueName = venueName;
     this.originType = originType;
     this.creator = creator;
-    this.startDate = startdate;
-    this.startTime = starttime;
-    this.endTime = endTime;
+    this.startDate = startDate;
     this.isPublic = ispublic;
     this.category = category;
     this.description = description;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.attendingCount = attendingCount;
+    this.invitedCount = invitedCount;
+    this.maybeCount = maybeCount;
+    this.noReplyCount = noReplyCount;
+    this.declinedCount = declinedCount;
   }
 
   @Override
@@ -45,16 +55,9 @@ public class EventBean extends EntityBean implements Event {
   }
 
   @Override
-  public String getVenueID() {
+  public String getVenueName() {
     // TODO Auto-generated method stub
-    return venueID;
-  }
-
-  @Override
-  public String setVenueID(String newVenueID) {
-    // TODO Auto-generated method stub
-    venueID = newVenueID;
-    return venueID;
+    return venueName;
   }
 
   @Override
@@ -84,42 +87,16 @@ public class EventBean extends EntityBean implements Event {
   }
 
   @Override
-  public Date getStartDate() {
+  public String getStartDate() {
     // TODO Auto-generated method stub
     return startDate;
   }
 
   @Override
-  public Date setStartDate(Date newStartDate) {
+  public String setStartDate(String newStartDate) {
     // TODO Auto-generated method stub
     startDate = newStartDate;
     return startDate;
-  }
-
-  @Override
-  public Time getStartTime() {
-    // TODO Auto-generated method stub
-    return startTime;
-  }
-
-  @Override
-  public Time setStartTime(Time newStartTime) {
-    // TODO Auto-generated method stub
-    startTime = newStartTime;
-    return startTime;
-  }
-
-  @Override
-  public Time getEndTime() {
-    // TODO Auto-generated method stub
-    return endTime;
-  }
-
-  @Override
-  public Time setEndTime(Time newEndTime) {
-    // TODO Auto-generated method stub
-    endTime = newEndTime;
-    return endTime;
   }
 
   @Override
@@ -159,6 +136,48 @@ public class EventBean extends EntityBean implements Event {
     // TODO Auto-generated method stub
     description = newDescription;
     return description;
+  }
+
+  @Override
+  public double getLatitude() {
+    // TODO Auto-generated method stub
+    return latitude;
+  }
+
+  @Override
+  public double getLongitude() {
+    // TODO Auto-generated method stub
+    return longitude;
+  }
+
+  @Override
+  public int getInvitedCount() {
+    // TODO Auto-generated method stub
+    return invitedCount;
+  }
+
+  @Override
+  public int getAttendingCount() {
+    // TODO Auto-generated method stub
+    return attendingCount;
+  }
+
+  @Override
+  public int getMaybeCount() {
+    // TODO Auto-generated method stub
+    return maybeCount;
+  }
+
+  @Override
+  public int getNoReplyCount() {
+    // TODO Auto-generated method stub
+    return noReplyCount;
+  }
+
+  @Override
+  public int getDeclinedCount() {
+    // TODO Auto-generated method stub
+    return declinedCount;
   }
 
 }
