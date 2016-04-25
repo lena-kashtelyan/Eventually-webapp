@@ -8,9 +8,7 @@ public interface Event extends Entity {
 
   public String setName(String newName);
 
-  public String getVenueID();
-
-  public String setVenueID(String newVenueID);
+  public String getVenueName();
 
   public String getOriginType();
 
@@ -20,17 +18,23 @@ public interface Event extends Entity {
 
   public User setCreator(User user);
 
-  public Date getStartDate();
+  public String getStartDate();
 
-  public Date setStartDate(Date newStartDate);
+  public String setStartDate(String newStartDate);
 
-  public Time getStartTime();
-
-  public Time setStartTime(Time newStartTime);
-
-  public Time getEndTime();
-
-  public Time setEndTime(Time newEndTime);
+  public double getLatitude();
+  
+  public double getLongitude();
+  
+  public int getInvitedCount();
+  
+  public int getAttendingCount();
+  
+  public int getMaybeCount();
+  
+  public int getNoReplyCount();
+  
+  public int getDeclinedCount();
 
   public String getCategory();
 
