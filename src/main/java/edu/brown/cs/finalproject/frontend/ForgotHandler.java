@@ -5,7 +5,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
-import edu.brown.cs.finalproject.credentials.Login;
+import edu.brown.cs.finalproject.credentials.Forgot;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -22,7 +22,8 @@ public class ForgotHandler extends BackendInteraction implements Route {
   @Override
   public Object handle(Request req, Response res) {
     QueryParamsMap qm = req.queryMap();
-    String usernameOrEmail = qm.value("userEmail");
+    String userEmail = qm.value("userEmail");
+    Forgot forgot = new Forgot(userEmail);
 //    Login login = new Login(usernameOrEmail, rawPassword);
 //    try {
 //      AuthToken authToken = auth.authenticate(login);
