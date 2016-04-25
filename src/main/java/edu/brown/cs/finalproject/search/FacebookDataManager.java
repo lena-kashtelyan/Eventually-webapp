@@ -1,11 +1,8 @@
 package edu.brown.cs.finalproject.search;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
-
 import com.google.gson.JsonObject;
-
 import edu.brown.cs.finalproject.database.PublicFBEventsWriter;
 
 public class FacebookDataManager {
@@ -23,9 +20,8 @@ public class FacebookDataManager {
 	 */
 	public void requestPublicEvents(double latitude, double longitude, int radius, String accessToken) {
 		
-		PublicFBEventsFinder publicEventsFinder = null;
 		try {
-			publicEventsFinder = new PublicFBEventsFinder();
+			new PublicFBEventsFinder();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			System.out.println("ERROR: Problem with running the public events application.");
