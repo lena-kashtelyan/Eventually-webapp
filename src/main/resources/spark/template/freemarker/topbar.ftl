@@ -7,7 +7,7 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="#"><span class="glyphicon glyphicon-refresh"></span></a>
+          <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="flip-button" data-toggle="dropdown"><span class="glyphicon glyphicon-refresh"></span></button>
         </li>
         <li>
           <input type="text" placeholder="event, time, place...">
@@ -26,3 +26,6 @@
       </ul>
     </div>
   </nav>
+
+  <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
+

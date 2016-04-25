@@ -30,18 +30,20 @@ public class MapView extends BackendInteraction implements TemplateViewRoute {
     String authString = qm.value("auth");
     if (authString != null) {
         System.out.println("in mapview w/auth");
+        System.out.println(authString);
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
             .put("auth", authToken.toString()).build();
+        System.out.println(authToken);
         return new ModelAndView(data, "map.ftl");
       } else {
-        Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
+        Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
             .build();
         return new ModelAndView(data, "login.ftl");
       }
     } else {
-      Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")
+      Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
           .build();
       return new ModelAndView(data, "login.ftl");
     }

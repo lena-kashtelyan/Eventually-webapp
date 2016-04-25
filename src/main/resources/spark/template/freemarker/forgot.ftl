@@ -31,11 +31,11 @@
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/forgot.js"></script>
-    <#if auth??><span class="noshow">${auth}</span></#if>
+    <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
   </body>
  </html>
 
-<!-- In case we still want sequrity questions for some reason
+<!-- In case we still want security questions for some reason
  -->
  <!-- <form id="questions" method="GET" action="/response">
   <input type="text" id="question-one" name="question-one" placeholder="security question 1" READONLY> <br>
