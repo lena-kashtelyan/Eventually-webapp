@@ -1,7 +1,5 @@
 package edu.brown.cs.finalproject.main;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 import edu.brown.cs.finalproject.credentials.Authenticator;
@@ -48,8 +46,12 @@ public class Main {
 
     // System.out.println("helloworld");
     Login login = new Login("chansen2", "P@ssword1");
-    System.out.println(auth.authenticate(login));
-    
+    try {
+      System.out.println(auth.authenticate(login));
+    } catch (Exception e) {
+
+    }
+
     DatabaseManager dbManager = new DatabaseManager();
     FacebookDataManager facebookDataManager = new FacebookDataManager();
 

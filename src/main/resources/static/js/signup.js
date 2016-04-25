@@ -20,6 +20,8 @@ $(document).ready(function() {
 					window.location = "/map?" + $.param({"auth" : object.auth});
 				}
 			});
-		}
+		} else {
+      alert("All fields must be non-empty!");
+    }
 	});
 });

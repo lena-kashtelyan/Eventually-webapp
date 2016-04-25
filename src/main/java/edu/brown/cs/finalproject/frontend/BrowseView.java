@@ -49,13 +49,13 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           //malicious user, redirect to login
           Map<Object, Object> data = ImmutableMap.builder()
                   .put("title", "Login").build();
-          return new ModelAndView(data, htmlUrl);
+          return new ModelAndView(data, "login.ftl");
       }
     } else {
       // no authentification token, redirect to login
       Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "Login").build();
-      return new ModelAndView(data, htmlUrl);
+      return new ModelAndView(data, "login.ftl");
     }
   }
 }
