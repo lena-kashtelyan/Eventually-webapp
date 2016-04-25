@@ -5,13 +5,13 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
-import edu.brown.cs.finalproject.credentials.Forgot;
+import edu.brown.cs.finalproject.credentials.Login;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class ForgotHandler extends BackendInteraction implements Route {
+public class BrowseHandler extends BackendInteraction implements Route {
   /**
    * The handle method.
    * @param req
@@ -21,9 +21,9 @@ public class ForgotHandler extends BackendInteraction implements Route {
    */
   @Override
   public Object handle(Request req, Response res) {
-    QueryParamsMap qm = req.queryMap();
-    String userEmail = qm.value("userEmail");
-    Forgot forgot = new Forgot(userEmail);
+//    QueryParamsMap qm = req.queryMap();
+//    String usernameOrEmail = qm.value("usernameOrEmail");
+//    String rawPassword = qm.value("password");
 //    Login login = new Login(usernameOrEmail, rawPassword);
 //    try {
 //      AuthToken authToken = auth.authenticate(login);
@@ -37,10 +37,11 @@ public class ForgotHandler extends BackendInteraction implements Route {
 //            "Oops! Something went wrong, please try again.");
 //      }
 //    } catch (RuntimeException e) {
-      Map<String, Object> data = ImmutableMap.<String, Object> builder()
-          .put("title", "Login").put("error", null)
-          .put("redirect", "/login").build();
-      return GSON.toJson(data);
- //   }
+//      Map<String, Object> data = ImmutableMap.<String, Object> builder()
+//          .put("title", "Login").put("error", e.getLocalizedMessage())
+//          .put("redirect", "/login").build();
+//      return GSON.toJson(data);
+//    }
+      return null;
   }
 }

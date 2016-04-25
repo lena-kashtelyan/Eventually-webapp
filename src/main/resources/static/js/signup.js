@@ -1,1 +1,25 @@
-console.log("Signup's Javascript");
+$(document).ready(function() {
+	$("#submit").on('click', function(e) {
+		e.preventDefault();
+		if ($("#firstName").val() != "" && $("#lastName").val() != "" && $("#username").val() != "" && $("#email") && $("#password").val() != "") {
+			var firstName = $("#firstName").val();
+      var lastName = $("#lastName").val();
+      var username = $("#username").val();
+      var email = $("#email").val();
+			var password = $("#password").val();
+			var auth = $("#auth").val();
+			var params = { "firstName" : firstName, "lastName" : lastName, "username" : username, "email" : email, "password" : password, "auth" : auth};
+			$.post("/signup", params, function(responseJSON){
+				var object = JSON.parse(responseJSON);
+				var redirect = object.redirect;
+				if (redirect == "/signup") {
+					alert(object.error);
+					args = { "error" : object.error };
+					//fill error message and display it
+				} else {
+					window.location = "/map?" + $.param({"auth" : object.auth});
+				}
+			});
+		}
+	});
+});
