@@ -26,70 +26,77 @@
       </div>
 
       <div class="col-md-5">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Change password
-          </div>
-          <div class="panel-body">
-            <form method="post">
-             <div class="form-group ">
-              <label class="control-label requiredField" for="currentPassword">
-               Current Password
-               <span class="asteriskField">
-                *
-               </span>
-              </label>
-              <input class="form-control" id="currentPassword" name="currentPassword" placeholder="password" type="text"/>
-             </div>
-             <div class="form-group ">
-              <label class="control-label requiredField" for="newPassword">
-               New Password
-               <span class="asteriskField">
-                *
-               </span>
-              </label>
-              <input class="form-control" id="newPassword" name="newPassword" placeholder="new password" type="text"/>
-             </div>
-             <div class="form-group">
-              <div>
-               <button class="btn btn-primary" name="new-password-submit" type="submit">
-                Change
-               </button>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Change password
               </div>
-             </div>
-            </form>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Change username
-          </div>
-          <div class="panel-body">
-            <form method="post">
-             <div class="form-group">
-              <label class="control-label requiredField" for="newUsername">
-               New username
-               <span class="asteriskField">
-                *
-               </span>
-              </label>
-              <input class="form-control" id="newUsername" name="newUsername" placeholder="new username" type="text"/>
-             </div>
-             <div class="form-group">
-              <div>
-               <button class="btn btn-primary " name="new-username-submit" type="submit">
-                Create
-               </button>
+              <div class="panel-body">
+                <form method="post">
+                 <div class="form-group ">
+                  <label class="control-label requiredField" for="currentPassword">
+                   Current Password
+                   <span class="asteriskField">
+                    *
+                   </span>
+                  </label>
+                  <input class="form-control" id="currentPassword" name="currentPassword" placeholder="password" type="text"/>
+                 </div>
+                 <div class="form-group ">
+                  <label class="control-label requiredField" for="newPassword">
+                   New Password
+                   <span class="asteriskField">
+                    *
+                   </span>
+                  </label>
+                  <input class="form-control" id="newPassword" name="newPassword" placeholder="new password" type="text"/>
+                 </div>
+                 <div class="form-group">
+                  <div>
+                   <button class="btn btn-primary" name="new-password-submit" type="submit">
+                    Change
+                   </button>
+                  </div>
+                 </div>
+                </form>
               </div>
-             </div>
-            </form>
-          </div>
-        </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Change username
+              </div>
+              <div class="panel-body">
+                <form method="post">
+                 <div class="form-group">
+                  <label class="control-label requiredField" for="newUsername">
+                   New username
+                   <span class="asteriskField">
+                    *
+                   </span>
+                  </label>
+                  <input class="form-control" id="newUsername" name="newUsername" placeholder="new username" type="text"/>
+                 </div>
+                 <div class="form-group">
+                  <div>
+                   <button class="btn btn-primary " name="new-username-submit" type="submit">
+                    Create
+                   </button>
+                  </div>
+                 </div>
+                </form>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
       <div class="col-md-1"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <#if auth??><span class="noshow">${auth}</span></#if>
   </body>
 </html>

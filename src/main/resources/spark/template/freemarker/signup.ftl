@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   </head>
 
-  <body> 
+  <body>
 
     <#include "topbar-min.ftl">
-    
+
     <div class="container">
       <div class="row">
         <div class="col-md-3"></div>
@@ -48,6 +48,6 @@
     </div>
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
   </body>
- </html> 
-
+ </html>

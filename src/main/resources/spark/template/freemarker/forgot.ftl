@@ -4,6 +4,7 @@
 <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" /> -->
 <!--     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <title>${title}</title>
   </head>
 
   <body> 
@@ -29,6 +30,7 @@
     </div>
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <#if auth??><span class="noshow">${auth}</span></#if>
   </body>
  </html> 
 

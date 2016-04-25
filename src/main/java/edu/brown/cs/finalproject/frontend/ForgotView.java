@@ -15,10 +15,10 @@ import spark.TemplateViewRoute;
  * Private visible class to handle the serving of the login
  * ftl template.
  */
-public class LoginView extends BackendInteraction implements TemplateViewRoute {
+public class ForgotView extends BackendInteraction implements TemplateViewRoute {
   private String htmlUrl;
 
-  LoginView(String htmlUrl) {
+  ForgotView(String htmlUrl) {
     this.htmlUrl = htmlUrl;
   }
 
@@ -45,21 +45,21 @@ public class LoginView extends BackendInteraction implements TemplateViewRoute {
       } else {
         if (errorString == null) {
           Map<Object, Object> data = ImmutableMap.builder()
-              .put("title", "Login").build();
+              .put("title", "Forgot Password").build();
           return new ModelAndView(data, htmlUrl);
         } else {
           Map<Object, Object> data = ImmutableMap.builder()
-              .put("title", "Login").put("error", errorString).build();
+              .put("title", "Forgot Password").put("error", errorString).build();
           return new ModelAndView(data, htmlUrl);
         }
       }
     } else {
       if (errorString == null) {
-        Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
+        Map<Object, Object> data = ImmutableMap.builder().put("title", "Forgot Password")
             .build();
         return new ModelAndView(data, htmlUrl);
       } else {
-        Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
+        Map<Object, Object> data = ImmutableMap.builder().put("title", "Forgot Password")
             .put("error", errorString).build();
         return new ModelAndView(data, htmlUrl);
       }
