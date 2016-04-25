@@ -344,7 +344,7 @@ public final class DatabaseFactory {
   public static String addEvent(String name, String venueID, String originType, String creatorid, Date startDate,
       Time startTime, Time endTime, boolean isPublic, String category, String description) {
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO users VALUES (?,?,?,?, ?,?,?,?, ?,?,?)";
+    String query = "INSERT INTO events VALUES (?,?,?,?, ?,?,?,?, ?,?,?)";
     
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       String id = UUID.randomUUID().toString();
