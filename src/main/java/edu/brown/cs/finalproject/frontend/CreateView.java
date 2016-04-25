@@ -37,6 +37,7 @@ public class CreateView extends BackendInteraction implements TemplateViewRoute 
         QueryParamsMap qm = req.queryMap();
         String authString = qm.value("auth");
         if (authString != null) {
+            System.out.println("in create view w/auth");
             AuthToken authToken = AuthToken.generateAuthToken(authString);
             if (auth.verifyAuthToken(authToken)) {      
                 Map<Object, Object> data = ImmutableMap.builder()
@@ -51,6 +52,7 @@ public class CreateView extends BackendInteraction implements TemplateViewRoute 
             }
         } else {
             // no authentification token, redirect to login
+            System.out.println("in createview, no auth");
             Map<Object, Object> data = ImmutableMap.builder()
                     .put("title", "Login").build();
             return new ModelAndView(data, "login.ftl");

@@ -48,7 +48,7 @@ public class Main {
 
     // System.out.println("helloworld");
     Login login = new Login("chansen2", "P@ssword1");
-    System.out.println(auth.authenticate(login));
+//    System.out.println(auth.authenticate(login));
     
     DatabaseManager dbManager = new DatabaseManager();
     FacebookDataManager facebookDataManager = new FacebookDataManager();

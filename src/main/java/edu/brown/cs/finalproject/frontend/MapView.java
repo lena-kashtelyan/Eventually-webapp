@@ -29,6 +29,7 @@ public class MapView extends BackendInteraction implements TemplateViewRoute {
     QueryParamsMap qm = req.queryMap();
     String authString = qm.value("auth");
     if (authString != null) {
+        System.out.println("in mapview w/auth");
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Map")

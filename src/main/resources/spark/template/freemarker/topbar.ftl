@@ -14,12 +14,12 @@
         </li>
         <li>
           <div class="dropdown">
-            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="menu-button" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/events">events</a></li>
-              <li> <a href="/map">now</a></li>
-              <li> <a href="/create">create</a></li>
-              <li> <a href="/account">account</a></li>
+              <li><a href="#">events</a></li>
+              <li><a href="#">now</a></li>
+              <li><a href="#" id="create">create</a></li>
+              <li><a href="#">account</a></li>
             </ul>
           </div>
         </li>
