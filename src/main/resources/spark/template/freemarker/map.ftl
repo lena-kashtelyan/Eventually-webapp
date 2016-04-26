@@ -3,14 +3,14 @@
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" />
 	  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/topbar.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
 
-    <#include "topbar.ftl">
+    <!--<#include "topbar.ftl">-->
 
     <!--EMBED MAP-->
     <div id="map-container"></div>
@@ -19,6 +19,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="js/map.js"></script>
-    <script src="js/topbar.js"></script>
+    <!--<script src="js/topbar.js"></script>-->
   </body>
 </html>
