@@ -37,6 +37,7 @@ public class LoginHandler extends BackendInteraction implements Route {
             "Oops! Something went wrong, please try again.");
       }
     } catch (RuntimeException e) {
+      e.printStackTrace();
       Map<String, Object> data = ImmutableMap.<String, Object> builder()
           .put("title", "Login").put("error", e.getLocalizedMessage())
           .put("redirect", "/login").build();
