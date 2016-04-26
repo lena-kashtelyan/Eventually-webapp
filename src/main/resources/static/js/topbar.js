@@ -20,4 +20,28 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function() {
+	$("#now").on('click', function(e) {
+		console.log("in browse click response in topbar.js");
+		e.preventDefault();
+			var auth = $("#auth").text();
+			console.log("auth: " + auth);
+			var params = {"auth" : auth};
+				window.location = "/map?" + $.param(params);
+	});
+});
+
+$(document).ready(function() {
+	$("#account").on('click', function(e) {
+		console.log("in browse click response in topbar.js");
+		e.preventDefault();
+			var auth = $("#auth").text();
+			console.log("auth: " + auth);
+			var params = {"auth" : auth};
+				window.location = "/account?" + $.param(params);
+	});
+});
+
+
+
 
