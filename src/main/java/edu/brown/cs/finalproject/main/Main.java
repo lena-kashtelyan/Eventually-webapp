@@ -90,12 +90,6 @@ public class Main {
 
       // THIS IS HOW WE FETCH PUBLIC FACEBOOK EVENTS AND
       // UPDATE CARTODB events TABLE
-    	
-//    	AccessToken accessToken =
-//    			  new DefaultFacebookClient().obtainExtendedAccessToken("220099498366885",
-//    			    "8a0e23ef1bc9e94213c881e53b2d7343", "CAACEdEose0cBAIgI1iwB89wpgZBZBw9sZCU98UpRKTBzwN5MGkx6ZALZAyW7bUL7QbtDPGvdevpLzk8ZCcEBKxdXukW4zVHZBAS5z4g0okseZBNnAQt11QpUuQGXIaNO8oDFMBAIrwVYtNLZBh6LIdZBXpVIQaqOdrfOi3Rsh25On524pJKNwm9NpmzZBjqBMPGi3WZBHQ0KsRNTA8KH8s72Yisa");
-//
-//    			System.out.println("My extended access token: " + accessToken);
 
 			try {
 				new PublicFBEventsFinder();
