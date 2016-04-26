@@ -15,7 +15,7 @@ public class EventsByName {
 		
 		Connection<Event> eventList = 
 			    facebookClient23.fetchConnection("search", Event.class,
-			    Parameter.with("q", "talk"), Parameter.with("type", "event"), Parameter.with("limit", 1000));
+			    Parameter.with("q", "party"), Parameter.with("type", "event"), Parameter.with("limit", 1000));
 		
 		int counter = 1;
 		for (Event event : eventList.getData()) {
