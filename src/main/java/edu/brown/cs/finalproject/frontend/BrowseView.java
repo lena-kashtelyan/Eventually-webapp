@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
+import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.entities.Event;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
@@ -39,7 +40,7 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {  
-        List<Event> events = new ArrayList<Event>();  //this will need to change once we get get the list of events all at once!     
+        List<Event> events = DatabaseManager.getEvents();  //this will need to change once we get get the list of events all at once!     
         Map<Object, Object> data = ImmutableMap.builder()
             .put("events",
                 events)
