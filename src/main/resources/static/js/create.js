@@ -12,7 +12,6 @@ $(document).ready(function() {
 			var facebookAdd = $("#facebookYes").val();
 			console.log("auth: " + auth);
 			var params = {"auth" : auth, "username" : auth, "eventName" : name, "date" : date, "description" : description, "time" : time, "location" : location, "category" : category, "facebookAdd" : facebookAdd};
-				window.location = "/browse?" + $.param(params);
 			$.post("/create", params, function(responseJSON){
 			});
 	});
