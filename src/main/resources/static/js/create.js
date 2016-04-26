@@ -5,8 +5,8 @@ $(document).ready(function() {
 			var auth = $("#auth").text();
 			var name = $("#eventName").text();
 			var description = $("#eventDesc").text();
-			var date = $("#date").text();
-			var time = $("#time").text();
+			var date = $("#date").val();
+			var time = $("#time").val();
 			var location = $("#location").text();
 			var category = $("category").text();
 			var facebookAdd = $("#facebookYes").val();
