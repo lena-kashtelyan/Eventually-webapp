@@ -4,7 +4,8 @@ $(document).ready(function() {
 		if ($("#username").val() != "" && $("#password").val() != "") {
 			var usernameOrEmail = $("#username").val();
 			var password = $("#password").val();
-			var auth = $("#auth").val();
+			var auth = $("#auth").text();
+			console.log(auth);
 			var params = { "usernameOrEmail" : usernameOrEmail, "password" : password, "auth" : auth};
 			$.post("/login", params, function(responseJSON){
 				var object = JSON.parse(responseJSON);

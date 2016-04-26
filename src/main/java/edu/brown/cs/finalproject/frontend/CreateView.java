@@ -38,11 +38,13 @@ public class CreateView extends BackendInteraction implements TemplateViewRoute 
         String authString = qm.value("auth");
         if (authString != null) {
             System.out.println("in create view w/auth");
+            System.out.println(authString);
             AuthToken authToken = AuthToken.generateAuthToken(authString);
             if (auth.verifyAuthToken(authToken)) {      
                 Map<Object, Object> data = ImmutableMap.builder()
                         .put("title", "Browse")
                         .put("auth", authToken.toString()).build();
+                System.out.println("returning from create view w/auth");
                 return new ModelAndView(data, htmlUrl);
             } else {
                 //malicious user, redirect to login
