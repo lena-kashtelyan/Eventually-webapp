@@ -97,11 +97,7 @@
 	    <scope>runtime</scope>
 	</dependency>
   
-  <dependency>
-      <groupId>com.cartodb</groupId>
-      <artifactId>cartodb-java-client</artifactId>
-      <version>0.2</version>
-  </dependency>
+
 
 
   </dependencies>

@@ -41,8 +41,8 @@ public class PublicFBEventsWriter {
 					+ eventJSON.get("venueId").toString().replace("\"", ""));
 			System.out.println("venue name: "
 					+ eventJSON.get("venueName").toString().replace("\"", ""));
-			String venueId = eventJSON.get("venueId").toString()
-					.replace("\"", "");
+//			String venueId = eventJSON.get("venueId").toString()
+//					.replace("\"", "");
 			String venueName = eventJSON.get("venueName").toString()
 					.replaceAll("[^a-zA-Z ]", "");
 
@@ -55,18 +55,18 @@ public class PublicFBEventsWriter {
 			String venueLat = venueLocationJSON.get("latitude").toString();
 			String venueLong = venueLocationJSON.get("longitude").toString();
 
-			String venueCoverPicture = eventJSON.get("venueCoverPicture")
-					.toString().replace("\"", "");
-			String venueProficePicture = eventJSON.get("venueProfilePicture")
-					.toString().replace("\"", "");
+//			String venueCoverPicture = eventJSON.get("venueCoverPicture")
+//					.toString().replace("\"", "");
+//			String venueProficePicture = eventJSON.get("venueProfilePicture")
+//					.toString().replace("\"", "");
 			String eventId = eventJSON.get("eventId").toString()
 					.replace("\"", "'");
 			String eventName = eventJSON.get("eventName").toString()
 					.replaceAll("[^a-zA-Z ]", "");
-			String eventCoverPicture = eventJSON.get("eventCoverPicture")
-					.toString().replace("\"", "");
-			String eventProfilePicture = eventJSON.get("eventProfilePicture")
-					.toString().replace("\"", "");
+//			String eventCoverPicture = eventJSON.get("eventCoverPicture")
+//					.toString().replace("\"", "");
+//			String eventProfilePicture = eventJSON.get("eventProfilePicture")
+//					.toString().replace("\"", "");
 			String eventDescription = eventJSON.get("eventDescription")
 					.toString().replaceAll("[^a-zA-Z ]", "");
 
@@ -91,10 +91,10 @@ public class PublicFBEventsWriter {
 			eventStarttimeString = eventStarttimeString.replace("T", " ")
 					.substring(0, eventStarttimeString.length() - 5);
 
-			String eventDistance = eventJSON.get("eventDistance").toString()
-					.replace("\"", "");
-			String eventTimeFromNow = eventJSON.get("eventTimeFromNow")
-					.toString();
+//			String eventDistance = eventJSON.get("eventDistance").toString()
+//					.replace("\"", "");
+//			String eventTimeFromNow = eventJSON.get("eventTimeFromNow")
+//					.toString();
 
 			JsonObject eventStats = new Gson().fromJson(
 					eventJSON.get("eventStats"), JsonObject.class);
