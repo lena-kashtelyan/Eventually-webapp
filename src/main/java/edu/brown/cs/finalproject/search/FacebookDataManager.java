@@ -18,7 +18,7 @@ public class FacebookDataManager {
 	 * @param radius, in meters
 	 * @param accessToken, a general access token from Facebook
 	 */
-	public void requestPublicEvents(double latitude, double longitude, int radius, String accessToken) {
+	public void requestPublicEvents(double latitude, double longitude, int radius) {
 		
 		try {
 			new PublicFBEventsFinder();
@@ -29,7 +29,7 @@ public class FacebookDataManager {
 		
 		JsonObject publicEvents = null;
 		try {
-			publicEvents = PublicFBEventsFinder.requestEvents(latitude, longitude, radius, accessToken);
+			publicEvents = PublicFBEventsFinder.requestEvents(latitude, longitude, radius);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 			System.out.println("ERROR: Fetching public Facebook events.");

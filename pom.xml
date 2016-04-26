@@ -73,7 +73,7 @@
 	<version>1.22.0</version>
 </dependency>
 
- <dependency>
+    <dependency>
         <groupId>com.datumbox</groupId>
         <artifactId>datumbox-framework-lib</artifactId>
         <version>0.7.0</version>
@@ -96,12 +96,7 @@
 	    <version>1.0.RC9.1</version>
 	    <scope>runtime</scope>
 	</dependency>
-  
-  <dependency>
-      <groupId>com.cartodb</groupId>
-      <artifactId>cartodb-java-client</artifactId>
-      <version>0.2</version>
-  </dependency>
+
 
 
   </dependencies>

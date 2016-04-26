@@ -18,10 +18,10 @@
           <img src="https://lh4.googleusercontent.com/-Dr4TCurbw-Q/AAAAAAAAAAI/AAAAAAAAC9U/t_1ZEww4REQ/photo.jpg" class="img-responsive" alt="Responsive image">
         </div>
         <div class="container">
-          <p>John Janotti</p>
+          <p>${name}</p>
         </div>
         <div class="containter">
-          <p>@jjannotti</p>
+          <p>@${username}</p>
         </div>
       </div>
 
@@ -97,6 +97,7 @@
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="js/topbar.js"></script>
     <#if auth??><span class="noshow">${auth}</span></#if>
   </body>
 </html>

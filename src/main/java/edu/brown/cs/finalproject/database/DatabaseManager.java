@@ -20,12 +20,15 @@ public class DatabaseManager {
 	    //Empty Constructor for Now
 	  }
 
-	  public static boolean addInternalEvent(String Name, String originType,
-      String creatorID, Timestamp startDate, double latitude, double longitude, boolean ispublic, String category, String description) {
+	  public static boolean addInternalEvent(String Name,
+      String creatorID, String startDate, double latitude, double longitude, String category, String description) {
 	    
 	    String eventID = UUID.randomUUID().toString();
-	    String query = String.format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL);",
-	        creatorID, description, eventID, latitude, longitude, Name, ispublic, startDate.toString() );
+	    
+	    String query = String.format("INSERT INTO events (eventid,name,latitude,longitude,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount) "
+	        + "VALUES ('%s', '%s', %f, %f, 'internal', '%s', %s, '%s', '%s', 0, 0, 0, 0);",
+	        eventID, Name, latitude, longitude, creatorID, startDate, category, description );
+	    System.out.println(query);
 	    try {
       CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
       cartoDBCLient.request(query);

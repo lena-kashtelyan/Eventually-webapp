@@ -3,15 +3,18 @@ $(document).ready(function() {
 		console.log("in create click response in create.js");
 		e.preventDefault();
 			var auth = $("#auth").text();
-			var name = $("#eventName").text();
-			var description = $("#eventDesc").text();
-			var date = $("#date").text();
-			var time = $("#time").text();
-			var location = $("#location").text();
-			var category = $("category").text();
+			var name = $("#eventName").val();
+			var description = $("#eventDesc").val();
+			var date = $("#date").val();
+			console.log(date);
+			var time = $("#time").val();
+			console.log(time);
+			var location = $("#location").val();
+			var category = $("category").val();
 			var facebookAdd = $("#facebookYes").val();
 			console.log("auth: " + auth);
 			var params = {"auth" : auth, "username" : auth, "eventName" : name, "date" : date, "description" : description, "time" : time, "location" : location, "category" : category, "facebookAdd" : facebookAdd};
+
 			$.post("/create", params, function(responseJSON){
 			});
 	});
