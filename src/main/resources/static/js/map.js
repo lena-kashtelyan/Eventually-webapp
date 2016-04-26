@@ -1,18 +1,19 @@
 function embedMap(div) {
     var map_object, tileURL;
-    
+
     var cartocssHeatmap = "#" + div + "{marker-fill:#f60;marker-width:10;marker-allow-overlap:true;}";
-    
+
     var init = function(mapId) {
+        console.log("tesT");
         tileURL = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
-        
+
         var getStartingLocation = function() {
             var getCurrentLocation = function(callback) {
-                
+
                 var getCurrentLocationSuccess = function(position) {
                     callback(position);
                 }
-                
+
                 var getCurrentLocationError = function(error) {
                     switch(error.code) {
                         case error.PERMISSION_DENIED:
@@ -32,7 +33,7 @@ function embedMap(div) {
                 }
                 navigator.geolocation.getCurrentPosition(getCurrentLocationSuccess, getCurrentLocationError);
             }
-            
+
             var getDefaultLocation = function(callback) {
                 var position = {
                     html5GeoLocation : false,
@@ -43,13 +44,13 @@ function embedMap(div) {
                 }
                 callback(position);
             }
-            
+
             var setupOptions = function(position) {
                 var setupMap = function(options) {
                     map_object = new L.Map(mapId, options);
-                    
+
                     L.tileLayer(tileURL).addTo(map_object);
-                    
+
                     cartodb.createLayer(map_object, {
                         user_name: 'colehansen',
                         type: 'cartodb',
@@ -59,7 +60,7 @@ function embedMap(div) {
                         }]
                     }).addTo(map_object);
                 }
-                
+
                 if (!position.html5GeoLocation) {
                     var options = {
                         center : [
@@ -80,16 +81,20 @@ function embedMap(div) {
                     setupMap(options);
                 }
             }
-            
+
             if (navigator.geolocation) {
                 getCurrentLocation(setupOptions);
             } else {
                 getDefaultLocation(setupOptions);
             }
         }
-        
+
         getStartingLocation();
     }
-    
+
     init(div);
 }
+
+$(document).ready(function() {
+  //embedMap("map-container");
+});
