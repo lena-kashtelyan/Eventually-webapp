@@ -40,12 +40,14 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(authToken)) {  
-        List<Event> events = DatabaseManager.getEvents();  //this will need to change once we get get the list of events all at once!     
+        List<Event> events = DatabaseManager.getEvents();  //this will need to change once we get get the list of events all at once!    
+        System.out.println(events.size());
         Map<Object, Object> data = ImmutableMap.builder()
+                .put("title", "Browse")
             .put("events",
                 events)
             .put("auth", authToken.toString()).build();
-        return new ModelAndView(data, "map.ftl");
+        return new ModelAndView(data, "browse.ftl");
       } else {
           //malicious user, redirect to login
           Map<Object, Object> data = ImmutableMap.builder()
