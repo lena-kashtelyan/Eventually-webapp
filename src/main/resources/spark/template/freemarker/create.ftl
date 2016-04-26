@@ -52,6 +52,17 @@
           </div>
          </div>
          <div class="form-group ">
+          <label class="control-label col-sm-2 requiredField" for="eventDesc">
+           Event Description
+           <span class="asteriskField">
+            *
+           </span>
+          </label>
+          <div class="col-sm-10">
+           <textarea class="form-control" id="eventDesc" name="eventDesc" type="text"></textarea>
+          </div>
+         </div>
+         <div class="form-group ">
           <label class="control-label col-sm-2 requiredField" for="date">
            Date
            <span class="asteriskField">
