@@ -26,7 +26,7 @@ public interface Event extends Entity {
   
   public double getLongitude();
   
-  public int getInvitedCount();
+//  public int getInvitedCount();
   
   public int getAttendingCount();
   

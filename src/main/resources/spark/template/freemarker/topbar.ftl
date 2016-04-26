@@ -7,22 +7,29 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="#"><span class="glyphicon glyphicon-refresh"></span></a>
-        </li>
-        <li>
-          <input type="text" placeholder="event, time, place...">
-        </li>
-        <li>
           <div class="dropdown">
-            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+            <button class="btn btn-primary navbar-btn btn-sm dropdown-toggle" type="button" id="menu-button" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/events">events</a></li>
-              <li> <a href="/map">now</a></li>
-              <li> <a href="/create">create</a></li>
-              <li> <a href="/account">account</a></li>
+              <li><a href="#" id="browse">events</a></li>
+              <li><a href="#" id="now">now</a></li>
+              <li><a href="#" id="create">create</a></li>
+              <li><a href="#" id="account">account</a></li>
             </ul>
           </div>
+        </li>
+        <li>
+          <button class="btn btn-primary navbar-btn btn-sm dropdown-toggle" type="button" id="flip-button" data-toggle="dropdown"><span class="glyphicon glyphicon-refresh"></span></button>
+        </li>
+        <li>
+          <form class="navbar-form" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="event, time, place...">
+            </div>
+          </form>
         </li>
       </ul>
     </div>
   </nav>
+
+  <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
+

@@ -15,14 +15,14 @@ public class EventBean extends EntityBean implements Event {
   private double latitude;
   private double longitude;
   private int attendingCount;
-  private int invitedCount;
+//  private int invitedCount;
   private int declinedCount;
   private int maybeCount;
   private int noReplyCount;
 
   public EventBean(String id, String Name, String venueName, String originType,
       User creator, String startDate, int attendingCount, int declinedCount, int noReplyCount, int maybeCount,
-      int invitedCount, double latitude, double longitude, boolean ispublic, String category, String description) {
+      double latitude, double longitude, boolean ispublic, String category, String description) {
     super(id);
     this.name = Name;
     this.venueName = venueName;
@@ -35,7 +35,7 @@ public class EventBean extends EntityBean implements Event {
     this.latitude = latitude;
     this.longitude = longitude;
     this.attendingCount = attendingCount;
-    this.invitedCount = invitedCount;
+//    this.invitedCount = invitedCount;
     this.maybeCount = maybeCount;
     this.noReplyCount = noReplyCount;
     this.declinedCount = declinedCount;
@@ -150,11 +150,11 @@ public class EventBean extends EntityBean implements Event {
     return longitude;
   }
 
-  @Override
-  public int getInvitedCount() {
-    // TODO Auto-generated method stub
-    return invitedCount;
-  }
+//  @Override
+//  public int getInvitedCount() {
+//    // TODO Auto-generated method stub
+//    return invitedCount;
+//  }
 
   @Override
   public int getAttendingCount() {

@@ -28,10 +28,10 @@ public class MapsSparkServer implements SparkServer {
     Spark.post("/forgot", new ForgotHandler());
     Spark.get("/signup", new SignupView("signup.ftl"), freeMarker);
     Spark.post("/signup", new SignupHandler());
-    // Spark.get("/map", new MapView(), freeMarker);
     Spark.get("/browse", new BrowseView("browse.ftl"), freeMarker);
     // Spark.get("/myevents", null);
-    // Spark.put("/create", null);
+    Spark.get("/create", new CreateView("create.ftl"), freeMarker);
+    Spark.post("/create", new CreateHandler());
     // Spark.get("/event/?", null);
     // Spark.get("/storystream/?", null);
     // Spark.put("/post/?", null);

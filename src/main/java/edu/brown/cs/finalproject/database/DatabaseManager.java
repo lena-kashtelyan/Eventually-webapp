@@ -1,5 +1,6 @@
 package edu.brown.cs.finalproject.database;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,19 +20,19 @@ public class DatabaseManager {
 	    //Empty Constructor for Now
 	  }
 
-	  public static Event addInternalEvent(String Name, String venueName, String originType,
-      String creatorID, String startDate, double latitude, double longitude, boolean ispublic, String category, String description) {
+	  public static boolean addInternalEvent(String Name, String originType,
+      String creatorID, Timestamp startDate, double latitude, double longitude, boolean ispublic, String category, String description) {
 	    
 	    String eventID = UUID.randomUUID().toString();
-	    String query = String.format("INSERT INTO events VALUES (NULL, NULL, NULL, %s, NULL, %s, %s, %f, %f, NULL, %s, NULL, internal, %b, %s, NULL, %s);",
-	        creatorID, description, eventID, latitude, longitude, Name, ispublic, startDate, venueName );
+	    String query = String.format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL);",
+	        creatorID, description, eventID, latitude, longitude, Name, ispublic, startDate.toString() );
 	    try {
       CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
       cartoDBCLient.request(query);
     } catch (CartoDBException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-      return null;
+      return false;
     }
 	    
 	    Event newEvent;
@@ -40,9 +41,9 @@ public class DatabaseManager {
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
-        return null;
+        return false;
       }
-	    return newEvent;
+	    return true;
 	  }
 	  
 	  public static List<Event> getEvents() {

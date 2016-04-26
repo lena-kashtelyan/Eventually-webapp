@@ -12,10 +12,12 @@
     <#include "topbar.ftl">
 
     <!--EMBED MAP-->
+    <div id="map-container"></div>
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="js/map.js"></script>
-    <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
+    <script src="js/topbar.js"></script>
   </body>
 </html>

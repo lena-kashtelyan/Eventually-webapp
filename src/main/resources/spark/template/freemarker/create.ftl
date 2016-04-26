@@ -4,20 +4,20 @@
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
     <style>
     .bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{
-        font-family: Arial, Helvetica, sans-serif; 
+        font-family: Arial, Helvetica, sans-serif;
         color: black
     }
     .bootstrap-iso form button, .bootstrap-iso form button:hover{color: #ffffff !important;
     }
-    .bootstrap-iso .form-control:focus { 
-      border-color: #bfbfbf;  
-      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(191, 191, 191, 0.6); 
+    .bootstrap-iso .form-control:focus {
+      border-color: #bfbfbf;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(191, 191, 191, 0.6);
       box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(191, 191, 191, 0.6);
-    } 
+    }
     .asteriskField{
       color: red;
     }
@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    
+
     <#include "topbar.ftl">
 
     <div class="bootstrap-iso">
@@ -52,6 +52,17 @@
           </div>
          </div>
          <div class="form-group ">
+          <label class="control-label col-sm-2 requiredField" for="eventDesc">
+           Event Description
+           <span class="asteriskField">
+            *
+           </span>
+          </label>
+          <div class="col-sm-10">
+           <textarea class="form-control" id="eventDesc" name="eventDesc" type="text"></textarea>
+          </div>
+         </div>
+         <div class="form-group ">
           <label class="control-label col-sm-2 requiredField" for="date">
            Date
            <span class="asteriskField">
@@ -70,7 +81,7 @@
            </span>
           </label>
           <div class="col-sm-10">
-           <input class="form-control" id="time" name="time" placeholder="__ : __" type="text"/>
+           <input class="form-control" id="time" name="time" placeholder="__ : __" type="time"/>
           </div>
          </div>
          <div class="form-group ">
@@ -85,14 +96,14 @@
           </div>
          </div>
          <div class="form-group ">
-          <label class="control-label col-sm-2 requiredField" for="calegory">
+          <label class="control-label col-sm-2 requiredField" for="category">
            Category
            <span class="asteriskField">
             *
            </span>
           </label>
           <div class="col-sm-10">
-           <select class="select form-control" id="calegory" name="calegory">
+           <select class="select form-control" id="category" name="category">
             <option value="Social Gathering">
              Social Gathering
             </option>
@@ -111,18 +122,18 @@
           </label>
           <div class="col-sm-10 ">
            <label class="checkbox-inline">
-            <input name="facebookAdd" type="checkbox" value="Yes"/>
+            <input name="facebookAdd" id="facebookYes" type="radio" value="Yes"/>
             Yes
            </label>
            <label class="checkbox-inline">
-            <input name="facebookAdd" type="checkbox" value="No"/>
+            <input name="facebookAdd" id="facebookNo" type="radio" value="No"/>
             No
            </label>
           </div>
          </div>
          <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
-           <button class="btn btn-primary " name="submit" type="submit">
+           <button class="btn btn-primary" id="create-btn" name="submit" type="submit">
             Create
            </button>
           </div>
@@ -131,17 +142,18 @@
        </div>
       </div>
      </div>
-    </div>  
+    </div>
 
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/facebooklogin.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/topbar.js"></script>
+    <script src="js/create.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <script>
-    <#if auth??><span class="noshow">${auth}</span></#if>
     $(document).ready(function(){
-        var date_input=$('input[name="date"]'); 
+        var date_input=$('input[name="date"]');
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
             format: 'mm/dd/yyyy',
