@@ -122,18 +122,18 @@
           </label>
           <div class="col-sm-10 ">
            <label class="checkbox-inline">
-            <input name="facebookAdd" type="radio" value="Yes"/>
+            <input name="facebookAdd" id="facebookYes" type="radio" value="Yes"/>
             Yes
            </label>
            <label class="checkbox-inline">
-            <input name="facebookAdd" type="radio" value="No"/>
+            <input name="facebookAdd" id="facebookNo" type="radio" value="No"/>
             No
            </label>
           </div>
          </div>
          <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
-           <button class="btn btn-primary " name="submit" type="submit">
+           <button class="btn btn-primary" id="create-btn" name="submit" type="submit">
             Create
            </button>
           </div>
@@ -147,6 +147,7 @@
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/facebooklogin.js"></script>
     <script src="js/topbar.js"></script>
+    <script src="js/create.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
