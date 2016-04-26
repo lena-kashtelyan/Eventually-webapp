@@ -32,7 +32,7 @@ public class PublicFBEventsFinder {
 
 	}
 	
-	public static JsonObject requestEvents(double latitude, double longitude, int radius, String accessToken) throws IOException {
+	public static JsonObject requestEvents(double latitude, double longitude, int radius) throws IOException {
 		
 		JsonObject publicEvents = new JsonObject();
     	try {
@@ -42,7 +42,7 @@ public class PublicFBEventsFinder {
 				System.out.println("ERROR: Waiting thread has been interrupted.");
 			}
     		System.out.println("starting to request events");
-    		publicEvents = queryEvents(latitude, longitude, radius, accessToken);
+    		publicEvents = queryEvents(latitude, longitude, radius);
 		} catch (IOException e) {
 			try {
 				try {
@@ -51,7 +51,7 @@ public class PublicFBEventsFinder {
 					System.out.println("ERROR: Waiting thread has been interrupted.");
 				}
 				
-				publicEvents = queryEvents(latitude, longitude, radius, accessToken);
+				publicEvents = queryEvents(latitude, longitude, radius);
 				}
 				catch (IOException e2) {
 					try {
@@ -60,7 +60,7 @@ public class PublicFBEventsFinder {
 						System.out.println("ERROR: Waiting thread has been interrupted.");
 					}
 					try {
-						publicEvents = queryEvents(latitude, longitude, radius, accessToken);
+						publicEvents = queryEvents(latitude, longitude, radius);
 					}
 					catch (IOException e3) {
 						e3.printStackTrace();
@@ -76,7 +76,7 @@ public class PublicFBEventsFinder {
     	return publicEvents;		
 	}
 	
-	public static JsonObject queryEvents(double latitude, double longitude, int radius, String accessToken) throws IOException {
+	public static JsonObject queryEvents(double latitude, double longitude, int radius) throws IOException {
 
 		StringBuilder urlBuilder = new StringBuilder();
 		urlBuilder.append("http://localhost:3000/events?lat=");
@@ -85,8 +85,7 @@ public class PublicFBEventsFinder {
 		urlBuilder.append(longitude);
 		urlBuilder.append("&distance=");
 		urlBuilder.append(radius);
-		urlBuilder.append("&sort=time&access_token=");
-		urlBuilder.append(accessToken);
+		urlBuilder.append("&sort=time&access_token=220099498366885|8a0e23ef1bc9e94213c881e53b2d7343");
 		
 		System.out.println(urlBuilder.toString());
 		
