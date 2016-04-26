@@ -23,7 +23,7 @@ public class DatabaseManager {
       String creatorID, String startDate, double latitude, double longitude, boolean ispublic, String category, String description) {
 	    
 	    String eventID = UUID.randomUUID().toString();
-	    String query = String.format("INSERT INTO events VALUES (NULL, NULL, NULL, %s, NULL, %s, %s, %f, %f, NULL, %s, NULL, internal, %b, %s, NULL, %s);",
+	    String query = String.format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL, '%s');",
 	        creatorID, description, eventID, latitude, longitude, Name, ispublic, startDate, venueName );
 	    try {
       CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");

@@ -85,14 +85,14 @@
           </div>
          </div>
          <div class="form-group ">
-          <label class="control-label col-sm-2 requiredField" for="calegory">
+          <label class="control-label col-sm-2 requiredField" for="category">
            Category
            <span class="asteriskField">
             *
            </span>
           </label>
           <div class="col-sm-10">
-           <select class="select form-control" id="calegory" name="calegory">
+           <select class="select form-control" id="category" name="category">
             <option value="Social Gathering">
              Social Gathering
             </option>

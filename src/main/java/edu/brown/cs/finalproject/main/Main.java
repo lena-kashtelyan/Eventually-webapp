@@ -1,13 +1,7 @@
 package edu.brown.cs.finalproject.main;
 
 import java.sql.SQLException;
-import java.util.Map;
 
-import com.cartodb.CartoDBClientIF;
-import com.cartodb.CartoDBException;
-import com.cartodb.impl.ApiKeyCartoDBClient;
-import com.cartodb.model.CartoDBResponse;
-import com.google.gson.JsonObject;
 
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.Login;
@@ -15,14 +9,11 @@ import edu.brown.cs.finalproject.credentials.SignUp;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
 import edu.brown.cs.finalproject.database.DatabaseManager;
-import edu.brown.cs.finalproject.database.PublicFBEventsWriter;
-import edu.brown.cs.finalproject.entities.Event;
-import edu.brown.cs.finalproject.entities.EventProxy;
-import edu.brown.cs.finalproject.frontend.BackendInteraction;
+
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
 import edu.brown.cs.finalproject.search.FacebookDataManager;
-import edu.brown.cs.finalproject.search.PublicFBEventsFinder;
+
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
