@@ -10,6 +10,15 @@ import com.restfb.FacebookClient.AccessToken;
 import com.restfb.Version;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.scope.UserDataPermissions;
+import com.stormpath.sdk.account.Account;
+import com.stormpath.sdk.application.Application;
+import com.stormpath.sdk.directory.CreateDirectoryRequest;
+import com.stormpath.sdk.directory.Directories;
+import com.stormpath.sdk.directory.Directory;
+import com.stormpath.sdk.provider.ProviderAccountRequest;
+import com.stormpath.sdk.provider.ProviderAccountResult;
+import com.stormpath.sdk.provider.Providers;
+import com.stormpath.sdk.tenant.Tenant;
 
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.Login;
@@ -19,13 +28,9 @@ import edu.brown.cs.finalproject.database.Database;
 import edu.brown.cs.finalproject.database.DatabaseFactory;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.database.PublicFBEventsWriter;
-import edu.brown.cs.finalproject.frontend.MapsSparkServer;
-import edu.brown.cs.finalproject.frontend.SparkServer;
-import edu.brown.cs.finalproject.search.FacebookDataManager;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
-import edu.brown.cs.finalproject.search.EventsByName;
 import edu.brown.cs.finalproject.search.FacebookDataManager;
 import edu.brown.cs.finalproject.search.PublicFBEventsFinder;
 import joptsimple.OptionParser;
@@ -55,6 +60,39 @@ public class Main {
         "cole_hansen@brown.edu", "P@ssword1");
 
     try {
+      Directory directory = stormPathApp.getStormPathClient()
+          .instantiate(Directory.class);
+      directory.setName("test-facebook-directory");
+      directory.setDescription("Test Facebook directory");
+
+      CreateDirectoryRequest request = Directories
+          .newCreateRequestFor(directory)
+          .forProvider(
+              Providers.FACEBOOK.builder().setClientId("220099498366885")
+                  .setClientSecret("8a0e23ef1bc9e94213c881e53b2d7343").build())
+          .build();
+
+      Tenant tenant = stormPathApp.getStormPathClient().getCurrentTenant();
+      directory = tenant.createDirectory(request);
+    } catch (Exception e) {
+    }
+
+    try {
+      String applicationHref = "https://api.stormpath.com/v1/applications/76713eIdUzokAFDoD4WtP7";
+      Application application = stormPathApp.getStormPathClient()
+          .getResource(applicationHref, Application.class);
+      ProviderAccountRequest request = Providers.FACEBOOK.account()
+          .setAccessToken(
+              "CABTmZxAZBxBADbr1l7ZCwHpjivBt9T0GZBqjQdTmgyO0OkUq37HYaBi4F23f49f5")
+          .build();
+
+      ProviderAccountResult result = application.getAccount(request);
+      Account account = result.getAccount();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    try {
       auth.createAccount(test);
     } catch (RuntimeException e) {
       System.out.println(e.getMessage());
@@ -77,9 +115,8 @@ public class Main {
       e.printStackTrace();
       System.out.println("ERROR: Accessing the database file.");
     }
-     new DatabaseFactory().createAndIndexTables();
+//     new DatabaseFactory().createAndIndexTables();
     System.out.println("all done");
-
 
     if (options.has("gui")) {
       new BackendInteraction(auth, dbManager, facebookDataManager);
@@ -129,6 +166,7 @@ public class Main {
 //			}
       
 //       EventsByName eventsByName = new EventsByName();
+
 
     }
 

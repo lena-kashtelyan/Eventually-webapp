@@ -96,13 +96,12 @@
 	    <version>1.0.RC9.1</version>
 	    <scope>runtime</scope>
 	</dependency>
-
-	<dependency>
-	    <groupId>com.cartodb</groupId>
-	    <artifactId>cartodb-java-client</artifactId>
-	    <version>0.2</version>
-	</dependency>
-
+  
+  <dependency>
+      <groupId>com.cartodb</groupId>
+      <artifactId>cartodb-java-client</artifactId>
+      <version>0.2</version>
+  </dependency>
 
   </dependencies>
 
