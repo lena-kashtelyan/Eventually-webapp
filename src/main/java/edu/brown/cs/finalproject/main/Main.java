@@ -9,12 +9,14 @@ import com.restfb.FacebookClient;
 import com.restfb.FacebookClient.AccessToken;
 import com.restfb.Version;
 import com.restfb.scope.ScopeBuilder;
+import com.restfb.scope.UserDataPermissions;
 
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.Login;
 import edu.brown.cs.finalproject.credentials.SignUp;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
+import edu.brown.cs.finalproject.database.DatabaseFactory;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.database.PublicFBEventsWriter;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
@@ -75,7 +77,7 @@ public class Main {
       e.printStackTrace();
       System.out.println("ERROR: Accessing the database file.");
     }
-    // new DatabaseFactory().createAndIndexTables();
+     new DatabaseFactory().createAndIndexTables();
     System.out.println("all done");
 
 
@@ -91,32 +93,40 @@ public class Main {
       // THIS IS HOW WE FETCH PUBLIC FACEBOOK EVENTS AND
       // UPDATE CARTODB events TABLE
 
-			try {
-				new PublicFBEventsFinder();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				System.out
-						.println("ERROR: Problem with running the public events application.");
-			}
-
-			JsonObject publicEvents = null;
-			try {
-				publicEvents = PublicFBEventsFinder.requestEvents(41.826119,
-						-71.403112, 1000);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-				System.out.println("ERROR: Fetching public Facebook events.");
-			}
-
-			System.out.println(publicEvents);
-			PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
-			try {
-				publicFBEventsWriter.updateDB(publicEvents);
-			} catch (SQLException | IOException e) {
-				e.printStackTrace();
-				System.out
-						.println("Problem updating database with public venues.");
-			}
+//    	dbManager.addUser("ipetrov", "/course/kdasflsdf;", "jfdajdajfadkljfda");
+//    	System.out.println(dbManager.getUsersFBAccessToken("ipetrov"));
+//    	dbManager.setUsersFBAccessToken("ipetrov", "newfbaccesstoken");
+//    	System.out.println(dbManager.getUsersFBAccessToken("ipetrov"));
+//    	System.out.println(dbManager.getUsersMediaPath("ipetrov"));
+//    	dbManager.setUsersMediaPath("ipetrov", "/cdaklaf");
+//    	System.out.println(dbManager.getUsersMediaPath("ipetrov"));
+    	
+//			try {
+//				new PublicFBEventsFinder();
+//			} catch (Exception e1) {
+//				e1.printStackTrace();
+//				System.out
+//						.println("ERROR: Problem with running the public events application.");
+//			}
+//
+//			JsonObject publicEvents = null;
+//			try {
+//				publicEvents = PublicFBEventsFinder.requestEvents(41.826119,
+//						-71.403112, 1000);
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//				System.out.println("ERROR: Fetching public Facebook events.");
+//			}
+//
+//			System.out.println(publicEvents);
+//			PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
+//			try {
+//				publicFBEventsWriter.updateDB(publicEvents);
+//			} catch (SQLException | IOException e) {
+//				e.printStackTrace();
+//				System.out
+//						.println("Problem updating database with public venues.");
+//			}
       
 //       EventsByName eventsByName = new EventsByName();
 

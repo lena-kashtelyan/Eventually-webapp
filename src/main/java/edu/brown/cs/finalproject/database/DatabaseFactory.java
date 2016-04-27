@@ -82,12 +82,10 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE users("
-        + "userID TEXT PRIMARY KEY     NOT NULL,"
-        + "username           CHAR(30)    NOT NULL,"
-        + "fullname            TEXT	NOT NULL,"
-        + "password        CHAR(30)	NOT NULL," + "Q1         TEXT	NOT NULL,"
-        + "A1         TEXT	NOT NULL," + "Q2         TEXT	NOT NULL,"
-        + "A2         TEXT	NOT NULL," + "userMediaPath	TEXT	NOT NULL" + ");";
+        + "username TEXT PRIMARY KEY     NOT NULL,"
+        + "userMediaPath	TEXT," 
+        + "fbAccessToken TEXT"   
+        + ");";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
