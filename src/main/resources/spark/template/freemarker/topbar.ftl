@@ -1,3 +1,33 @@
+  <style> 
+    * { 
+      border-radius: 0 !important; 
+    } 
+    .form-control:focus {
+      border-color: #FF0000;
+      box-shadow: inset 0 1px 1px #FBB917, 0 0 8px #E8A317;
+    }
+    .form-control-topbar::-webkit-input-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
+    .form-control-topbar:-moz-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
+    .form-control-topbar::-moz-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
+    .form-control-topbar:-ms-input-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
+    #searchbar { 
+      margin: 12px 16px -15px 0px; 
+    }
+    .form-control-topbar {
+      padding-left: 8px;
+    }
+    .navbar-brand {
+      font-family: 'Poiret One', cursive;
+      font-size: 36px;
+      margin-bottom: 4px;
+      margin-top: -4px;
+    }
+    .navbar-collapse {
+      font-family: 'Poiret One', cursive;
+      font-size:20px;
+    }
+  </style>
+
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -24,35 +54,6 @@
       </div>
     </div>
   </nav>
-  <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
-  <style> 
-  * { 
-    border-radius: 0 !important; 
-  } 
-  .form-control:focus {
-    border-color: #FF0000;
-    box-shadow: inset 0 1px 1px #FBB917, 0 0 8px #E8A317;
-  }
-  .form-control-topbar::-webkit-input-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
-  .form-control-topbar:-moz-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
-  .form-control-topbar::-moz-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
-  .form-control-topbar:-ms-input-placeholder { font-family: 'Poiret One', cursive; color: gray; text-align: left; }
-  #searchbar { 
-    margin: 12px 16px -15px 0px; 
-  }
-  .form-control-topbar {
-    padding-left: 8px;
-  }
-  .navbar-brand {
-    font-family: 'Poiret One', cursive;
-    font-size: 36px;
-    margin-bottom: 4px;
-    margin-top: -4px;
-  }
-  .navbar-collapse {
-    font-family: 'Poiret One', cursive;
-    font-size:20px;
-  }
-  </style>
+
 
 
