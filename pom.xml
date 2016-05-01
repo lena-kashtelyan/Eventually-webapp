@@ -102,6 +102,7 @@
       <artifactId>cartodb-java-client</artifactId>
       <version>0.2</version>
   </dependency>
+
   </dependencies>
 
   <build>
