@@ -89,6 +89,4 @@
   <script src="js/topbar-min.js"></script>
   <script src="js/background.js"></script>
 
-  <#if auth??><span id="auth" class="noshow">${auth}</span>
-  </body>
-</html>
+  <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
