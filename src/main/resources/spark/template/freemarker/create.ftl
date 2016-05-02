@@ -82,7 +82,7 @@
                 <label class="control-label sr-only  requiredField" for="location">Location
                   <span class="asteriskField">*</span>
                 </label>
-                <input class="form-control form-control-inner input-lg" id="location" name="location" placeholder="location"  type="text"/>
+                <input class="form-control form-control-inner input-lg" id="location" name="location" placeholder="location" type="text">
               </div>
             </div>
           </div>
@@ -109,6 +109,7 @@
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="js/facebooklogin.js"></script>
     <script src="js/topbar.js"></script>

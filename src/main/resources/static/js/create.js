@@ -37,4 +37,12 @@ $(document).ready(function(){
   });
 });
 
+function initialize() {
+    new google.maps.places.Autocomplete(
+    (document.getElementById('location')), {
+        types: ['geocode']
+    });
+}
+
+initialize();
 
