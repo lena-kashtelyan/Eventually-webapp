@@ -1,12 +1,14 @@
 $(document).ready(function() {
 	$("#submitLogin").on('click', function(e) {
 		e.preventDefault();
-		if ($("#username").val() != "" && $("#password").val() != "") {
-			var usernameOrEmail = $("#username").val();
+		console.log($("#usernameOrEmail").val());
+		if ($("#usernameOrEmail").val() != "" && $("#password").val() != "") {
+			var usernameOrEmail = $("#usernameOrEmail").val();
 			var password = $("#password").val();
 			var auth = $("#auth").text();
+			var username = $("#username").text();
 			console.log(auth);
-			var params = { "usernameOrEmail" : usernameOrEmail, "password" : password, "auth" : auth};
+			var params = { "usernameOrEmail" : usernameOrEmail, "password" : password, "auth" : auth, "username" : username};
 			$.post("/login", params, function(responseJSON){
 				var object = JSON.parse(responseJSON);
 				var redirect = object.redirect;
@@ -16,7 +18,7 @@ $(document).ready(function() {
 					//fill error message and display it
 				} else {
 					console.log(object.auth);
-					window.location = "/map?" + $.param({"auth" : object.auth});
+					window.location = "/map?" + $.param({"auth" : object.auth, "username" : object.username});
 				}
 			});
 		} else {

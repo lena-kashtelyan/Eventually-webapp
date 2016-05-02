@@ -17,7 +17,7 @@ $(document).ready(function() {
 					args = { "error" : object.error };
 					//fill error message and display it
 				} else {
-					window.location = "/map?" + $.param({"auth" : object.auth});
+					window.location = "/map?" + $.param({"auth" : object.auth, "username" : object.username});
 				}
 			});
 		} else {

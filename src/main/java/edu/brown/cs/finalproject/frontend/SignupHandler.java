@@ -24,10 +24,10 @@ public class SignupHandler extends BackendInteraction implements Route {
     SignUp signup = new SignUp(firstName, lastName, username, email, password);
     try {
       AuthToken authToken = auth.createAccount(signup);
-      if (auth.verifyAuthToken(authToken)) {
+      if (auth.verifyAuthToken(username, authToken)) {
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
             .put("title", "Map").put("auth", authToken.toString())
-            .put("redirect", "/map.ftl").build();
+            .put("username", username).put("redirect", "/map.ftl").build();
         return GSON.toJson(data);
       } else {
         throw new RuntimeException(

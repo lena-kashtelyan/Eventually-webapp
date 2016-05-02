@@ -24,14 +24,16 @@ public class SignupView extends BackendInteraction
   public ModelAndView handle(Request req, Response res) {
     QueryParamsMap qm = req.queryMap();
     String authString = qm.value("auth");
+    String username = qm.value("username");
     String errorString = qm.value("error");
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
-      if (auth.verifyAuthToken(authToken)) {
+      if (auth.verifyAuthToken(username, authToken)) {
         Map<Object, Object> data = ImmutableMap.builder()
             .put("alert",
                 "You have already signed up. Please log out to log into another account.")
-            .put("auth", authToken.toString()).build();
+            .put("auth", authToken.toString()).put("username", username)
+            .build();
         return new ModelAndView(data, "map.ftl");
       } else {
         if (errorString == null) {

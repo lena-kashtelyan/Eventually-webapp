@@ -25,7 +25,7 @@
             <div class="col-md-3 col-sm-5 col-xs-12">
               <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">@</span>
-                <input id="username" type="text" class="form-control" placeholder="username">      
+                <input id="usernameOrEmail" type="text" class="form-control" placeholder="username">      
               </div>
               <div class="input-group input-group-lg">
                 <input id="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
@@ -90,3 +90,6 @@
   <script src="js/background.js"></script>
 
   <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
+  <#if username??><span id="username" class="noshow">${username}</span></#if>
+  </body>
+</html>

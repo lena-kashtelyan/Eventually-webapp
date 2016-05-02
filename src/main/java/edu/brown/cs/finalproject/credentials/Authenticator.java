@@ -33,21 +33,11 @@ public class Authenticator {
     }
   }
 
-  public boolean verifyAuthToken(AuthToken authToken) {
-    /**
-     * Code to check authToken in user database.
-     */
-    return true;
+  public boolean verifyAuthToken(String username, AuthToken authToken) {
+    return authToken.verify(username);
   }
 
   public AuthToken authenticate(Login login) {
-    // Capture the username and password, such as via an
-    // SSL-encrypted web HTML form. We'll just simulate a
-    // form lookup and use the values we used above:
-
-    // Create an authentication request using the
-    // credentials
-    System.out.println("It should be workin here?");
     @SuppressWarnings("rawtypes")
     AuthenticationRequest request = UsernamePasswordRequests.builder()
         .setUsernameOrEmail(login.getUsernameOrEmail())
@@ -56,10 +46,8 @@ public class Authenticator {
     // Now let's authenticate the account with the
     // application:
     try {
-      System.out.println("Right before auth");
       AuthenticationResult result = stormPath.getStormPathApplication()
           .authenticateAccount(request);
-      System.out.println("Authenticated?");
       Account account = result.getAccount();
       return AuthToken.generateAuthToken(account);
     } catch (ResourceException ex) {

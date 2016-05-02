@@ -26,10 +26,11 @@ public class ForgotHandler extends BackendInteraction implements Route {
     Forgot forgot = new Forgot(userEmail);
     if (userEmail != null) {
       AuthToken authToken = auth.forgotPassword(forgot);
-      if (auth.verifyAuthToken(authToken)) {
+      String username = AuthToken.getUsername(authToken);
+      if (auth.verifyAuthToken(username, authToken)) {
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
             .put("title", "Map").put("auth", authToken.toString())
-            .put("redirect", "/map.ftl").build();
+            .put("username", username).put("redirect", "/map.ftl").build();
         return GSON.toJson(data);
       } else {
         throw new RuntimeException(

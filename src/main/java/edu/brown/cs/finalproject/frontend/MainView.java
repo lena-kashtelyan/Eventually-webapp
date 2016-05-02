@@ -27,12 +27,14 @@ public class MainView extends BackendInteraction implements TemplateViewRoute {
   public ModelAndView handle(Request req, Response res) {
     QueryParamsMap qm = req.queryMap();
     String authString = qm.value("auth");
+    String username = qm.value("username");
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
-      if (auth.verifyAuthToken(authToken)) {
+      if (auth.verifyAuthToken(username, authToken)) {
         Map<Object, Object> data = ImmutableMap.builder()
             .put("title", "CS32: Final Project")
-            .put("auth", authToken.toString()).build();
+            .put("auth", authToken.toString()).put("username", username)
+            .build();
         return new ModelAndView(data, "map.ftl");
       } else {
         Map<String, String> data = ImmutableMap.of("title",

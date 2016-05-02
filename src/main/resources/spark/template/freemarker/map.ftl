@@ -21,5 +21,7 @@
     <script src="js/map.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
+    <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
+    <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
 </html>
