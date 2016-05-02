@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.google.gson.JsonObject;
+import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.application.Application;
 import com.stormpath.sdk.directory.CreateDirectoryRequest;
 import com.stormpath.sdk.directory.Directories;
@@ -75,12 +76,15 @@ public class Main {
           .getResource(applicationHref, Application.class);
       ProviderAccountRequest request = Providers.FACEBOOK.account()
           .setAccessToken(
-              "CABTmZxAZBxBADbr1l7ZCwHpjivBt9T0GZBqjQdTmgyO0OkUq37HYaBi4F23f49f5")
+              "EAADILehqV6UBAFuM85mSo9lSY6h8rgBE4QFj5SBDFBSyE5yyxSjpBbZCXHJ3hwj4OA50uuTzptGVrnAoL6pM8oKAv6KQLbo4CX9rRea099p7kUNqPjXU6Is9yTyZCe5rSxFnOBPzQ28ZBmXAGVhfS5a0txy9TreTTmdHDoxSwZDZD")
           .build();
 
       ProviderAccountResult result = application.getAccount(request);
       Account account = result.getAccount();
+      System.out.println(account.getEmail());
+      System.out.println(result.isNewAccount());
     } catch (Exception e) {
+      System.out.println("This shouldn't throw an exception");
       e.printStackTrace();
     }
 
