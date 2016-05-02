@@ -20,4 +20,30 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function(){
+    var date_input=$('input[name="date"]');
+    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    date_input.datepicker({
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+    });
+});
+
+function initialize() {
+	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
+	new google.maps.LatLng(-33.8902, 151.1759),
+	new google.maps.LatLng(-33.8474, 151.2631));
+
+	var input = document.getElementById('location');
+
+	var searchBox = new google.maps.places.SearchBox(input, {
+	  bounds: defaultBounds
+	});
+}
+
+$(document).ready(function(){ initialize();});
+
+
 

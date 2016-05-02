@@ -1,0 +1,49 @@
+li, .list-group-item {
+  background-color: transparent !important;
+  border-width: 0px;
+}
+
+.btn-default {
+  background-color: black !important;
+  border-color: white !important;
+  font-size: 20px !important;
+  color: white !important;
+}
+
+.panel {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-size: 14px;
+}
+
+#event-name {
+  font-size: 26px;
+}
+
+#event-description {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 14px;
+}
+
+#event-popularity {
+  font-family: 'Poiret One', cursive;
+  color: white;
+  font-size: 26px;
+}
+
+#venue-name {
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-size: 26px;
+}
+
+p {
+  text-align: left;
+}
+
+.bootstrap-iso, .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form {
+  font-family: 'Poiret One', cursive;
+  color: white;
+  font-size: 20px;
+}
