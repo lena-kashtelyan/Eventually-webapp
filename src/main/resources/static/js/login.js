@@ -35,4 +35,9 @@ $(document).ready(function() {
 		e.preventDefault();
 		window.location = "/forgot";
 	});
+
+	$("#facebooklogin").on("click", function(e) {
+		e.preventDefault();
+		window.location = "/facebooklogin";
+	});
 });

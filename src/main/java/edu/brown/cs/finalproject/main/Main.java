@@ -2,19 +2,13 @@ package edu.brown.cs.finalproject.main;
 
 import java.sql.SQLException;
 
-import com.stormpath.sdk.account.Account;
-import com.stormpath.sdk.application.Application;
 import com.stormpath.sdk.directory.CreateDirectoryRequest;
 import com.stormpath.sdk.directory.Directories;
 import com.stormpath.sdk.directory.Directory;
-import com.stormpath.sdk.provider.ProviderAccountRequest;
-import com.stormpath.sdk.provider.ProviderAccountResult;
 import com.stormpath.sdk.provider.Providers;
 import com.stormpath.sdk.tenant.Tenant;
 
 import edu.brown.cs.finalproject.credentials.Authenticator;
-import edu.brown.cs.finalproject.credentials.Login;
-import edu.brown.cs.finalproject.credentials.SignUp;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
 import edu.brown.cs.finalproject.database.DatabaseManager;
@@ -44,61 +38,33 @@ public class Main {
     StormPathApplication stormPathApp = new StormPathApplication(
         "cs32FinalProject");
     Authenticator auth = new Authenticator(stormPathApp);
+    DatabaseManager dbManager = new DatabaseManager();
+    FacebookDataManager facebookDataManager = new FacebookDataManager();
 
-    SignUp test = new SignUp("Cole", "hansen", "chansen2",
-        "cole_hansen@brown.edu", "P@ssword1");
-
+    /*
+     * This try block is for setting up the facebook
+     * directory on stormpath. Should only need to be used
+     * once.
+     */
     try {
       Directory directory = stormPathApp.getStormPathClient()
           .instantiate(Directory.class);
-      directory.setName("test-facebook-directory");
-      directory.setDescription("Test Facebook directory");
+      directory.setName("facebook-directory");
+      directory.setDescription("Facebook directory");
+
+      String FACEBOOK_ID = "220099498366885";
+      String FACEBOOK_SECRET = "8a0e23ef1bc9e94213c881e53b2d7343";
 
       CreateDirectoryRequest request = Directories
           .newCreateRequestFor(directory)
-          .forProvider(
-              Providers.FACEBOOK.builder().setClientId("220099498366885")
-                  .setClientSecret("8a0e23ef1bc9e94213c881e53b2d7343").build())
+          .forProvider(Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
+              .setClientSecret(FACEBOOK_SECRET).build())
           .build();
 
       Tenant tenant = stormPathApp.getStormPathClient().getCurrentTenant();
       directory = tenant.createDirectory(request);
     } catch (Exception e) {
     }
-
-    try {
-      String applicationHref = "https://api.stormpath.com/v1/applications/76713eIdUzokAFDoD4WtP7";
-      Application application = stormPathApp.getStormPathClient()
-          .getResource(applicationHref, Application.class);
-      ProviderAccountRequest request = Providers.FACEBOOK.account()
-          .setAccessToken(
-              "EAADILehqV6UBAFuM85mSo9lSY6h8rgBE4QFj5SBDFBSyE5yyxSjpBbZCXHJ3hwj4OA50uuTzptGVrnAoL6pM8oKAv6KQLbo4CX9rRea099p7kUNqPjXU6Is9yTyZCe5rSxFnOBPzQ28ZBmXAGVhfS5a0txy9TreTTmdHDoxSwZDZD")
-          .build();
-
-      ProviderAccountResult result = application.getAccount(request);
-      Account account = result.getAccount();
-      System.out.println(account.getEmail());
-      System.out.println(result.isNewAccount());
-    } catch (Exception e) {
-      System.out.println("This shouldn't throw an exception");
-      e.printStackTrace();
-    }
-
-    try {
-      auth.createAccount(test);
-    } catch (RuntimeException e) {
-      System.out.println(e.getMessage());
-    }
-
-    Login login = new Login("chansen2", "P@ssword1");
-    try {
-      System.out.println(auth.authenticate(login));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    DatabaseManager dbManager = new DatabaseManager();
-    FacebookDataManager facebookDataManager = new FacebookDataManager();
 
     Database db = null;
     try {
@@ -111,7 +77,8 @@ public class Main {
     System.out.println("all done");
 
     if (options.has("gui")) {
-      new BackendInteraction(auth, dbManager, facebookDataManager);
+      new BackendInteraction(auth, dbManager, facebookDataManager,
+          stormPathApp);
       SparkServer server = new MapsSparkServer();
       server.runSparkServer();
       // lines to instantiate tables in the database and
