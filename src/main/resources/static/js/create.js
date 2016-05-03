@@ -65,7 +65,6 @@ function submitEvent(e) {
 	});				
 }
 
->>>>>>> 87248433b8b0796a5816e939ba2455960f0a69c6
 $(document).ready(function () {
 	$("#create-btn").on('click', function(e) {
 		var val = validateForm(e);
@@ -94,7 +93,6 @@ function submitEvent() {
 		console.log(category);
 		var facebookAdd = $("#facebookYes").val();
 		console.log(facebookAdd);
-		codeAddress(location);
 
 		var params = {"auth" : auth, "username" : username, "eventName" : name, "date" : date, "description" : description, "time" : time, "location": location, "category" : category, "facebookAdd" : facebookAdd};
 		$.post("/create", params, function(responseJSON){

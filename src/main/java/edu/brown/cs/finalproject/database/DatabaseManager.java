@@ -76,11 +76,16 @@ public class DatabaseManager {
             eventID, Name, origintype, creatorID,
             startDate, category, description, eventphoto);
     System.out.println(query);
+    String update = String.format("UPDATE events SET the_geom = cdb_geocode_street_point('%s') "
+        + "WHERE eventid = '%s';", location, eventID);
+    System.out.println(update);
+    
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
           "cs32finalproject",
           "ad54038628d84dceb55a7adb81eddfcf9976e994");
       cartoDBCLient.request(query);
+      cartoDBCLient.request(update);
     } catch (CartoDBException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
