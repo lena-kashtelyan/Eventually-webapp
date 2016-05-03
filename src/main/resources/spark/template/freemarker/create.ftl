@@ -105,6 +105,7 @@
     <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABBUM2bl_qcqOiw6AWn_AZxob2YQ0g4AQ&libraries=places"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
