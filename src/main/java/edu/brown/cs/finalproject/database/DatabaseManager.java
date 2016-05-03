@@ -24,16 +24,58 @@ public class DatabaseManager {
     // Empty Constructor for Now
   }
 
-  public static boolean addInternalEvent(String Name, String originType,
-      String creatorID, Timestamp startDate, double latitude,
-      double longitude, boolean ispublic, String category,
-      String description) {
+//  public static boolean addInternalEvent(String Name, String originType,
+//      String creatorID, Timestamp startDate, double latitude,
+//      double longitude, boolean ispublic, String category,
+//      String description) {
+//
+//    String eventID = UUID.randomUUID().toString();
+//    String query = String
+//        .format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL);",
+//            creatorID, description, eventID, latitude, longitude,
+//            Name, ispublic, startDate.toString());
+//    try {
+//      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+//          "cs32finalproject",
+//          "ad54038628d84dceb55a7adb81eddfcf9976e994");
+//      cartoDBCLient.request(query);
+//    } catch (CartoDBException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//      return false;
+//    }
+//
+//    Event newEvent;
+//    try {
+//      newEvent = new EventProxy(eventID);
+//    } catch (ClassNotFoundException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//      return false;
+//    }
+//    return true;
+//  }
+  public static boolean addEvent(String Name, String creatorID,
+      String startDate, double latitude, double longitude,
+      String category, String description, String origintype) {
 
     String eventID = UUID.randomUUID().toString();
+
+    String eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg";
+    if (category.equals("social gathering")) {
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+    } else if (category.equals("performance")) {
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
+    } else if (category.equals("academic event")) {
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/4e/f7/29/4ef7299074efa998232fd99a340fda57.jpg";
+    }
+
     String query = String
-        .format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL);",
-            creatorID, description, eventID, latitude, longitude,
-            Name, ispublic, startDate.toString());
+        .format("INSERT INTO events (eventid,name,latitude,longitude,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) "
+            + "VALUES ('%s', '%s', %f, %f, '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s');",
+            eventID, Name, latitude, longitude, origintype, creatorID,
+            startDate, category, description, eventphoto);
+    System.out.println(query);
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
           "cs32finalproject",
@@ -191,28 +233,5 @@ public class DatabaseManager {
     }
     return events;
   }
-
-  public static List<Event> getBoundingBox(double lat1, double lng1, double lat2, double lng2) {
-    List<Event> events = new ArrayList<>();
-    try {
-      String query = String.format("Select eventid from events where latitude<%f and latitude>%f and longitude>%f and longitude<%f;", lat1, lat2, lng1, lng2);
-      CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
-      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(query);
-      for (int j=0; j< res.getTotal_rows(); j++) {
-        String eventID = (String) res.getRows().get(j).get("eventid");
-        Event event = new EventProxy(eventID);
-        events.add(event);
-      }
-    } catch (CartoDBException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    return events;
-  }
-
-
-
+  
 }

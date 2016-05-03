@@ -29,24 +29,20 @@ public class CreateHandler extends BackendInteraction implements Route {
     String time = qm.value("time");
     System.out.println(date);
     System.out.println(time);
-//    System.out.println("here now");
-//    System.out.println(date);
-//    System.out.println(time);
     String description = qm.value("description");
     System.out.println(description);
-//    System.out.println("after desc");
     String[] dates = date.split("/");
     String[] times = time.split(":");
     String datetime = String.format("'%s-%s-%s %s:%s:00'", dates[2], dates[0], dates[1], times[0], times[1]);
     String timestamp = String.format("to_timestamp(%s,'YYYY-MM-dd HH24:MI:SS')", datetime);
-    String address = qm.value("location");
-//    String coords[] = location.split(",");
-//    double lat = Double.parseDouble(coords[0]);
-//    double lng = Double.parseDouble(coords[1]);
+    double lat = Double.parseDouble(qm.value("lat"));
+    double lng = Double.parseDouble(qm.value("lng"));
+    String facebookAdd = qm.value("facebookAdd");
+    System.out.println(facebookAdd);
     
     String category = qm.value("category");
     
-    boolean result = DatabaseManager.addInternalEvent(eventName, creatorID, timestamp, address, category, description);
+    boolean result = DatabaseManager.addEvent(eventName, creatorID, timestamp, lat, lng, category, description, facebookAdd);
     if (result) {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()
           .put("redirect", "/map.ftl").build();
