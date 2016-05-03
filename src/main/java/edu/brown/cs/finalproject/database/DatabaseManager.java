@@ -20,174 +20,203 @@ import edu.brown.cs.finalproject.entities.EventProxy;
 
 public class DatabaseManager {
 
-	public DatabaseManager() {
-		// Empty Constructor for Now
-	}
+  public DatabaseManager() {
+    // Empty Constructor for Now
+  }
 
-//	// This is for the internal database; events table does not exist anymore, so don't use
-//	public static boolean addInternalEvent(String Name, String originType,
-//			String creatorID, Timestamp startDate, double latitude,
-//			double longitude, boolean ispublic, String category,
-//			String description) {
+//  public static boolean addInternalEvent(String Name, String originType,
+//      String creatorID, Timestamp startDate, double latitude,
+//      double longitude, boolean ispublic, String category,
+//      String description) {
 //
-//		String eventID = UUID.randomUUID().toString();
-//		String query = String
-//				.format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL);",
-//						creatorID, description, eventID, latitude, longitude,
-//						Name, ispublic, startDate.toString());
-//		try {
-//			CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-//					"cs32finalproject",
-//					"ad54038628d84dceb55a7adb81eddfcf9976e994");
-//			cartoDBCLient.request(query);
-//		} catch (CartoDBException e) {
-//			e.printStackTrace();
-//			return false;
-//		}
+//    String eventID = UUID.randomUUID().toString();
+//    String query = String
+//        .format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL);",
+//            creatorID, description, eventID, latitude, longitude,
+//            Name, ispublic, startDate.toString());
+//    try {
+//      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+//          "cs32finalproject",
+//          "ad54038628d84dceb55a7adb81eddfcf9976e994");
+//      cartoDBCLient.request(query);
+//    } catch (CartoDBException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//      return false;
+//    }
 //
-//		Event newEvent;
-//		try {
-//			newEvent = new EventProxy(eventID);
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//			return false;
-//		}
-//		return true;
-//	}
-	
-	public String addUser(String username, String userMediaPath, String fbAccessToken) {
-		
-	     Connection conn = Database.getConnection();
-	     String query = "INSERT INTO users (username, userMediaPath, fbAccessToken) VALUES (?,?,?);";
-	     
-	     try (PreparedStatement prep = conn.prepareStatement(query)) {
-	       prep.setString(1, username);
-	       prep.setString(2, userMediaPath);
-	       prep.setString(3, fbAccessToken);
-	       prep.addBatch();
-	       prep.executeBatch();
-	       return username;
-	     } catch (NullPointerException | SQLException n) {
-	       n.printStackTrace();
-	       return null;
-	     }
-	}
-	
-	public String getUsersFBAccessToken(String username) {
-	     Connection conn = Database.getConnection();
-	     String query = "SELECT fbAccessToken from users WHERE username=?;";
-	     String fbAccessToken = null;
-	     try (PreparedStatement prep = conn.prepareStatement(query)) {
-	       prep.setString(1, username);
-			try (ResultSet rs = prep.executeQuery()) {
-				while (rs.next()) {
-					fbAccessToken = rs.getString(1);
-				}
-			}
-	       return fbAccessToken;
-	     } catch (NullPointerException | SQLException n) {
-	       n.printStackTrace();
-	       return null;
-	     }
-	}
-	
-	public String setUsersFBAccessToken(String username, String newFBAccessToken) {
-		Connection conn = Database.getConnection();
-	     String query = "UPDATE users SET fbAccessToken=? WHERE username=?;";
-	     
-	     try (PreparedStatement prep = conn.prepareStatement(query)) {
-	       prep.setString(1, newFBAccessToken);
-	       prep.setString(2, username);
-	       prep.addBatch();
-	       prep.executeBatch();
-	       return newFBAccessToken;
-	     } catch (NullPointerException | SQLException n) {
-	       n.printStackTrace();
-	       return null;
-	     }
-	}
-	
-	public String getUsersMediaPath(String username) {
-	     Connection conn = Database.getConnection();
-	     String query = "SELECT userMediaPath from users WHERE username=?;";
-	     String userMediaPath = null;
-	     try (PreparedStatement prep = conn.prepareStatement(query)) {
-	       prep.setString(1, username);
-			try (ResultSet rs = prep.executeQuery()) {
-				while (rs.next()) {
-					userMediaPath = rs.getString(1);
-				}
-			}
-	       return userMediaPath;
-	     } catch (NullPointerException | SQLException n) {
-	       n.printStackTrace();
-	       return null;
-	     }
-	}
-	
-	public String setUsersMediaPath(String username, String newMediaPath) {
-		Connection conn = Database.getConnection();
-	     String query = "UPDATE users SET userMediaPath=? WHERE username=?;";
-	     
-	     try (PreparedStatement prep = conn.prepareStatement(query)) {
-	       prep.setString(1, newMediaPath);
-	       prep.setString(2, username);
-	       prep.addBatch();
-	       prep.executeBatch();
-	       return newMediaPath;
-	     } catch (NullPointerException | SQLException n) {
-	       n.printStackTrace();
-	       return null;
-	     }
-	}
+//    Event newEvent;
+//    try {
+//      newEvent = new EventProxy(eventID);
+//    } catch (ClassNotFoundException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//      return false;
+//    }
+//    return true;
+//  }
+  public static boolean addEvent(String Name, String creatorID,
+      String startDate, double latitude, double longitude,
+      String category, String description, String origintype) {
 
-	public static boolean addInternalEvent(String Name, String creatorID,
-			String startDate, double latitude, double longitude,
-			String category, String description) {
+    String eventID = UUID.randomUUID().toString();
 
-		String eventID = UUID.randomUUID().toString();
+    String eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg";
+    if (category.equals("social gathering")) {
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+    } else if (category.equals("performance")) {
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
+    } else if (category.equals("academic event")) {
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/4e/f7/29/4ef7299074efa998232fd99a340fda57.jpg";
+    }
 
-		String eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg";
-		if (category.equals("social gathering")) {
-			eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
-		} else if (category.equals("performance")) {
-			eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
-		} else if (category.equals("academic event")) {
-			eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/4e/f7/29/4ef7299074efa998232fd99a340fda57.jpg";
-		}
+    String query = String
+        .format("INSERT INTO events (eventid,name,latitude,longitude,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) "
+            + "VALUES ('%s', '%s', %f, %f, '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s');",
+            eventID, Name, latitude, longitude, origintype, creatorID,
+            startDate, category, description, eventphoto);
+    System.out.println(query);
+    try {
+      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+          "cs32finalproject",
+          "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      cartoDBCLient.request(query);
+    } catch (CartoDBException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+    }
 
-		String query = String
-				.format("INSERT INTO events (eventid,name,latitude,longitude,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) "
-						+ "VALUES ('%s', '%s', %f, %f, 'internal', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s');",
-						eventID, Name, latitude, longitude, creatorID,
-						startDate, category, description, eventphoto);
-		System.out.println(query);
-		try {
-			CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-					"cs32finalproject",
-					"ad54038628d84dceb55a7adb81eddfcf9976e994");
-			cartoDBCLient.request(query);
-		} catch (CartoDBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+    Event newEvent;
+    try {
+      newEvent = new EventProxy(eventID);
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+    }
+    return true;
+  }
 
-		Event newEvent;
-		try {
-			newEvent = new EventProxy(eventID);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-	  
-	  public static List<Event> getEvents() {
-	    List<Event> events = new ArrayList<>();
-	    try {
-	      String query = "Select eventid from events;";
+  public String addUser(String username, String userMediaPath, String fbAccessToken) {
+
+    Connection conn = Database.getConnection();
+    String query = "INSERT INTO users (username, userMediaPath, fbAccessToken) VALUES (?,?,?);";
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      prep.setString(2, userMediaPath);
+      prep.setString(3, fbAccessToken);
+      prep.addBatch();
+      prep.executeBatch();
+      return username;
+    } catch (NullPointerException | SQLException n) {
+      n.printStackTrace();
+      return null;
+    }
+  }
+
+  public String getUsersFBAccessToken(String username) {
+    Connection conn = Database.getConnection();
+    String query = "SELECT fbAccessToken from users WHERE username=?;";
+    String fbAccessToken = null;
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          fbAccessToken = rs.getString(1);
+        }
+      }
+      return fbAccessToken;
+    } catch (NullPointerException | SQLException n) {
+      n.printStackTrace();
+      return null;
+    }
+  }
+
+  public String setUsersFBAccessToken(String username, String newFBAccessToken) {
+    Connection conn = Database.getConnection();
+    String query = "UPDATE users SET fbAccessToken=? WHERE username=?;";
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, newFBAccessToken);
+      prep.setString(2, username);
+      prep.addBatch();
+      prep.executeBatch();
+      return newFBAccessToken;
+    } catch (NullPointerException | SQLException n) {
+      n.printStackTrace();
+      return null;
+    }
+  }
+
+  public String getUsersMediaPath(String username) {
+    Connection conn = Database.getConnection();
+    String query = "SELECT userMediaPath from users WHERE username=?;";
+    String userMediaPath = null;
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          userMediaPath = rs.getString(1);
+        }
+      }
+      return userMediaPath;
+    } catch (NullPointerException | SQLException n) {
+      n.printStackTrace();
+      return null;
+    }
+  }
+
+  public String setUsersMediaPath(String username, String newMediaPath) {
+    Connection conn = Database.getConnection();
+    String query = "UPDATE users SET userMediaPath=? WHERE username=?;";
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, newMediaPath);
+      prep.setString(2, username);
+      prep.addBatch();
+      prep.executeBatch();
+      return newMediaPath;
+    } catch (NullPointerException | SQLException n) {
+      n.printStackTrace();
+      return null;
+    }
+  }
+
+  public static boolean addInternalEvent(String Name,
+      String creatorID, String startDate, String address, String category, String description) {
+
+    String eventID = UUID.randomUUID().toString();
+
+    String query = String.format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount) "
+        + "VALUES ('%s', '%s', 'internal', '%s', %s, '%s', '%s', 0, 0, 0, 0);",
+        eventID, Name, creatorID, startDate, category, description );
+    System.out.println(query);
+    try {
+      CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      cartoDBCLient.request(query);
+    } catch (CartoDBException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+    }
+
+    Event newEvent;
+    try {
+      newEvent = new EventProxy(eventID);
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+    }
+    return true;
+  }
+
+  public static List<Event> getEvents() {
+    List<Event> events = new ArrayList<>();
+    try {
+      String query = "Select eventid from events;";
       CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
       CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(query);
       for (int j=0; j< res.getTotal_rows(); j++) {
@@ -202,7 +231,7 @@ public class DatabaseManager {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-	    return events;
-	  }
-	  
+    return events;
+  }
+  
 }

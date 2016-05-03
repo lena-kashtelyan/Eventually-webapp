@@ -25,7 +25,7 @@
             <div class="col-md-3 col-sm-5 col-xs-12">
               <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">@</span>
-                <input id="usernameOrEmail" type="text" class="form-control" placeholder="username">      
+                <input id="usernameOrEmail" type="text" class="form-control" placeholder="username">
               </div>
               <div class="input-group input-group-lg">
                 <input id="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
@@ -46,9 +46,9 @@
             <p>include private facebook events?</p>
           </div>
           <div class="col-md-3 col-sm-5 col-xs-12">
-            <a class="btn btn-block btn-lg btn-social btn-facebook">
+           <a id="facebooklogin" class="btn btn-block btn-lg btn-social btn-facebook">
               <i class="fa fa-facebook-official" aria-hidden="true"></i> sign in with Facebook
-            </a>
+           </a>
           </div>
           <div class="col-md-3 col-sm-2 col-xs-1"></div>
         </div>
@@ -84,7 +84,6 @@
   <script src="js/jquery-2.1.1.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
-  <script src="js/facebooklogin.js"></script>
   <script src="js/login.js"></script>
   <script src="js/topbar-min.js"></script>
   <script src="js/background.js"></script>

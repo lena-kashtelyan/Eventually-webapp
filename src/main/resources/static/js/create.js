@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function validateForm(e) {
 	console.log("validate form, beginning");
 	var validation = true;
@@ -64,6 +65,10 @@ function submitEvent(e) {
 	$.post("/create", params, function(responseJSON){
 	});				
 }
+=======
+var lat;
+var lng;
+>>>>>>> 27b0c2b57438167069bab463befdb37cda1dc5bb
 
 $(document).ready(function () {
 	$("#create-btn").on('click', function(e) {
@@ -75,6 +80,38 @@ $(document).ready(function () {
 	});
 });
 
+<<<<<<< HEAD
+=======
+function submitEvent() {
+	$("#create-btn").on('click', function(e) {
+		console.log("in create click response in create.js");
+		e.preventDefault();
+		var auth = $("#auth").text();
+		console.log("auth: " + auth);
+		var username = $("#username").text();
+		console.log("username: " + username);
+		var name = $("#eventName").val();
+		console.log(name);
+		var description = $("#eventDesc").val();
+		console.log(description);
+		var date = $("#date").val();
+		console.log(date);
+		var time = $("#time").val();
+		console.log(time);
+		var location = $("#location").val();
+		console.log(location);
+		var category = $("#category").text();
+		console.log(category);
+		var facebookAdd = $("#facebookYes").val();
+		console.log(facebookAdd);
+		codeAddress(location);
+
+		var params = {"auth" : auth, "username" : username, "eventName" : name, "date" : date, "description" : description, "time" : time, "lat" : lat, "lng" : lng, "category" : category, "facebookAdd" : facebookAdd};
+		$.post("/create", params, function(responseJSON){
+		});				
+	});
+}
+>>>>>>> 27b0c2b57438167069bab463befdb37cda1dc5bb
 
 $(document).ready(function(){
     var date_input=$('input[name="date"]');
@@ -87,12 +124,25 @@ $(document).ready(function(){
     });
 });
 
+function codeAddress(address) {
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var position = results[0].geometry.location;
+        lat = position.lat();
+        lng = position.lng();
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
 function initialize() {
 	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
 	new google.maps.LatLng(-33.8902, 151.1759),
 	new google.maps.LatLng(-33.8474, 151.2631));
 
 	var input = document.getElementById('location');
+	geocoder = new google.maps.Geocoder();
 
 	var searchBox = new google.maps.places.SearchBox(input, {
 	  bounds: defaultBounds
