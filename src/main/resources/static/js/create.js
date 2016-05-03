@@ -65,23 +65,13 @@ function submitEvent(e) {
 	$.post("/create", params, function(responseJSON){
 	});				
 }
-=======
-var lat;
-var lng;
->>>>>>> 27b0c2b57438167069bab463befdb37cda1dc5bb
 
 $(document).ready(function () {
 	$("#create-btn").on('click', function(e) {
 		var val = validateForm(e);
-		// if (val) {
-		// 	console.log("preventing default");
-		// 	submitEvent(e);
-		// }
 	});
 });
 
-<<<<<<< HEAD
-=======
 function submitEvent() {
 	$("#create-btn").on('click', function(e) {
 		console.log("in create click response in create.js");
@@ -111,7 +101,6 @@ function submitEvent() {
 		});				
 	});
 }
->>>>>>> 27b0c2b57438167069bab463befdb37cda1dc5bb
 
 $(document).ready(function(){
     var date_input=$('input[name="date"]');
@@ -123,6 +112,9 @@ $(document).ready(function(){
         autoclose: true,
     });
 });
+
+var lat;
+var lng;
 
 function codeAddress(address) {
     geocoder.geocode( { 'address': address}, function(results, status) {
