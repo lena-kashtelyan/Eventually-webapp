@@ -35,16 +35,13 @@ public class CreateHandler extends BackendInteraction implements Route {
     String[] times = time.split(":");
     String datetime = String.format("'%s-%s-%s %s:%s:00'", dates[2], dates[0], dates[1], times[0], times[1]);
     String timestamp = String.format("to_timestamp(%s,'YYYY-MM-dd HH24:MI:SS')", datetime);
-    double lat = Double.parseDouble(qm.value("lat"));
-    double lng = Double.parseDouble(qm.value("lng"));
-    System.out.println(lat);
-    System.out.println(lng);
+    String location = qm.value("location");
     String facebookAdd = qm.value("facebookAdd");
     System.out.println(facebookAdd);
     
     String category = qm.value("category");
     
-    boolean result = DatabaseManager.addEvent(eventName, creatorID, timestamp, lat, lng, category, description, facebookAdd);
+    boolean result = DatabaseManager.addEvent(eventName, creatorID, timestamp, location, category, description, facebookAdd);
     System.out.println(result);
     if (result) {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()

@@ -56,7 +56,7 @@ public class DatabaseManager {
 //    return true;
 //  }
   public static boolean addEvent(String Name, String creatorID,
-      String startDate, double latitude, double longitude,
+      String startDate, String location,
       String category, String description, String origintype) {
 
     String eventID = UUID.randomUUID().toString();
@@ -71,9 +71,9 @@ public class DatabaseManager {
     }
 
     String query = String
-        .format("INSERT INTO events (eventid,name,latitude,longitude,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) "
-            + "VALUES ('%s', '%s', %f, %f, '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s');",
-            eventID, Name, latitude, longitude, origintype, creatorID,
+        .format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) "
+            + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s');",
+            eventID, Name, origintype, creatorID,
             startDate, category, description, eventphoto);
     System.out.println(query);
     try {
