@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -65,8 +66,9 @@ public class PublicFBEventsWriter {
 					.replaceAll("[^a-zA-Z ]", "");
 //			String eventCoverPicture = eventJSON.get("eventCoverPicture")
 //					.toString().replace("\"", "");
-//			String eventProfilePicture = eventJSON.get("eventProfilePicture")
-//					.toString().replace("\"", "");
+			String eventProfilePicture = URLEncoder.encode(eventJSON.get("eventProfilePicture").toString().replace("\"", "'"));
+//					.replace("\"", "'").replace("/","a").replace("&","a").replace("?","a")
+//					.replace("=", "a").replace(".","a").replace(":","a").replace("-","a").replace("_", "a").replaceAll("[^a-zA-Z ]", "");
 			String eventDescription = eventJSON.get("eventDescription")
 					.toString().replaceAll("[^a-zA-Z ]", "");
 
@@ -112,8 +114,8 @@ public class PublicFBEventsWriter {
 			// venueProficePicture);
 			// System.out.println("eventId: " + eventId);
 			// System.out.println("eventName: " + eventName);
-			// System.out.println("eventProfilePicture: " +
-			// eventProfilePicture);
+			 System.out.println("eventProfilePicture: " +
+			 eventProfilePicture);
 			// System.out.println("eventDescription: " + eventDescription);
 			// System.out.println("eventCoverPicture: " + eventCoverPicture);
 			// System.out.println("eventDistance: " + eventDistance);
@@ -141,7 +143,7 @@ public class PublicFBEventsWriter {
 			urlBuilder
 					.append("https://cs32finalproject.cartodb.com/api/v2/sql?q=WITH%20n(");
 			urlBuilder
-					.append("eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount)");
+					.append("eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto)");
 			urlBuilder.append("%20AS%20(%20VALUES");
 			urlBuilder.append(" (");
 			urlBuilder.append(eventId);
@@ -175,13 +177,15 @@ public class PublicFBEventsWriter {
 			urlBuilder.append(eventMaybeCount);
 			urlBuilder.append(",");
 			urlBuilder.append(eventNoReplyCount);
+			urlBuilder.append(",");
+			urlBuilder.append(eventProfilePicture);
 			urlBuilder.append(") ), ");
 			urlBuilder
-					.append("upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, latitude=n.latitude, longitude=n.longitude, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount ");
+					.append("upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, latitude=n.latitude, longitude=n.longitude, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount, eventphoto=n.eventphoto ");
 			urlBuilder
 					.append("FROM n WHERE o.eventid = n.eventid RETURNING o.eventid ) ");
 			urlBuilder
-					.append("INSERT INTO events (eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount) SELECT n.eventid, n.name, n.venuename, n.latitude, n.longitude, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount FROM n ");
+					.append("INSERT INTO events (eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) SELECT n.eventid, n.name, n.venuename, n.latitude, n.longitude, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount, n.eventphoto FROM n ");
 			urlBuilder
 					.append("WHERE n.eventid NOT IN ( SELECT eventid FROM upsert );");
 			urlBuilder

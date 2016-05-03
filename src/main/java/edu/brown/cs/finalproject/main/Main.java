@@ -11,6 +11,7 @@ import com.stormpath.sdk.tenant.Tenant;
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
+import edu.brown.cs.finalproject.database.DatabaseFactory;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
@@ -73,6 +74,11 @@ public class Main {
       e.printStackTrace();
       System.out.println("ERROR: Accessing the database file.");
     }
+    try {
+      DatabaseFactory.createAndIndexTables();
+    } catch (Exception e) {
+      System.out.println("Database already created.");
+    }
     // new DatabaseFactory().createAndIndexTables();
     System.out.println("all done");
 
@@ -103,9 +109,8 @@ public class Main {
       // new PublicFBEventsFinder();
       // } catch (Exception e1) {
       // e1.printStackTrace();
-      // System.out
-      // .println("ERROR: Problem with running the public
-      // events application.");
+      // System.out.println("ERROR: Problem with running the
+      // public events application.");
       // }
       //
       // JsonObject publicEvents = null;
@@ -126,9 +131,8 @@ public class Main {
       // publicFBEventsWriter.updateDB(publicEvents);
       // } catch (SQLException | IOException e) {
       // e.printStackTrace();
-      // System.out
-      // .println("Problem updating database with public
-      // venues.");
+      // System.out.println("Problem updating database with
+      // public venues.");
       // }
 
       // EventsByName eventsByName = new EventsByName();

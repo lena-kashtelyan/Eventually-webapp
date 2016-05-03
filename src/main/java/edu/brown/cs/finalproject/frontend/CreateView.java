@@ -36,20 +36,24 @@ public class CreateView extends BackendInteraction
     String authString = qm.value("auth");
     String username = qm.value("username");
     if (authString != null && username != null) {
+        System.out.println("in createview, no nulls");
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(username, authToken)) {
+          System.out.println("in createview, verified auth");
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Browse")
             .put("auth", authToken.toString()).put("username", username)
             .build();
         return new ModelAndView(data, htmlUrl);
       } else {
         // malicious user, redirect to login
+          System.out.println("in createview, failed to verify token");
         Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
             .build();
         return new ModelAndView(data, "login.ftl");
       }
     } else {
       // no authentification token, redirect to login
+        System.out.println("in createview, no auth or username");
       Map<Object, Object> data = ImmutableMap.builder().put("title", "Login")
           .build();
       return new ModelAndView(data, "login.ftl");
