@@ -39,13 +39,14 @@ public class CreateHandler extends BackendInteraction implements Route {
     String[] times = time.split(":");
     String datetime = String.format("'%s-%s-%s %s:%s:00'", dates[2], dates[0], dates[1], times[0], times[1]);
     String timestamp = String.format("to_timestamp(%s,'YYYY-MM-dd HH24:MI:SS')", datetime);
-    String location = qm.value("location");
-    String coords[] = location.split(",");
-    double lat = Double.parseDouble(coords[0]);
-    double lng = Double.parseDouble(coords[1]);
+    String address = qm.value("location");
+//    String coords[] = location.split(",");
+//    double lat = Double.parseDouble(coords[0]);
+//    double lng = Double.parseDouble(coords[1]);
+    
     String category = qm.value("category");
     
-    boolean result = DatabaseManager.addInternalEvent(eventName, creatorID, timestamp, lat, lng, category, description);
+    boolean result = DatabaseManager.addInternalEvent(eventName, creatorID, timestamp, address, category, description);
     if (result) {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()
           .put("redirect", "/map.ftl").build();
