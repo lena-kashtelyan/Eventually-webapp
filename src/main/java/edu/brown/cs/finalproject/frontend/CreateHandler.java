@@ -1,11 +1,13 @@
 package edu.brown.cs.finalproject.frontend;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Map;
+
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -29,6 +31,30 @@ public class CreateHandler extends BackendInteraction implements Route {
     String[] dates = date.split("/");
     String[] times = time.split(":");
     String datetime = String.format("'%s-%s-%s %s:%s:00'", dates[2], dates[0], dates[1], times[0], times[1]);
+    
+    String startdatetimePrep = datetime.replace("'", "");
+    SimpleDateFormat formatter = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");
+	Date eventStarttime = null;
+	try {
+		eventStarttime = formatter.parse(startdatetimePrep);
+		System.out.println(eventStarttime);
+	} catch (ParseException e) {
+		e.printStackTrace();
+		System.out
+				.println("ERROR: Unable to convert a date string into a java.util.Date.");
+	}
+	// Calculating the end time of an event by adding four hours to the starting time
+	Date eventEndtime = DateUtils.addHours(eventStarttime, 4);
+	
+	String eventEndtimeString = eventEndtime.toString();
+	eventEndtimeString = eventEndtimeString.substring(4).replaceAll("E[D,S]T", "");
+	
+	String enddatetimeString = String.format("to_timestamp('%s','Mon DD HH24:MI:SS  YYYY')", eventEndtimeString);
+
+	System.out.println(enddatetimeString);
+	System.out.println("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}]");
+    
     String timestamp = String.format("to_timestamp(%s,'YYYY-MM-dd HH24:MI:SS')", datetime);
     String location = qm.value("location");
     String facebookAdd = qm.value("facebookAdd");
@@ -40,7 +66,7 @@ public class CreateHandler extends BackendInteraction implements Route {
     }
     String category = qm.value("category");
     
-    boolean result = DatabaseManager.addEvent(eventName, creatorID, timestamp, location, category, description, type);
+    boolean result = DatabaseManager.addEvent(eventName, creatorID, timestamp, enddatetimeString, location, category, description, type);
     System.out.println(result);
     if (result) {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()

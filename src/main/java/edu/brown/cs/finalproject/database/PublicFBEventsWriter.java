@@ -26,6 +26,7 @@ public class PublicFBEventsWriter {
 	public PublicFBEventsWriter() {
 	}
 
+	@SuppressWarnings("deprecation")
 	public void updateDB(JsonObject jsonResults) throws SQLException,
 			IOException {
 		JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"),

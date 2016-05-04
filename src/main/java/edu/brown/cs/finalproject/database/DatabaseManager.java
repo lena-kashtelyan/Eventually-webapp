@@ -59,7 +59,7 @@ public class DatabaseManager {
 	// return true;
 	// }
 	public static boolean addEvent(String Name, String creatorID,
-			String startDate, String location, String category,
+			String startDate, String endDate, String location, String category,
 			String description, String origintype) {
 
 		String eventID = UUID.randomUUID().toString();
@@ -72,12 +72,15 @@ public class DatabaseManager {
 		} else if (category.equals("academic event")) {
 			eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/4e/f7/29/4ef7299074efa998232fd99a340fda57.jpg";
 		}
+		
+		System.out.println(startDate);
+		System.out.println("**************************************************************************************");
 
 		String query = String
-				.format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) "
-						+ "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s');",
+				.format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate) "
+						+ "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s);",
 						eventID, Name, origintype, creatorID, startDate,
-						category, description, eventphoto);
+						category, description, eventphoto, endDate);
 		System.out.println(query);
 		String update = String.format(
 				"UPDATE events SET the_geom = cdb_geocode_street_point('%s') "
