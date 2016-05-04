@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableMap;
 import edu.brown.cs.finalproject.credentials.AuthToken;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.entities.Event;
-import edu.brown.cs.finalproject.search.EventsSorter;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
