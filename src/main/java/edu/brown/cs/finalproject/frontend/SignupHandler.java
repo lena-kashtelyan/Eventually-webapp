@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
 import edu.brown.cs.finalproject.credentials.SignUp;
+import edu.brown.cs.finalproject.database.DatabaseManager;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -18,6 +19,7 @@ public class SignupHandler extends BackendInteraction implements Route {
     QueryParamsMap qm = req.queryMap();
     String firstName = qm.value("firstName");
     String lastName = qm.value("lastName");
+    String fullName = firstName+" "+lastName;
     String username = qm.value("username");
     String email = qm.value("email");
     String password = qm.value("password");
@@ -25,6 +27,7 @@ public class SignupHandler extends BackendInteraction implements Route {
     try {
       AuthToken authToken = auth.createAccount(signup);
       if (auth.verifyAuthToken(username, authToken)) {
+        DatabaseManager.addUser(username, fullName, null, null);
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
             .put("title", "Map").put("auth", authToken.toString())
             .put("username", username).put("redirect", "/map.ftl").build();
