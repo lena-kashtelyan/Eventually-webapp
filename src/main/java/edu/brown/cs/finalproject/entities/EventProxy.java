@@ -49,7 +49,9 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         int maybeCount = (int) res.getRows().get(0).get("maybecount");
         int noReplyCount = (int) res.getRows().get(0).get("noreplycount");
         int declinedCount = (int) res.getRows().get(0).get("declinedcount");
-        String eventphoto = (String) res.getRows().get(0).get("eventphoto");
+    //    String eventphoto = (String) res.getRows().get(0).get("eventphoto");
+        
+        String eventphoto = "http://www.atpi.com/assets/Uploads/_resampled/SetWidth1920-A-championship-event10.jpg";
 
         internal = new EventBean(id, name, venueName, originType, creator, startDate,
                 attendingCount, declinedCount, noReplyCount, maybeCount, lat, lng, isPublic, category, description, eventphoto);
@@ -213,7 +215,8 @@ public class EventProxy extends EntityProxy<Event> implements Event {
     public String getEventphoto() {
         // TODO Auto-generated method stub
         System.out.println("in getEventphoto");
-        return internal.getEventphoto();
+      //  return internal.getEventphoto();
+        return "http://www.atpi.com/assets/Uploads/_resampled/SetWidth1920-A-championship-event10.jpg";
     }
 
 }
