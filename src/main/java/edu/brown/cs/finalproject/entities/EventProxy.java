@@ -193,10 +193,10 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         return internal.getEventphoto();
     }
 
-	@Override
-	public String setEventphoto(String newEventphoto) {
-        getInternal();
-        return internal.setEventphoto(newEventphoto);
-	}
+    @Override
+    public String setEventphoto(String newEventphoto) {
+      getInternal();
+      return internal.setEventphoto(newEventphoto);
+    }
 
 }
