@@ -75,10 +75,7 @@ public final class DatabaseFactory {
 
     String schema = "CREATE TABLE users("
         + "username TEXT PRIMARY KEY     NOT NULL,"
-        + "password TEXT NOT NULL,"
-        + "firstname TEXT NOT NULL,"
-        + "lastname TEXT NOT NULL,"
-        + "email TEXT NOT NULL,"
+        + "fullname TEXT NOT NULL,"
         + "userMediaPath	TEXT," 
         + "fbAccessToken TEXT"   
         + ");";
@@ -241,40 +238,6 @@ public final class DatabaseFactory {
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
-  }
-  
-  public static void addAttendee(String userID, String eventID) {
-    Connection conn = Database.getConnection();
-    String query = "INSERT INTO going VALUES(?,?);";
-    
-    try (PreparedStatement prep = conn.prepareStatement(query)) {
-      prep.setString(1, eventID);
-      prep.setString(2,  userID);
-      prep.addBatch();
-      prep.executeBatch();
-    } catch (SQLException s) {
-      s.printStackTrace();
-    }
-  }
-  
-  public static List<User> getAttendees(String eventID) {
-    Connection conn = Database.getConnection();
-    String query = "SELECT userid FROM going WHERE eventID=?;";
-    List<User> attendees = new ArrayList<>();  
-    
-    try (PreparedStatement prep = conn.prepareStatement(query)) {
-      prep.setString(1, eventID);
-      try (ResultSet rs = prep.executeQuery()) {
-        while (rs.next()) {
-          String userid = rs.getString(1);
-          User userproxy = new UserProxy(userid);
-          attendees.add(userproxy);
-        }
-      }
-    } catch (SQLException s) {
-      s.printStackTrace();
-    }
-    return attendees;
   }
 
 }

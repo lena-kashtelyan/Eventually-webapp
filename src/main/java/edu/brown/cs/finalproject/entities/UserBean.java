@@ -2,36 +2,17 @@ package edu.brown.cs.finalproject.entities;
 
 public class UserBean extends EntityBean implements User {
 
-  private String password;
-  private String firstName;
-  private String lastName;
-  private String email;
+  private String fullname;
   private String fbToken;
   private String usermediapath;
 
-  public UserBean(String id, String password, String email, String firstName, String lastName,
+  public UserBean(String id, String fullname,
       String usermediapath, String fbToken) {
     super(id);
     // TODO Auto-generated constructor stub
-    this.password = password;
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.fullname = fullname;
     this.usermediapath = usermediapath;
-    this.email = email;
     this.fbToken = fbToken;
-  }
-
-  @Override
-  public String getPassword() {
-    // TODO Auto-generated method stub
-    return password;
-  }
-
-  @Override
-  public String setPassword(String newPassword) {
-    // TODO Auto-generated method stub
-    password = newPassword;
-    return password;
   }
 
   @Override
@@ -48,21 +29,9 @@ public class UserBean extends EntityBean implements User {
   }
 
   @Override
-  public String getEmail() {
+  public String getFullName() {
     // TODO Auto-generated method stub
-    return email;
-  }
-
-  @Override
-  public String getFirstName() {
-    // TODO Auto-generated method stub
-    return firstName;
-  }
-
-  @Override
-  public String getLastName() {
-    // TODO Auto-generated method stub
-    return lastName;
+    return fullname;
   }
 
   @Override

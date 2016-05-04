@@ -15,11 +15,8 @@ public class UserProxy extends EntityProxy<User> implements User {
 
   @Override
   protected void pullFromDB() {
-    String userquery = "SELECT * FROM users WHERE userID=?;";
-    String password;
-    String firstname;
-    String lastname;
-    String email;
+    String userquery = "SELECT * FROM users WHERE username=?;";
+    String fullname;
     String usermediapath;
     String fbToken;
     Connection conn = Database.getConnection();
@@ -27,33 +24,18 @@ public class UserProxy extends EntityProxy<User> implements User {
     try (PreparedStatement prep = conn.prepareStatement(userquery)) {
       prep.setString(1, id);
       try (ResultSet rs = prep.executeQuery()) {
-        password = rs.getString(2);
-        firstname = rs.getString(3);
-        lastname = rs.getString(4);
-        email = rs.getString(5);
-        usermediapath = rs.getString(6);
-        fbToken = rs.getString(7);
+        fullname = rs.getString(2);
+        usermediapath = rs.getString(3);
+        fbToken = rs.getString(4);
       }
     } catch (NullPointerException | SQLException n) {
-      System.out.println("ERROR: ID not in User Table");
+      System.out.println("ERROR: username not in User Table");
       internal = null;
       return;
     }
 
-    internal = new UserBean(id, password, email, firstname, lastname,
+    internal = new UserBean(id, fullname,
         usermediapath, fbToken);
-  }
-
-  @Override
-  public String getPassword() {
-    getInternal();
-    return internal.getPassword();
-  }
-
-  @Override
-  public String setPassword(String newPassword) {
-    getInternal();
-    return internal.setPassword(newPassword);
   }
 
   @Override
@@ -69,21 +51,9 @@ public class UserProxy extends EntityProxy<User> implements User {
   }
 
   @Override
-  public String getEmail() {
+  public String getFullName() {
     getInternal();
-    return internal.getEmail();
-  }
-
-  @Override
-  public String getFirstName() {
-    getInternal();
-    return internal.getFirstName();
-  }
-
-  @Override
-  public String getLastName() {
-    getInternal();
-    return internal.getLastName();
+    return internal.getFullName();
   }
 
   @Override

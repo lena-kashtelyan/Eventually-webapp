@@ -20,6 +20,8 @@ import com.cartodb.model.CartoDBResponse;
 
 import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.entities.EventProxy;
+import edu.brown.cs.finalproject.entities.User;
+import edu.brown.cs.finalproject.entities.UserProxy;
 
 public class DatabaseManager {
 
@@ -27,37 +29,6 @@ public class DatabaseManager {
     // Empty Constructor for Now
   }
 
-  // public static boolean addInternalEvent(String Name, String originType,
-  // String creatorID, Timestamp startDate, double latitude,
-  // double longitude, boolean ispublic, String category,
-  // String description) {
-  //
-  // String eventID = UUID.randomUUID().toString();
-  // String query = String
-  // .format("INSERT INTO events VALUES (NULL, NULL, NULL, '%s', NULL, '%s', '%s', %f, %f, NULL, '%s', NULL, 'internal', %b, '%s', NULL);",
-  // creatorID, description, eventID, latitude, longitude,
-  // Name, ispublic, startDate.toString());
-  // try {
-  // CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-  // "cs32finalproject",
-  // "ad54038628d84dceb55a7adb81eddfcf9976e994");
-  // cartoDBCLient.request(query);
-  // } catch (CartoDBException e) {
-  // // TODO Auto-generated catch block
-  // e.printStackTrace();
-  // return false;
-  // }
-  //
-  // Event newEvent;
-  // try {
-  // newEvent = new EventProxy(eventID);
-  // } catch (ClassNotFoundException e) {
-  // // TODO Auto-generated catch block
-  // e.printStackTrace();
-  // return false;
-  // }
-  // return true;
-  // }
   public static boolean addEvent(String Name, String creatorID,
       String startDate, String endDate, String location, String category,
       String description, String origintype) {
@@ -110,16 +81,17 @@ public class DatabaseManager {
     return true;
   }
 
-  public String addUser(String username, String userMediaPath,
+  public static String addUser(String username, String fullname, String userMediaPath,
       String fbAccessToken) {
 
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO users (username, userMediaPath, fbAccessToken) VALUES (?,?,?);";
+    String query = "INSERT INTO users (username, fullname, password, userMediaPath, fbAccessToken) VALUES (?,?,?);";
 
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, username);
-      prep.setString(2, userMediaPath);
-      prep.setString(3, fbAccessToken);
+      prep.setString(2, fullname);
+      prep.setString(3, userMediaPath);
+      prep.setString(4,  fbAccessToken);
       prep.addBatch();
       prep.executeBatch();
       return username;
@@ -196,40 +168,40 @@ public class DatabaseManager {
       return null;
     }
   }
-
-  //	public static boolean addInternalEvent(String Name, String creatorID,
-  //			String startDate, String address, String category,
-  //			String description) {
-  //
-  //		String eventID = UUID.randomUUID().toString();
-  //
-  //		String query = String
-  //				.format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount) "
-  //						+ "VALUES ('%s', '%s', 'internal', '%s', %s, '%s', '%s', 0, 0, 0, 0);",
-  //						eventID, Name, creatorID, startDate, category,
-  //						description);
-  //		System.out.println(query);
-  //		try {
-  //			CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-  //					"cs32finalproject",
-  //					"ad54038628d84dceb55a7adb81eddfcf9976e994");
-  //			cartoDBCLient.request(query);
-  //		} catch (CartoDBException e) {
-  //			// TODO Auto-generated catch block
-  //			e.printStackTrace();
-  //			return false;
-  //		}
-  //
-  //		Event newEvent;
-  //		try {
-  //			newEvent = new EventProxy(eventID);
-  //		} catch (ClassNotFoundException e) {
-  //			// TODO Auto-generated catch block
-  //			e.printStackTrace();
-  //			return false;
-  //		}
-  //		return true;
-  //	}
+  
+  public static void addAttendee(String userID, String eventID) {
+    Connection conn = Database.getConnection();
+    String query = "INSERT INTO going VALUES(?,?);";
+    
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      prep.setString(2,  userID);
+      prep.addBatch();
+      prep.executeBatch();
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+  }
+  
+  public static List<User> getAttendees(String eventID) {
+    Connection conn = Database.getConnection();
+    String query = "SELECT username FROM going WHERE eventID=?;";
+    List<User> attendees = new ArrayList<>();  
+    
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String username = rs.getString(1);
+          User userproxy = new UserProxy(username);
+          attendees.add(userproxy);
+        }
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+    return attendees;
+  }
 
   public static List<Event> getEvents() {
     List<Event> events = new ArrayList<>();
