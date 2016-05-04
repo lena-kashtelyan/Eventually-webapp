@@ -19,10 +19,11 @@ public class EventBean extends EntityBean implements Event {
   private int declinedCount;
   private int maybeCount;
   private int noReplyCount;
+  private String eventphoto;
 
   public EventBean(String id, String Name, String venueName, String originType,
       User creator, String startDate, int attendingCount, int declinedCount, int noReplyCount, int maybeCount,
-      double latitude, double longitude, boolean ispublic, String category, String description) {
+      double latitude, double longitude, boolean ispublic, String category, String description, String eventphoto) {
     super(id);
     this.name = Name;
     this.venueName = venueName;
@@ -39,6 +40,7 @@ public class EventBean extends EntityBean implements Event {
     this.maybeCount = maybeCount;
     this.noReplyCount = noReplyCount;
     this.declinedCount = declinedCount;
+    this.eventphoto = eventphoto;
   }
 
   @Override
@@ -180,4 +182,8 @@ public class EventBean extends EntityBean implements Event {
     return declinedCount;
   }
 
+    public String getEventphoto() {
+        System.out.println(eventphoto);
+        return eventphoto;
+    }
 }

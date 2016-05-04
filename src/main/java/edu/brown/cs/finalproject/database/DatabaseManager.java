@@ -223,6 +223,7 @@ public class DatabaseManager {
         String eventID = (String) res.getRows().get(j).get("eventid");
         Event event = new EventProxy(eventID);
         events.add(event);
+        System.out.println(event.getEventphoto());
       }
     } catch (CartoDBException e) {
       // TODO Auto-generated catch block

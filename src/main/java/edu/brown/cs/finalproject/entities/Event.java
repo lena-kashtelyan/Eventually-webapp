@@ -47,5 +47,8 @@ public interface Event extends Entity {
   public String getDescription();
 
   public String setDescription(String newDescription);
+  
+  public String getEventphoto();
+
 
 }
