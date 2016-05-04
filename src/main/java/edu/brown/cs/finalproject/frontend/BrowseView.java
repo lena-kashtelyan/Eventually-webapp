@@ -35,7 +35,18 @@ public class BrowseView extends BackendInteraction
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(username, authToken)) {
-        List<Event> events = DatabaseManager.getEvents();
+        List<Event> events = DatabaseManager.getUpcomingEvents();
+        
+        // STILL IN PROGRESS; BEWARE
+//        EventsSorter eventsSorter = new EventsSorter();
+//        eventsSorter.sortByLocation();
+//        int counter = 0;
+//        for (Event e : events) {
+//        	counter++;
+//        	System.out.println(e.getDescription());
+//        	System.out.println("_________");
+//        }
+//        System.out.println("count of events: " + counter);
         /*
          * this will need to change once we get get the list
          * of events all at once!

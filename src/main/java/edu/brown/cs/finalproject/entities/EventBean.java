@@ -183,7 +183,6 @@ public class EventBean extends EntityBean implements Event {
   }
 
     public String getEventphoto() {
-        System.out.println(eventphoto);
         return eventphoto;
     }
 }

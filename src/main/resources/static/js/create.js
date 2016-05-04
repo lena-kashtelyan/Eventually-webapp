@@ -93,9 +93,8 @@ function submitEvent() {
 		console.log(category);
 		var facebookAdd = $("#facebookYes").val();
 		console.log(facebookAdd);
-		codeAddress(location);
 
-		var params = {"auth" : auth, "username" : username, "eventName" : name, "date" : date, "description" : description, "time" : time, "lat" : lat, "lng" : lng, "category" : category, "facebookAdd" : facebookAdd};
+		var params = {"auth" : auth, "username" : username, "eventName" : name, "date" : date, "description" : description, "time" : time, "location": location, "category" : category, "facebookAdd" : facebookAdd};
 		$.post("/create", params, function(responseJSON){
 		});				
 	});
@@ -111,21 +110,6 @@ $(document).ready(function(){
         autoclose: true,
     });
 });
-
-var lat;
-var lng;
-
-function codeAddress(address) {
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var position = results[0].geometry.location;
-        lat = position.lat();
-        lng = position.lng();
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  }
 
 function initialize() {
 	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
