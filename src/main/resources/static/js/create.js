@@ -5,7 +5,7 @@ function validateForm(e) {
         rules: {
             eventName: {
                 minlength: 2,
-                required: true
+                required: true,
             },
             date: {
                 required: true,
@@ -15,7 +15,7 @@ function validateForm(e) {
             },
            	location: {
                 minlength: 2,
-                required: true
+                required: true,
             },
             category: {
                 required: true,

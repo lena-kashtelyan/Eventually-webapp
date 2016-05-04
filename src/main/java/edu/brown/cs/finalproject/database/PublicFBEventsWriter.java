@@ -66,7 +66,15 @@ public class PublicFBEventsWriter {
 					.replaceAll("[^a-zA-Z ]", "");
 //			String eventCoverPicture = eventJSON.get("eventCoverPicture")
 //					.toString().replace("\"", "");
-			String eventProfilePicture = URLEncoder.encode(eventJSON.get("eventProfilePicture").toString().replace("\"", "'"));
+			String eventProfilePicture = null;
+			if (!eventJSON.get("eventCoverPicture").toString().equals("null")) {
+				eventProfilePicture = URLEncoder.encode(eventJSON.get("eventCoverPicture").toString().replace("\"", "'"));
+			} else if (!eventJSON.get("eventProfilePicture").equals("null")) {
+				eventProfilePicture = URLEncoder.encode(eventJSON.get("eventProfilePicture").toString().replace("\"", "'"));
+			} else {
+				eventProfilePicture = URLEncoder.encode("'https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg'");
+			}
+
 //					.replace("\"", "'").replace("/","a").replace("&","a").replace("?","a")
 //					.replace("=", "a").replace(".","a").replace(":","a").replace("-","a").replace("_", "a").replaceAll("[^a-zA-Z ]", "");
 			String eventDescription = eventJSON.get("eventDescription")

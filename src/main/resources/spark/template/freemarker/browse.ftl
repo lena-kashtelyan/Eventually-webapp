@@ -19,7 +19,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <div class="col-md-4">
-                <!--<img src={$event.imgURL} class="img-responsive" alt="Responsive image">-->
+                <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
               </div>
               <div class="col-md-8">
                 <div class="row" id="event-name">${event.name}</div>
@@ -40,6 +40,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
+    <script src="js/browsex.js"></script>
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>

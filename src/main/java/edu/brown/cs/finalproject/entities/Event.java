@@ -1,8 +1,5 @@
 package edu.brown.cs.finalproject.entities;
 
-import java.sql.Time;
-import java.util.Date;
-
 public interface Event extends Entity {
   public String getName();
 
@@ -47,5 +44,10 @@ public interface Event extends Entity {
   public String getDescription();
 
   public String setDescription(String newDescription);
+  
+  public String getEventphoto();
+  
+  public String setEventphoto(String newEventphoto);
+
 
 }
