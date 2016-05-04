@@ -1,8 +1,13 @@
 package edu.brown.cs.finalproject.eventsSorter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
+
 import com.google.common.collect.MinMaxPriorityQueue;
+
+import edu.brown.cs.finalproject.entities.Event;
 
 /**
  * A class containing all neccessary information about the accumulated
@@ -14,8 +19,8 @@ import com.google.common.collect.MinMaxPriorityQueue;
 public class ResultsCollection {
 
 	MinMaxPriorityQueue<PQNode> results;
-	HashSet<String> suggestions;
-	private static final int TOP_NUMBER = 200;
+	HashSet<Event> events;
+	private static final int TOP_NUMBER = 100;	// defines the top number of results that can be returned
 
 	public ResultsCollection() {
 		try {
@@ -26,7 +31,7 @@ public class ResultsCollection {
 					.println("INTERNAL ERROR: Priority queue cannot be instantiated.");
 			System.exit(1);
 		}
-		suggestions = new HashSet<String>();
+		events = new HashSet<Event>();
 	}
 
 	/**
@@ -49,11 +54,11 @@ public class ResultsCollection {
 	 *            queue
 	 */
 	public void add(PQNode node) {
-		String suggestion = node.getSuggestion();
-		if (!suggestions.contains(suggestion)) {
+		Event event = node.getEvent();
+		if (!events.contains(event)) {
 			results.add(node);
-			suggestion = node.getSuggestion();
-			suggestions.add(suggestion);
+			event = node.getEvent();
+			events.add(event);
 		}
 	}
 
@@ -68,31 +73,60 @@ public class ResultsCollection {
 	 * @return true if this ResultsCollection contains the specified element
 	 */
 	public boolean contains(String suggestion) {
-		return suggestions.contains(suggestion);
+		return events.contains(suggestion);
 	}
 
 	/**
-	 * Returns the top 5 suggestions from the priority queue, or fewer if there
-	 * are less than 5 suggestions in the priority queue.
+	 * Returns the 200 events from the priority queue with highest priority, or fewer if there
+	 * are less than 200 events in the priority queue.
 	 * 
-	 * @return null if passed null; a meaningful string array otherwise
+	 * @return empty List<Event> (ArrayList) if passed null; a meaningful List<Event> (ArrayList) otherwise
 	 */
-	public String[] returnTopSuggestions() {
+	public List<Event> returnEventsWithHighestPriority() {
 		if (results == null) {
-			return new String[0];
+			List<Event> emptyList = new ArrayList<Event>();
+			return emptyList;
 		}
 		int pqSize = results.size();
-		String[] collection = null;
+		List<Event> collection = new ArrayList<Event>();
 
-		if (pqSize < TOP_NUMBER) {
-			collection = new String[pqSize];
-		} else {
-			collection = new String[TOP_NUMBER];
+		if (pqSize > TOP_NUMBER) {
+			pqSize = TOP_NUMBER;
 		}
 
-		for (int i = 0; i < collection.length; i++) {
+		for (int i = 0; i < pqSize; i++) {
 			try {
-				collection[i] = results.removeLast().getSuggestion();
+				collection.add(results.removeLast().getEvent());
+			} catch (NoSuchElementException e) {
+				System.out
+						.println("INTERNAL ERROR: Priority queue has no element.");
+				System.exit(1);
+			}
+		}
+		return collection;
+	}
+	
+	/**
+	 * Returns the 200 events from the priority queue with lowest priority, or fewer if there
+	 * are less than 200 events in the priority queue.
+	 * 
+	 * @return empty List<Event> (ArrayList) if passed null; a meaningful List<Event> (ArrayList) otherwise
+	 */
+	public List<Event> returnEventsWithLowestPriority() {
+		if (results == null) {
+			List<Event> emptyList = new ArrayList<Event>();
+			return emptyList;
+		}
+		int pqSize = results.size();
+		List<Event> collection = new ArrayList<Event>();
+
+		if (pqSize > TOP_NUMBER) {
+			pqSize = TOP_NUMBER;
+		}
+
+		for (int i = 0; i < pqSize; i++) {
+			try {
+				collection.add(results.removeFirst().getEvent());
 			} catch (NoSuchElementException e) {
 				System.out
 						.println("INTERNAL ERROR: Priority queue has no element.");

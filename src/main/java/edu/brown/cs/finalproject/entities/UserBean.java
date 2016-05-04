@@ -1,33 +1,24 @@
 package edu.brown.cs.finalproject.entities;
 
 public class UserBean extends EntityBean implements User {
-  private String username;
+
   private String password;
-  private String fullname;
-  private String q1;
-  private String a1;
-  private String q2;
-  private String a2;
+  private String firstName;
+  private String lastName;
+  private String email;
+  private String fbToken;
   private String usermediapath;
 
-  public UserBean(String id, String username, String password, String fullname,
-      String q1, String a1, String q2, String a2, String usermediapath) {
+  public UserBean(String id, String password, String email, String firstName, String lastName,
+      String usermediapath, String fbToken) {
     super(id);
     // TODO Auto-generated constructor stub
-    this.username = username;
     this.password = password;
-    this.fullname = fullname;
-    this.q1 = q1;
-    this.a1 = a1;
-    this.q2 = q2;
-    this.a2 = a2;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.usermediapath = usermediapath;
-  }
-
-  @Override
-  public String getUsername() {
-    // TODO Auto-generated method stub
-    return username;
+    this.email = email;
+    this.fbToken = fbToken;
   }
 
   @Override
@@ -44,71 +35,6 @@ public class UserBean extends EntityBean implements User {
   }
 
   @Override
-  public String getFullName() {
-    // TODO Auto-generated method stub
-    return fullname;
-  }
-
-  @Override
-  public String setFullName(String newFullName) {
-    // TODO Auto-generated method stub
-    fullname = newFullName;
-    return fullname;
-  }
-
-  @Override
-  public String getQ1() {
-    // TODO Auto-generated method stub
-    return q1;
-  }
-
-  @Override
-  public String setQ1(String q1) {
-    // TODO Auto-generated method stub
-    this.q1 = q1;
-    return q1;
-  }
-
-  @Override
-  public String getA1() {
-    // TODO Auto-generated method stub
-    return a1;
-  }
-
-  @Override
-  public String setA1(String a1) {
-    // TODO Auto-generated method stub
-    this.a1 = a1;
-    return a1;
-  }
-
-  @Override
-  public String getQ2() {
-    // TODO Auto-generated method stub
-    return q2;
-  }
-
-  @Override
-  public String setQ2(String q2) {
-    // TODO Auto-generated method stub
-    this.q2 = q2;
-    return q2;
-  }
-
-  @Override
-  public String getA2() {
-    // TODO Auto-generated method stub
-    return a2;
-  }
-
-  @Override
-  public String setA2(String a2) {
-    // TODO Auto-generated method stub
-    this.a2 = a2;
-    return a2;
-  }
-
-  @Override
   public String getUserMediaPath() {
     // TODO Auto-generated method stub
     return usermediapath;
@@ -119,6 +45,30 @@ public class UserBean extends EntityBean implements User {
     // TODO Auto-generated method stub
     usermediapath = userMediaPath;
     return userMediaPath;
+  }
+
+  @Override
+  public String getEmail() {
+    // TODO Auto-generated method stub
+    return email;
+  }
+
+  @Override
+  public String getFirstName() {
+    // TODO Auto-generated method stub
+    return firstName;
+  }
+
+  @Override
+  public String getLastName() {
+    // TODO Auto-generated method stub
+    return lastName;
+  }
+
+  @Override
+  public String getFBtoken() {
+    // TODO Auto-generated method stub
+    return fbToken;
   }
 
 }

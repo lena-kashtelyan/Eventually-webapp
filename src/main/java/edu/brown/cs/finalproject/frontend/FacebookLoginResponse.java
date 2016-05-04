@@ -24,7 +24,7 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
   private static final String FACEBOOK_ID = "220099498366885";
   private static final String FACEBOOK_SECRET = "8a0e23ef1bc9e94213c881e53b2d7343";
   private static final String applicationHref = "https://api.stormpath.com/v1/applications/76713eIdUzokAFDoD4WtP7";
-  private static final String REDIRECT_URI = "http://1a040c51.ngrok.io/fbr";
+  private static final String REDIRECT_URI = "http://b8c4a6b0.ngrok.io/fbr";
 
   @Override
   public Object handle(Request req, Response res) {

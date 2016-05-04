@@ -21,6 +21,7 @@ import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.database.PublicFBEventsWriter;
 import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.entities.EventProxy;
+import edu.brown.cs.finalproject.eventsSorter.EventsSorter;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
@@ -139,6 +140,13 @@ public class Main {
 //       }
 
       // EventsByName eventsByName = new EventsByName();
+    	
+    	List<Event> events = dbManager.getUpcomingEvents();
+    	System.out.println("events queried: " + events.size());
+    	EventsSorter eventSorter = new EventsSorter();
+    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
+    	System.out.println("results :" + results.size());
+    	
 
     }
 

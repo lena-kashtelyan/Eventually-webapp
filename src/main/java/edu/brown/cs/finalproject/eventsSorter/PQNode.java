@@ -1,5 +1,7 @@
 package edu.brown.cs.finalproject.eventsSorter;
 
+import edu.brown.cs.finalproject.entities.Event;
+
 
 /**
  * This class represents a node in the priority queue with a Priority object as
@@ -11,11 +13,11 @@ package edu.brown.cs.finalproject.eventsSorter;
 public class PQNode {
 
 	Priority priorityIndex;
-	String suggestion;
+	Event event;
 
-	public PQNode(Priority priorityIndex, String suggestion) {
+	public PQNode(Priority priorityIndex, Event event) {
 		this.priorityIndex = priorityIndex;
-		this.suggestion = suggestion;
+		this.event = event;
 	}
 
 	/**
@@ -52,12 +54,12 @@ public class PQNode {
 	}
 
 	/**
-	 * Getter for the suggestion stored in the priority queue node
+	 * Getter for the event stored in the priority queue node
 	 * 
 	 * @return String, the suggestion stored in the priority queue
 	 */
-	public String getSuggestion() {
-		return suggestion;
+	public Event getEvent() {
+		return event;
 	}
 
 }
