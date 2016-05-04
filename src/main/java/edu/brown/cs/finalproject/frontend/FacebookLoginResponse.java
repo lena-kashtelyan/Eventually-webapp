@@ -14,6 +14,7 @@ import com.stormpath.sdk.provider.ProviderAccountResult;
 import com.stormpath.sdk.provider.Providers;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
+import edu.brown.cs.finalproject.database.DatabaseManager;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -73,7 +74,7 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
         System.out.println("email = " + account.getEmail());
         System.out.println("new account? =" + result.isNewAccount());
         if (result.isNewAccount()) {
-          dbManager.addUser(account.getUsername(), null, authenticate);
+          DatabaseManager.addUser(account.getUsername(), account.getFullName(), null, authenticate);
         } else {
           dbManager.setUsersFBAccessToken(account.getUsername(), authenticate);
         }
