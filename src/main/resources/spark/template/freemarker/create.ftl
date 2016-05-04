@@ -15,10 +15,10 @@
     <#include "topbar.ftl">
 
     <div class="jumbotron vertical-center">
-      <div class="container" id="everything">
+      <div class="container">
         <div class="col-md-3 col-sm-1 col-xs-0"></div>
         <div class="col-md-6 col-sm-10 col-xs-12">
-          <form id="event-form">
+          <form id="event-form" action="">
             <div class="row">
               <div class="col-md-6"> 
                 <div class="form-group">
@@ -87,14 +87,14 @@
                   <span class="input-group-addon">
                     <input type="checkbox" aria-label="add to facebook">
                   </span>
-                  <input type="text" class="form-control form-control-black" aria-label="add to facebook" value="add to facebook       " readonly>
+                  <input type="text" class="form-control form-control-black" aria-label="add to facebook" id="facebookAdd" value="add to facebook       " readonly>
                 </div>
               </div>
             </div>
             <h2></h2>
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-block btn-default" id="create-btn" name="submit" type="submit">create</button>
+                <button class="btn btn-block btn-default" id="create-btn">create</button>
               </div>
             </div>
           </form>
