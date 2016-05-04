@@ -118,7 +118,7 @@ public class Main {
       
        JsonObject publicEvents = null;
        try {
-    	   publicEvents = PublicFBEventsFinder.requestEvents(41.826119, -71.403112, 5000);
+    	   publicEvents = PublicFBEventsFinder.requestEvents(41.826119, -71.403112, 1000);
        } catch (IOException e1) {
     	   e1.printStackTrace();
     	   System.out.println("ERROR: Fetching public Facebook events.");

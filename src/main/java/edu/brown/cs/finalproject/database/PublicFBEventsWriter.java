@@ -70,7 +70,15 @@ public class PublicFBEventsWriter {
 //					.replace("\"", "'").replace("/","a").replace("&","a").replace("?","a")
 //					.replace("=", "a").replace(".","a").replace(":","a").replace("-","a").replace("_", "a").replaceAll("[^a-zA-Z ]", "");
 			String eventDescription = eventJSON.get("eventDescription")
-					.toString().replaceAll("[^a-zA-Z ]", "");
+					.toString().replaceAll("[^a-zA-Z ]", "");//.replace("\"", "'");
+			if (eventDescription.length() > 4500) {
+				eventDescription = eventDescription.substring(0, 4500);
+			}
+//			eventDescription = URLEncoder.encode(eventDescription);
+					
+					
+					
+					//
 
 			// Obtaining a java.util.Date from a date&time string.
 			String eventStarttimeString = eventJSON.get("eventStarttime")

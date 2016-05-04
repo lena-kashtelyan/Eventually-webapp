@@ -194,39 +194,39 @@ public class DatabaseManager {
 		}
 	}
 
-	public static boolean addInternalEvent(String Name, String creatorID,
-			String startDate, String address, String category,
-			String description) {
-
-		String eventID = UUID.randomUUID().toString();
-
-		String query = String
-				.format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount) "
-						+ "VALUES ('%s', '%s', 'internal', '%s', %s, '%s', '%s', 0, 0, 0, 0);",
-						eventID, Name, creatorID, startDate, category,
-						description);
-		System.out.println(query);
-		try {
-			CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-					"cs32finalproject",
-					"ad54038628d84dceb55a7adb81eddfcf9976e994");
-			cartoDBCLient.request(query);
-		} catch (CartoDBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-
-		Event newEvent;
-		try {
-			newEvent = new EventProxy(eventID);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
+//	public static boolean addInternalEvent(String Name, String creatorID,
+//			String startDate, String address, String category,
+//			String description) {
+//
+//		String eventID = UUID.randomUUID().toString();
+//
+//		String query = String
+//				.format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount) "
+//						+ "VALUES ('%s', '%s', 'internal', '%s', %s, '%s', '%s', 0, 0, 0, 0);",
+//						eventID, Name, creatorID, startDate, category,
+//						description);
+//		System.out.println(query);
+//		try {
+//			CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+//					"cs32finalproject",
+//					"ad54038628d84dceb55a7adb81eddfcf9976e994");
+//			cartoDBCLient.request(query);
+//		} catch (CartoDBException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return false;
+//		}
+//
+//		Event newEvent;
+//		try {
+//			newEvent = new EventProxy(eventID);
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return false;
+//		}
+//		return true;
+//	}
 
 	public static List<Event> getEvents() {
 		List<Event> events = new ArrayList<>();
