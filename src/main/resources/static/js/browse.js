@@ -1,5 +1,6 @@
 $(document).ready(function () {
-	$('a').on('click', function(e) {
+	$(".event-link").on('click', function(e) {
+		console.log("here");
 		e.preventDefault();
 		var auth = $("#auth").text();
 		var username = $("#username").text();

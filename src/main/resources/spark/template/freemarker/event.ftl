@@ -8,6 +8,12 @@
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/browse.css">
     <title>${title}</title>
+    <style>
+      #description {
+        font-family: 'Oxygen', sans-serif;
+        font-size: 14px;
+      }
+    </style>
   </head>
 
   <body>
@@ -25,10 +31,12 @@
                   </div>
                   <div class="col-md-4">
                     <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right">
-                      <i class="fa fa-check" aria-hidden="true"></i>
+                      <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
+                      attend
                     </button>
                     <button type="button" data-toggle="tooltip" data-placement="bottom"title="save event" id="save-btn" class="btn btn-default pull-right">
-                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <!-- <i class="fa fa-star" aria-hidden="true"></i> -->
+                      save
                     </button>
                   </div>
                 </h2>
@@ -42,13 +50,22 @@
                       <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                     </div>
                   </div>
-                  <div class="row" id="event-popularity">
-                    <div class="col-md-2 col-sm-3 col-xs-3" id="event-popularity">${event.attendingCount}</div>
-                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
-                  </div>
                 </div>
-                <div class="col-md-6">
-                  ${event.description}
+                <div class="col-md-6" id="description">
+                  <#assign description = event.description>
+                  <#if ${description?length} > 800>
+                    <p>${description[0..<880]}<a href="#full-description"  data-toggle="collapse">...</a>
+                    <div id="full-description" class="collapse">
+                        ${description[881..]}
+                    </div></p>
+                  <#else>
+                    ${event.description}
+                  <#endif>
+                  <div class="row">
+                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
+                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
+                    ${event.attendingCount}</div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -18,27 +18,51 @@
       <#list events as event>
         <li class="list-group-item">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="col-md-4">
-                <img src=${event.eventphoto} class="img-responsive img-thumbnail" alt="Responsive image">
-              </div>
-              <div class="col-md-8">
-                <div class="row" id="event-name">
-                  <!--REPLACE href BELOW WITH event id ONCE IT WORKS-->
-                  <h2>
-                    <a id="event-link" href="876362925794780">${event.name}</a>
+            <div class="panel-heading">
+              <div class="row" id="event-name">
+                <h2 id="event-link">
+                  <div class="col-md-8">
+                    <div id="event-link">
+                      <a id="event-link" name="event-link" href="876362925794780">${event.name}</a>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
                     <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right">
-                      <i class="fa fa-check" aria-hidden="true"></i>
+                      <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
+                      attend
                     </button>
                     <button type="button" data-toggle="tooltip" data-placement="bottom"title="save event" id="save-btn" class="btn btn-default pull-right">
-                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <!-- <i class="fa fa-star" aria-hidden="true"></i> -->
+                      save
                     </button>
-                  </h2>
+                  </div>
+                </h2>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="row" id="event-image">
+                    <div class="col-md-12">
+                      <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+                    </div>
+                  </div>
                 </div>
-                <div class="row" id="event-description">${event.description}</div>
-                <div class="row" id="event-popularity">
-                  <div class="col-md-2 col-sm-3 col-xs-3" id="event-popularity">${event.attendingCount}</div>
-                  <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
+                <div class="col-md-6" id="description">
+                  <#assign description = event.description>
+                  <#if (description?length > 881)>
+                    <p>${description[0..880]}<a href="#full-description" data-toggle="collapse">...</a>
+                    <div id="full-description" class="collapse">
+                        ${description[881..]}
+                    </div></p>
+                  <#else>
+                    ${event.description}
+                  </#if>
+                  <div class="row">
+                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
+                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
+                    ${event.attendingCount}</div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css">
@@ -13,11 +14,11 @@
   <body>
     <#include "background.ftl">
     <#include "topbar.ftl">
-
+  <div class="wrapper">
     <div class="jumbotron vertical-center">
       <div class="container">
         <div class="col-md-3 col-sm-1 col-xs-0"></div>
-        <div class="col-md-6 col-sm-10 col-xs-12">
+        <div class="col-md-6 col-sm-10 col-xs-12" id="center-box">
           <form id="event-form" action="">
             <div class="row">
               <div class="col-md-6"> 
@@ -101,7 +102,7 @@
         </div>
       </div>
     </div>
-
+  </div>  
     <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
