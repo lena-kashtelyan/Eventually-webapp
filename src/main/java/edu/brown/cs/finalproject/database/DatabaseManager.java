@@ -214,6 +214,7 @@ public class DatabaseManager {
           .request(query);
       for (int j = 0; j < res.getTotal_rows(); j++) {
         String eventID = (String) res.getRows().get(j).get("eventid");
+        System.out.println(eventID);
         Event event = new EventProxy(eventID);
         events.add(event);
       }

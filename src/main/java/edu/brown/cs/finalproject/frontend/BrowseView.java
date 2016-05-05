@@ -38,9 +38,9 @@ public class BrowseView extends BackendInteraction
       if (auth.verifyAuthToken(username, authToken)) {
         List<Event> events = DatabaseManager.getUpcomingEvents();
         
-        EventsSorter eventSorter = new EventsSorter();
+        //EventsSorter eventSorter = new EventsSorter();
 //    	events = eventSorter.sortEventsByLocation(events, 41.826144690402, -71.403125740801);	// if we want to store based on location
-    	events = eventSorter.sortEventsByAttendingCount(events);	// if we want to store based on Attending Count
+    	//events = eventSorter.sortEventsByAttendingCount(events);	// if we want to store based on Attending Count
         
         
         /*

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" />
-	  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/topbar.css">
+    <link rel="stylesheet" type="text/css" href="css/browse.css">
+    <title>${title}</title>
   </head>
 
   <body>
@@ -13,18 +16,18 @@
 
     <div class="container">
       <div class="col-md-6">
-        <img src="http://weknowyourdreamz.com/images/party-wallpaper/party-wallpaper-08.jpg" class="img-responsive" alt="Responsive image">
+        <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
         <div class="container-fluid">
-          <p> event title </p>
+          <p>${event.name}</p>
         </div>
         <div class="container-fluid">
-          <p> event description.... </p>
+          <p>${event.description}</p>
         </div>
         <div class="container-fluid">
-          <p> EVENT POPULARITY STATUS </p>
+          <p>${event.attendingCount}</p>
         </div>
         <div class="container-fluid">
-          <p> location </p>
+          <p>Venue</p>
         </div>
       </div>
 
@@ -61,7 +64,10 @@
 
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/topbar.js"></script>
+    <script src="js/background.js"></script>
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
