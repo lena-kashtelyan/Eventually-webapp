@@ -12,8 +12,10 @@
   </head>
 
   <body>
-    <#include "background.ftl">
-    <#include "topbar.ftl">
+    <div>
+      <#include "background.ftl">
+      <#include "topbar.ftl">
+    </div>
 
     <!--EMBED MAP-->
     <div id="map-container"></div>
