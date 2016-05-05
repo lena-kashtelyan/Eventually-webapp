@@ -1,3 +1,5 @@
+    
+
     * {
       border-radius: 0 !important;
     }
@@ -15,7 +17,6 @@
     .form-control-topbar {
       padding-left: 8px;
     }
-    
     .navbar-brand {
       font-family: 'Poiret One', cursive;
       font-size: 36px;
@@ -27,5 +28,6 @@
       font-size:20px;
     }
     .navbar {
+      z-index:100;
       margin-bottom: 0px !important;
     }

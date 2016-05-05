@@ -53,14 +53,14 @@
                 </div>
                 <div class="col-md-6" id="description">
                   <#assign description = event.description>
-                  <#if ${description?length} > 800>
-                    <p>${description[0..<880]}<a href="#full-description"  data-toggle="collapse">...</a>
+                  <#if (description?length > 881)>
+                    <p>${description[0..880]}<a href="#full-description" data-toggle="collapse">...</a>
                     <div id="full-description" class="collapse">
                         ${description[881..]}
                     </div></p>
                   <#else>
                     ${event.description}
-                  <#endif>
+                  </#if>
                   <div class="row">
                     <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
                     <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">

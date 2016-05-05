@@ -13,14 +13,10 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-	console.log("in save --");
-	$('.save-btn').on('click', function(e) {
-		console.log("in save");
+	$("#save-btn").on('click', function(e) {
 		var auth = $("#auth").text();
 		var username = $("#username").text();
-		var eventID = $("#event-link").attr('href');
-		console.log("in save");
-		console.log(eventID);
+		var eventID = $(this).attr('href');
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
 		$.post("/save", params);
 		//change star color

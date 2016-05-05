@@ -39,8 +39,6 @@
                     <option value="performance">performance</option>
                     <option value="academic">academic event</option>
                   </select>
-
-
                 </div>
               </div>
             </div>
