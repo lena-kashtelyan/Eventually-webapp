@@ -12,13 +12,13 @@
   </head>
 
   <body>
-    <div>
-      <#include "background.ftl">
-      <#include "topbar.ftl">
-    </div>
+    <#include "background.ftl">
+    <#include "topbar.ftl">
 
     <!--EMBED MAP-->
-    <div id="map-container"></div>
+    <div id="map-supercontainer">
+      <div id="map-container"></div>
+    </div>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
