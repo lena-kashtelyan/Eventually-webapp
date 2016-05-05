@@ -17,6 +17,8 @@ import com.cartodb.CartoDBClientIF;
 import com.cartodb.CartoDBException;
 import com.cartodb.impl.ApiKeyCartoDBClient;
 import com.cartodb.model.CartoDBResponse;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.entities.EventProxy;
@@ -24,7 +26,11 @@ import edu.brown.cs.finalproject.entities.User;
 import edu.brown.cs.finalproject.entities.UserProxy;
 
 public class DatabaseManager {
-
+  private Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+      "cloud_name", "df1bylm3l",
+      "api_key", "411248546735325",
+      "api_secret", "M04dGcHdQhfUDM95fOQVXiG_Vjk"));
+  
   public DatabaseManager() {
     // Empty Constructor for Now
   }
@@ -85,7 +91,7 @@ public class DatabaseManager {
       String fbAccessToken) {
 
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO users (username, fullname, password, userMediaPath, fbAccessToken) VALUES (?,?,?);";
+    String query = "INSERT INTO users (username, fullname, userMediaPath, fbAccessToken) VALUES (?,?,?,?);";
 
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, username);
