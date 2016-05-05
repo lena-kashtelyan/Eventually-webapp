@@ -25,10 +25,15 @@
               <div class="col-md-8">
                 <div class="row" id="event-name">
                   <!--REPLACE href BELOW WITH event id ONCE IT WORKS-->
-                  <a id="event-link" href="876362925794780">${event.name}</a>
-                  <button type="button" id="save-btn" class="btn btn-default">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                  </button>
+                  <h2>
+                    <a id="event-link" href="876362925794780">${event.name}</a>
+                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="save event" id="save-btn" class="btn btn-default pull-right">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    </button>
+                  </h2>
                 </div>
                 <div class="row" id="event-description">${event.description}</div>
                 <div class="row" id="event-popularity">
