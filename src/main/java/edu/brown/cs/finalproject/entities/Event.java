@@ -19,9 +19,9 @@ public interface Event extends Entity {
 
   public String setStartDate(String newStartDate);
 
-  public double getLatitude();
-  
-  public double getLongitude();
+//  public double getLatitude();
+//  
+//  public double getLongitude();
   
 //  public int getInvitedCount();
   

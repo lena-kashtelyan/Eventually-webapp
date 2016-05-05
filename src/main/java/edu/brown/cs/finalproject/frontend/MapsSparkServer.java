@@ -34,7 +34,8 @@ public class MapsSparkServer implements SparkServer {
     Spark.get("/account", new AccountView("account.ftl"), freeMarker);
     Spark.get("/facebooklogin", new FacebookLoginView());
     Spark.get("/fbr", new FacebookLoginResponse());
-    // Spark.get("/event/?", null);
+    Spark.get("/event", new EventView("event.ftl"), freeMarker);
+    Spark.post("/save", new SaveHandler());
     // Spark.get("/storystream/?", null);
     // Spark.put("/post/?", null);
     // Spark.post("/myaccount", null);
