@@ -9,8 +9,7 @@ public class EventBean extends EntityBean implements Event {
 	private boolean isPublic;
 	private String category;
 	private String description;
-	private double latitude;
-	private double longitude;
+	
 	private int attendingCount;
 	// private int invitedCount;
 	private int declinedCount;
@@ -21,7 +20,7 @@ public class EventBean extends EntityBean implements Event {
 	public EventBean(String id, String Name, String venueName,
 			String originType, User creator, String startDate,
 			int attendingCount, int declinedCount, int noReplyCount,
-			int maybeCount, double latitude, double longitude,
+			int maybeCount, 
 			boolean ispublic, String category, String description,
 			String eventphoto) {
 		super(id);
@@ -33,8 +32,7 @@ public class EventBean extends EntityBean implements Event {
 		this.isPublic = ispublic;
 		this.category = category;
 		this.description = description;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		
 		this.attendingCount = attendingCount;
 		// this.invitedCount = invitedCount;
 		this.maybeCount = maybeCount;
@@ -125,15 +123,7 @@ public class EventBean extends EntityBean implements Event {
 		return description;
 	}
 
-	@Override
-	public double getLatitude() {
-		return latitude;
-	}
-
-	@Override
-	public double getLongitude() {
-		return longitude;
-	}
+	
 
 	// @Override
 	// public int getInvitedCount() {
@@ -163,6 +153,7 @@ public class EventBean extends EntityBean implements Event {
 
 	@Override
 	public String getEventphoto() {
+	    System.out.println(eventphoto);
 		return eventphoto;
 	}
 

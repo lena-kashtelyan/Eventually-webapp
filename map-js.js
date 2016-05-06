@@ -54,10 +54,10 @@ function embedMap(div) {
                     L.tileLayer(tileURL).addTo(map_object);
 
                     cartodb.createLayer(map_object, {
-                        user_name: 'colehansen',
+                        user_name: 'cs32finalproject',
                         type: 'cartodb',
                         sublayers: [{
-                            sql: "SELECT * FROM testa",
+                            sql: "SELECT * FROM events",
                             cartocss: cartocssHeatmap
                         }]
                     }).addTo(map_object);

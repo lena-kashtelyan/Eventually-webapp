@@ -14,6 +14,7 @@ import com.stormpath.sdk.provider.ProviderAccountResult;
 import com.stormpath.sdk.provider.Providers;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
+import edu.brown.cs.finalproject.database.DatabaseManager;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -24,7 +25,7 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
   private static final String FACEBOOK_ID = "220099498366885";
   private static final String FACEBOOK_SECRET = "8a0e23ef1bc9e94213c881e53b2d7343";
   private static final String applicationHref = "https://api.stormpath.com/v1/applications/76713eIdUzokAFDoD4WtP7";
-  private static final String REDIRECT_URI = "http://1a040c51.ngrok.io/fbr";
+  private static final String REDIRECT_URI = "http://b8c4a6b0.ngrok.io/fbr";
 
   @Override
   public Object handle(Request req, Response res) {
@@ -73,7 +74,7 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
         System.out.println("email = " + account.getEmail());
         System.out.println("new account? =" + result.isNewAccount());
         if (result.isNewAccount()) {
-          dbManager.addUser(account.getUsername(), null, authenticate);
+          DatabaseManager.addUser(account.getUsername(), account.getFullName(), null, authenticate);
         } else {
           dbManager.setUsersFBAccessToken(account.getUsername(), authenticate);
         }

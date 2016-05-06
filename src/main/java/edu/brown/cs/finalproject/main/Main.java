@@ -140,12 +140,25 @@ public class Main {
 //       }
 
       // EventsByName eventsByName = new EventsByName();
+
     	
-    	List<Event> events = dbManager.getUpcomingEvents();
-    	System.out.println("events queried: " + events.size());
-    	EventsSorter eventSorter = new EventsSorter();
-    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
-    	System.out.println("results :" + results.size());
+    	
+//    	try {
+//			Event event = new EventProxy("1571993216463766");
+//			System.out.println(event.getEventphoto());
+//			System.out.println(event.getName());
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+    	
+    	
+    	
+//    	List<Event> events = dbManager.getUpcomingEvents();
+//    	System.out.println("events queried: " + events.size());
+//    	EventsSorter eventSorter = new EventsSorter();
+//    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
+//    	System.out.println("results :" + results.size());
     	
 
     }

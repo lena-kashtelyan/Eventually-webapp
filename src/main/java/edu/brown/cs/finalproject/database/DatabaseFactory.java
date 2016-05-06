@@ -23,13 +23,6 @@ public final class DatabaseFactory {
       System.out.println("ERROR: Problem in creating users table.");
     }
 
-//    try {
-//      createeventsTable();
-//    } catch (SQLException e) {
-//      e.printStackTrace();
-//      System.out.println("ERROR: Problem in creating events table.");
-//    }
-
     try {
       creategoingTable();
     } catch (SQLException e) {
@@ -50,13 +43,6 @@ public final class DatabaseFactory {
       e.printStackTrace();
       System.out.println("ERROR: Problem in creating going table.");
     }
-
-//    try {
-//      createvenueTable();
-//    } catch (SQLException e) {
-//      e.printStackTrace();
-//      System.out.println("ERROR: Problem in creating going table.");
-//    }
 
     try {
       createinvitedTable();
@@ -89,6 +75,7 @@ public final class DatabaseFactory {
 
     String schema = "CREATE TABLE users("
         + "username TEXT PRIMARY KEY     NOT NULL,"
+        + "fullname TEXT NOT NULL,"
         + "userMediaPath	TEXT," 
         + "fbAccessToken TEXT"   
         + ");";
@@ -102,59 +89,6 @@ public final class DatabaseFactory {
     }
 
   }
-
-//  private static void createeventsTable() throws SQLException {
-//    Connection conn = Database.getConnection();
-//
-//    String dropPrevTableQuery = "DROP TABLE IF EXISTS events;";
-//    try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
-//      prep.execute();
-//    }
-//
-//    String schema = "CREATE TABLE events("
-//        + "eventID TEXT PRIMARY KEY     NOT NULL,"
-//        + "name           TEXT    NOT NULL,"
-//        + "venueID            TEXT    NOT NULL,"
-//        + "originType            TEXT," + "creatorID            TEXT,"
-//        + "startDate        DATE     NOT NULL,"
-//        + "startTime         DATETIME     NOT NULL,"
-//        + "endTime         DATETIME," + "category         TEXT,"
-//        + "public         BOOLEAN     NOT NULL," + "description	TEXT" + ");";
-//    try (PreparedStatement prep = conn.prepareStatement(schema)) {
-//      prep.execute();
-//    }
-//
-//    String addIndex = "CREATE INDEX events_origintype ON events (origintype);";
-//    try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
-//      prep.execute();
-//    }
-//
-//    addIndex = "CREATE INDEX events_creatorID ON events (creatorID);";
-//    try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
-//      prep.execute();
-//    }
-//
-//    addIndex = "CREATE INDEX events_startDate ON events (startDate);";
-//    try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
-//      prep.execute();
-//    }
-//
-//    addIndex = "CREATE INDEX events_startTime ON events (startTime);";
-//    try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
-//      prep.execute();
-//    }
-//
-//    addIndex = "CREATE INDEX events_category ON events (category);";
-//    try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
-//      prep.execute();
-//    }
-//
-//    addIndex = "CREATE INDEX events_public ON events (public);";
-//    try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
-//      prep.execute();
-//    }
-//
-//  }
 
   private static void creategoingTable() throws SQLException {
     Connection conn = Database.getConnection();
@@ -229,23 +163,6 @@ public final class DatabaseFactory {
     }
 
   }
-
-//  private static void createvenueTable() throws SQLException {
-//    Connection conn = Database.getConnection();
-//
-//    String dropPrevTableQuery = "DROP TABLE IF EXISTS venue;";
-//    try (PreparedStatement prep = conn.prepareStatement(dropPrevTableQuery)) {
-//      prep.execute();
-//    }
-//
-//    String schema = "CREATE TABLE venue(" + "venueID TEXT NOT NULL,"
-//        + "name TEXT NOT NULL," + "latitude TEXT NOT NULL,"
-//        + "longitude TEXT NOT NULL," + "PRIMARY KEY(venueID));";
-//    try (PreparedStatement prep = conn.prepareStatement(schema)) {
-//      prep.execute();
-//    }
-//
-//  }
 
   private static void createinvitedTable() throws SQLException {
     Connection conn = Database.getConnection();
@@ -322,87 +239,5 @@ public final class DatabaseFactory {
       prep.execute();
     }
   }
-  
-  public static void addAttendee(String userID, String eventID) {
-    Connection conn = Database.getConnection();
-    String query = "INSERT INTO going VALUES(?,?);";
-    
-    try (PreparedStatement prep = conn.prepareStatement(query)) {
-      prep.setString(1, eventID);
-      prep.setString(2,  userID);
-      prep.addBatch();
-      prep.executeBatch();
-    } catch (SQLException s) {
-      s.printStackTrace();
-    }
-  }
-  
-  public static List<User> getAttendees(String eventID) {
-    Connection conn = Database.getConnection();
-    String query = "SELECT userid FROM going WHERE eventID=?;";
-    List<User> attendees = new ArrayList<>();  
-    
-    try (PreparedStatement prep = conn.prepareStatement(query)) {
-      prep.setString(1, eventID);
-      try (ResultSet rs = prep.executeQuery()) {
-        while (rs.next()) {
-          String userid = rs.getString(1);
-          User userproxy = new UserProxy(userid);
-          attendees.add(userproxy);
-        }
-      }
-    } catch (SQLException s) {
-      s.printStackTrace();
-    }
-    return attendees;
-  }
-  
-  
-  
-//  public static String addVenue(String name, double lat, double lng) {
-//     Connection conn = Database.getConnection();
-//     String query = "INSERT INTO users VALUES (?,?,?,?)";
-//     
-//     try (PreparedStatement prep = conn.prepareStatement(query)) {
-//       String id = UUID.randomUUID().toString();
-//       prep.setString(1, id );
-//       prep.setString(2, name);
-//       prep.setDouble(2, lat);
-//       prep.setDouble(4, lng);
-//       prep.addBatch();
-//       prep.executeBatch();
-//       return id;
-//     } catch (NullPointerException | SQLException n) {
-//       n.printStackTrace();
-//       return null;
-//     }
-//  }
-// 
-//  public static String addEvent(String name, String venueID, String originType, String creatorid, Date startDate,
-//      Time startTime, Time endTime, boolean isPublic, String category, String description) {
-//    Connection conn = Database.getConnection();
-//    String query = "INSERT INTO events VALUES (?,?,?,?, ?,?,?,?, ?,?,?)";
-//    
-//    try (PreparedStatement prep = conn.prepareStatement(query)) {
-//      String id = UUID.randomUUID().toString();
-//      prep.setString(1, id );
-//      prep.setString(2, name);
-//      prep.setString(3, name);
-//      prep.setString(4, name);
-//      prep.setString(5, name);
-//      prep.setDate(6, startDate);
-//      prep.setTime(7, startTime);
-//      prep.setTime(8, endTime);
-//      prep.setBoolean(9, isPublic);
-//      prep.setString(10, category);
-//      prep.setString(11, description);
-//      prep.addBatch();
-//      prep.executeBatch();
-//      return id;
-//    } catch (NullPointerException | SQLException n) {
-//      n.printStackTrace();
-//      return null;
-//    }
-// }
 
 }

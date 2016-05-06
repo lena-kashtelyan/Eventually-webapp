@@ -21,7 +21,7 @@ public class EventProxy extends EntityProxy<Event> implements Event {
 
     @Override
     protected void pullFromDB() {
-        CartoDBResponse<Map<String, Object>> res;;
+        CartoDBResponse<Map<String, Object>> res;
         try {
             CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
             String query = String.format("select * from events where eventid='%s';", id);
@@ -33,17 +33,28 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         }
 
         String name = (String) res.getRows().get(0).get("name");
+        System.out.println(name);
         String venueName = (String) res.getRows().get(0).get("venuename");
+        System.out.println(venueName);
         String originType = (String) res.getRows().get(0).get("origintype");
         String creatorID = (String) res.getRows().get(0).get("creatorid");
+        System.out.println("before user creation");
         User creator = new UserProxy(creatorID);
+        System.out.println("hello");
         String startDate = (String) res.getRows().get(0).get("startdate");
-        double lat = (double) res.getRows().get(0).get("latitude");
-        double lng = (double) res.getRows().get(0).get("longitude");
-        boolean isPublic = (boolean) res.getRows().get(0).get("public");
+        System.out.println(startDate);
+//        double lat = (double) res.getRows().get(0).get("latitude");
+//        System.out.println("after lat");
+//        System.out.println(lat);
+//        double lng = (double) res.getRows().get(0).get("longitude");
+//        boolean isPublic = (boolean) res.getRows().get(0).get("public");
+        
+        boolean isPublic = true;
         String category = (String) res.getRows().get(0).get("category");
         String description = (String) res.getRows().get(0).get("description");
+        System.out.println(description);
         int attendingCount = (int) res.getRows().get(0).get("attendingcount");
+        System.out.println(attendingCount);
         //    int invitedCount = (int) res.getRows().get(0).get("invitedcount");
         int maybeCount = (int) res.getRows().get(0).get("maybecount");
         int noReplyCount = (int) res.getRows().get(0).get("noreplycount");
@@ -51,7 +62,7 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         String eventphoto = (String) res.getRows().get(0).get("eventphoto");
 
         internal = new EventBean(id, name, venueName, originType, creator, startDate,
-                attendingCount, declinedCount, noReplyCount, maybeCount, lat, lng, isPublic, category, description, eventphoto);
+                attendingCount, declinedCount, noReplyCount, maybeCount, isPublic, category, description, eventphoto);
     }
 
     @Override
@@ -144,17 +155,17 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         return internal.setDescription(newDescription);
     }
 
-    @Override
-    public double getLatitude() {
-        getInternal();
-        return internal.getLatitude();
-    }
-
-    @Override
-    public double getLongitude() {
-        getInternal();
-        return internal.getLongitude();
-    }
+//    @Override
+//    public double getLatitude() {
+//        getInternal();
+//        return internal.getLatitude();
+//    }
+//
+//    @Override
+//    public double getLongitude() {
+//        getInternal();
+//        return internal.getLongitude();
+//    }
 
     //  @Override
     //  public int getInvitedCount() {
@@ -190,13 +201,15 @@ public class EventProxy extends EntityProxy<Event> implements Event {
     @Override
     public String getEventphoto() {
         getInternal();
+        System.out.println("here");
+        System.out.println(internal.getEventphoto());
         return internal.getEventphoto();
     }
 
-	@Override
-	public String setEventphoto(String newEventphoto) {
-        getInternal();
-        return internal.setEventphoto(newEventphoto);
-	}
+    @Override
+    public String setEventphoto(String newEventphoto) {
+      getInternal();
+      return internal.setEventphoto(newEventphoto);
+    }
 
 }

@@ -1,8 +1,31 @@
+.wrapper {
+  position: relative;
+  height: 100vh;
+  margin-top: -50px;
+}
+
 .jumbotron {
-  background-color: rgba(0, 0, 0, 0.5) !important;
+  background-color: transparent; !important;
   font-family: 'Poiret One', cursive;
   color: white;
   font-size: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+@media screen and (min-width: 768px) {
+    .jumbotron {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+}
+
+#center-box {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  padding: 20px 20px;
 }
 
 .btn-default, .input-group-addon, .form-control-black {
@@ -10,6 +33,13 @@
   border-color: white !important;
   font-size: 20px !important;
   color: white !important;
+}
+
+.navbar-brand {
+  font-family: 'Poiret One', cursive;
+  font-size: 36px;
+  margin-bottom: 4px;
+  margin-top: -4px;
 }
 
 .form-control, select {
