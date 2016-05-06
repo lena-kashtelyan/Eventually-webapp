@@ -48,6 +48,7 @@ public class EventProxy extends EntityProxy<Event> implements Event {
 //        System.out.println(lat);
 //        double lng = (double) res.getRows().get(0).get("longitude");
 //        boolean isPublic = (boolean) res.getRows().get(0).get("public");
+        
         boolean isPublic = true;
         String category = (String) res.getRows().get(0).get("category");
         String description = (String) res.getRows().get(0).get("description");

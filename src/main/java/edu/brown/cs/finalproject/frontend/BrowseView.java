@@ -36,11 +36,11 @@ public class BrowseView extends BackendInteraction
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(username, authToken)) {
-        List<Event> events = DatabaseManager.getUpcomingEvents();
+    	  
+    	  // CHOOSE WHICHEVER YOU WOULD LIKE; WHEN WE ADD THE CUSTOMIZABLE BOX WE WILL USE WHICHEVER THE USER REQUESTS
+//        List<Event> events = DatabaseManager.getUpcomingEventsWithinProximitySortedByProximity(41.826144690402, -71.403125740801, 1000, 100);
+        List<Event> events = DatabaseManager.getUpcomingEventsWithinProximitySortedByPopularity(41.826144690402, -71.403125740801, 10000, 100);
         
-        //EventsSorter eventSorter = new EventsSorter();
-//    	events = eventSorter.sortEventsByLocation(events, 41.826144690402, -71.403125740801);	// if we want to store based on location
-    	//events = eventSorter.sortEventsByAttendingCount(events);	// if we want to store based on Attending Count
         
         
         /*

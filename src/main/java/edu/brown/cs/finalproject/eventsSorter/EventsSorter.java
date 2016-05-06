@@ -16,29 +16,30 @@ public class EventsSorter {
    *          <Event>
    * @return List<Event>
    */
-  // public List<Event> sortEventsByLocation(List<Event> unsortedEventsList,
-  // double currLatitute, double currLongitude) {
-  //
-  // ResultsCollection resultsCollection = new ResultsCollection();
-  //
-  // for (Event tempEvent : unsortedEventsList) {
-  //
-  // double euclideanDistance = this.findDistance(currLatitute, currLongitude,
-  // tempEvent.getLatitude(), tempEvent.getLongitude());
-  //
-  // PQNode tempPQNode = new PQNode(new Priority(euclideanDistance), tempEvent);
-  // resultsCollection.add(tempPQNode);
-  // }
-  //
-  // List<Event> outcome = resultsCollection.returnEventsWithLowestPriority();
-  //
-  // for (Event e : outcome) {
-  // System.out.println(e.getID() + " " + this.findDistance(currLatitute,
-  // currLongitude, e.getLatitude(), e.getLongitude()));
-  // }
-  //
-  // return outcome;
-  // }
+  public List<Event> sortEventsByLocation(List<Event> unsortedEventsList,
+      double currLatitute, double currLongitude) {
+
+    ResultsCollection resultsCollection = new ResultsCollection();
+
+    for (Event tempEvent : unsortedEventsList) {
+
+      // double euclideanDistance = this.findDistance(currLatitute,
+      // currLongitude, tempEvent.getLatitude(), tempEvent.getLongitude());
+
+      // PQNode tempPQNode = new PQNode(new Priority(euclideanDistance),
+      // tempEvent);
+      // resultsCollection.add(tempPQNode);
+    }
+
+    List<Event> outcome = resultsCollection.returnEventsWithLowestPriority();
+
+    // for (Event e : outcome) {
+    // System.out.println(e.getID() + " " + this.findDistance(currLatitute,
+    // currLongitude, e.getLatitude(), e.getLongitude()));
+    // }
+
+    return outcome;
+  }
 
   /**
    * Sorts a list of events based on attending count; uses a priority queue
