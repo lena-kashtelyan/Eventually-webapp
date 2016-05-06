@@ -56,6 +56,14 @@ public class PublicFBEventsWriter {
           + venueLocationJSON.get("longitude").toString());
       String venueLat = venueLocationJSON.get("latitude").toString();
       String venueLong = venueLocationJSON.get("longitude").toString();
+      
+      StringBuilder geomPointBuilder = new StringBuilder();
+      geomPointBuilder.append("ST_SetSRID(ST_Point(");
+      geomPointBuilder.append(venueLong);
+      geomPointBuilder.append(",");
+      geomPointBuilder.append(venueLat);
+      geomPointBuilder.append("),4326)");
+      String geomPoint = geomPointBuilder.toString();
 
       //			String venueCoverPicture = eventJSON.get("venueCoverPicture")
       //					.toString().replace("\"", "");
@@ -160,7 +168,7 @@ public class PublicFBEventsWriter {
       urlBuilder
       .append("https://cs32finalproject.cartodb.com/api/v2/sql?q=WITH%20n(");
       urlBuilder
-      .append("eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto)");
+      .append("eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto)");
       urlBuilder.append("%20AS%20(%20VALUES");
       urlBuilder.append(" (");
       urlBuilder.append(eventId);
@@ -169,9 +177,7 @@ public class PublicFBEventsWriter {
       urlBuilder.append(",");
       urlBuilder.append("'" + venueName + "'");
       urlBuilder.append(",");
-      urlBuilder.append(venueLat);
-      urlBuilder.append(",");
-      urlBuilder.append(venueLong);
+      urlBuilder.append(geomPoint);
       urlBuilder.append(",");
       urlBuilder.append("'facebook'");
       urlBuilder.append(",");
@@ -198,11 +204,11 @@ public class PublicFBEventsWriter {
       urlBuilder.append(eventProfilePicture);
       urlBuilder.append(") ), ");
       urlBuilder
-      .append("upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, latitude=n.latitude, longitude=n.longitude, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount, eventphoto=n.eventphoto ");
+      .append("upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, the_geom=n.the_geom, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount, eventphoto=n.eventphoto ");
       urlBuilder
       .append("FROM n WHERE o.eventid = n.eventid RETURNING o.eventid ) ");
       urlBuilder
-      .append("INSERT INTO events (eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) SELECT n.eventid, n.name, n.venuename, n.latitude, n.longitude, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount, n.eventphoto FROM n ");
+      .append("INSERT INTO events (eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) SELECT n.eventid, n.name, n.venuename, n.the_geom, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount, n.eventphoto FROM n ");
       urlBuilder
       .append("WHERE n.eventid NOT IN ( SELECT eventid FROM upsert );");
       urlBuilder
