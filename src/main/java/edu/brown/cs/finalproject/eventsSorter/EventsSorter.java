@@ -10,9 +10,14 @@ public class EventsSorter {
   }
 
   /**
-   * Sorts a list of events based on location; uses a
-   * priority queue
+   * <<<<<<< HEAD Sorts a list of events based on location;
+   * uses a priority queue
    * @param List<Event>
+   *          ======= Sorts a list of events based on
+   *          location; uses a priority queue
+   * @param List
+   *          <Event> >>>>>>>
+   *          faf483a16e094ac3ce9229c2a616091fbb2148be
    * @return List<Event>
    */
   public List<Event> sortEventsByLocation(List<Event> unsortedEventsList,
@@ -37,14 +42,19 @@ public class EventsSorter {
     // System.out.println(e.getID() + " " +
     // this.findDistance(currLatitute, currLongitude,
     // e.getLatitude(), e.getLongitude()));
+    // System.out.println(e.getID() + " " +
+    // this.findDistance(currLatitute,
+    // currLongitude, e.getLatitude(), e.getLongitude()));
     // }
 
     return outcome;
   }
 
   /**
-   * Sorts a list of events based on attending count; uses a
-   * priority queue
+   * <<<<<<< HEAD Sorts a list of events based on attending
+   * count; uses a priority queue ======= Sorts a list of
+   * events based on attending count; uses a priority queue
+   * >>>>>>> faf483a16e094ac3ce9229c2a616091fbb2148be
    * @param unsortedEventsList
    * @return
    */
@@ -70,8 +80,12 @@ public class EventsSorter {
   }
 
   /**
-   * Finds the square of the Euclidean distance between two
-   * points; works for a universe of two dimensions
+   * <<<<<<< HEAD Finds the square of the Euclidean distance
+   * between two points; works for a universe of two
+   * dimensions ======= Finds the square of the Euclidean
+   * distance between two points; works for a universe of
+   * two dimensions >>>>>>>
+   * faf483a16e094ac3ce9229c2a616091fbb2148be
    * @param firstPointLat
    * @param firstPointLng
    * @param secondPointLat
