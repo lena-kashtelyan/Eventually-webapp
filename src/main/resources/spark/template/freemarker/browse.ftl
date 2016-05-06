@@ -22,10 +22,10 @@
               <div class="row" id="event-name">
                 <h2 id="event-link">
                   <div class="col-md-8">
-                    <a id="event-link" href="876362925794780">${event.name}</a>
+                    <a class="event-link" href="876362925794780">${event.name}</a>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right">
+                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right attent-btn">
                       <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
                       attend
                     </button>
@@ -49,8 +49,8 @@
                 <div class="col-md-6" id="description">
                   <#assign description = event.description>
                   <#if (description?length > 881)>
-                    <p>${description[0..880]}<a href="#full-description" id="expand-btn" data-toggle="collapse">...</a>
-                    <div id="full-description" class="collapse">
+                    <p>${description[0..880]}<a href="#full-description${event.attendingCount}" id="expand-btn" data-toggle="collapse">...</a>
+                    <div id="full-description${event.attendingCount}" class="collapse">
                         ${description[881..]}
                     </div></p>
                   <#else>
