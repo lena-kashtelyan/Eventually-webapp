@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,10 +26,9 @@ import edu.brown.cs.finalproject.entities.UserProxy;
 
 public class DatabaseManager {
   private Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-      "cloud_name", "df1bylm3l",
-      "api_key", "411248546735325",
-      "api_secret", "M04dGcHdQhfUDM95fOQVXiG_Vjk"));
-  
+      "cloud_name", "df1bylm3l", "api_key", "411248546735325", "api_secret",
+      "M04dGcHdQhfUDM95fOQVXiG_Vjk"));
+
   public DatabaseManager() {
     // Empty Constructor for Now
   }
@@ -51,13 +49,15 @@ public class DatabaseManager {
     }
 
     System.out.println(startDate);
-    System.out.println("**************************************************************************************");
+    System.out
+        .println("**************************************************************************************");
 
     String query = String
-        .format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate) "
-            + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s);",
-            eventID, Name, origintype, creatorID, startDate,
-            category, description, eventphoto, endDate);
+        .format(
+            "INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate) "
+                + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s);",
+            eventID, Name, origintype, creatorID, startDate, category,
+            description, eventphoto, endDate);
     System.out.println(query);
     String update = String.format(
         "UPDATE events SET the_geom = cdb_geocode_street_point('%s') "
@@ -66,8 +66,7 @@ public class DatabaseManager {
 
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-          "cs32finalproject",
-          "ad54038628d84dceb55a7adb81eddfcf9976e994");
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
       cartoDBCLient.request(query);
       cartoDBCLient.request(update);
     } catch (CartoDBException e) {
@@ -87,8 +86,8 @@ public class DatabaseManager {
     return true;
   }
 
-  public static String addUser(String username, String fullname, String userMediaPath,
-      String fbAccessToken) {
+  public static String addUser(String username, String fullname,
+      String userMediaPath, String fbAccessToken) {
 
     Connection conn = Database.getConnection();
     String query = "INSERT INTO users (username, fullname, userMediaPath, fbAccessToken) VALUES (?,?,?,?);";
@@ -97,13 +96,35 @@ public class DatabaseManager {
       prep.setString(1, username);
       prep.setString(2, fullname);
       prep.setString(3, userMediaPath);
-      prep.setString(4,  fbAccessToken);
+      prep.setString(4, fbAccessToken);
       prep.addBatch();
       prep.executeBatch();
       return username;
     } catch (NullPointerException | SQLException n) {
       n.printStackTrace();
       return null;
+    }
+  }
+
+  public static boolean addMedia(String eventID, String username, String path,
+      String timestamp) {
+
+    Connection conn = Database.getConnection();
+    String query = "INSERT INTO visual_media (mediaID, eventID, username, path, timestamp) VALUES (?,?,?,?,?);";
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      String mediaID = UUID.randomUUID().toString();
+      prep.setString(1, mediaID);
+      prep.setString(2, eventID);
+      prep.setString(3, username);
+      prep.setString(4, path);
+      prep.setString(5, timestamp);
+      prep.addBatch();
+      prep.executeBatch();
+      return true;
+    } catch (NullPointerException | SQLException n) {
+      n.printStackTrace();
+      return false;
     }
   }
 
@@ -174,26 +195,28 @@ public class DatabaseManager {
       return null;
     }
   }
-  
-  public static void addAttendee(String userID, String eventID) {
+
+  public static boolean addAttendee(String userID, String eventID) {
     Connection conn = Database.getConnection();
     String query = "INSERT INTO going VALUES(?,?);";
-    
+
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, eventID);
-      prep.setString(2,  userID);
+      prep.setString(2, userID);
       prep.addBatch();
       prep.executeBatch();
     } catch (SQLException s) {
       s.printStackTrace();
+      return false;
     }
+    return true;
   }
-  
+
   public static List<User> getAttendees(String eventID) {
     Connection conn = Database.getConnection();
     String query = "SELECT username FROM going WHERE eventID=?;";
-    List<User> attendees = new ArrayList<>();  
-    
+    List<User> attendees = new ArrayList<>();
+
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, eventID);
       try (ResultSet rs = prep.executeQuery()) {
@@ -214,10 +237,8 @@ public class DatabaseManager {
     try {
       String query = "Select eventid from events;";
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-          "cs32finalproject",
-          "ad54038628d84dceb55a7adb81eddfcf9976e994");
-      CartoDBResponse<Map<String, Object>> res = cartoDBCLient
-          .request(query);
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(query);
       for (int j = 0; j < res.getTotal_rows(); j++) {
         String eventID = (String) res.getRows().get(j).get("eventid");
         System.out.println(eventID);
@@ -248,17 +269,15 @@ public class DatabaseManager {
 
       StringBuilder queryBuilder = new StringBuilder();
       queryBuilder
-      .append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
+          .append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
       queryBuilder.append(dateFormat.format(date));
       queryBuilder.append("', 'YYYY/MM/dd HH24:MI:SS')");
       String query = queryBuilder.toString();
       System.out.println(query);
 
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-          "cs32finalproject",
-          "ad54038628d84dceb55a7adb81eddfcf9976e994");
-      CartoDBResponse<Map<String, Object>> res = cartoDBCLient
-          .request(query);
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(query);
       for (int j = 0; j < res.getTotal_rows(); j++) {
         String eventID = (String) res.getRows().get(j).get("eventid");
         Event event = new EventProxy(eventID);

@@ -6,15 +6,17 @@ import spark.Response;
 import spark.Route;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 
-public class AttendHandler extends BackendInteraction implements Route {
+public class ImageHandler extends BackendInteraction implements Route {
 
   @Override
   public Object handle(Request req, Response res) {
-    System.out.println("in savehandler");
+    // TODO Auto-generated method stub
     QueryParamsMap qm = req.queryMap();
-    String authString = qm.value("auth");
-    String username = qm.value("username");
+    String url = qm.value("url");
     String eventID = qm.value("eventID");
-    return DatabaseManager.addAttendee(username, eventID);
+    String username = qm.value("username");
+    String timestamp = qm.value("timestamp");
+    return DatabaseManager.addMedia(eventID, username, url, timestamp);
   }
+
 }
