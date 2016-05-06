@@ -56,7 +56,8 @@ function submitEvent() {
 	console.log(time);
 	var location = $("#location").val();
 	console.log(location);
-	var category = $("#category").val();
+	var e = document.getElementById("category");
+	var category = e.options[e.selectedIndex].text;
 	console.log(category);
 	var facebookAdd = $("#facebookAdd").val();
 	console.log(facebookAdd);

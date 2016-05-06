@@ -39,14 +39,16 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="row" id="event-image">
                     <div class="col-md-12">
-                      <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+                      <div class="wrapper">
+                        <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6" id="description">
+                <div class="col-md-8" id="description">
                   <#assign description = event.description>
                   <#if (description?length > 881)>
                     <p>${description[0..880]}<a href="#full-description${event.attendingCount}" id="expand-btn" data-toggle="collapse">...</a>

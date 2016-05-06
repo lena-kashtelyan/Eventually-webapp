@@ -3,6 +3,19 @@ li, .list-group-item {
   border-width: 0px;
 }
 
+/*.wrapper {
+  position: relative;
+  height: 100%;
+  margin-top: -50px;
+}
+*/
+
+.img-responsive {
+  max-height: 400px;
+  float: none;
+  margin: 0 auto;
+}
+
 .btn-default {
   background-color: black !important;
   border-color: white !important;
