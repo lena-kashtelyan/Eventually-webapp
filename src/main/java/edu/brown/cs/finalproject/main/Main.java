@@ -1,14 +1,11 @@
 package edu.brown.cs.finalproject.main;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.JsonObject;
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
+
 import com.stormpath.sdk.directory.CreateDirectoryRequest;
 import com.stormpath.sdk.directory.Directories;
 import com.stormpath.sdk.directory.Directory;
@@ -20,18 +17,10 @@ import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
 import edu.brown.cs.finalproject.database.DatabaseFactory;
 import edu.brown.cs.finalproject.database.DatabaseManager;
-import edu.brown.cs.finalproject.database.PublicFBEventsWriter;
-import edu.brown.cs.finalproject.entities.Event;
-import edu.brown.cs.finalproject.entities.EventProxy;
-import edu.brown.cs.finalproject.eventsSorter.EventsSorter;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
-import edu.brown.cs.finalproject.search.FacebookDataManager;
 import edu.brown.cs.finalproject.search.FacebookDataManager2;
-import edu.brown.cs.finalproject.search.PublicFBEventsFinder;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
 
 public class Main {
   public static void main(String[] args) {
@@ -72,13 +61,12 @@ public class Main {
     }
 
     /*
-     * This try block is for setting up the facebook
-     * directory on stormpath. Should only need to be used
-     * once.
+     * This try block is for setting up the facebook directory on stormpath.
+     * Should only need to be used once.
      */
     try {
-      Directory directory = stormPathApp.getStormPathClient()
-          .instantiate(Directory.class);
+      Directory directory = stormPathApp.getStormPathClient().instantiate(
+          Directory.class);
       directory.setName("facebook-directory");
       directory.setDescription("Facebook directory");
 
@@ -87,9 +75,9 @@ public class Main {
 
       CreateDirectoryRequest request = Directories
           .newCreateRequestFor(directory)
-          .forProvider(Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
-              .setClientSecret(FACEBOOK_SECRET).build())
-          .build();
+          .forProvider(
+              Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
+                  .setClientSecret(FACEBOOK_SECRET).build()).build();
 
       Tenant tenant = stormPathApp.getStormPathClient().getCurrentTenant();
       directory = tenant.createDirectory(request);
@@ -104,6 +92,7 @@ public class Main {
       System.out.println("ERROR: Accessing the database file.");
     }
     try {
+      System.out.println("here");
       DatabaseFactory.createAndIndexTables();
     } catch (Exception e) {
       System.out.println("Database already created.");
@@ -134,58 +123,53 @@ public class Main {
       // dbManager.setUsersMediaPath("ipetrov", "/cdaklaf");
       // System.out.println(dbManager.getUsersMediaPath("ipetrov"));
 
-      //       try {
-      //    	   new PublicFBEventsFinder();
-      //       } catch (Exception e1) {
-      //    	   e1.printStackTrace();
-      //    	   System.out.println("ERROR: Problem with running the public events application.");
-      //       }
-      //      
-      //       JsonObject publicEvents = null;
-      //       try {
-      //    	   publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656, 1000);
-      //       } catch (IOException e1) {
-      //    	   e1.printStackTrace();
-      //    	   System.out.println("ERROR: Fetching public Facebook events.");
-      //       }
-      //      
-      //       System.out.println(publicEvents);
-      //       PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
-      //       try {
-      //    	   publicFBEventsWriter.updateDB(publicEvents);
-      //       } catch (SQLException | IOException e) {
-      //    	   e.printStackTrace();
-      //    	   System.out.println("Problem updating database with public venues.");
-      //       }
+      // try {
+      // new PublicFBEventsFinder();
+      // } catch (Exception e1) {
+      // e1.printStackTrace();
+      // System.out.println("ERROR: Problem with running the public events application.");
+      // }
+      //
+      // JsonObject publicEvents = null;
+      // try {
+      // publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656,
+      // 1000);
+      // } catch (IOException e1) {
+      // e1.printStackTrace();
+      // System.out.println("ERROR: Fetching public Facebook events.");
+      // }
+      //
+      // System.out.println(publicEvents);
+      // PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
+      // try {
+      // publicFBEventsWriter.updateDB(publicEvents);
+      // } catch (SQLException | IOException e) {
+      // e.printStackTrace();
+      // System.out.println("Problem updating database with public venues.");
+      // }
 
-      //    	try {
-      //    	    Thread.sleep(1000);                 //1000 milliseconds is one second.
-      //    	} catch(InterruptedException ex) {
-      //    	    Thread.currentThread().interrupt();
-      //    	}
-
+      // try {
+      // Thread.sleep(1000); //1000 milliseconds is one second.
+      // } catch(InterruptedException ex) {
+      // Thread.currentThread().interrupt();
+      // }
 
       // EventsByName eventsByName = new EventsByName();
 
+      // try {
+      // Event event = new EventProxy("1571993216463766");
+      // System.out.println(event.getEventphoto());
+      // System.out.println(event.getName());
+      // } catch (ClassNotFoundException e) {
+      // // TODO Auto-generated catch block
+      // e.printStackTrace();
+      // }
 
-
-      //    	try {
-      //			Event event = new EventProxy("1571993216463766");
-      //			System.out.println(event.getEventphoto());
-      //			System.out.println(event.getName());
-      //		} catch (ClassNotFoundException e) {
-      //			// TODO Auto-generated catch block
-      //			e.printStackTrace();
-      //		}
-
-
-
-      //    	List<Event> events = dbManager.getUpcomingEvents();
-      //    	System.out.println("events queried: " + events.size());
-      //    	EventsSorter eventSorter = new EventsSorter();
-      //    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
-      //    	System.out.println("results :" + results.size());
-
+      // List<Event> events = dbManager.getUpcomingEvents();
+      // System.out.println("events queried: " + events.size());
+      // EventsSorter eventSorter = new EventsSorter();
+      // List<Event> results = eventSorter.sortEventsByAttendingCount(events);
+      // System.out.println("results :" + results.size());
 
     }
 

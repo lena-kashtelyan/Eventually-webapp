@@ -15,7 +15,6 @@ public class AttendHandler extends BackendInteraction implements Route {
     String authString = qm.value("auth");
     String username = qm.value("username");
     String eventID = qm.value("eventID");
-    return null;
-//    return DatabaseManager.addAttendee(username, eventID);
+    return DatabaseManager.addAttendee(username, eventID);
   }
 }
