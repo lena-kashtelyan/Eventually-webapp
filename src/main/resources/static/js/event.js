@@ -34,6 +34,21 @@ $(document).ready(function () {
 	});
 });
 
+$(document).ready(function () {
+	$("#comment-btn").on('click', function(e) {
+		console.log("clicked comment button")
+		e.preventDefault();
+		var auth = $("#auth").text();
+		var username = $("#username").text();
+		var eventID = $("#event-link").attr('href');
+		console.log(eventID);
+		var comment = $("#comment").text();
+		console.log(comment);
+		var params = { "auth" : auth, "username" : username, "eventID" : eventID, "comment" : comment};
+		//$.post("/comment", params);
+	});
+});
+
 // $.cloudinary.config({ cloud_name: 'df1bylm3l', api_key: '411248546735325'});
 
 // var cl = cloudinary.CloudinaryJQuery.new( { cloud_name: 'df1bylm3l', api_key: '411248546735325'});
