@@ -64,8 +64,15 @@ function embedMap(div) {
                         sublayers: [{
                             sql: "SELECT * FROM events",
                             cartocss: cartocssHeatmap
-                        }]
-                    }).addTo(map_object);
+                        }],
+                        infowindow: true
+                    }).addTo(map_object)
+                    .done(function(layer) {
+                      cartodb.vis.Vis.addInfowindow(map_object, layer, ['cartodb_id', 'name', 'eventid', 'eventphoto', 'description', 'attendingcount'],{
+                        infowindowTemplate: $('#infowindow_template').html(),
+                        templateType: 'mustache'
+                      });
+                    });
                 }
 
                 if (!position.html5GeoLocation) {
