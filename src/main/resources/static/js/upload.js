@@ -17,8 +17,8 @@ myDropzone.on('success', function (file, response) {
   var url = "http://res.cloudinary.com/df1bylm3l/image/upload/"
   var timestamp = getTime();
   url = url.concat(response.public_id);
-  params = {"url": url, "timestamp", timestamp};
-  $.post("/create", params, function(responseJSON){
+  params = {"url": url, "timestamp", timestamp, "type": "image"};
+  $.post("/upload", params, function(responseJSON){
 
   }); 
 });

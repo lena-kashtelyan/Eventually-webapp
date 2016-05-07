@@ -23,6 +23,7 @@ public class SignupHandler extends BackendInteraction implements Route {
     String username = qm.value("username");
     String email = qm.value("email");
     String password = qm.value("password");
+//    String path = qm.value("path");
     SignUp signup = new SignUp(firstName, lastName, username, email, password);
     try {
       AuthToken authToken = auth.createAccount(signup);
