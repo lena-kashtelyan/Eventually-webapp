@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- NEED TO ADD THIS FIRST LINE TO ALL FTLs -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- END -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" />
 	  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -24,6 +27,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
+    <script type="infowindow/html" id="infowindow_template">
+    <div class="cartodb-popup">
+      <a href="#close" class="cartodb-popup-close-button close">x</a>
+
+      <div class="cartodb-popup-content-wrapper">
+        <div class="cartodb-popup-content">
+          <p style="color:black;font-size:1.2rem">{{name}}</p>
+          <a href="/event?auth=${auth}&username=${username}&eventId={{eventid}}"><img src={{eventphoto}}></a>
+        </div>
+      </div>
+      <div class="cartodb-popup-tip-container"></div>
+    </div>
+    </script>
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
