@@ -50,14 +50,16 @@ public class DatabaseManager {
       eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/4e/f7/29/4ef7299074efa998232fd99a340fda57.jpg";
     }
 
-    System.out.println(startDate);
-    System.out.println("**************************************************************************************");
+    String venuename = location;
+    if (venuename.contains(",")) {
+    	venuename = venuename.substring(0, venuename.indexOf(","));
+    }
 
     String query = String
-        .format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate) "
-            + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s);",
+        .format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate,public,venuename) "
+            + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s,false,'%s');",
             eventID, Name, origintype, creatorID, startDate,
-            category, description, eventphoto, endDate);
+            category, description, eventphoto, endDate, venuename);
     System.out.println(query);
     String update = String.format(
         "UPDATE events SET the_geom = cdb_geocode_street_point('%s') "
