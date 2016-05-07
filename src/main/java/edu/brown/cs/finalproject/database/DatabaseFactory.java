@@ -1,17 +1,8 @@
 package edu.brown.cs.finalproject.database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import edu.brown.cs.finalproject.entities.User;
-import edu.brown.cs.finalproject.entities.UserProxy;
 
 public final class DatabaseFactory {
 
@@ -74,11 +65,8 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE users("
-        + "username TEXT PRIMARY KEY     NOT NULL,"
-        + "fullname TEXT NOT NULL,"
-        + "userMediaPath	TEXT," 
-        + "fbAccessToken TEXT"   
-        + ");";
+        + "username TEXT PRIMARY KEY     NOT NULL," + "fullname TEXT NOT NULL,"
+        + "userMediaPath	TEXT," + "fbAccessToken TEXT" + ");";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
@@ -99,9 +87,9 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE going(" + "eventID TEXT NOT NULL,"
-        + "userID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES users(userID));";
-    
+        + "username TEXT NOT NULL,"
+        + "FOREIGN KEY(username) REFERENCES users(username));";
+
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
@@ -111,7 +99,7 @@ public final class DatabaseFactory {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX going_userID ON going (userID);";
+    addIndex = "CREATE INDEX going_username ON going (username);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
@@ -126,14 +114,14 @@ public final class DatabaseFactory {
       prep.execute();
     }
 
-    String schema = "CREATE TABLE external(" + "userID TEXT NOT NULL,"
+    String schema = "CREATE TABLE external(" + "username TEXT NOT NULL,"
         + "externalID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES users(userID));";
+        + "FOREIGN KEY(username) REFERENCES users(username));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX external_userID ON external (userID);";
+    String addIndex = "CREATE INDEX external_username ON external (username);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
@@ -149,10 +137,10 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE visual_media(" + "mediaID TEXT NOT NULL,"
-        + "eventID TEXT NOT NULL," + "userID TEXT NOT NULL,"
+        + "eventID TEXT NOT NULL," + "username TEXT NOT NULL,"
         + "path TEXT NOT NULL," + "timestamp DATETIME NOT NULL,"
         + "PRIMARY KEY(mediaID),"
-        + "FOREIGN KEY(userID) REFERENCES users(userID));";
+        + "FOREIGN KEY(username) REFERENCES users(username));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
@@ -173,8 +161,8 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE invited(" + "eventID TEXT NOT NULL,"
-        + "userID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES users(userID));";
+        + "username TEXT NOT NULL,"
+        + "FOREIGN KEY(username) REFERENCES users(username));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
@@ -184,7 +172,7 @@ public final class DatabaseFactory {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX invited_userID ON invited (userID);";
+    addIndex = "CREATE INDEX invited_username ON invited (username);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
@@ -200,8 +188,8 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE interested(" + "eventID TEXT NOT NULL,"
-        + "userID TEXT NOT NULL,"
-        + "FOREIGN KEY(userID) REFERENCES users(userID));";
+        + "username TEXT NOT NULL,"
+        + "FOREIGN KEY(username) REFERENCES users(username));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
@@ -211,7 +199,7 @@ public final class DatabaseFactory {
       prep.execute();
     }
 
-    addIndex = "CREATE INDEX interested_userID ON interested (userID);";
+    addIndex = "CREATE INDEX interested_username ON interested (username);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }
@@ -227,14 +215,14 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE nonusers(" + "facebookID TEXT NOT NULL,"
-        + "userID TEXT NOT NULL,"
+        + "username TEXT NOT NULL,"
         + "fullname TEXT NOT NULL, PRIMARY KEY (facebookID),"
-        + "FOREIGN KEY(userID) REFERENCES users(userID));";
+        + "FOREIGN KEY(username) REFERENCES users(username));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
 
-    String addIndex = "CREATE INDEX nonusers_userID ON nonusers (userID);";
+    String addIndex = "CREATE INDEX nonusers_username ON nonusers (username);";
     try (PreparedStatement prep = conn.prepareStatement(addIndex)) {
       prep.execute();
     }

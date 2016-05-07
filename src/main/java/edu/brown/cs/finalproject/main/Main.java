@@ -1,6 +1,8 @@
 package edu.brown.cs.finalproject.main;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
 import edu.brown.cs.finalproject.search.FacebookDataManager;
+import edu.brown.cs.finalproject.search.FacebookDataManager2;
 import edu.brown.cs.finalproject.search.PublicFBEventsFinder;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -50,7 +53,23 @@ public class Main {
         "cs32FinalProject");
     Authenticator auth = new Authenticator(stormPathApp);
     DatabaseManager dbManager = new DatabaseManager();
-    FacebookDataManager facebookDataManager = new FacebookDataManager();
+    
+    	 try {
+			Runtime.getRuntime().exec("pkill npm");
+	    	 Runtime.getRuntime().exec("pkill node");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Problem executing pkill commands.");
+		}
+    
+    FacebookDataManager2 facebookDataManager2 = null;
+    try {
+		facebookDataManager2 = new FacebookDataManager2();
+
+	} catch (IOException e1) {
+		e1.printStackTrace();
+		System.out.println("ERROR: Problem instantiating FacebookDataManager2.");
+	}
 
     /*
      * This try block is for setting up the facebook
@@ -93,7 +112,7 @@ public class Main {
     System.out.println("all done");
 
     if (options.has("gui")) {
-      new BackendInteraction(auth, dbManager, facebookDataManager,
+      new BackendInteraction(auth, dbManager, facebookDataManager2,
           stormPathApp);
       SparkServer server = new MapsSparkServer();
       server.runSparkServer();
@@ -124,7 +143,7 @@ public class Main {
 //      
 //       JsonObject publicEvents = null;
 //       try {
-//    	   publicEvents = PublicFBEventsFinder.requestEvents(41.826119, -71.403112, 1000);
+//    	   publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656, 1000);
 //       } catch (IOException e1) {
 //    	   e1.printStackTrace();
 //    	   System.out.println("ERROR: Fetching public Facebook events.");
@@ -138,14 +157,34 @@ public class Main {
 //    	   e.printStackTrace();
 //    	   System.out.println("Problem updating database with public venues.");
 //       }
+    	
+//    	try {
+//    	    Thread.sleep(1000);                 //1000 milliseconds is one second.
+//    	} catch(InterruptedException ex) {
+//    	    Thread.currentThread().interrupt();
+//    	}
+    	
 
       // EventsByName eventsByName = new EventsByName();
+
     	
-    	List<Event> events = dbManager.getUpcomingEvents();
-    	System.out.println("events queried: " + events.size());
-    	EventsSorter eventSorter = new EventsSorter();
-    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
-    	System.out.println("results :" + results.size());
+    	
+//    	try {
+//			Event event = new EventProxy("1571993216463766");
+//			System.out.println(event.getEventphoto());
+//			System.out.println(event.getName());
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+    	
+    	
+    	
+//    	List<Event> events = dbManager.getUpcomingEvents();
+//    	System.out.println("events queried: " + events.size());
+//    	EventsSorter eventSorter = new EventsSorter();
+//    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
+//    	System.out.println("results :" + results.size());
     	
 
     }

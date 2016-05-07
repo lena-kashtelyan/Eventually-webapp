@@ -3,8 +3,11 @@
 //   cartodb.createVis('map-container', vizjson);
 // }
 
+var currentUserLat, currentUserLng, currentUserZoom;
+var map_object;
+
 function embedMap(div) {
-    var map_object, tileURL;
+    var tileURL;
 
     var cartocssHeatmap = "#" + div + "{marker-fill:#f60;marker-width:10;marker-allow-overlap:true;}";
 
@@ -61,8 +64,15 @@ function embedMap(div) {
                         sublayers: [{
                             sql: "SELECT * FROM events",
                             cartocss: cartocssHeatmap
-                        }]
-                    }).addTo(map_object);
+                        }],
+                        infowindow: true
+                    }).addTo(map_object)
+                    .done(function(layer) {
+                      cartodb.vis.Vis.addInfowindow(map_object, layer, ['cartodb_id', 'name', 'eventid', 'eventphoto', 'description', 'attendingcount'],{
+                        infowindowTemplate: $('#infowindow_template').html(),
+                        templateType: 'mustache'
+                      });
+                    });
                 }
 
                 if (!position.html5GeoLocation) {
@@ -102,4 +112,33 @@ function embedMap(div) {
 
 window.onload = function() {
   embedMap("map-container");
+
+  var setLocation = function(position) {
+
+  }
+
+  var reloadLocation = function() {
+    console.log("this");
+    try {
+      console.log(map_object.getCenter());
+      var position = map_object.getCenter();
+      var zoom = map_object.getZoom();
+      currentUserLat = position.lat;
+      currentUserLng = position.lng;
+      currentUserZoom = zoom;
+      var params = {
+        "latitude" : currentUserLat,
+        "longitude" : currentUserLng,
+        "zoom" : currentUserZoom
+      }
+      $.post("/update-events-database", params, function() {
+        setInterval(reloadLocation, 25000);
+      });
+    } catch (e) {
+      setInterval(reloadLocation, 25000);
+    }
+    navigator.geolocation.getCurrentPosition(setLocation);
+  }
+
+  reloadLocation();
 }

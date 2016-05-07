@@ -5,7 +5,8 @@ import com.google.gson.Gson;
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.DatabaseManager;
-import edu.brown.cs.finalproject.search.FacebookDataManager;
+//import edu.brown.cs.finalproject.search.FacebookDataManager;
+import edu.brown.cs.finalproject.search.FacebookDataManager2;
 
 public class BackendInteraction {
 
@@ -13,7 +14,7 @@ public class BackendInteraction {
 
   protected static DatabaseManager dbManager;
 
-  protected static FacebookDataManager facebookDataManager;
+  protected static FacebookDataManager2 facebookDataManager;
 
   protected static StormPathApplication stormPath;
 
@@ -24,7 +25,7 @@ public class BackendInteraction {
   }
 
   public BackendInteraction(Authenticator authenticate,
-      DatabaseManager databaseManager, FacebookDataManager fbDataManager,
+      DatabaseManager databaseManager, FacebookDataManager2 fbDataManager,
       StormPathApplication stormPathApp) {
     auth = authenticate;
     dbManager = databaseManager;

@@ -32,17 +32,17 @@ public class PublicFBEventsWriter {
     JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"),
         JsonArray.class);
 
-    System.out.println(eventsArray);
+//    System.out.println(eventsArray);
 
     for (JsonElement eventElement : eventsArray) {
       JsonObject eventJSON = new Gson().fromJson(eventElement,
           JsonObject.class);
 
-      System.out.println(eventJSON);
-      System.out.println("venue id: "
-          + eventJSON.get("venueId").toString().replace("\"", ""));
-      System.out.println("venue name: "
-          + eventJSON.get("venueName").toString().replace("\"", ""));
+//      System.out.println(eventJSON);
+//      System.out.println("venue id: "
+//          + eventJSON.get("venueId").toString().replace("\"", ""));
+//      System.out.println("venue name: "
+//          + eventJSON.get("venueName").toString().replace("\"", ""));
       //			String venueId = eventJSON.get("venueId").toString()
       //					.replace("\"", "");
       String venueName = eventJSON.get("venueName").toString()
@@ -50,12 +50,20 @@ public class PublicFBEventsWriter {
 
       JsonObject venueLocationJSON = new Gson().fromJson(
           eventJSON.get("venueLocation"), JsonObject.class);
-      System.out.println("venue lat: "
-          + venueLocationJSON.get("latitude").toString());
-      System.out.println("venue long: "
-          + venueLocationJSON.get("longitude").toString());
+//      System.out.println("venue lat: "
+//          + venueLocationJSON.get("latitude").toString());
+//      System.out.println("venue long: "
+//          + venueLocationJSON.get("longitude").toString());
       String venueLat = venueLocationJSON.get("latitude").toString();
       String venueLong = venueLocationJSON.get("longitude").toString();
+      
+      StringBuilder geomPointBuilder = new StringBuilder();
+      geomPointBuilder.append("ST_SetSRID(ST_Point(");
+      geomPointBuilder.append(venueLong);
+      geomPointBuilder.append(",");
+      geomPointBuilder.append(venueLat);
+      geomPointBuilder.append("),4326)");
+      String geomPoint = geomPointBuilder.toString();
 
       //			String venueCoverPicture = eventJSON.get("venueCoverPicture")
       //					.toString().replace("\"", "");
@@ -97,11 +105,11 @@ public class PublicFBEventsWriter {
       Date eventStarttime = null;
       try {
         eventStarttime = formatter.parse(eventStarttimeString);
-        System.out.println(eventStarttime);
+//        System.out.println(eventStarttime);
       } catch (ParseException e) {
         e.printStackTrace();
-        System.out
-        .println("ERROR: Unable to convert a facebook date string into a java.util.Date.");
+//        System.out
+//        .println("ERROR: Unable to convert a facebook date string into a java.util.Date.");
       }
       // Calculating the end time of an event by adding four hours to the starting time
       Date eventEndtime = DateUtils.addHours(eventStarttime, 4);
@@ -130,9 +138,9 @@ public class PublicFBEventsWriter {
       // System.out.println("venueProficePicture: " +
       // venueProficePicture);
       // System.out.println("eventId: " + eventId);
-      // System.out.println("eventName: " + eventName);
-      System.out.println("eventProfilePicture: " +
-          eventProfilePicture);
+       System.out.println("eventName: " + eventName);
+//      System.out.println("eventProfilePicture: " +
+//          eventProfilePicture);
       // System.out.println("eventDescription: " + eventDescription);
       // System.out.println("eventCoverPicture: " + eventCoverPicture);
       // System.out.println("eventDistance: " + eventDistance);
@@ -143,24 +151,24 @@ public class PublicFBEventsWriter {
       // System.out.println("eventMaybeCount: " + eventMaybeCount);
       // System.out.println("eventNoReplyCount: " + eventNoReplyCount);
 
-      System.out.println("eventId: " + eventId);
-      System.out.println("eventName: " + "'" + eventName + "'");
-      System.out.println("venueName: " + "'" + venueName + "'");
-      System.out.println("venueLat: " + venueLat);
-      System.out.println("venueLong: " + venueLong);
-      System.out.println("eventStarttimeString: " + "'" + eventStarttimeString + "'");
-      System.out.println("eventEndtimeString: " + "'" + eventEndtimeString + "'");
-      System.out.println("eventDescription: " + "'" + eventDescription + "'");
-      System.out.println("eventAttendingCount: " + eventAttendingCount);
-      System.out.println("eventDeclinedCount: " + eventDeclinedCount);
-      System.out.println("eventMaybeCount: " + eventMaybeCount);
-      System.out.println("eventNoReplyCount: " + eventNoReplyCount);
+//      System.out.println("eventId: " + eventId);
+//      System.out.println("eventName: " + "'" + eventName + "'");
+//      System.out.println("venueName: " + "'" + venueName + "'");
+//      System.out.println("venueLat: " + venueLat);
+//      System.out.println("venueLong: " + venueLong);
+//      System.out.println("eventStarttimeString: " + "'" + eventStarttimeString + "'");
+//      System.out.println("eventEndtimeString: " + "'" + eventEndtimeString + "'");
+//      System.out.println("eventDescription: " + "'" + eventDescription + "'");
+//      System.out.println("eventAttendingCount: " + eventAttendingCount);
+//      System.out.println("eventDeclinedCount: " + eventDeclinedCount);
+//      System.out.println("eventMaybeCount: " + eventMaybeCount);
+//      System.out.println("eventNoReplyCount: " + eventNoReplyCount);
 
       StringBuilder urlBuilder = new StringBuilder();
       urlBuilder
       .append("https://cs32finalproject.cartodb.com/api/v2/sql?q=WITH%20n(");
       urlBuilder
-      .append("eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto)");
+      .append("eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto)");
       urlBuilder.append("%20AS%20(%20VALUES");
       urlBuilder.append(" (");
       urlBuilder.append(eventId);
@@ -169,9 +177,7 @@ public class PublicFBEventsWriter {
       urlBuilder.append(",");
       urlBuilder.append("'" + venueName + "'");
       urlBuilder.append(",");
-      urlBuilder.append(venueLat);
-      urlBuilder.append(",");
-      urlBuilder.append(venueLong);
+      urlBuilder.append(geomPoint);
       urlBuilder.append(",");
       urlBuilder.append("'facebook'");
       urlBuilder.append(",");
@@ -198,17 +204,17 @@ public class PublicFBEventsWriter {
       urlBuilder.append(eventProfilePicture);
       urlBuilder.append(") ), ");
       urlBuilder
-      .append("upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, latitude=n.latitude, longitude=n.longitude, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount, eventphoto=n.eventphoto ");
+      .append("upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, the_geom=n.the_geom, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount, eventphoto=n.eventphoto ");
       urlBuilder
       .append("FROM n WHERE o.eventid = n.eventid RETURNING o.eventid ) ");
       urlBuilder
-      .append("INSERT INTO events (eventid,name,venuename,latitude,longitude,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) SELECT n.eventid, n.name, n.venuename, n.latitude, n.longitude, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount, n.eventphoto FROM n ");
+      .append("INSERT INTO events (eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) SELECT n.eventid, n.name, n.venuename, n.the_geom, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount, n.eventphoto FROM n ");
       urlBuilder
       .append("WHERE n.eventid NOT IN ( SELECT eventid FROM upsert );");
       urlBuilder
       .append("&api_key=ad54038628d84dceb55a7adb81eddfcf9976e994");
 
-      System.out.println(urlBuilder.toString());
+//      System.out.println(urlBuilder.toString());
 
       URL url = new URL(urlBuilder.toString().replace(" ", "%20")
           .replace("'", "%27"));
@@ -231,7 +237,7 @@ public class PublicFBEventsWriter {
       }
       in.close();
 
-      System.out.println("Done with updating events table on CartoDB.");
+//      System.out.println("Done with updating events table on CartoDB.");
 
     }
   }
