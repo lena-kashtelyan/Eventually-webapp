@@ -58,8 +58,8 @@ public class Main {
 			Runtime.getRuntime().exec("pkill npm");
 	    	 Runtime.getRuntime().exec("pkill node");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("ERROR: Problem executing pkill commands.");
 		}
     
     FacebookDataManager2 facebookDataManager2 = null;
