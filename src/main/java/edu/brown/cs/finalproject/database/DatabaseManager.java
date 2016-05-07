@@ -108,10 +108,10 @@ public class DatabaseManager {
   }
 
   public static boolean addMedia(String eventID, String username, String path,
-      String timestamp) {
+      String timestamp, String type) {
 
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO visual_media (mediaID, eventID, username, path, timestamp) VALUES (?,?,?,?,?);";
+    String query = "INSERT INTO visual_media (mediaID, eventID, username, path, timestamp, type) VALUES (?,?,?,?,?,?);";
 
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       String mediaID = UUID.randomUUID().toString();
@@ -120,6 +120,7 @@ public class DatabaseManager {
       prep.setString(3, username);
       prep.setString(4, path);
       prep.setString(5, timestamp);
+      prep.setString(6, type);
       prep.addBatch();
       prep.executeBatch();
       return true;

@@ -53,23 +53,23 @@ public class Main {
         "cs32FinalProject");
     Authenticator auth = new Authenticator(stormPathApp);
     DatabaseManager dbManager = new DatabaseManager();
-    
-    	 try {
-			Runtime.getRuntime().exec("pkill npm");
-	    	 Runtime.getRuntime().exec("pkill node");
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("ERROR: Problem executing pkill commands.");
-		}
-    
+
+    try {
+      Runtime.getRuntime().exec("pkill npm");
+      Runtime.getRuntime().exec("pkill node");
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println("ERROR: Problem executing pkill commands.");
+    }
+
     FacebookDataManager2 facebookDataManager2 = null;
     try {
-		facebookDataManager2 = new FacebookDataManager2();
+      facebookDataManager2 = new FacebookDataManager2();
 
-	} catch (IOException e1) {
-		e1.printStackTrace();
-		System.out.println("ERROR: Problem instantiating FacebookDataManager2.");
-	}
+    } catch (IOException e1) {
+      e1.printStackTrace();
+      System.out.println("ERROR: Problem instantiating FacebookDataManager2.");
+    }
 
     /*
      * This try block is for setting up the facebook
@@ -134,58 +134,58 @@ public class Main {
       // dbManager.setUsersMediaPath("ipetrov", "/cdaklaf");
       // System.out.println(dbManager.getUsersMediaPath("ipetrov"));
 
-//       try {
-//    	   new PublicFBEventsFinder();
-//       } catch (Exception e1) {
-//    	   e1.printStackTrace();
-//    	   System.out.println("ERROR: Problem with running the public events application.");
-//       }
-//      
-//       JsonObject publicEvents = null;
-//       try {
-//    	   publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656, 1000);
-//       } catch (IOException e1) {
-//    	   e1.printStackTrace();
-//    	   System.out.println("ERROR: Fetching public Facebook events.");
-//       }
-//      
-//       System.out.println(publicEvents);
-//       PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
-//       try {
-//    	   publicFBEventsWriter.updateDB(publicEvents);
-//       } catch (SQLException | IOException e) {
-//    	   e.printStackTrace();
-//    	   System.out.println("Problem updating database with public venues.");
-//       }
-    	
-//    	try {
-//    	    Thread.sleep(1000);                 //1000 milliseconds is one second.
-//    	} catch(InterruptedException ex) {
-//    	    Thread.currentThread().interrupt();
-//    	}
-    	
+      //       try {
+      //    	   new PublicFBEventsFinder();
+      //       } catch (Exception e1) {
+      //    	   e1.printStackTrace();
+      //    	   System.out.println("ERROR: Problem with running the public events application.");
+      //       }
+      //      
+      //       JsonObject publicEvents = null;
+      //       try {
+      //    	   publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656, 1000);
+      //       } catch (IOException e1) {
+      //    	   e1.printStackTrace();
+      //    	   System.out.println("ERROR: Fetching public Facebook events.");
+      //       }
+      //      
+      //       System.out.println(publicEvents);
+      //       PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
+      //       try {
+      //    	   publicFBEventsWriter.updateDB(publicEvents);
+      //       } catch (SQLException | IOException e) {
+      //    	   e.printStackTrace();
+      //    	   System.out.println("Problem updating database with public venues.");
+      //       }
+
+      //    	try {
+      //    	    Thread.sleep(1000);                 //1000 milliseconds is one second.
+      //    	} catch(InterruptedException ex) {
+      //    	    Thread.currentThread().interrupt();
+      //    	}
+
 
       // EventsByName eventsByName = new EventsByName();
 
-    	
-    	
-//    	try {
-//			Event event = new EventProxy("1571993216463766");
-//			System.out.println(event.getEventphoto());
-//			System.out.println(event.getName());
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-    	
-    	
-    	
-//    	List<Event> events = dbManager.getUpcomingEvents();
-//    	System.out.println("events queried: " + events.size());
-//    	EventsSorter eventSorter = new EventsSorter();
-//    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
-//    	System.out.println("results :" + results.size());
-    	
+
+
+      //    	try {
+      //			Event event = new EventProxy("1571993216463766");
+      //			System.out.println(event.getEventphoto());
+      //			System.out.println(event.getName());
+      //		} catch (ClassNotFoundException e) {
+      //			// TODO Auto-generated catch block
+      //			e.printStackTrace();
+      //		}
+
+
+
+      //    	List<Event> events = dbManager.getUpcomingEvents();
+      //    	System.out.println("events queried: " + events.size());
+      //    	EventsSorter eventSorter = new EventsSorter();
+      //    	List<Event> results = eventSorter.sortEventsByAttendingCount(events);
+      //    	System.out.println("results :" + results.size());
+
 
     }
 

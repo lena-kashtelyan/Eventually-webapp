@@ -65,8 +65,8 @@ public final class DatabaseFactory {
     }
 
     String schema = "CREATE TABLE users("
-        + "username TEXT PRIMARY KEY     NOT NULL," + "fullname TEXT NOT NULL,"
-        + "userMediaPath	TEXT," + "fbAccessToken TEXT" + ");";
+        + "username TEXT PRIMARY KEY NOT NULL," + "fullname TEXT NOT NULL,"
+        + "userMediaPath	 TEXT," + "fbAccessToken TEXT" + ");";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
     }
@@ -139,7 +139,7 @@ public final class DatabaseFactory {
     String schema = "CREATE TABLE visual_media(" + "mediaID TEXT NOT NULL,"
         + "eventID TEXT NOT NULL," + "username TEXT NOT NULL,"
         + "path TEXT NOT NULL," + "timestamp DATETIME NOT NULL,"
-        + "PRIMARY KEY(mediaID),"
+        + "type TEXT NOT NULL, PRIMARY KEY(mediaID),"
         + "FOREIGN KEY(username) REFERENCES users(username));";
     try (PreparedStatement prep = conn.prepareStatement(schema)) {
       prep.execute();
