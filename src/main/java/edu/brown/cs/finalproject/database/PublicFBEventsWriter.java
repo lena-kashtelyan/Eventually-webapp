@@ -32,17 +32,17 @@ public class PublicFBEventsWriter {
     JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"),
         JsonArray.class);
 
-    System.out.println(eventsArray);
+//    System.out.println(eventsArray);
 
     for (JsonElement eventElement : eventsArray) {
       JsonObject eventJSON = new Gson().fromJson(eventElement,
           JsonObject.class);
 
-      System.out.println(eventJSON);
-      System.out.println("venue id: "
-          + eventJSON.get("venueId").toString().replace("\"", ""));
-      System.out.println("venue name: "
-          + eventJSON.get("venueName").toString().replace("\"", ""));
+//      System.out.println(eventJSON);
+//      System.out.println("venue id: "
+//          + eventJSON.get("venueId").toString().replace("\"", ""));
+//      System.out.println("venue name: "
+//          + eventJSON.get("venueName").toString().replace("\"", ""));
       //			String venueId = eventJSON.get("venueId").toString()
       //					.replace("\"", "");
       String venueName = eventJSON.get("venueName").toString()
@@ -50,10 +50,10 @@ public class PublicFBEventsWriter {
 
       JsonObject venueLocationJSON = new Gson().fromJson(
           eventJSON.get("venueLocation"), JsonObject.class);
-      System.out.println("venue lat: "
-          + venueLocationJSON.get("latitude").toString());
-      System.out.println("venue long: "
-          + venueLocationJSON.get("longitude").toString());
+//      System.out.println("venue lat: "
+//          + venueLocationJSON.get("latitude").toString());
+//      System.out.println("venue long: "
+//          + venueLocationJSON.get("longitude").toString());
       String venueLat = venueLocationJSON.get("latitude").toString();
       String venueLong = venueLocationJSON.get("longitude").toString();
       
@@ -105,11 +105,11 @@ public class PublicFBEventsWriter {
       Date eventStarttime = null;
       try {
         eventStarttime = formatter.parse(eventStarttimeString);
-        System.out.println(eventStarttime);
+//        System.out.println(eventStarttime);
       } catch (ParseException e) {
         e.printStackTrace();
-        System.out
-        .println("ERROR: Unable to convert a facebook date string into a java.util.Date.");
+//        System.out
+//        .println("ERROR: Unable to convert a facebook date string into a java.util.Date.");
       }
       // Calculating the end time of an event by adding four hours to the starting time
       Date eventEndtime = DateUtils.addHours(eventStarttime, 4);
@@ -138,9 +138,9 @@ public class PublicFBEventsWriter {
       // System.out.println("venueProficePicture: " +
       // venueProficePicture);
       // System.out.println("eventId: " + eventId);
-      // System.out.println("eventName: " + eventName);
-      System.out.println("eventProfilePicture: " +
-          eventProfilePicture);
+       System.out.println("eventName: " + eventName);
+//      System.out.println("eventProfilePicture: " +
+//          eventProfilePicture);
       // System.out.println("eventDescription: " + eventDescription);
       // System.out.println("eventCoverPicture: " + eventCoverPicture);
       // System.out.println("eventDistance: " + eventDistance);
@@ -151,18 +151,18 @@ public class PublicFBEventsWriter {
       // System.out.println("eventMaybeCount: " + eventMaybeCount);
       // System.out.println("eventNoReplyCount: " + eventNoReplyCount);
 
-      System.out.println("eventId: " + eventId);
-      System.out.println("eventName: " + "'" + eventName + "'");
-      System.out.println("venueName: " + "'" + venueName + "'");
-      System.out.println("venueLat: " + venueLat);
-      System.out.println("venueLong: " + venueLong);
-      System.out.println("eventStarttimeString: " + "'" + eventStarttimeString + "'");
-      System.out.println("eventEndtimeString: " + "'" + eventEndtimeString + "'");
-      System.out.println("eventDescription: " + "'" + eventDescription + "'");
-      System.out.println("eventAttendingCount: " + eventAttendingCount);
-      System.out.println("eventDeclinedCount: " + eventDeclinedCount);
-      System.out.println("eventMaybeCount: " + eventMaybeCount);
-      System.out.println("eventNoReplyCount: " + eventNoReplyCount);
+//      System.out.println("eventId: " + eventId);
+//      System.out.println("eventName: " + "'" + eventName + "'");
+//      System.out.println("venueName: " + "'" + venueName + "'");
+//      System.out.println("venueLat: " + venueLat);
+//      System.out.println("venueLong: " + venueLong);
+//      System.out.println("eventStarttimeString: " + "'" + eventStarttimeString + "'");
+//      System.out.println("eventEndtimeString: " + "'" + eventEndtimeString + "'");
+//      System.out.println("eventDescription: " + "'" + eventDescription + "'");
+//      System.out.println("eventAttendingCount: " + eventAttendingCount);
+//      System.out.println("eventDeclinedCount: " + eventDeclinedCount);
+//      System.out.println("eventMaybeCount: " + eventMaybeCount);
+//      System.out.println("eventNoReplyCount: " + eventNoReplyCount);
 
       StringBuilder urlBuilder = new StringBuilder();
       urlBuilder
@@ -214,7 +214,7 @@ public class PublicFBEventsWriter {
       urlBuilder
       .append("&api_key=ad54038628d84dceb55a7adb81eddfcf9976e994");
 
-      System.out.println(urlBuilder.toString());
+//      System.out.println(urlBuilder.toString());
 
       URL url = new URL(urlBuilder.toString().replace(" ", "%20")
           .replace("'", "%27"));
@@ -237,7 +237,7 @@ public class PublicFBEventsWriter {
       }
       in.close();
 
-      System.out.println("Done with updating events table on CartoDB.");
+//      System.out.println("Done with updating events table on CartoDB.");
 
     }
   }

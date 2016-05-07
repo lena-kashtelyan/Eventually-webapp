@@ -111,26 +111,26 @@ window.onload = function() {
   }
 
   var reloadLocation = function() {
-    // console.log("this");
-    // try {
-    //   console.log(map_object.getCenter());
-    //   var position = map_object.getCenter();
-    //   var zoom = map_object.getZoom();
-    //   currentUserLat = position.lat;
-    //   currentUserLng = position.lng;
-    //   currentUserZoom = zoom;
-    //   var params = {
-    //     "latitude" : currentUserLat,
-    //     "longitude" : currentUserLng,
-    //     "zoom" : currentUserZoom
-    //   }
-    //   $.post("/update-events-database", params, function() {
-    //     //setInterval(reloadLocation, 15000);
-    //   });
-    // } catch (e) {
-    //   //setInterval(reloadLocation, 15000);
-    // }
-    //navigator.geolocation.getCurrentPosition(setLocation);
+    console.log("this");
+    try {
+      console.log(map_object.getCenter());
+      var position = map_object.getCenter();
+      var zoom = map_object.getZoom();
+      currentUserLat = position.lat;
+      currentUserLng = position.lng;
+      currentUserZoom = zoom;
+      var params = {
+        "latitude" : currentUserLat,
+        "longitude" : currentUserLng,
+        "zoom" : currentUserZoom
+      }
+      $.post("/update-events-database", params, function() {
+        setInterval(reloadLocation, 25000);
+      });
+    } catch (e) {
+      setInterval(reloadLocation, 25000);
+    }
+    navigator.geolocation.getCurrentPosition(setLocation);
   }
 
   reloadLocation();

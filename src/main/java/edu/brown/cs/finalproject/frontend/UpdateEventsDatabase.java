@@ -33,14 +33,14 @@ public class UpdateEventsDatabase extends BackendInteraction implements Route {
         int radius = zoomToRadius(zoom);
         facebookDataManager.requestPublicEvents(lat, lng, radius);
       } catch (Exception e) {
-        // Do nothing
+        System.out.println("ERROR: Problem fetching public facebook events.");
       }
     }
     return res;
   }
 
   private int zoomToRadius(int zoom) {
-    return 1000;
+    return 500;
   }
 
 }

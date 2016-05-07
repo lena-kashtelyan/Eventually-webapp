@@ -1,6 +1,8 @@
 package edu.brown.cs.finalproject.main;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
 import edu.brown.cs.finalproject.search.FacebookDataManager;
+import edu.brown.cs.finalproject.search.FacebookDataManager2;
 import edu.brown.cs.finalproject.search.PublicFBEventsFinder;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -50,7 +53,23 @@ public class Main {
         "cs32FinalProject");
     Authenticator auth = new Authenticator(stormPathApp);
     DatabaseManager dbManager = new DatabaseManager();
-    FacebookDataManager facebookDataManager = new FacebookDataManager();
+    
+    	 try {
+			Runtime.getRuntime().exec("pkill npm");
+	    	 Runtime.getRuntime().exec("pkill node");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    
+    FacebookDataManager2 facebookDataManager2 = null;
+    try {
+		facebookDataManager2 = new FacebookDataManager2();
+
+	} catch (IOException e1) {
+		e1.printStackTrace();
+		System.out.println("ERROR: Problem instantiating FacebookDataManager2.");
+	}
 
     /*
      * This try block is for setting up the facebook
@@ -93,7 +112,7 @@ public class Main {
     System.out.println("all done");
 
     if (options.has("gui")) {
-      new BackendInteraction(auth, dbManager, facebookDataManager,
+      new BackendInteraction(auth, dbManager, facebookDataManager2,
           stormPathApp);
       SparkServer server = new MapsSparkServer();
       server.runSparkServer();
@@ -115,29 +134,36 @@ public class Main {
       // dbManager.setUsersMediaPath("ipetrov", "/cdaklaf");
       // System.out.println(dbManager.getUsersMediaPath("ipetrov"));
 
-       try {
-    	   new PublicFBEventsFinder();
-       } catch (Exception e1) {
-    	   e1.printStackTrace();
-    	   System.out.println("ERROR: Problem with running the public events application.");
-       }
-      
-       JsonObject publicEvents = null;
-       try {
-    	   publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656, 1000);
-       } catch (IOException e1) {
-    	   e1.printStackTrace();
-    	   System.out.println("ERROR: Fetching public Facebook events.");
-       }
-      
-       System.out.println(publicEvents);
-       PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
-       try {
-    	   publicFBEventsWriter.updateDB(publicEvents);
-       } catch (SQLException | IOException e) {
-    	   e.printStackTrace();
-    	   System.out.println("Problem updating database with public venues.");
-       }
+//       try {
+//    	   new PublicFBEventsFinder();
+//       } catch (Exception e1) {
+//    	   e1.printStackTrace();
+//    	   System.out.println("ERROR: Problem with running the public events application.");
+//       }
+//      
+//       JsonObject publicEvents = null;
+//       try {
+//    	   publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656, 1000);
+//       } catch (IOException e1) {
+//    	   e1.printStackTrace();
+//    	   System.out.println("ERROR: Fetching public Facebook events.");
+//       }
+//      
+//       System.out.println(publicEvents);
+//       PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
+//       try {
+//    	   publicFBEventsWriter.updateDB(publicEvents);
+//       } catch (SQLException | IOException e) {
+//    	   e.printStackTrace();
+//    	   System.out.println("Problem updating database with public venues.");
+//       }
+    	
+//    	try {
+//    	    Thread.sleep(1000);                 //1000 milliseconds is one second.
+//    	} catch(InterruptedException ex) {
+//    	    Thread.currentThread().interrupt();
+//    	}
+    	
 
       // EventsByName eventsByName = new EventsByName();
 
