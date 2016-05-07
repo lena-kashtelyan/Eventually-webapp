@@ -10,11 +10,12 @@ public class AttendHandler extends BackendInteraction implements Route {
 
   @Override
   public Object handle(Request req, Response res) {
-    System.out.println("in savehandler");
+    System.out.println("in attendhandler");
     QueryParamsMap qm = req.queryMap();
     String authString = qm.value("auth");
     String username = qm.value("username");
     String eventID = qm.value("eventID");
-    return DatabaseManager.addAttendee(username, eventID);
+    return null;
+//    return DatabaseManager.addAttendee(username, eventID);
   }
 }
