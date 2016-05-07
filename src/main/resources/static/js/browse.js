@@ -34,6 +34,8 @@ $(document).ready(function () {
 		var auth = $("#auth").text();
 		var username = $("#username").text();
 		var eventID = $('.event-link').attr('href');
+		console.log("in attend");
+		console.log(eventID);
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
 		$.post("/attend", params);
 		//change star color
