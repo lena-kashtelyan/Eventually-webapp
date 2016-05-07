@@ -33,3 +33,8 @@ $(document).ready(function () {
 		//change star color
 	});
 });
+
+// $.cloudinary.config({ cloud_name: 'df1bylm3l', api_key: '411248546735325'});
+
+// var cl = cloudinary.CloudinaryJQuery.new( { cloud_name: 'df1bylm3l', api_key: '411248546735325'});
+

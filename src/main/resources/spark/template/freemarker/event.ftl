@@ -77,7 +77,7 @@
               @jjannotti took a picture:
             </div>
             <div class="panel-body">
-              <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR5XZQV93jqbJoPH0CNSdJ1qO0Y6cMu_ZtbwLF8vrBTjghS8lRckH8pDnnG" class="img-responsive" alt="Responsive image">
+              <img src="http://res.cloudinary.com/df1bylm3l/image/upload/v1462571854/ur5uxso9g7ww28sg8q7x.jpg" class="img-responsive" alt="Responsive image">
             </div>
           </div>
         </li>
@@ -97,6 +97,28 @@
       <!-- EVENT STORYSTREAM ENTRY STUB ENDS -->
       </ul>
     </div>
+
+    <div id="dropzone-area" style="width:200px;height:200px;display:block;margin:2px auto;border:1px solid red;"></div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
+    <script type="text/javascript">
+      var myDropzone = new Dropzone(document.getElementById('dropzone-area'), {
+        uploadMultiple: false, 
+        acceptedFiles:'.jpg,.png,.jpeg,.gif',
+        parallelUploads: 6,
+        url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload'
+      });
+      myDropzone.on('sending', function (file, xhr, formData) {
+        formData.append('api_key', 411248546735325);
+        formData.append('timestamp', Date.now() / 1000 | 0);
+        formData.append('upload_preset', 'vwkniwoh');
+      });
+
+      myDropzone.on('success', function (file, response) {
+        console.log("here");
+        console.log('Success! Cloudinary public ID is', response.public_id);
+      });
+    </script>
    
 
 
@@ -105,6 +127,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
+<!--<script src='jquery.min.js' type='text/javascript'></script>
+    <script src='jquery.ui.widget.js' type='text/javascript'></script>
+    <script src='jquery.iframe-transport.js' type='text/javascript'></script>
+    <script src='jquery.fileupload.js' type='text/javascript'></script>
+    <script src='jquery.cloudinary.js' type='text/javascript'></script> -->
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
