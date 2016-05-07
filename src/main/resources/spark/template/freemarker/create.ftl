@@ -35,9 +35,17 @@
                     <span class="asteriskField">*</span>
                   </label>
                   <select class="selectpicker input-lg show-tick form-control" id="category" title="type of the event?">
-                    <option value="social gathering">social gathering</option>
-                    <option value="performance">performance</option>
-                    <option value="academic">academic event</option>
+                    <option selected disabled>category</option>
+                    <option value="social gathering">nightlife</option>
+                    <option value="performance">public lecture</option>
+                    <option value="academic">workshop</option>
+                    <option value="academic">sports</option>
+                    <option value="academic">food fest</option>
+                    <option value="academic">movies & art</option>
+                    <option value="academic">theater & performance</option>
+                    <option value="academic">religious & cultural celebration</option>
+                    <option value="academic">sports</option>
+                    <option value="academic">other</option>
                   </select>
                 </div>
               </div>

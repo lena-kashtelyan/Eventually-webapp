@@ -30,11 +30,11 @@
                     <a id="event-link" href="876362925794780">${event.name}</a>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right">
+                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="attend event" id="attend-btn" class="btn btn-default pull-right">
                       <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
                       attend
                     </button>
-                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="save event" id="save-btn" class="btn btn-default pull-right">
+                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="save event" id="save-btn" class="btn btn-default pull-right">
                       <!-- <i class="fa fa-star" aria-hidden="true"></i> -->
                       save
                     </button>

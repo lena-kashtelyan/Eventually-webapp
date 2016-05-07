@@ -40,12 +40,37 @@ public class DatabaseManager {
     String eventID = UUID.randomUUID().toString();
 
     String eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg";
-    if (category.equals("social gathering")) {
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
-    } else if (category.equals("performance")) {
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
-    } else if (category.equals("academic event")) {
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/4e/f7/29/4ef7299074efa998232fd99a340fda57.jpg";
+    
+    switch(category){
+    case "nightlife":
+    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
+       break;
+    case "public lecture":
+    	eventphoto = "https://www.york.ac.uk/media/communications/publiclecturesinfo/publiclectures/publecs2.jpg";
+       break;
+    case "workshop":
+    	eventphoto = "http://beta.custompractice.co.uk/wp-content/uploads/2010/10/Custom-Practice-Classical-Acting-Workshop-004.jpg";
+    	break;
+    case "food fest":
+    	eventphoto = "http://www.urban-people.co.uk/wp-content/uploads/2015/04/foodfest1.jpg";
+    	break;
+    case "movies & art":
+    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f2/e1/78/f2e1783249efe7b2b0a1d8abf03e93b6.jpg";
+    	break;
+    case "theater & performance":
+    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2e/0b/6d/2e0b6dcfa198dfed546c19c11f1c111c.jpg";
+    	break;
+    case "religious & cultural celebration":
+    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/ef/b7/c7/efb7c7d618619ce45f357d1eb5be8860.jpg";
+    	break;
+    case "sports":
+    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/b8/92/3b/b8923b793663d5584df61d619fad9d93.jpg";
+    	break;
+    case "other":
+    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+    	break;
+   	default:
+   		eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
     }
 
     String venuename = location;

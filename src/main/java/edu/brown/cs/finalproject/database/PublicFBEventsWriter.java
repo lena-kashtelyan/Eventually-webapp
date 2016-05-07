@@ -18,6 +18,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import edu.brown.cs.finalproject.categorization.EventCategorizer;
+
 /*
  * This class updates the CartoDB events table with new events
  */
@@ -93,10 +95,11 @@ public class PublicFBEventsWriter {
       }
       //			eventDescription = URLEncoder.encode(eventDescription);
 
+      EventCategorizer eventCategorizer = new EventCategorizer();
+      String eventCategory = eventCategorizer.categorize(eventName, eventDescription);
 
-
-      //
-
+      
+      
       // Obtaining a java.util.Date from a date&time string.
       String eventStarttimeString = eventJSON.get("eventStarttime")
           .toString().replace("\"", "");
@@ -187,7 +190,7 @@ public class PublicFBEventsWriter {
       urlBuilder.append(",");
       urlBuilder.append("'" + eventEndtimeString + "'");
       urlBuilder.append(",");
-      urlBuilder.append("'performance'");
+      urlBuilder.append("'" + eventCategory + "'");
       urlBuilder.append(",");
       urlBuilder.append(true);
       urlBuilder.append(",");

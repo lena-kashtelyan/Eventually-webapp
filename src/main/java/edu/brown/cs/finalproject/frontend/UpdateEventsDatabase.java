@@ -40,7 +40,7 @@ public class UpdateEventsDatabase extends BackendInteraction implements Route {
   }
 
   private int zoomToRadius(int zoom) {
-    return 500;
+    return 1000;
   }
 
 }
