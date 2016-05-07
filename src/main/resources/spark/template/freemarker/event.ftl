@@ -74,6 +74,24 @@
         <li class="list-group-item">
           <div class="panel panel-default">
             <div class="panel-heading">
+              <h2>what do you think of the event?</h2>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-6">
+                <label class="sr-only" for="comment">say something:</label>
+                <textarea class="form-control input-lg" id="comment" name="comment" placeholder="my comment" type="text"></textarea>
+                <button type="button" id="comment-btn" class="btn btn-default">Submit</button>
+              </div>
+              <div class="col-md-6">
+                <label for="dropzone-area">add photo/video:</label>
+                <div id="dropzone-area" style="width:100%;height:200px;display:block;margin:2px auto;border:1px solid black;"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="panel panel-default">
+            <div class="panel-heading">
               @jjannotti took a picture:
             </div>
             <div class="panel-body">
