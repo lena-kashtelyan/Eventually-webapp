@@ -21,6 +21,8 @@ import com.cloudinary.utils.ObjectUtils;
 
 import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.entities.EventProxy;
+import edu.brown.cs.finalproject.entities.Media;
+import edu.brown.cs.finalproject.entities.MediaProxy;
 import edu.brown.cs.finalproject.entities.User;
 import edu.brown.cs.finalproject.entities.UserProxy;
 
@@ -50,14 +52,15 @@ public class DatabaseManager {
 
     String venuename = location;
     if (venuename.contains(",")) {
-    	venuename = venuename.substring(0, venuename.indexOf(","));
+      venuename = venuename.substring(0, venuename.indexOf(","));
     }
 
     String query = String
-        .format("INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate,public,venuename) "
-            + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s,false,'%s');",
-            eventID, Name, origintype, creatorID, startDate,
-            category, description, eventphoto, endDate, venuename);
+        .format(
+            "INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate,public,venuename) "
+                + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s,false,'%s');",
+            eventID, Name, origintype, creatorID, startDate, category,
+            description, eventphoto, endDate, venuename);
 
     System.out.println(query);
     String update = String.format(
@@ -128,6 +131,26 @@ public class DatabaseManager {
       n.printStackTrace();
       return false;
     }
+  }
+
+  public static List<Media> getMedia(String eventID) {
+    Connection conn = Database.getConnection();
+    String query = "Select mediaID FROM visual_media WHERE eventID = ?";
+    List<Media> storystream = new ArrayList<>();
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String mediaID = rs.getString(1);
+          Media mediaProxy = new MediaProxy(mediaID);
+          storystream.add(mediaProxy);
+        }
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+    return storystream;
   }
 
   public String getUsersFBAccessToken(String username) {
@@ -292,108 +315,113 @@ public class DatabaseManager {
     }
     return events;
   }
-  
+
   /**
-   * Returns a List<Event> the specified number of upcoming events within a specified proximity to a specified location; sorted by proximity
-   * @param latitute, double
-   * @param longitude, double
-   * @param radius, double
+   * Returns a List<Event> the specified number of upcoming events within a
+   * specified proximity to a specified location; sorted by proximity
+   * 
+   * @param latitute
+   *          , double
+   * @param longitude
+   *          , double
+   * @param radius
+   *          , double
    * @return List<Event>
    */
-	public static List<Event> getUpcomingEventsWithinProximitySortedByProximity(
-			double latitude, double longitude, double radius, int limit) {
-		List<Event> events = new ArrayList<>();
-		try {
+  public static List<Event> getUpcomingEventsWithinProximitySortedByProximity(
+      double latitude, double longitude, double radius, int limit) {
+    List<Event> events = new ArrayList<>();
+    try {
 
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
+      DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      Date date = new Date();
 
-			StringBuilder queryBuilder = new StringBuilder();
-			queryBuilder
-					.append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
-			queryBuilder.append(dateFormat.format(date));
-			queryBuilder
-					.append("', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
-			queryBuilder.append(longitude);
-			queryBuilder.append(", ");
-			queryBuilder.append(latitude);
-			queryBuilder.append("),4326)::geography) < ");
-			queryBuilder.append(radius);
-			queryBuilder
-					.append(" ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
-			queryBuilder.append(longitude);
-			queryBuilder.append(", ");
-			queryBuilder.append(latitude);
-			queryBuilder.append("),4326)::geography) ASC LIMIT ");
-			queryBuilder.append(limit);
-			String query = queryBuilder.toString();
-			System.out.println(query);
+      StringBuilder queryBuilder = new StringBuilder();
+      queryBuilder
+          .append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
+      queryBuilder.append(dateFormat.format(date));
+      queryBuilder
+          .append("', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
+      queryBuilder.append(longitude);
+      queryBuilder.append(", ");
+      queryBuilder.append(latitude);
+      queryBuilder.append("),4326)::geography) < ");
+      queryBuilder.append(radius);
+      queryBuilder
+          .append(" ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
+      queryBuilder.append(longitude);
+      queryBuilder.append(", ");
+      queryBuilder.append(latitude);
+      queryBuilder.append("),4326)::geography) ASC LIMIT ");
+      queryBuilder.append(limit);
+      String query = queryBuilder.toString();
+      System.out.println(query);
 
-			CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-					"cs32finalproject",
-					"ad54038628d84dceb55a7adb81eddfcf9976e994");
-			CartoDBResponse<Map<String, Object>> res = cartoDBCLient
-					.request(query);
-			for (int j = 0; j < res.getTotal_rows(); j++) {
-				String eventID = (String) res.getRows().get(j).get("eventid");
-				Event event = new EventProxy(eventID);
-				events.add(event);
-			}
-		} catch (CartoDBException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return events;
-	}
-	
-	/**
-	   * Returns a List<Event> the specified number of upcoming events within a specified proximity to a specified location; sorted by popularity
-	   * @param latitute, double
-	   * @param longitude, double
-	   * @param radius, double
-	   * @return List<Event>
-	   */
-		public static List<Event> getUpcomingEventsWithinProximitySortedByPopularity(
-				double latitude, double longitude, double radius, int limit) {
-			List<Event> events = new ArrayList<>();
-			try {
+      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(query);
+      for (int j = 0; j < res.getTotal_rows(); j++) {
+        String eventID = (String) res.getRows().get(j).get("eventid");
+        Event event = new EventProxy(eventID);
+        events.add(event);
+      }
+    } catch (CartoDBException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return events;
+  }
 
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				Date date = new Date();
+  /**
+   * Returns a List<Event> the specified number of upcoming events within a
+   * specified proximity to a specified location; sorted by popularity
+   * 
+   * @param latitute
+   *          , double
+   * @param longitude
+   *          , double
+   * @param radius
+   *          , double
+   * @return List<Event>
+   */
+  public static List<Event> getUpcomingEventsWithinProximitySortedByPopularity(
+      double latitude, double longitude, double radius, int limit) {
+    List<Event> events = new ArrayList<>();
+    try {
 
-				StringBuilder queryBuilder = new StringBuilder();
-				queryBuilder
-						.append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
-				queryBuilder.append(dateFormat.format(date));
-				queryBuilder
-						.append("', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
-				queryBuilder.append(longitude);
-				queryBuilder.append(", ");
-				queryBuilder.append(latitude);
-				queryBuilder.append("),4326)::geography) < ");
-				queryBuilder.append(radius);
-				queryBuilder
-						.append(" ORDER BY attendingCount DESC LIMIT ");
-				queryBuilder.append(limit);
-				String query = queryBuilder.toString();
-				System.out.println(query);
+      DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+      Date date = new Date();
 
-				CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-						"cs32finalproject",
-						"ad54038628d84dceb55a7adb81eddfcf9976e994");
-				CartoDBResponse<Map<String, Object>> res = cartoDBCLient
-						.request(query);
-				for (int j = 0; j < res.getTotal_rows(); j++) {
-					String eventID = (String) res.getRows().get(j).get("eventid");
-					Event event = new EventProxy(eventID);
-					events.add(event);
-				}
-			} catch (CartoDBException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			return events;
-		}
+      StringBuilder queryBuilder = new StringBuilder();
+      queryBuilder
+          .append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
+      queryBuilder.append(dateFormat.format(date));
+      queryBuilder
+          .append("', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
+      queryBuilder.append(longitude);
+      queryBuilder.append(", ");
+      queryBuilder.append(latitude);
+      queryBuilder.append("),4326)::geography) < ");
+      queryBuilder.append(radius);
+      queryBuilder.append(" ORDER BY attendingCount DESC LIMIT ");
+      queryBuilder.append(limit);
+      String query = queryBuilder.toString();
+      System.out.println(query);
+
+      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(query);
+      for (int j = 0; j < res.getTotal_rows(); j++) {
+        String eventID = (String) res.getRows().get(j).get("eventid");
+        Event event = new EventProxy(eventID);
+        events.add(event);
+      }
+    } catch (CartoDBException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return events;
+  }
 }
