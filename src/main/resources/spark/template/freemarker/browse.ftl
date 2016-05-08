@@ -25,14 +25,8 @@
                     <a class="event-link" href=${event.ID}>${event.name}</a>
                   </div>
                   <div class="col-md-4">
-                   <button id="attend-btn" name="attend-btn" type="button" data-toggle="tooltip" data-placement="bottom" title="attend event" class="btn btn-default pull-right attend-btn">
-                      <!-- <i class="fa fa-star" aria-hidden="true"></i> -->
-                      attend
-                    </button>
-                    <button id="save-btn" name="save-btn" type="button" data-toggle="tooltip" data-placement="bottom" title="save event" class="btn btn-default pull-right save-btn">
-                      <!-- <i class="fa fa-star" aria-hidden="true"></i> -->
-                      save
-                    </button>
+                    <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn">attend</button>
+                      <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn">save</button>
                   </div>
                 </h2>
               </div>
@@ -59,7 +53,7 @@
                     ${event.description}
                   </#if>
                   <div class="row">
-                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
+                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
                     <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
                     ${event.attendingCount}</div>
                   </div>
