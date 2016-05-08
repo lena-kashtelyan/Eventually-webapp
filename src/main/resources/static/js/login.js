@@ -41,3 +41,13 @@ $(document).ready(function() {
 		window.location = "/facebooklogin";
 	});
 });
+
+$("#password").keypress(function(event) {
+    if (event.which == 13) {
+    	console.log("yooo");
+        event.preventDefault();
+        $("#submitLogin").click();
+    }
+});
+
+
