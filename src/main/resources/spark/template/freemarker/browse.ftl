@@ -22,7 +22,7 @@
               <div class="row" id="event-name">
                 <h2 id="event-link">
                   <div class="col-md-8">
-                    <a class="event-link" href="876362925794780">${event.name}</a>
+                    <a class="event-link" href=${event.ID}>${event.name}</a>
                   </div>
                   <div class="col-md-4">
                    <button id="attend-btn" name="attend-btn" type="button" data-toggle="tooltip" data-placement="bottom" title="attend event" class="btn btn-default pull-right attend-btn">
