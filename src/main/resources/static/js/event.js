@@ -8,9 +8,12 @@ $(document).ready(function() {
 
 $(document).ready(function () {
 	$('a').on('click', function(e) {
+		console.log("in href click");
 	if ($(this).attr('href') == "#full-description") {
+		console.log("full desc");
 		return true;
 	} else {
+		console.log("preventDefault");
 		e.preventDefault();
 	}
 	});
@@ -18,35 +21,39 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	$("#save-btn").on('click', function(e) {
-		// var auth = $("#auth").text();
-		// var username = $("#username").text();
-		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-		$.post("/save", params);
-		//change star color
+		if ($(this).text() == "save") {
+			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+			$.post("/save", params);
+			document.getElementById("save-btn").innerHTML="saved";
+		} else if ($(this).text() == "saved") {
+			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+			$.post("/ussave", params);
+			document.getElementById("save-btn").innerHTML="save";
+		}
 	});
 });
 
 $(document).ready(function () {
 	$("#attend-btn").on('click', function(e) {
-		// var auth = $("#auth").text();
-		// var username = $("#username").text();
-		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-		$.post("/attend", params);
-		//change to "saved"
+		if ($(this).text() == "attend") {
+			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+			$.post("/attend", params);
+			document.getElementById("attend-btn").innerHTML="attending";
+		} else if ($(this).text() == "attending") {
+			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+			$.post("/unattend", params);
+			document.getElementById("attend-btn").innerHTML="attend";
+		}
 	});
 });
 
 $(document).ready(function () {
 	$("#comment-btn").on('click', function(e) {
-		console.log("clicked comment button")
 		e.preventDefault();
-	//	var auth = $("#auth").text();
-	//	var username = $("#username").text();
-		console.log(eventID);
-		var comment = $("#comment").text();
-		console.log(comment);
+		var comment = $("#comment").val();
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID, "comment" : comment};
-		//$.post("/comment", params);
+		$.post("/comment", params);
+		location.reload(true);
 	});
 });
 
