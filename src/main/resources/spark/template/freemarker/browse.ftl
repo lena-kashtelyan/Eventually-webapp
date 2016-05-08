@@ -25,14 +25,7 @@
                     <a class="event-link" href="876362925794780">${event.name}</a>
                   </div>
                   <div class="col-md-4">
-                   <button id="attend-btn" name="attend-btn" type="button" data-toggle="tooltip" data-placement="bottom" title="attend event" class="btn btn-default pull-right attend-btn">
-                      <!-- <i class="fa fa-star" aria-hidden="true"></i> -->
-                      attend
-                    </button>
-                    <button id="save-btn" name="save-btn" type="button" data-toggle="tooltip" data-placement="bottom" title="save event" class="btn btn-default pull-right save-btn">
-                      <!-- <i class="fa fa-star" aria-hidden="true"></i> -->
-                      save
-                    </button>
+                    <!--BUTTONS WOULD GO HERE IF WE WANT 'EM-->
                   </div>
                 </h2>
               </div>

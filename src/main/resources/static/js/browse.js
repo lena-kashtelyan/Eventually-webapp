@@ -16,28 +16,3 @@ $(document).ready(function () {
 	});
 });
 
-$(document).ready(function () {
-	$('.save-btn').on('click', function(e) {
-		var auth = $("#auth").text();
-		var username = $("#username").text();
-		var eventID = $('.event-link').attr('href');
-		console.log("in save");
-		console.log(eventID);
-		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-		$.post("/save", params);
-		//change star color
-	});
-});
-
-$(document).ready(function () {
-	$('.attend-btn').on('click', function(e) {
-		var auth = $("#auth").text();
-		var username = $("#username").text();
-		var eventID = $('.event-link').attr('href');
-		console.log("in attend");
-		console.log(eventID);
-		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-		$.post("/attend", params);
-		//change star color
-	});
-});
