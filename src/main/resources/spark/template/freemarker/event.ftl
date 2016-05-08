@@ -19,129 +19,109 @@
   <body>
     <#include "background.ftl">
     <#include "topbar.ftl">
-    <div class="container" id="feed">
-      <ul class="list-group">
-        <li class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="row" id="event-name">
-                <h2>
-                  <div class="col-md-8">
-                    <a id="event-link" href="876362925794780">${event.name}</a>
-                  </div>
-                  <div class="col-md-4">
-                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right">attend</button>
-                    <button type="button" data-toggle="tooltip" data-placement="bottom"title="save event" id="save-btn" class="btn btn-default pull-right">save</button>
-                  </div>
-                </h2>
-              </div>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="row" id="event-image">
-                    <div class="col-md-12">
-                      <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+    <div class="container-fluid" id="feed">
+      <div class="col-md-8" id="event-panel">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="row" id="event-name">
+                  <h2>
+                    <div class="col-md-8">
+                      <a id="event-link" href=${event.ID}>${event.name}</a>
                     </div>
-                  </div>
-                </div>
-                <div class="col-md-6" id="description">
-                  <#assign description = event.description>
-                  <#if (description?length > 881)>
-                    <p>${description[0..880]}<a href="#full-description" data-toggle="collapse">...</a>
-                    <div id="full-description" class="collapse">
-                        ${description[881..]}
-                    </div></p>
-                  <#else>
-                    ${event.description}
-                  </#if>
-                  <div class="row">
-                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
-                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
-                    ${event.attendingCount}</div>
-                  </div>
+                    <div class="col-md-4">
+                      <button type="button" data-toggle="tooltip" data-placement="bottom"title="attend event" id="attend-btn" class="btn btn-default pull-right">attend</button>
+                      <button type="button" data-toggle="tooltip" data-placement="bottom"title="save event" id="save-btn" class="btn btn-default pull-right">save</button>
+                    </div>
+                  </h2>
                 </div>
               </div>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2>what do you think of the event?</h2>
-            </div>
-            <div class="panel-body">
-              <div class="col-md-6">
-                <label class="sr-only" for="comment">say something:</label>
-                <textarea class="form-control input-lg" id="comment" name="comment" placeholder="my comment" type="text"></textarea>
-                <button type="button" id="comment-btn" class="btn btn-default">Submit</button>
-              </div>
-              <div class="col-md-6">
-                <button type="button" data-toggle="tooltip" data-placement="bottom"title="upload file" id="upload-btn" class="btn btn-default pull-right fileinput-button">upload file</button>
-                <label for="dropzone-area">add photo/video:</label>
-                <div class="table table-striped" class="files" id="previews">
-                  <div id="template" class="file-row">
-                    <!-- This is used as the file preview template -->
-                    <div>
-                        <span class="preview"><img data-dz-thumbnail /></span>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row" id="event-image">
+                      <div class="col-md-12">
+                        <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+                      </div>
                     </div>
-                    <div>
-                        <p class="name" data-dz-name></p>
-                        <strong class="error text-danger" data-dz-errormessage></strong>
-                    </div>
-                    <div>
-                        <p class="size" data-dz-size></p>
-                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                          <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                        </div>
-                    </div>
-                    <div>
-                      <button class="btn btn-primary start">
-                          <i class="glyphicon glyphicon-upload"></i>
-                          <span>Start</span>
-                      </button>
-                      <button data-dz-remove class="btn btn-warning cancel">
-                          <i class="glyphicon glyphicon-ban-circle"></i>
-                          <span>Cancel</span>
-                      </button>
-                      <button data-dz-remove class="btn btn-danger delete">
-                        <i class="glyphicon glyphicon-trash"></i>
-                        <span>Delete</span>
-                      </button>
+                  </div>
+                  <div class="col-md-6" id="description">
+                    <#assign description = event.description>
+                    <#if (description?length > 881)>
+                      <p>${description[0..880]}<a href="#full-description" data-toggle="collapse">...</a>
+                      <div id="full-description" class="collapse">
+                          ${description[881..]}
+                      </div></p>
+                    <#else>
+                      ${event.description}
+                    </#if>
+                    <div class="row">
+                      <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
+                      <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
+                      ${event.attendingCount}</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              @jjannotti took a picture:
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4" id="stream-top-right">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h2>what do you think of the event?</h2>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <label class="sr-only" for="comment">say something:</label>
+                  <textarea class="form-control input-lg" id="comment" name="comment" placeholder="my comment" type="text"></textarea>
+                  <button type="button" id="comment-btn" class="btn btn-default">Submit</button>
+                </div>
+                <div class="row">
+                  <button type="button" data-toggle="tooltip" data-placement="bottom"title="upload file" id="upload-btn" class="btn btn-default pull-right fileinput-button">upload file</button>
+                  <label for="dropzone-area">add photo/video:</label>
+                  <div class="table table-striped" class="files" id="previews">
+                    <div id="template" class="file-row">
+                      <!-- This is used as the file preview template -->
+                      <div>
+                          <span class="preview"><img data-dz-thumbnail /></span>
+                      </div>
+                      <div>
+                          <p class="name" data-dz-name></p>
+                          <strong class="error text-danger" data-dz-errormessage></strong>
+                      </div>
+                      <div>
+                          <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                          </div>
+                      </div>
+                      <div>
+                        <button class="btn btn-default start">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Start</span>
+                        </button>
+                        <button data-dz-remove class="btn btn-default cancel">
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            <span>Cancel</span>
+                        </button>
+                        <button data-dz-remove class="btn btn-default delete">
+                          <i class="glyphicon glyphicon-trash"></i>
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="panel-body">
-              <img src="http://res.cloudinary.com/df1bylm3l/image/upload/v1462571854/ur5uxso9g7ww28sg8q7x.jpg" class="img-responsive" alt="Responsive image">
-            </div>
-          </div>
-        </li>
-        <!-- EVENT STORYSTREAM ENTRY STUB ENDS -->
-
-        <!-- EVENT STORYSTREAM ENTRY STUB STARTS -->
-        <li class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              @jjannotti commented:
-            </div>
-            <div class="panel-body">
-              <p>Awesome gathering, you do not want to miss this!</p>
-            </div>
-          </div>
-        </li>
-      <!-- EVENT STORYSTREAM ENTRY STUB ENDS -->
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>

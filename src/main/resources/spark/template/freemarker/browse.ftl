@@ -22,10 +22,11 @@
               <div class="row" id="event-name">
                 <h2 id="event-link">
                   <div class="col-md-8">
-                    <a class="event-link" href="876362925794780">${event.name}</a>
+                    <a class="event-link" href=${event.ID}>${event.name}</a>
                   </div>
                   <div class="col-md-4">
-                    <!--BUTTONS WOULD GO HERE IF WE WANT 'EM-->
+                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="attend event" id=${event.ID} name="attend" class="btn btn-default pull-right attend-btn">attend</button>
+                      <button type="button" data-toggle="tooltip" data-placement="bottom" title="save event" id=${event.ID} name="save"class="btn btn-default pull-right save-btn">save</button>
                   </div>
                 </h2>
               </div>
@@ -52,7 +53,7 @@
                     ${event.description}
                   </#if>
                   <div class="row">
-                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">Venue</div>
+                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
                     <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
                     ${event.attendingCount}</div>
                   </div>
