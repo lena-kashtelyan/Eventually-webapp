@@ -25,8 +25,8 @@
                     <a class="event-link" href=${event.ID}>${event.name}</a>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="attend event" id=${event.ID} name="attend" class="btn btn-default pull-right attend-btn">attend</button>
-                      <button type="button" data-toggle="tooltip" data-placement="bottom" title="save event" id=${event.ID} name="save"class="btn btn-default pull-right save-btn">save</button>
+                    <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn">attend</button>
+                      <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn">save</button>
                   </div>
                 </h2>
               </div>

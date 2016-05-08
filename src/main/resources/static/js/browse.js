@@ -18,37 +18,34 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	$('.save-btn').on('click', function(e) {
-		console.log("clicking save");
 		var auth = $("#auth").text();
 		var username = $("#username").text();
-		var eventID = $(this).attr("id");
-		console.log("(un)saving event by ID: " + eventID);
+		var eventID = $(this).attr("name");
+		var btn = document.getElementById("save"+eventID);
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-		if ($(this).text() == "save") {
+		if (btn.innerHTML == "save") {
 			$.post("/save", params);
-			$(".save-btn #eventID").attr("name", "saved");
-			console.log($(".save-btn #eventID").attr("name"));
-		} else if ($(this).text() == "saved") {
+			btn.innerHTML = "saved";
+		} else if (btn.innerHTML == "saved") {
 			$.post("/ussave", params);
-			$(this).innerHTML="save";
+			btn.innerHTML = "save";
 		}
 	});
 });
 
 $(document).ready(function () {
 	$('.attend-btn').on('click', function(e) {
-		console.log("clicking attend");
 		var auth = $("#auth").text();
 		var username = $("#username").text();
-		var eventID = $(this).attr("id");
-		console.log("(un)attending event by ID: " + eventID);
+		var eventID = $(this).attr("name");
+		var btn = document.getElementById("attend"+eventID);
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-		if ($(this).text() == "attend") {
+		if (btn.innerHTML == "attend") {
 			$.post("/attend", params);
-			$(this).innerHTML="attending";
-		} else if ($(this).text() == "attending") {
+			btn.innerHTML = "attending";
+		} else if (btn.innerHTML == "attending") {
 			$.post("/unattend", params);
-			$(this).innerHTML="attend";
+			btn.innerHTML = "attend";
 		}
 	});
 });
