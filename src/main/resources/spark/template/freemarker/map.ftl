@@ -34,7 +34,8 @@
       <div class="cartodb-popup-content-wrapper">
         <div class="cartodb-popup-content">
           <p style="color:black;font-size:1.2rem">{{name}}</p>
-          <a href="/event?auth=${auth}&username=${username}&eventId={{eventid}}"><img src={{eventphoto}}></a>
+          <p>{{eventid}}</p>
+          <a href="/event?auth=${auth}&username=${username}&eventID={{eventid}}"><img src={{eventphoto}}></a>
         </div>
       </div>
       <div class="cartodb-popup-tip-container"></div>
