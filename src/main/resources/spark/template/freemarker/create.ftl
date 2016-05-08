@@ -29,17 +29,25 @@
                     <input class="form-control form-control-inner input-lg" id="eventName" name="eventName" placeholder="name of the event" type="text"/>
                   </div>
                 </div>
-                <div class="col-md-6"> 
-                  <div class="form-group">
-                    <label class="control-label sr-only  requiredField" for="category">category
-                      <span class="asteriskField">*</span>
-                    </label>
-                    <select class="selectpicker input-lg show-tick form-control" id="category" title="type of the event?">
-                      <option value="social gathering">social gathering</option>
-                      <option value="performance">performance</option>
-                      <option value="academic">academic event</option>
-                    </select>
-                  </div>
+              <div class="col-md-6"> 
+                <div class="form-group">
+                  <label class="control-label sr-only  requiredField" for="category">category
+                    <span class="asteriskField">*</span>
+                  </label>
+                  <select class="selectpicker input-lg show-tick form-control" id="category" title="type of the event?">
+                    <option selected disabled>category</option>
+                    <option value="social gathering">nightlife</option>
+                    <option value="performance">public lecture</option>
+                    <option value="academic">workshop</option>
+                    <option value="academic">sports</option>
+                    <option value="academic">food fest</option>
+                    <option value="academic">movies & art</option>
+                    <option value="academic">theater & performance</option>
+                    <option value="academic">religious & cultural celebration</option>
+                    <option value="academic">sports</option>
+                    <option value="academic">other</option>
+                  </select>
+
                 </div>
               </div>
               <div class="row">

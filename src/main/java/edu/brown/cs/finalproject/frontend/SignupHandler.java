@@ -2,15 +2,16 @@ package edu.brown.cs.finalproject.frontend;
 
 import java.util.Map;
 
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
 import edu.brown.cs.finalproject.credentials.SignUp;
 import edu.brown.cs.finalproject.database.DatabaseManager;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 public class SignupHandler extends BackendInteraction implements Route {
 
@@ -19,15 +20,16 @@ public class SignupHandler extends BackendInteraction implements Route {
     QueryParamsMap qm = req.queryMap();
     String firstName = qm.value("firstName");
     String lastName = qm.value("lastName");
-    String fullName = firstName+" "+lastName;
+    String fullName = firstName + " " + lastName;
     String username = qm.value("username");
     String email = qm.value("email");
     String password = qm.value("password");
-//    String path = qm.value("path");
+    // String path = qm.value("path");
     SignUp signup = new SignUp(firstName, lastName, username, email, password);
     try {
       AuthToken authToken = auth.createAccount(signup);
       if (auth.verifyAuthToken(username, authToken)) {
+        System.out.println("here");
         DatabaseManager.addUser(username, fullName, null, null);
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
             .put("title", "Map").put("auth", authToken.toString())
