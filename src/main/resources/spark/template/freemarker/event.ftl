@@ -152,5 +152,6 @@
     <script src='jquery.cloudinary.js' type='text/javascript'></script> -->
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
+    <#if eventID??><span id="eventID" class="noshow">${eventID}</span></#if>
   </body>
 </html>
