@@ -77,8 +77,40 @@
                 <button type="button" id="comment-btn" class="btn btn-default">Submit</button>
               </div>
               <div class="col-md-6">
+                <button type="button" data-toggle="tooltip" data-placement="bottom"title="upload file" id="upload-btn" class="btn btn-default pull-right fileinput-button">upload file</button>
                 <label for="dropzone-area">add photo/video:</label>
-                <div id="dropzone-area" style="width:100%;height:200px;display:block;margin:2px auto;border:1px solid black;"></div>
+                <div class="table table-striped" class="files" id="previews">
+                  <div id="template" class="file-row">
+                    <!-- This is used as the file preview template -->
+                    <div>
+                        <span class="preview"><img data-dz-thumbnail /></span>
+                    </div>
+                    <div>
+                        <p class="name" data-dz-name></p>
+                        <strong class="error text-danger" data-dz-errormessage></strong>
+                    </div>
+                    <div>
+                        <p class="size" data-dz-size></p>
+                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                          <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                        </div>
+                    </div>
+                    <div>
+                      <button class="btn btn-primary start">
+                          <i class="glyphicon glyphicon-upload"></i>
+                          <span>Start</span>
+                      </button>
+                      <button data-dz-remove class="btn btn-warning cancel">
+                          <i class="glyphicon glyphicon-ban-circle"></i>
+                          <span>Cancel</span>
+                      </button>
+                      <button data-dz-remove class="btn btn-danger delete">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -110,30 +142,8 @@
       </ul>
     </div>
 
-    <div id="dropzone-area" style="width:200px;height:200px;display:block;margin:2px auto;border:1px solid red;"></div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
-    <script type="text/javascript">
-      var myDropzone = new Dropzone(document.getElementById('dropzone-area'), {
-        uploadMultiple: false, 
-        acceptedFiles:'.jpg,.png,.jpeg,.gif',
-        parallelUploads: 6,
-        url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload'
-      });
-      myDropzone.on('sending', function (file, xhr, formData) {
-        formData.append('api_key', 411248546735325);
-        formData.append('timestamp', Date.now() / 1000 | 0);
-        formData.append('upload_preset', 'vwkniwoh');
-      });
-
-      myDropzone.on('success', function (file, response) {
-        console.log("here");
-        console.log('Success! Cloudinary public ID is', response.public_id);
-      });
-    </script>
-   
-
-
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

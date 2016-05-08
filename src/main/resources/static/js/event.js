@@ -57,7 +57,56 @@ $(document).ready(function () {
 	});
 });
 
-// $.cloudinary.config({ cloud_name: 'df1bylm3l', api_key: '411248546735325'});
+$(document).ready(function () {
+	var previewNode = document.querySelector("#template");
+    previewNode.id = "";
+    var previewTemplate = previewNode.parentNode.innerHTML;
+    previewNode.parentNode.removeChild(previewNode);
 
-// var cl = cloudinary.CloudinaryJQuery.new( { cloud_name: 'df1bylm3l', api_key: '411248546735325'});
+	var myDropzone = new Dropzone(document.body, {
+		uploadMultiple: false, 
+		acceptedFiles:'.jpg,.png,.jpeg,.gif',
+		parallelUploads: 6,
+		url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload',
+		thumbnailWidth: 80,
+		thumbnailHeight: 80,
+		parallelUploads: 20,
+		previewTemplate: previewTemplate,
+		autoQueue: false, // Make sure the files aren't queued until manually added
+		previewsContainer: "#previews", // Define the container to display the previews
+		clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+	});
 
+	myDropzone.on("addedfile", function(file) {
+		file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+	});
+
+	myDropzone.on("totaluploadprogress", function(progress) {
+		document.querySelector(".progress-bar").style.width = progress + "%";
+	});
+
+	myDropzone.on('sending', function (file, xhr, formData) {
+		document.querySelector(".progress-bar").style.opacity = "1";
+		file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+		formData.append('api_key', 411248546735325);
+		formData.append('timestamp', Date.now() / 1000 | 0);
+		formData.append('upload_preset', 'vwkniwoh');
+	});
+
+	myDropzone.on('success', function (file, response) {
+		console.log("here");
+		console.log('Success! Cloudinary public ID is', response.public_id);
+		location.reload(true);
+	});
+
+	myDropzone.on("queuecomplete", function(progress) {
+		document.querySelector(".progress-bar").style.opacity = "0";
+	});
+
+	document.querySelector(".start").onclick = function() {
+		myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+	};
+	document.querySelector(".cancel").onclick = function() {
+		myDropzone.removeAllFiles(true);
+	};
+});
