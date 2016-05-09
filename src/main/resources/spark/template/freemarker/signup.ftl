@@ -5,6 +5,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/create.css">
+    <link rel="stylesheet" type="text/css" href="css/signup.css">
     <title>${title}</title>
   </head>
 
@@ -13,7 +14,7 @@
     <#include "topbar-min.ftl">
 
     <div class="jumbotron vertical-center">
-      <div class="container">
+      <div class="container" id="main-container">
         <div class="row">
           <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -38,7 +39,7 @@
             </div>
             <div class="form-group">
               <label for="email" class="col-sm-2 control-label">email: </label>
-              <div class="col-sm-10"> 
+              <div class="col-sm-10">
                 <input type="email" class="form-control input-lg" id="email" name="email" placeholder="socialite@may4.com">
               </div>
             </div>
@@ -72,4 +73,3 @@
   <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
 </html>
-

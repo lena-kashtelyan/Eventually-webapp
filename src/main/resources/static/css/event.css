@@ -1,3 +1,7 @@
 .storystream-panel {
 	height: 100%;
 }
+
+#description {
+	color: white;
+}
