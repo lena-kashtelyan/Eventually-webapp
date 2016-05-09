@@ -1,7 +1,8 @@
 package edu.brown.cs.finalproject.entities;
 
+
 public interface Event extends Entity {
-	
+
   public String getName();
 
   public String setName(String newName);
@@ -20,18 +21,14 @@ public interface Event extends Entity {
 
   public String setStartDate(String newStartDate);
 
-//  public double getLatitude();
-//  
-//  public double getLongitude();
-  
-//  public int getInvitedCount();
-  
+  public String getEndDate();
+
   public int getAttendingCount();
-  
+
   public int getMaybeCount();
-  
+
   public int getNoReplyCount();
-  
+
   public int getDeclinedCount();
 
   public String getCategory();
@@ -45,10 +42,9 @@ public interface Event extends Entity {
   public String getDescription();
 
   public String setDescription(String newDescription);
-  
-  public String getEventphoto();
-  
-  public String setEventphoto(String newEventphoto);
 
+  public String getEventphoto();
+
+  public String setEventphoto(String newEventphoto);
 
 }

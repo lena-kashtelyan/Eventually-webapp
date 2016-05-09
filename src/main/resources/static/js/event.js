@@ -51,7 +51,8 @@ $(document).ready(function () {
 	$("#comment-btn").on('click', function(e) {
 		e.preventDefault();
 		var comment = $("#comment").val();
-		var params = { "auth" : auth, "username" : username, "eventID" : eventID, "comment" : comment};
+		var timestamp = Date.now()/1000 | 0;
+		var params = { "auth" : auth, "username" : username, "url" : comment, "timestamp" : timestamp, "type" : "comment";
 		$.post("/comment", params);
 		location.reload(true);
 	});
