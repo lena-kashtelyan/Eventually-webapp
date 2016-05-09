@@ -25,7 +25,7 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
   private static final String FACEBOOK_ID = "220099498366885";
   private static final String FACEBOOK_SECRET = "8a0e23ef1bc9e94213c881e53b2d7343";
   private static final String applicationHref = "https://api.stormpath.com/v1/applications/76713eIdUzokAFDoD4WtP7";
-  private static final String REDIRECT_URI = "http://b8c4a6b0.ngrok.io/fbr";
+  private static final String REDIRECT_URI = "http://f28cfd24.ngrok.io/fbr";
 
   @Override
   public Object handle(Request req, Response res) {
@@ -74,7 +74,9 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
         System.out.println("email = " + account.getEmail());
         System.out.println("new account? =" + result.isNewAccount());
         if (result.isNewAccount()) {
-          DatabaseManager.addUser(account.getUsername(), account.getFullName(), "http://sighttosee.com/images/vendor/default-profile.png", authenticate);
+          DatabaseManager.addUser(account.getUsername(), account.getFullName(),
+              "http://sighttosee.com/images/vendor/default-profile.png",
+              authenticate);
         } else {
           dbManager.setUsersFBAccessToken(account.getUsername(), authenticate);
         }

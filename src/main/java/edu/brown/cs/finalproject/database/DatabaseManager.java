@@ -341,6 +341,15 @@ public class DatabaseManager {
 	    return true;
 	  }
   
+  public static boolean removeInterested(String userID, String eventID) {
+	
+	  
+	  
+	  
+	  
+	  return true;
+  }
+  
   public static List<User> getInterested(String eventID) {
 	    Connection conn = Database.getConnection();
 	    String query = "SELECT username FROM interested WHERE eventID=?;";

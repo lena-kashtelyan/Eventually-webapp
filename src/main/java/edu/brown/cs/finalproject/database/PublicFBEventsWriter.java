@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -21,7 +21,8 @@ import com.google.gson.JsonObject;
 import edu.brown.cs.finalproject.categorization.EventCategorizer;
 
 /*
- * This class updates the CartoDB events table with new events
+ * This class updates the CartoDB events table with new
+ * events
  */
 public class PublicFBEventsWriter {
 
@@ -29,36 +30,40 @@ public class PublicFBEventsWriter {
   }
 
   @SuppressWarnings("deprecation")
-  public void updateDB(JsonObject jsonResults) throws SQLException,
-  IOException {
+  public void updateDB(JsonObject jsonResults)
+      throws SQLException, IOException {
     JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"),
         JsonArray.class);
 
-//    System.out.println(eventsArray);
+    // System.out.println(eventsArray);
 
     for (JsonElement eventElement : eventsArray) {
       JsonObject eventJSON = new Gson().fromJson(eventElement,
           JsonObject.class);
 
-//      System.out.println(eventJSON);
-//      System.out.println("venue id: "
-//          + eventJSON.get("venueId").toString().replace("\"", ""));
-//      System.out.println("venue name: "
-//          + eventJSON.get("venueName").toString().replace("\"", ""));
-      //			String venueId = eventJSON.get("venueId").toString()
-      //					.replace("\"", "");
+      // System.out.println(eventJSON);
+      // System.out.println("venue id: "
+      // + eventJSON.get("venueId").toString().replace("\"",
+      // ""));
+      // System.out.println("venue name: "
+      // +
+      // eventJSON.get("venueName").toString().replace("\"",
+      // ""));
+      // String venueId =
+      // eventJSON.get("venueId").toString()
+      // .replace("\"", "");
       String venueName = eventJSON.get("venueName").toString()
           .replaceAll("[^a-zA-Z ]", "");
 
-      JsonObject venueLocationJSON = new Gson().fromJson(
-          eventJSON.get("venueLocation"), JsonObject.class);
-//      System.out.println("venue lat: "
-//          + venueLocationJSON.get("latitude").toString());
-//      System.out.println("venue long: "
-//          + venueLocationJSON.get("longitude").toString());
+      JsonObject venueLocationJSON = new Gson()
+          .fromJson(eventJSON.get("venueLocation"), JsonObject.class);
+      // System.out.println("venue lat: "
+      // + venueLocationJSON.get("latitude").toString());
+      // System.out.println("venue long: "
+      // + venueLocationJSON.get("longitude").toString());
       String venueLat = venueLocationJSON.get("latitude").toString();
       String venueLong = venueLocationJSON.get("longitude").toString();
-      
+
       StringBuilder geomPointBuilder = new StringBuilder();
       geomPointBuilder.append("ST_SetSRID(ST_Point(");
       geomPointBuilder.append(venueLong);
@@ -67,111 +72,141 @@ public class PublicFBEventsWriter {
       geomPointBuilder.append("),4326)");
       String geomPoint = geomPointBuilder.toString();
 
-      //			String venueCoverPicture = eventJSON.get("venueCoverPicture")
-      //					.toString().replace("\"", "");
-      //			String venueProficePicture = eventJSON.get("venueProfilePicture")
-      //					.toString().replace("\"", "");
-      String eventId = eventJSON.get("eventId").toString()
-          .replace("\"", "'");
+      // String venueCoverPicture =
+      // eventJSON.get("venueCoverPicture")
+      // .toString().replace("\"", "");
+      // String venueProficePicture =
+      // eventJSON.get("venueProfilePicture")
+      // .toString().replace("\"", "");
+      String eventId = eventJSON.get("eventId").toString().replace("\"", "'");
       String eventName = eventJSON.get("eventName").toString()
-          .replaceAll("[^a-zA-Z ]", "");
-      //			String eventCoverPicture = eventJSON.get("eventCoverPicture")
-      //					.toString().replace("\"", "");
+          .replaceAll("[^a-zA-Z0-9 ]", "");
+      // String eventCoverPicture =
+      // eventJSON.get("eventCoverPicture")
+      // .toString().replace("\"", "");
       String eventProfilePicture = null;
       if (!eventJSON.get("eventCoverPicture").toString().equals("null")) {
-        eventProfilePicture = URLEncoder.encode(eventJSON.get("eventCoverPicture").toString().replace("\"", "'"));
+        eventProfilePicture = URLEncoder.encode(
+            eventJSON.get("eventCoverPicture").toString().replace("\"", "'"));
       } else if (!eventJSON.get("eventProfilePicture").equals("null")) {
-        eventProfilePicture = URLEncoder.encode(eventJSON.get("eventProfilePicture").toString().replace("\"", "'"));
+        eventProfilePicture = URLEncoder.encode(
+            eventJSON.get("eventProfilePicture").toString().replace("\"", "'"));
       } else {
-        eventProfilePicture = URLEncoder.encode("'https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg'");
+        eventProfilePicture = URLEncoder.encode(
+            "'https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg'");
       }
 
-      //					.replace("\"", "'").replace("/","a").replace("&","a").replace("?","a")
-      //					.replace("=", "a").replace(".","a").replace(":","a").replace("-","a").replace("_", "a").replaceAll("[^a-zA-Z ]", "");
-      String eventDescription = eventJSON.get("eventDescription")
-          .toString().replaceAll("[^a-zA-Z ]", "");//.replace("\"", "'");
+      // .replace("\"",
+      // "'").replace("/","a").replace("&","a").replace("?","a")
+      // .replace("=",
+      // "a").replace(".","a").replace(":","a").replace("-","a").replace("_",
+      // "a").replaceAll("[^a-zA-Z ]", "");
+      String eventDescription = eventJSON.get("eventDescription").toString()
+          .replaceAll("[^a-zA-Z0-9 ]", "");// .replace("\"",
+      // "'");
       if (eventDescription.length() > 4500) {
         eventDescription = eventDescription.substring(0, 4500);
       }
-      //			eventDescription = URLEncoder.encode(eventDescription);
+      // eventDescription =
+      // URLEncoder.encode(eventDescription);
 
       EventCategorizer eventCategorizer = new EventCategorizer();
-      String eventCategory = eventCategorizer.categorize(eventName, eventDescription);
+      String eventCategory = eventCategorizer.categorize(eventName,
+          eventDescription);
 
-      
-      
       // Obtaining a java.util.Date from a date&time string.
-      String eventStarttimeString = eventJSON.get("eventStarttime")
-          .toString().replace("\"", "");
+      String eventStarttimeString = eventJSON.get("eventStarttime").toString()
+          .replace("\"", "");
       SimpleDateFormat formatter = new SimpleDateFormat(
           "yyyy-MM-dd'T'HH:mm:ssZ");
       Date eventStarttime = null;
       try {
         eventStarttime = formatter.parse(eventStarttimeString);
-//        System.out.println(eventStarttime);
+        // System.out.println(eventStarttime);
       } catch (ParseException e) {
         e.printStackTrace();
-//        System.out
-//        .println("ERROR: Unable to convert a facebook date string into a java.util.Date.");
+        // System.out
+        // .println("ERROR: Unable to convert a facebook
+        // date string into a java.util.Date.");
       }
-      // Calculating the end time of an event by adding four hours to the starting time
+      // Calculating the end time of an event by adding four
+      // hours to the starting time
       Date eventEndtime = DateUtils.addHours(eventStarttime, 4);
       String eventEndtimeString = eventEndtime.toString();
-      eventEndtimeString = eventEndtimeString.substring(4).replaceAll("E[D,S]T", "");
-      eventStarttimeString = eventStarttimeString.replace("T", " ")
-          .substring(0, eventStarttimeString.length() - 5);
+      eventEndtimeString = eventEndtimeString.substring(4).replaceAll("E[D,S]T",
+          "");
+      eventStarttimeString = eventStarttimeString.replace("T", " ").substring(0,
+          eventStarttimeString.length() - 5);
 
-      //			String eventDistance = eventJSON.get("eventDistance").toString()
-      //					.replace("\"", "");
-      //			String eventTimeFromNow = eventJSON.get("eventTimeFromNow")
-      //					.toString();
+      // String eventDistance =
+      // eventJSON.get("eventDistance").toString()
+      // .replace("\"", "");
+      // String eventTimeFromNow =
+      // eventJSON.get("eventTimeFromNow")
+      // .toString();
 
-      JsonObject eventStats = new Gson().fromJson(
-          eventJSON.get("eventStats"), JsonObject.class);
-      int eventAttendingCount = Integer.parseInt(eventStats.get(
-          "attendingCount").toString());
-      int eventDeclinedCount = Integer.parseInt(eventStats.get(
-          "declinedCount").toString());
-      int eventMaybeCount = Integer.parseInt(eventStats.get("maybeCount")
-          .toString());
-      int eventNoReplyCount = Integer.parseInt(eventStats.get(
-          "noreplyCount").toString());
+      JsonObject eventStats = new Gson().fromJson(eventJSON.get("eventStats"),
+          JsonObject.class);
+      int eventAttendingCount = Integer
+          .parseInt(eventStats.get("attendingCount").toString());
+      int eventDeclinedCount = Integer
+          .parseInt(eventStats.get("declinedCount").toString());
+      int eventMaybeCount = Integer
+          .parseInt(eventStats.get("maybeCount").toString());
+      int eventNoReplyCount = Integer
+          .parseInt(eventStats.get("noreplyCount").toString());
 
-      // System.out.println("venueCoverPicture: " + venueCoverPicture);
+      // System.out.println("venueCoverPicture: " +
+      // venueCoverPicture);
       // System.out.println("venueProficePicture: " +
       // venueProficePicture);
       // System.out.println("eventId: " + eventId);
-       System.out.println("eventName: " + eventName);
-//      System.out.println("eventProfilePicture: " +
-//          eventProfilePicture);
-      // System.out.println("eventDescription: " + eventDescription);
-      // System.out.println("eventCoverPicture: " + eventCoverPicture);
-      // System.out.println("eventDistance: " + eventDistance);
-      // System.out.println("eventTimeFromNow: " + eventTimeFromNow);
+      // System.out.println("eventProfilePicture: " +
+      // eventProfilePicture);
+      // System.out.println("eventDescription: " +
+      // eventDescription);
+      // System.out.println("eventCoverPicture: " +
+      // eventCoverPicture);
+      // System.out.println("eventDistance: " +
+      // eventDistance);
+      // System.out.println("eventTimeFromNow: " +
+      // eventTimeFromNow);
       // System.out.println("eventAttendingCount: " +
       // eventAttendingCount);
-      // System.out.println("eventDeclinedCount: " + eventDeclinedCount);
-      // System.out.println("eventMaybeCount: " + eventMaybeCount);
-      // System.out.println("eventNoReplyCount: " + eventNoReplyCount);
+      // System.out.println("eventDeclinedCount: " +
+      // eventDeclinedCount);
+      // System.out.println("eventMaybeCount: " +
+      // eventMaybeCount);
+      // System.out.println("eventNoReplyCount: " +
+      // eventNoReplyCount);
 
-//      System.out.println("eventId: " + eventId);
-//      System.out.println("eventName: " + "'" + eventName + "'");
-//      System.out.println("venueName: " + "'" + venueName + "'");
-//      System.out.println("venueLat: " + venueLat);
-//      System.out.println("venueLong: " + venueLong);
-//      System.out.println("eventStarttimeString: " + "'" + eventStarttimeString + "'");
-//      System.out.println("eventEndtimeString: " + "'" + eventEndtimeString + "'");
-//      System.out.println("eventDescription: " + "'" + eventDescription + "'");
-//      System.out.println("eventAttendingCount: " + eventAttendingCount);
-//      System.out.println("eventDeclinedCount: " + eventDeclinedCount);
-//      System.out.println("eventMaybeCount: " + eventMaybeCount);
-//      System.out.println("eventNoReplyCount: " + eventNoReplyCount);
+      // System.out.println("eventId: " + eventId);
+      // System.out.println("eventName: " + "'" + eventName
+      // + "'");
+      // System.out.println("venueName: " + "'" + venueName
+      // + "'");
+      // System.out.println("venueLat: " + venueLat);
+      // System.out.println("venueLong: " + venueLong);
+      // System.out.println("eventStarttimeString: " + "'" +
+      // eventStarttimeString + "'");
+      // System.out.println("eventEndtimeString: " + "'" +
+      // eventEndtimeString + "'");
+      // System.out.println("eventDescription: " + "'" +
+      // eventDescription + "'");
+      // System.out.println("eventAttendingCount: " +
+      // eventAttendingCount);
+      // System.out.println("eventDeclinedCount: " +
+      // eventDeclinedCount);
+      // System.out.println("eventMaybeCount: " +
+      // eventMaybeCount);
+      // System.out.println("eventNoReplyCount: " +
+      // eventNoReplyCount);
 
       StringBuilder urlBuilder = new StringBuilder();
-      urlBuilder
-      .append("https://cs32finalproject.cartodb.com/api/v2/sql?q=WITH%20n(");
-      urlBuilder
-      .append("eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto)");
+      urlBuilder.append(
+          "https://cs32finalproject.cartodb.com/api/v2/sql?q=WITH%20n(");
+      urlBuilder.append(
+          "eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto)");
       urlBuilder.append("%20AS%20(%20VALUES");
       urlBuilder.append(" (");
       urlBuilder.append(eventId);
@@ -206,32 +241,29 @@ public class PublicFBEventsWriter {
       urlBuilder.append(",");
       urlBuilder.append(eventProfilePicture);
       urlBuilder.append(") ), ");
+      urlBuilder.append(
+          "upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, the_geom=n.the_geom, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount, eventphoto=n.eventphoto ");
       urlBuilder
-      .append("upsert AS ( UPDATE events o SET name=n.name, venuename=n.venuename, the_geom=n.the_geom, origintype=n.origintype, creatorid=n.creatorid, startdate=to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), enddate=to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), category=n.category, public=n.public, description=n.description, attendingcount=n.attendingcount, declinedcount=n.declinedcount, maybecount=n.maybecount, noreplycount=n.noreplycount, eventphoto=n.eventphoto ");
+          .append("FROM n WHERE o.eventid = n.eventid RETURNING o.eventid ) ");
+      urlBuilder.append(
+          "INSERT INTO events (eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) SELECT n.eventid, n.name, n.venuename, n.the_geom, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount, n.eventphoto FROM n ");
       urlBuilder
-      .append("FROM n WHERE o.eventid = n.eventid RETURNING o.eventid ) ");
-      urlBuilder
-      .append("INSERT INTO events (eventid,name,venuename,the_geom,origintype,creatorid,startdate,enddate,category,public,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto) SELECT n.eventid, n.name, n.venuename, n.the_geom, n.origintype, n.creatorid, to_timestamp(n.startdate,'YYYY-MM-dd HH24:MI:SS'), to_timestamp(n.enddate,'Mon DD HH24:MI:SS  YYYY'), n.category, n.public, n.description, n.attendingcount, n.declinedcount, n.maybecount, n.noreplycount, n.eventphoto FROM n ");
-      urlBuilder
-      .append("WHERE n.eventid NOT IN ( SELECT eventid FROM upsert );");
-      urlBuilder
-      .append("&api_key=ad54038628d84dceb55a7adb81eddfcf9976e994");
+          .append("WHERE n.eventid NOT IN ( SELECT eventid FROM upsert );");
+      urlBuilder.append("&api_key=ad54038628d84dceb55a7adb81eddfcf9976e994");
 
-//      System.out.println(urlBuilder.toString());
+      // System.out.println(urlBuilder.toString());
 
-      URL url = new URL(urlBuilder.toString().replace(" ", "%20")
-          .replace("'", "%27"));
+      URL url = new URL(
+          urlBuilder.toString().replace(" ", "%20").replace("'", "%27"));
 
-      HttpURLConnection httpConn = (HttpURLConnection) url
-          .openConnection();
+      HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
 
       httpConn.setRequestMethod("GET");
 
       BufferedReader in = null;
       StringBuffer response = null;
 
-      in = new BufferedReader(new InputStreamReader(
-          httpConn.getInputStream()));
+      in = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
       String inputLine;
       response = new StringBuffer();
 
@@ -240,7 +272,8 @@ public class PublicFBEventsWriter {
       }
       in.close();
 
-//      System.out.println("Done with updating events table on CartoDB.");
+      // System.out.println("Done with updating events table
+      // on CartoDB.");
 
     }
   }
