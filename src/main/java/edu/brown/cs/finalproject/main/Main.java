@@ -2,6 +2,7 @@ package edu.brown.cs.finalproject.main;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.stormpath.sdk.directory.CreateDirectoryRequest;
 import com.stormpath.sdk.directory.Directories;
@@ -12,7 +13,9 @@ import com.stormpath.sdk.tenant.Tenant;
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
+import edu.brown.cs.finalproject.database.DatabaseFactory;
 import edu.brown.cs.finalproject.database.DatabaseManager;
+import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
@@ -34,6 +37,7 @@ public class Main {
   private void run() {
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
+    parser.accepts("new");
     OptionSet options = parser.parse(args);
 
     StormPathApplication stormPathApp = new StormPathApplication(
@@ -90,11 +94,13 @@ public class Main {
       e.printStackTrace();
       System.out.println("ERROR: Accessing the database file.");
     }
-    try {
-      System.out.println("here");
-      // DatabaseFactory.createAndIndexTables();
-    } catch (Exception e) {
-      System.out.println("Database already created.");
+    if (options.has("new")) {
+      try {
+        System.out.println("here");
+        DatabaseFactory.createAndIndexTables();
+      } catch (Exception e) {
+        System.out.println("Database already created.");
+      }
     }
     // new DatabaseFactory().createAndIndexTables();
     System.out.println("all done");
@@ -108,6 +114,11 @@ public class Main {
       // create indices;
 
     } else {
+
+      List<Event> events = DatabaseManager.getFutureEvents("jedis");
+      for (Event event : events) {
+        System.out.println(event.getName());
+      }
 
       // THIS IS HOW WE FETCH PUBLIC FACEBOOK EVENTS AND
       // UPDATE CARTODB events TABLE

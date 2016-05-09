@@ -1,4 +1,4 @@
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" id="brand" href="#"><span style="color:#F88017">event</span>ually</a>

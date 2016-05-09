@@ -39,42 +39,45 @@ public class DatabaseManager {
 
   public static boolean addEvent(String Name, String creatorID,
       String startDate, String endDate, String location, String category,
-      String description, String origintype) {
+      String description, String origintype, String url) {
 
     String eventID = UUID.randomUUID().toString();
-
-    String eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg";
-
-    switch (category) {
-    case "nightlife":
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
-      break;
-    case "public lecture":
-      eventphoto = "https://www.york.ac.uk/media/communications/publiclecturesinfo/publiclectures/publecs2.jpg";
-      break;
-    case "workshop":
-      eventphoto = "http://beta.custompractice.co.uk/wp-content/uploads/2010/10/Custom-Practice-Classical-Acting-Workshop-004.jpg";
-      break;
-    case "food fest":
-      eventphoto = "http://www.urban-people.co.uk/wp-content/uploads/2015/04/foodfest1.jpg";
-      break;
-    case "movies & art":
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f2/e1/78/f2e1783249efe7b2b0a1d8abf03e93b6.jpg";
-      break;
-    case "theater & performance":
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2e/0b/6d/2e0b6dcfa198dfed546c19c11f1c111c.jpg";
-      break;
-    case "religious & cultural celebration":
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/ef/b7/c7/efb7c7d618619ce45f357d1eb5be8860.jpg";
-      break;
-    case "sports":
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/b8/92/3b/b8923b793663d5584df61d619fad9d93.jpg";
-      break;
-    case "other":
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
-      break;
-    default:
-      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+    String eventphoto;
+    if (url == null) {
+      eventphoto = url;
+    } else {
+    
+      switch (category) {
+      case "nightlife":
+        eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
+        break;
+      case "public lecture":
+        eventphoto = "https://www.york.ac.uk/media/communications/publiclecturesinfo/publiclectures/publecs2.jpg";
+        break;
+      case "workshop":
+        eventphoto = "http://beta.custompractice.co.uk/wp-content/uploads/2010/10/Custom-Practice-Classical-Acting-Workshop-004.jpg";
+        break;
+      case "food fest":
+        eventphoto = "http://www.urban-people.co.uk/wp-content/uploads/2015/04/foodfest1.jpg";
+        break;
+      case "movies & art":
+        eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f2/e1/78/f2e1783249efe7b2b0a1d8abf03e93b6.jpg";
+        break;
+      case "theater & performance":
+        eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2e/0b/6d/2e0b6dcfa198dfed546c19c11f1c111c.jpg";
+        break;
+      case "religious & cultural celebration":
+        eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/ef/b7/c7/efb7c7d618619ce45f357d1eb5be8860.jpg";
+        break;
+      case "sports":
+        eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/b8/92/3b/b8923b793663d5584df61d619fad9d93.jpg";
+        break;
+      case "other":
+        eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+        break;
+      default:
+        eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+      }
     }
 
     String venuename = location;
@@ -271,6 +274,38 @@ public class DatabaseManager {
       return false;
     }
     return true;
+  }
+  
+  public static boolean addProfilePicture(String username, String url) {
+    Connection conn = Database.getConnection();
+    String query = "UPDATE users SET userMediaPath=? WHERE username=?";
+    
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1,  url);
+      prep.setString(2, username);
+      prep.addBatch();
+      prep.executeBatch();
+      return true;
+    } catch (SQLException s) {
+      s.printStackTrace();
+      return false;
+    }
+  }
+  
+  public static boolean addEventPicture(String eventID, String url) {
+    
+    String query = String.format("UPDATE events SET eventphoto='%s' WHERE eventid='%s'", url, eventID);
+    try {
+      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      cartoDBCLient.request(query);
+      return true;
+    } catch (CartoDBException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+    }
+  
   }
 
   public static List<User> getAttendees(String eventID) {
@@ -614,7 +649,7 @@ public class DatabaseManager {
     return new BrowseResultsHolder(events, userSavedEvents, userAttendingEvents);
   }
 
-  public List<Event> getPastEvents(String username) {
+  public static List<Event> getPastEvents(String username) {
     List<Event> allevents = new ArrayList<>();
     String query = String.format("SELECT eventid FROM going WHERE username=?;");
     Connection conn = Database.getConnection();
@@ -637,12 +672,60 @@ public class DatabaseManager {
     Date currdate = new Date();
     List<Event> pastevents = new ArrayList<>();
     for (Event event : allevents) {
-      System.out.println(event.getEndDate());
-      Timestamp timestamp = Timestamp.valueOf(event.getEndDate());
+      String endDate = event.getEndDate();
+      endDate = endDate.replace('T', ' ');
+      endDate = endDate.replaceAll("Z", "");
+      System.out.println(endDate);
+      Timestamp timestamp = Timestamp.valueOf(endDate);
       if (currdate.getTime() > timestamp.getTime()) {
         pastevents.add(event);
       }
     }
     return pastevents;
+  }
+
+  public static List<Event> getFutureEvents(String username) {
+    List<Event> allevents = new ArrayList<>();
+    String query = String
+        .format("SELECT eventID FROM interested WHERE username=? UNION SELECT "
+            + "eventID FROM going WHERE username=?;");
+    Connection conn = Database.getConnection();
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      prep.setString(2, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String eventID = rs.getString(1);
+          Event eventproxy = new EventProxy(eventID);
+          allevents.add(eventproxy);
+        }
+      } catch (ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+    Date currdate = new Date();
+    List<Event> futureevents = new ArrayList<>();
+    for (Event event : allevents) {
+
+      String endDate = event.getEndDate();
+      endDate = endDate.replace('T', ' ');
+      endDate = endDate.replaceAll("Z", "");
+      System.out.println(endDate);
+      Timestamp timestamp = Timestamp.valueOf(endDate);
+      if (currdate.getTime() < timestamp.getTime()) {
+        futureevents.add(event);
+      }
+    }
+    return futureevents;
+  }
+  
+  public static List<Event> getSuggestedEvents(String username) {
+    
+    
+    return null;
   }
 }

@@ -6,6 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/browse.css">
+    <link rel="stylesheet" type="text/css" href="css/account.css">
   </head>
 
   <body>
@@ -17,12 +18,12 @@
       <div class="col-md-5">
         <ul class="list-group">
           <li class="list-group-item">
-            <img src="https://lh4.googleusercontent.com/-Dr4TCurbw-Q/AAAAAAAAAAI/AAAAAAAAC9U/t_1ZEww4REQ/photo.jpg" class="img-responsive" alt="Responsive image">
+            <img src="${profilePhoto}" class="img-responsive" alt="Responsive image">
           </li>
           <li class="list-group-item">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h2>@${username}</h2>
+                <h2>${username}</h2>
               </div>
               <div class="panel-body">
                 <h4>${name}</h4>

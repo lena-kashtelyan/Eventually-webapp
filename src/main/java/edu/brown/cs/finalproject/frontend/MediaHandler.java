@@ -14,13 +14,14 @@ public class MediaHandler extends BackendInteraction implements Route {
     QueryParamsMap qm = req.queryMap();
     String url = qm.value("url");
     String eventID = qm.value("eventID");
+    System.out.println(eventID);
     String username = qm.value("username");
     String timestamp = qm.value("timestamp");
     String type = qm.value("type");
-    if (type.equals("image")) {
-        url = "http://res.cloudinary.com/df1bylm3l/image/upload/"+url;
-    }
-    System.out.format("In mediahandler, adding! Type: %s, url: %s, eventID: %s, username: %s, timestamp: %s", type, url, eventID, username, timestamp);
+    System.out
+        .format(
+            "In mediahandler, adding! Type: %s, url: %s, eventID: %s, username: %s, timestamp: %s",
+            type, url, eventID, username, timestamp);
     return DatabaseManager.addMedia(eventID, username, url, timestamp, type);
   }
 
