@@ -62,6 +62,7 @@ public class EventView extends BackendInteraction implements TemplateViewRoute {
           Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "Event").put("event", event)
               .put("eventID", eventID).put("stream", storystream)
+              .put("saved", false).put("attending", false)
               .put("username", username).put("auth", authToken.toString())
               .put("attendees", attendees).build();
           return new ModelAndView(data, htmlUrl);
