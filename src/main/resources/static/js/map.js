@@ -61,6 +61,7 @@ function embedMap(div, afterMapLoadCallback) {
                     cartodb.createLayer(map_object, {
                         user_name: 'cs32finalproject',
                         type: 'cartodb',
+                        refreshTime: 2500,
                         sublayers: [{
                             sql: "SELECT * FROM events",
                             cartocss: cartocssHeatmap

@@ -83,11 +83,11 @@ p {
   font-size: 20px;
 }
 
+#description {
+  word-wrap: break-word;
+}
+
 .form-control::-webkit-input-placeholder { font-family: 'Poiret One', font-size: 16px; cursive; color: gray; text-align: left; }
 .form-control:-moz-placeholder { font-family: 'Poiret One', cursive; font-size: 16px; color: gray; text-align: left; }
 .form-control::-moz-placeholder { font-family: 'Poiret One', cursive; font-size: 16px; color: gray; text-align: left; }
 .form-control:-ms-input-placeholder { font-family: 'Poiret One', cursive; font-size: 16px; color: gray; text-align: left; }
-
-
-
-
