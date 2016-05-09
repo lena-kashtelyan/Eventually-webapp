@@ -1,9 +1,9 @@
 var eventID, auth, username;
 
 $(document).ready(function() {
-	eventID = $("#eventID").text();
-	auth = $("#auth").text();
-	username = $("#username").text();
+	var eventID = $("#eventID").text();
+	var auth = $("#auth").text();
+	var username = $("#username").text();
 });
 
 $(document).ready(function () {
@@ -21,6 +21,9 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	$("#save-btn").on('click', function(e) {
+		var eventID = $("#eventID").text();
+		var auth = $("#auth").text();
+		var username = $("#username").text();
 		if ($(this).text() == "save") {
 			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
 			$.post("/save", params);
@@ -35,6 +38,9 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	$("#attend-btn").on('click', function(e) {
+		var eventID = $("#eventID").text();
+		var auth = $("#auth").text();
+		var username = $("#username").text();
 		if ($(this).text() == "attend") {
 			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
 			$.post("/attend", params);
@@ -50,11 +56,15 @@ $(document).ready(function () {
 $(document).ready(function () {
 	$("#comment-btn").on('click', function(e) {
 		e.preventDefault();
+		var eventID = $("#eventID").text();
+		console.log(eventID);
+		var auth = $("#auth").text();
+		var username = $("#username").text();
 		var comment = $("#comment").val();
 		var timestamp = Date.now()/1000 | 0;
-		var params = { "auth" : auth, "username" : username, "eventID": eventID, "url" : comment, "timestamp" : timestamp, "type" : "comment"}
+		var params = { "auth" : auth, "username" : username, "eventID" : eventID, "url" : comment, "timestamp" : timestamp, "type" : "comment"};
 		$.post("/media", params);
-		location.reload(true);
+		window.location = "/event?" + $.param({"auth" : auth, "username" : username, "eventID" : eventID});
 	});
 });
 
@@ -97,11 +107,15 @@ $(document).ready(function () {
 	myDropzone.on('success', function (file, response) {
 		console.log("here");
 		console.log('Success! Cloudinary public ID is', response.public_id);
+		var eventID = $("#eventID").text();
+		console.log(eventID);
+		var auth = $("#auth").text();
+		var username = $("#username").text();
 		var url = response.public_id;
 		var timestamp = Date.now() / 1000 | 0;
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID, "url" : response.public_id, "timestamp" : timestamp, "type" : "image"};
 		$.post("/media", params);
-		location.reload(true);
+		window.location = "/event?" + $.param({"auth" : auth, "username" : username, "eventID" : eventID});
 	});
 
 	myDropzone.on("queuecomplete", function(progress) {
