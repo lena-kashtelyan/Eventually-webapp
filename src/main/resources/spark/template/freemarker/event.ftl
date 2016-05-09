@@ -125,22 +125,6 @@
           </ul>
         </div>
       </div>
-<!--       <div class="row">
-        <ul class="list-group">
-          <#list stream as entry>
-            <li class="list-group-item">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <!--fill-->
-                </div>
-                <div class="panel-body">
-                  
-                </div>
-              </div>
-            </li>
-          </#list>
-        </ul>
-      </div>  -->
     </div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
@@ -150,11 +134,6 @@
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
     <script src="js/event.js"></script>
-<!--<script src='jquery.min.js' type='text/javascript'></script>
-    <script src='jquery.ui.widget.js' type='text/javascript'></script>
-    <script src='jquery.iframe-transport.js' type='text/javascript'></script>
-    <script src='jquery.fileupload.js' type='text/javascript'></script>
-    <script src='jquery.cloudinary.js' type='text/javascript'></script> -->
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
     <#if eventID??><span id="eventID" class="noshow">${eventID}</span></#if>
