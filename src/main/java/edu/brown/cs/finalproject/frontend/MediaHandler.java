@@ -17,6 +17,7 @@ public class MediaHandler extends BackendInteraction implements Route {
     String username = qm.value("username");
     String timestamp = qm.value("timestamp");
     String type = qm.value("type");
+    System.out.format("In mediahandler, adding! Type: %s, url: %s, eventID: %s, username: %s, timestamp: %s", type, url, eventID, username, timestamp);
     return DatabaseManager.addMedia(eventID, username, url, timestamp, type);
   }
 

@@ -96,6 +96,10 @@ $(document).ready(function () {
 	myDropzone.on('success', function (file, response) {
 		console.log("here");
 		console.log('Success! Cloudinary public ID is', response.public_id);
+		var url = response.public_id;
+		var timestamp = Date.now() / 1000 | 0;
+		var params = { "auth" : auth, "username" : username, "eventID" : eventID, "url" : response.public_id, "timestamp" : timestamp, "type" : "image"};
+		$.post("/media", params);
 		location.reload(true);
 	});
 

@@ -93,7 +93,7 @@ public class Main {
     }
     try {
       System.out.println("here");
-//      DatabaseFactory.createAndIndexTables();
+      //DatabaseFactory.createAndIndexTables();
     } catch (Exception e) {
       System.out.println("Database already created.");
     }

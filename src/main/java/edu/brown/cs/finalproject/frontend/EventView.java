@@ -15,6 +15,7 @@ import edu.brown.cs.finalproject.credentials.AuthToken;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.entities.EventProxy;
+import edu.brown.cs.finalproject.entities.Media;
 import edu.brown.cs.finalproject.entities.User;
 
 /**
@@ -52,12 +53,14 @@ public class EventView extends BackendInteraction implements TemplateViewRoute {
       if (auth.verifyAuthToken(username, authToken)) {
         Event event;
         List<User> attendees;
+        List<Media> storystream;
         try {
           event = new EventProxy(eventID);
           attendees = DatabaseManager.getAttendees(eventID);
+          storystream = DatabaseManager.getMedia(eventID);
           Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "Event").put("event", event)
-              .put("eventID", eventID)
+              .put("eventID", eventID).put("stream", storystream)
               .put("username", username).put("auth", authToken.toString())
               .put("attendees", attendees).build();
           return new ModelAndView(data, htmlUrl);

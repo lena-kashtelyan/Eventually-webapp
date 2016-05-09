@@ -29,7 +29,7 @@
 }
 
 .btn-default, .input-group-addon, .form-control-black {
-  background-color: black !important;
+  background-color: #222 !important;
   border-color: white !important;
   font-size: 20px !important;
   color: white !important;

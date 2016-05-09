@@ -23,6 +23,7 @@ $(document).ready(function () {
 		var eventID = $(this).attr("name");
 		var btn = document.getElementById("save"+eventID);
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+		console.log(btn.innerHTML);
 		if (btn.innerHTML == "save") {
 			$.post("/save", params);
 			btn.innerHTML = "saved";
@@ -40,6 +41,7 @@ $(document).ready(function () {
 		var eventID = $(this).attr("name");
 		var btn = document.getElementById("attend"+eventID);
 		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+		console.log(btn.innerHTML);
 		if (btn.innerHTML == "attend") {
 			$.post("/attend", params);
 			btn.innerHTML = "attending";

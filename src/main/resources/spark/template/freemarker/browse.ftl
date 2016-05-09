@@ -15,18 +15,21 @@
   <body> 
     <#include "background.ftl">
     <#include "topbar.ftl">
+    <#assign saves = userSavedEvents>
+    <#assign attends = userAttendingEvents>
     <div class="container-fluid" id="feed">
       <ul class="list-group">
+        <br>
         <li class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-body">
+          <div class="panel panel-default" id="refine-panel">
+            <div class="panel-body" id="refine-block">
               <div class="row">
                 <div class="col-md-3 col-sm-12 col-xs-12">
                   <div class="row">
                     <div class="col-md-12 col-sm-2 col-xs-2">
                       <label class="control-label requiredField" for="search-location"><h2>near</h2></label>
                     </div>
-                    <div class="col-md-12 col-sm-10 col-xs-10">
+                    <div class="col-md-12 col-sm-9 col-xs-9">
                       <br>
                       <input class="form-control form-control-inner input-lg" id="search-location" name="search-location" placeholder="location" type="text">
                     </div>
@@ -37,9 +40,14 @@
                     <div class="col-md-12 col-sm-2 col-xs-2">
                       <label class="control-label requiredField" for="radius"><h2>within</h2></label>
                     </div>
-                    <div class="col-md-12 col-sm-10 col-xs-10">
-                    <br>
-                      <b>0.1mi</b><input id="radius" data-slider-id='ex1Slider' type="text" data-slider-min="0.1" data-slider-max="50" data-slider-step="1" data-slider-value="14" data-placement="bottom"/><b>50mi</b>
+                    <div class="col-md-12 col-sm-9 col-xs-9">
+                      <br>
+                      <span style="float: left">0.1mi</span>
+                      <span style="margin-left: 146px">50mi</span>
+                      <br>
+                      <span style="width:100%">
+                      <input id="radius" data-slider-id='radiusSlider' type="text" data-slider-min="1" data-slider-max="50" data-slider-step="1" data-slider-value="9" data-placement="bottom"/>
+                    </span>
                     </div>
                   </div>
                 </div>
@@ -48,9 +56,9 @@
                     <div class="col-md-12 col-sm-2 col-xs-2">
                       <label class="control-label requiredField" for="floor-time"><h2>from</h2></label>
                     </div>
-                    <div class="col-md-12 col-sm-10 col-xs-10">
+                    <div class="col-md-12 col-sm-9 col-xs-9">
                       <br>
-                      <input class="form-control form-control-inner input-lg" id="floor-time" name="time" placeholder="time" type="time"/>
+                      <input class="form-control form-control-time input-lg" id="floor-time" name="time" placeholder="time" type="time"/>
                     </div>
                   </div>
                 </div>
@@ -59,9 +67,9 @@
                     <div class="col-md-12 col-sm-2 col-xs-2">
                       <label class="control-label requiredField" for="ceiling-time"><h2>until</h2></label>
                     </div>
-                    <div class="col-md-12 col-sm-10 col-xs-10">
+                    <div class="col-md-12 col-sm-9 col-xs-9">
                       <br>
-                      <input class="form-control form-control-inner input-lg" id="ceiling-time" name="time" placeholder="time" type="time"/>
+                      <input class="form-control input-lg" id="ceiling-time" name="time" placeholder="time" type="time"/>
                     </div>
                   </div>
                 </div>
@@ -88,11 +96,12 @@
               <div class="row" id="event-name">
                 <h2 id="event-link">
                   <div class="col-md-8">
-                    <a class="event-link" href=${event.ID}>${event.name}</a>
+                    <#assign id = event.ID>
+                    <a class="event-link" href=id>${event.name}</a>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn">attend</button>
-                      <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn">save</button>
+                    <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true)>attending<#else>attend</#if></button>
+                    <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
                   </div>
                 </h2>
               </div>
