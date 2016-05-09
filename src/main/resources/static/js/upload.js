@@ -14,7 +14,7 @@ myDropzone.on('sending', function (file, xhr, formData) {
 myDropzone.on('success', function (file, response) {
   console.log("here");
   console.log('Success! Cloudinary public ID is', response.public_id);
-  var url = "http://res.cloudinary.com/df1bylm3l/image/upload/"
+  var url = "http://res.cloudinary.com/df1bylm3l/image/upload/";
   var timestamp = getTime();
   url = url.concat(response.public_id);
   params = {"url": url, "timestamp", timestamp, "type": "image"};

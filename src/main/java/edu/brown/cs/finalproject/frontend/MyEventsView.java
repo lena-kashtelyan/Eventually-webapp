@@ -61,12 +61,12 @@ public class MyEventsView extends BackendInteraction
           HashMap<String, Boolean> userSavedEvents = browseResults.getUserSavedEvents();
           HashMap<String, Boolean> userAttendingEvents = browseResults.getUserAttendingEvents();
           //list of events marked "saved" and "attending" in chronological order (most immediate on top)
-          List<Event> upcoming = new ArrayList<Event>();
+          List<Event> upcoming = DatabaseManager.getFutureEvents(username);
           //list of past events marked "saved" and "attending" in reverse-chronological order (most recent on top)
-          List<Event> past = new ArrayList<Event>();
+          List<Event> past = DatabaseManager.getPastEvents(username);
           //list of suggested events, to be worked on later
           List<Event> suggested = new ArrayList<Event>();
- 
+          
  //       try {
           // fill the lists
           Map<Object, Object> data = ImmutableMap.builder()
