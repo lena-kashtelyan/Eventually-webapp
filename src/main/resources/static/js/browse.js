@@ -63,11 +63,33 @@ function initialize() {
 	});
 }
 
+var radiusSlider;
+
 $(document).ready(function(){ 
 	initialize();
-	$('#radius').slider({
-		formatter: function(value) {
-			return 'Current value: ' + value;
-		}
+	radiusSlider = $("#radius").slider();
+});
+
+$(document).ready(function(){ 
+	$('#search-refine-btn').on('click', function(e) {
+		e.preventDefault();
+		var sliderValue = radiusSlider.slider('getValue');
+		console.log(sliderValue);
+		var location = $("#search-location").val();
+		console.log(location); 
+		var floorTime = $("#floor-time").val();
+		console.log(floorTime);
+		var ceilingTime = $("#ceiling-time").val();
+		console.log(ceilingTime);
+		var params = { "auth" : auth, "username" : username, "location" : location, "radius" : sliderValue, "floorTime" : floorTime, "ceilingTime" : ceilingTime};
+		$.post("/search", params);
 	});
 });
+
+$(document).ready(function(){ 
+	$('#search-clear-btn').on('click', function(e) {
+		e.preventDefault();
+		//COMPLETE THIS!!!
+	});
+});
+

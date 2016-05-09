@@ -40,6 +40,7 @@ public class MapsSparkServer implements SparkServer {
     Spark.post("/save", new SaveHandler());
     Spark.post("/unsave", new UnsaveHandler());
     Spark.post("/update-events-database", new UpdateEventsDatabase());
+    Spark.post("/search", new RefineHandler());
     // Spark.get("/storystream/?", null);
     // Spark.put("/post/?", null);
     // Spark.post("/myaccount", null);
