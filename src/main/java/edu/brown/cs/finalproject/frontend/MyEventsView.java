@@ -62,10 +62,18 @@ public class MyEventsView extends BackendInteraction
           HashMap<String, Boolean> userAttendingEvents = browseResults.getUserAttendingEvents();
           //list of events marked "saved" and "attending" in chronological order (most immediate on top)
           List<Event> upcoming = DatabaseManager.getFutureEvents(username);
+          System.out.println("upcoming: " + upcoming.size());
           //list of past events marked "saved" and "attending" in reverse-chronological order (most recent on top)
           List<Event> past = DatabaseManager.getPastEvents(username);
+          System.out.println("past: " + past.size());
           //list of suggested events, to be worked on later
+<<<<<<< HEAD
           List<Event> suggested = DatabaseManager.getSuggestedEvents(username, 41.8, -71.4);
+=======
+          List<Event> suggested = new ArrayList<Event>();
+          System.out.println("suggested: " + suggested.size());
+
+>>>>>>> 3a61e81781c98d2dd6e65981c4fef426ab0d2632
           
  //       try {
           // fill the lists

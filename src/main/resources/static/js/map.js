@@ -5,11 +5,12 @@
 
 var currentUserLat, currentUserLng, currentUserZoom;
 var map_object;
+var sublayers = [];
 
 function embedMap(div, afterMapLoadCallback) {
     var tileURL;
 
-    var simpleOrange = "#" + div + "{marker-fill:#f60;marker-width:10;marker-allow-overlap:true;}";
+    //var simpleOrange = "#" + div + "{marker-fill:#f60;marker-width:10;marker-allow-overlap:true;}";
 
     var init = function(mapId) {
         tileURL = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
@@ -24,16 +25,16 @@ function embedMap(div, afterMapLoadCallback) {
                 var getCurrentLocationError = function(error) {
                     switch(error.code) {
                         case error.PERMISSION_DENIED:
-                            alert("User denied the request for Geolocation.");
+                            //alert("User denied the request for Geolocation.");
                             break;
                         case error.POSITION_UNAVAILABLE:
-                            alert("Location information is unavailable.");
+                            //alert("Location information is unavailable.");
                             break;
                         case error.TIMEOUT:
-                            alert("The request to get user location timed out.");
+                            //alert("The request to get user location timed out.");
                             break;
                         case error.UNKNOWN_ERROR:
-                            alert("An unknown error occurred.");
+                            //alert("An unknown error occurred.");
                             break;
                     }
                     getDefaultLocation(callback);
@@ -54,6 +55,26 @@ function embedMap(div, afterMapLoadCallback) {
 
             var setupOptions = function(position) {
                 var setupMap = function(options) {
+                    var createSelector = function(layer) {
+                      var cartocss = "";
+                      var $options = $(".layer_selector").find("li");
+                      $options.click(function(e) {
+                        var $li = $(e.target);
+                        var selected = $li.attr('data');
+                        if (selected == "color") {
+                          $("#color-legend").removeClass("noshow");
+                          //$(".floating-menu").css("bottom", "100px");
+                        } else {
+                          $("#color-legend").addClass("noshow");
+                          //$(".floating-menu").css("bottom", "100px");
+                        }
+                        $options.removeClass('cartocss_selected');
+                        $li.addClass('cartocss_selected');
+                        cartocss = $('#'+selected).text();
+                        layer.setCartoCSS(cartocss);
+                      });
+                    }
+
                     map_object = new L.Map(mapId, options);
 
                     L.tileLayer(tileURL).addTo(map_object);
@@ -64,11 +85,18 @@ function embedMap(div, afterMapLoadCallback) {
                         refreshTime: 2500,
                         sublayers: [{
                             sql: "SELECT * FROM events",
-                            cartocss: simpleOrange
+                            cartocss: $("#simpleOrange").text()
                         }],
                         infowindow: true
                     }).addTo(map_object)
                     .done(function(layer) {
+                      // Create layer selector
+                      // for (var i = 0; i < layer.getSubLayerCount(); i++) {
+                      //   sublayers[i] = layer.getSubLayer(i);
+                      //   alert("Congrats, you added sublayer #" + i + "!");
+                      // }
+                      sublayer = layer.getSubLayer(0);
+                      createSelector(sublayer);
                       cartodb.vis.Vis.addInfowindow(map_object, layer, ['cartodb_id', 'name', 'eventid', 'eventphoto', 'description', 'attendingcount'],{
                         infowindowTemplate: $('#infowindow_template').html(),
                         templateType: 'mustache'
@@ -112,12 +140,26 @@ function embedMap(div, afterMapLoadCallback) {
     init(div);
 }
 
+var sublayer;
+
 window.onload = function() {
   embedMap("map-container", reloadLocation);
-
-  var setLocation = function(position) {
-
-  }
+  $("#display-options > button#search-icon").on("click", function(e) {
+    e.preventDefault();
+    $("#display-options > button#search-icon").toggleClass("noshow");
+    $("#display-options > button#remove-circle-icon").toggleClass("noshow");
+    $("#cartocss").toggleClass("noshow");
+    $("#cartocss").css("bottom", "75px");
+    return false;
+  });
+  $("#display-options > button#remove-circle-icon").on("click", function(e) {
+    e.preventDefault();
+    $("#display-options > button#search-icon").toggleClass("noshow");
+    $("#display-options > button#remove-circle-icon").toggleClass("noshow");
+    $("#cartocss").toggleClass("noshow");
+    $("#cartocss").css("bottom", "25px");
+    return false;
+  });
 }
 
 var reloadLocation = function() {
@@ -136,17 +178,14 @@ var reloadLocation = function() {
       }
       fetchFbEvents(params);
     } catch (e) {
-        console.log("entered here");
-        // reloadLocation();
-      // setInterval(reloadLocation, 5000);
+        console.log("map not loaded");
     }
-    //navigator.geolocation.getCurrentPosition(setLocation);
   }
 
 var fetchFbEvents = function(params) {
-    $.post("/update-events-database", params).done(function(res) {
-        console.log(res);
-        reloadLocation();
-        // setInterval(reloadLocation, 25000);
-      });
+  $.post("/update-events-database", params).done(function(res) {
+    console.log(res);
+    reloadLocation();
+    // setInterval(reloadLocation, 25000);
+  });
 }

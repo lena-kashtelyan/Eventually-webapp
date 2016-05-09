@@ -18,6 +18,9 @@ public class MediaHandler extends BackendInteraction implements Route {
     String username = qm.value("username");
     String timestamp = qm.value("timestamp");
     String type = qm.value("type");
+    if (type.equals("image")) {
+        url = "https://api.cloudinary.com/v1_1/df1bylm3l/image/upload"+url;
+    }
     System.out
         .format(
             "In mediahandler, adding! Type: %s, url: %s, eventID: %s, username: %s, timestamp: %s",

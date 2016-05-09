@@ -20,7 +20,7 @@ li, .list-group-item {
 .btn-default {
   background-color: #222 !important;
   border-color: white !important;
-  font-size: 20px !important;
+  font-size: 100% !important;
   color: white !important;
 }
 
@@ -28,7 +28,7 @@ li, .list-group-item {
   /*background-color: rgba(255, 255, 255, 0.6) !important;*/
   font-family: 'Poiret One', cursive;
   color: black;
-  font-size: 14px;
+  font-size: 100% !important;
 }
 
 #refine-panel {
@@ -53,12 +53,17 @@ a:hover {
 }
 
 #event-name {
-  font-size: 26px;
+  font-size: 100% !important;
 }
 
 .description {
+<<<<<<< HEAD
+  font-family: 'Raleway', sans-serif; 
+  font-size: 100% !important;
+=======
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
+>>>>>>> aab2538dad0d62f5b6c6ce833416c300f62742ae
   line-height: 1.4;
 }
 
@@ -70,7 +75,7 @@ a:hover {
   font-family: 'Raleway', sans-serif;
   font-weight: 700;
   color: #F88017;
-  font-size: 26px;
+  font-size: 100% !important;
 }
 
 #venue-name {
@@ -87,7 +92,7 @@ p {
 .bootstrap-iso, .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form {
   font-family: 'Poiret One', cursive;
   color: white;
-  font-size: 20px;
+  font-size: 100% !important;
 }
 
 .description {

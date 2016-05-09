@@ -25,8 +25,7 @@
               </div>
               <div class="form-group">
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="basic-addon1">@</span>
+                  <div class="input-group input-group-lg" id="usernameOrEmailContainer">
                     <input id="usernameOrEmail" type="text" class="form-control" placeholder="username">
                   </div>
                   <div class="input-group input-group-lg">
@@ -45,7 +44,7 @@
           <div class="row">
             <div class="col-md-1 col-sm-1 col-xs-1"></div>
             <div class="col-md-5 col-sm-5">
-              <p>include private facebook events?</p>
+              <p>connect with facebook?</p>
             </div>
             <div class="col-md-5 col-sm-5 col-xs-12">
              <a id="facebooklogin" class="btn btn-block btn-lg btn-social btn-facebook">
