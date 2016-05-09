@@ -1,6 +1,7 @@
 package edu.brown.cs.finalproject.entities;
 
 public interface Event extends Entity {
+	
   public String getName();
 
   public String setName(String newName);

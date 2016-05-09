@@ -74,7 +74,7 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
         System.out.println("email = " + account.getEmail());
         System.out.println("new account? =" + result.isNewAccount());
         if (result.isNewAccount()) {
-          DatabaseManager.addUser(account.getUsername(), account.getFullName(), null, authenticate);
+          DatabaseManager.addUser(account.getUsername(), account.getFullName(), "http://sighttosee.com/images/vendor/default-profile.png", authenticate);
         } else {
           dbManager.setUsersFBAccessToken(account.getUsername(), authenticate);
         }
