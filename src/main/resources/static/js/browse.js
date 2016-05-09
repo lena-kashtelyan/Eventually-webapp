@@ -28,7 +28,7 @@ $(document).ready(function () {
 			$.post("/save", params);
 			btn.innerHTML = "saved";
 		} else if (btn.innerHTML == "saved") {
-			$.post("/ussave", params);
+			$.post("/unsave", params);
 			btn.innerHTML = "save";
 		}
 	});

@@ -45,6 +45,9 @@
                         <div class="col-md-12">
                           <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                         </div>
+                        <h2></h2>
+                        <div class="col-md-2 col-sm-3 col-xs-3" id="event-popularity">
+                        ${event.attendingCount}</div>
                       </div>
                     </div>
                     <div class="col-md-6" id="description">
@@ -59,8 +62,7 @@
                       </#if>
                       <div class="row">
                         <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
-                        <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
-                        ${event.attendingCount}</div>
+                        <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity"></div>
                       </div>
                     </div>
                   </div>

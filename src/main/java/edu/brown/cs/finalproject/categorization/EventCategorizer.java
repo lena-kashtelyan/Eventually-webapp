@@ -13,6 +13,10 @@ public class EventCategorizer {
 		EventTextHolder textHolder = new EventTextHolder(name, description);
 		String category = "other";
 		
+		if (textHolder.contains("sports") || textHolder.contains("game")) {
+			category = "sports";
+		}
+		
 		if (textHolder.contains("club") || textHolder.contains("party")) {
 			category = "nightlife";
 		}
@@ -39,10 +43,6 @@ public class EventCategorizer {
 		
 		if (textHolder.contains("religio") || textHolder.contains("cultur")) {
 			category = "religious and cultural celebration";
-		}
-		
-		if (textHolder.contains("sports") || textHolder.contains("game")) {
-			category = "sports";
 		}
 		
 		return category;
