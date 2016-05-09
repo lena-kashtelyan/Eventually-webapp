@@ -72,7 +72,8 @@ public class MyEventsView extends BackendInteraction
           Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "My Events").put("upcoming", upcoming)
               .put("past", past).put("suggested", suggested)
-              .put("username", username).put("auth", authToken.toString()).build();
+              .put("username", username).put("auth", authToken.toString())
+              .put("userSavedEvents", userSavedEvents).put("userAttendingEvents", userAttendingEvents).build();
           return new ModelAndView(data, htmlUrl);
 //        } catch (Exception e) {
 //          // TODO Auto-generated catch block
