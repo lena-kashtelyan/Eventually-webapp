@@ -97,7 +97,7 @@
                 <h2 id="event-link">
                   <div class="col-md-8">
                     <#assign id = event.ID>
-                    <a class="event-link" href=id>${event.name}</a>
+                    <a class="event-link" href=${event.ID}>${event.name}</a>
                   </div>
                   <div class="col-md-4">
                     <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true)>attending<#else>attend</#if></button>
@@ -114,14 +114,16 @@
                       <div class="wrapper">
                         <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                       </div>
+                      <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
+                        ${event.attendingCount}</div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-8" id="description">
                   <#assign description = event.description>
                   <#if (description?length > 881)>
-                    <p>${description[0..880]}<a href="#full-description${event.attendingCount}" id="expand-btn" data-toggle="collapse">...</a>
-                    <div id="full-description${event.attendingCount}" class="collapse">
+                    <p>${description[0..880]}<a href="#full-description${event.ID}" id="expand-btn" data-toggle="collapse">...</a>
+                    <div id="full-description${event.ID}" class="collapse">
                         ${description[881..]}
                     </div></p>
                   <#else>

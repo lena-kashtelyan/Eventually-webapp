@@ -12,7 +12,8 @@
       <div class="collapse navbar-collapse navbar-right" id="navbar-inner">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" id="now">map</a></li>
-          <li><a href="#" id="browse">events</a></li>
+          <li><a href="#" id="myevents">my events</a></li>
+          <li><a href="#" id="browse">browse</a></li>
           <li><a href="#" id="create">create</a></li>
           <li><a href="#" id="account">account</a></li>
         </ul>

@@ -19,6 +19,16 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+	$("#myevents").on('click', function(e) {
+		e.preventDefault();
+		var auth = $("#auth").text();
+		var username = $("#username").text();
+		var params = {"auth" : auth, "username" : username};
+			window.location = "/my?" + $.param(params);
+	});
+});
+
+$(document).ready(function() {
 	$("#now").on('click', function(e) {
 		e.preventDefault();
 		var auth = $("#auth").text();
