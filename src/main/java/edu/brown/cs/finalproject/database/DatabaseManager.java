@@ -316,6 +316,26 @@ public class DatabaseManager {
 	  }
   }
   
+  public static boolean removeAttending(String userID, String eventID) {
+		
+	  Connection conn = Database.getConnection();
+	  String query = "DELETE FROM going " +
+			  "WHERE eventID = ? AND username = ?;";
+	  
+	  try (PreparedStatement prep = conn.prepareStatement(query)) {
+		  prep.setString(1, eventID);
+		  prep.setString(2, userID);
+		  prep.addBatch();
+		  prep.executeBatch();
+		  System.out.println(prep.toString());
+	  } catch (SQLException s) {
+		  s.printStackTrace();
+		  return false;
+	  }
+	  
+	  return true;
+  }
+  
   public static boolean addInterested(String userID, String eventID) {
 	    Connection conn = Database.getConnection();
 	    String query = "INSERT INTO interested (eventID,username) " +
@@ -343,10 +363,21 @@ public class DatabaseManager {
   
   public static boolean removeInterested(String userID, String eventID) {
 	
+	  Connection conn = Database.getConnection();
+	  String query = "DELETE FROM interested " +
+			  "WHERE eventID = ? AND username = ?;";
+	  boolean didRemove = false;
 	  
-	  
-	  
-	  
+	  try (PreparedStatement prep = conn.prepareStatement(query)) {
+		  prep.setString(1, eventID);
+		  prep.setString(2, userID);
+		  prep.addBatch();
+		  prep.executeBatch();
+		  System.out.println(prep.toString());
+	  } catch (SQLException s) {
+		  s.printStackTrace();
+		  return false;
+	  }
 	  return true;
   }
   

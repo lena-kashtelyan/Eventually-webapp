@@ -97,7 +97,11 @@
                 <h2 id="event-link">
                   <div class="col-md-8">
                     <#assign id = event.ID>
+<<<<<<< HEAD
                     <a class="event-link" href=${event.ID}>${event.name}</a>
+=======
+                    <a class="event-link" href=id>${event.ID}</a>
+>>>>>>> 9f573753e702c774d2fb92c0086d0d5a61585538
                   </div>
                   <div class="col-md-4">
                     <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true)>attending<#else>attend</#if></button>
