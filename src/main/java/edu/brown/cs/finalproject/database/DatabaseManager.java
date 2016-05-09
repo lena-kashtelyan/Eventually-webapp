@@ -614,7 +614,7 @@ public class DatabaseManager {
     return new BrowseResultsHolder(events, userSavedEvents, userAttendingEvents);
   }
 
-  public List<Event> getPastEvents(String username) {
+  public static List<Event> getPastEvents(String username) {
     List<Event> allevents = new ArrayList<>();
     String query = String.format("SELECT eventid FROM going WHERE username=?;");
     Connection conn = Database.getConnection();
@@ -644,5 +644,44 @@ public class DatabaseManager {
       }
     }
     return pastevents;
+  }
+
+  public static List<Event> getFutureEvents(String username) {
+    List<Event> allevents = new ArrayList<>();
+    String query = String
+        .format("SELECT eventID FROM interested WHERE username=? UNION SELECT "
+            + "eventID FROM going WHERE username=?;");
+    Connection conn = Database.getConnection();
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      prep.setString(2, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String eventID = rs.getString(1);
+          Event eventproxy = new EventProxy(eventID);
+          allevents.add(eventproxy);
+        }
+      } catch (ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+    Date currdate = new Date();
+    List<Event> futureevents = new ArrayList<>();
+    for (Event event : allevents) {
+
+      String endDate = event.getEndDate();
+      endDate = endDate.replace('T', ' ');
+      endDate = endDate.replaceAll("Z", "");
+      System.out.println(endDate);
+      Timestamp timestamp = Timestamp.valueOf(endDate);
+      if (currdate.getTime() < timestamp.getTime()) {
+        futureevents.add(event);
+      }
+    }
+    return futureevents;
   }
 }

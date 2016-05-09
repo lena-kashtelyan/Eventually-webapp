@@ -52,8 +52,8 @@ $(document).ready(function () {
 		e.preventDefault();
 		var comment = $("#comment").val();
 		var timestamp = Date.now()/1000 | 0;
-		var params = { "auth" : auth, "username" : username, "url" : comment, "timestamp" : timestamp, "type" : "comment";
-		$.post("/comment", params);
+		var params = { "auth" : auth, "username" : username, "eventID": eventID, "url" : comment, "timestamp" : timestamp, "type" : "comment"}
+		$.post("/media", params);
 		location.reload(true);
 	});
 });
