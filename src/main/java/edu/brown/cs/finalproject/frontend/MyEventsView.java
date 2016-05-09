@@ -65,7 +65,7 @@ public class MyEventsView extends BackendInteraction
           //list of past events marked "saved" and "attending" in reverse-chronological order (most recent on top)
           List<Event> past = DatabaseManager.getPastEvents(username);
           //list of suggested events, to be worked on later
-          List<Event> suggested = new ArrayList<Event>();
+          List<Event> suggested = DatabaseManager.getSuggestedEvents(username, 41.8, -71.4);
           
  //       try {
           // fill the lists

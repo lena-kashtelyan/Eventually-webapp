@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -723,9 +724,128 @@ public class DatabaseManager {
     return futureevents;
   }
   
-  public static List<Event> getSuggestedEvents(String username) {
+  public static List<Event> getSuggestedEvents(String username, double lat, double lng) {
+    List<Event> allevents = new ArrayList<>();
+    String query = String
+        .format("SELECT eventID FROM interested WHERE username=? UNION SELECT "
+            + "eventID FROM going WHERE username=?;");
+    Connection conn = Database.getConnection();
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      prep.setString(2, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String eventID = rs.getString(1);
+          Event eventproxy = new EventProxy(eventID);
+          allevents.add(eventproxy);
+        }
+      } catch (ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
     
+    int nightlife = 0;
+    int publiclecture = 0;
+    int workshop = 0;
+    int foodfest = 0;
+    int moviesandart = 0;
+    int theaterandperformance = 0;
+    int religiousandcultural = 0;
+    int sports = 0;
+    int other = 0;
     
-    return null;
+    for (Event event: allevents) {
+      String category = event.getCategory();
+      
+      switch (category) {
+      case "nightlife":
+        nightlife =+ 1;
+      case "public lecture":
+        publiclecture =+ 1;
+      case "workshop":
+        workshop =+ 1;
+      case "food fest":
+        foodfest =+ 1;
+      case "movies & art":
+        moviesandart =+ 1;
+      case "theater & performance":
+        theaterandperformance =+ 1;
+      case "religious & cultural celebration":
+        religiousandcultural =+ 1;
+      case "sports":
+        sports =+ 1;
+      case "other":
+        other =+ 1;
+      }
+    }
+    
+    Map<String, Integer> ratios = new HashMap<>();
+    ratios.put("nightlife", nightlife);
+    ratios.put("public lecture",  publiclecture);
+    ratios.put("workshop", workshop);
+    ratios.put("food fest", foodfest);
+    ratios.put("movies & art", moviesandart);
+    ratios.put("theater & performace", theaterandperformance);
+    ratios.put("religious & cultural celebration", religiousandcultural);
+    ratios.put("sports", sports);
+  
+//    List<String> categories = new ArrayList<>();
+    int max = Integer.MIN_VALUE;
+    String cat1 = null;
+    String cat2 = null;
+    String cat3 = null;
+    
+    for (String category: ratios.keySet()) {
+      if (ratios.get(category) > max) {
+        max = ratios.get(category);
+        cat1 = category;
+      }
+    }
+//    categories.add(cat1);
+    max = Integer.MIN_VALUE;
+    for (String category: ratios.keySet()) {
+      if (ratios.get(category) > max && !category.equals(cat1)) {
+        max = ratios.get(category);
+        cat2 = category;
+      }
+    }
+//    categories.add(cat2);
+    max = Integer.MIN_VALUE;
+    for (String category: ratios.keySet()) {
+      if (ratios.get(category) > max && !category.equals(cat1) && !category.equals(cat2)) {
+        max = ratios.get(category);
+        cat3 = category;
+      }
+    }
+//    categories.add(cat3);
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date date = new Date();
+    
+    String filter = String.format("SELECT eventid FROM events WHERE enddate>to_timestamp('%s', 'YYYY/MM/dd HH24:MI:SS')"
+        + "AND (category='%s' OR category='%s' OR category='%s')"
+        + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < 16100"
+        + "ORDER BY attendingcount DESC LIMIT 10", dateFormat.format(date), cat1, cat2, cat3, lng, lat);
+    List<Event> suggested = new ArrayList<>();
+    
+    try { 
+      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(filter);
+      for (int j = 0; j < res.getTotal_rows(); j++) {
+        String eventID = (String) res.getRows().get(j).get("eventid");
+        Event event = new EventProxy(eventID);
+        suggested.add(event);
+      }
+    } catch (CartoDBException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    
+    return suggested;
   }
 }
