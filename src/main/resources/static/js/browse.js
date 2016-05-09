@@ -49,3 +49,25 @@ $(document).ready(function () {
 		}
 	});
 });
+
+function initialize() {
+	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
+	new google.maps.LatLng(-33.8902, 151.1759),
+	new google.maps.LatLng(-33.8474, 151.2631));
+
+	var input = document.getElementById('search-location');
+	geocoder = new google.maps.Geocoder();
+
+	var searchBox = new google.maps.places.SearchBox(input, {
+	  bounds: defaultBounds
+	});
+}
+
+$(document).ready(function(){ 
+	initialize();
+	$('#radius').slider({
+		formatter: function(value) {
+			return 'Current value: ' + value;
+		}
+	});
+});
