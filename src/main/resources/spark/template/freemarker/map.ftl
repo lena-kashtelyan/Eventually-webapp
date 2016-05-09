@@ -139,7 +139,7 @@
             <button class="btn btn-default col-xs-12"><li data="bubble" data-type="cartocss">Size based on Attending Count</li></button>
           </div>
           <div class="row">
-            <button class="btn btn-default col-xs-12"><li data="simpleOrange" data-type="cartocss">Reset CartoCSS</li></button>
+            <button class="btn btn-default col-xs-12"><li data="simpleOrange" data-type="cartocss">Default</li></button>
           </div>
         </ul>
       </div>
