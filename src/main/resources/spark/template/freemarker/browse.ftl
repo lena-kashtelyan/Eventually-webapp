@@ -3,8 +3,7 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/browse.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.css">
@@ -42,7 +41,7 @@
                     </div>
                     <div class="col-md-12 col-sm-9 col-xs-9">
                       <br>
-                      <span style="float: left">0.1mi</span>
+                      <span style="float: left">1mi</span>
                       <span style="margin-left: 146px">50mi</span>
                       <br>
                       <span style="width:100%">
@@ -114,12 +113,10 @@
                       <div class="wrapper">
                         <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                       </div>
-                      <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
-                        ${event.attendingCount}</div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-8" id="description">
+                <div class="col-md-8 description">
                   <#assign description = event.description>
                   <#if (description?length > 881)>
                     <p>${description[0..880]}<a href="#full-description${event.ID}" id="expand-btn" data-toggle="collapse">...</a>

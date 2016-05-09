@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,37 +44,37 @@ public class DatabaseManager {
     String eventID = UUID.randomUUID().toString();
 
     String eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/69/b4/f369b42357a27eb40068f675f62366ce.jpg";
-    
-    switch(category){
+
+    switch (category) {
     case "nightlife":
-    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
-       break;
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f3/9b/4e/f39b4e783589f8137f833bb0b08c83b1.jpg";
+      break;
     case "public lecture":
-    	eventphoto = "https://www.york.ac.uk/media/communications/publiclecturesinfo/publiclectures/publecs2.jpg";
-       break;
+      eventphoto = "https://www.york.ac.uk/media/communications/publiclecturesinfo/publiclectures/publecs2.jpg";
+      break;
     case "workshop":
-    	eventphoto = "http://beta.custompractice.co.uk/wp-content/uploads/2010/10/Custom-Practice-Classical-Acting-Workshop-004.jpg";
-    	break;
+      eventphoto = "http://beta.custompractice.co.uk/wp-content/uploads/2010/10/Custom-Practice-Classical-Acting-Workshop-004.jpg";
+      break;
     case "food fest":
-    	eventphoto = "http://www.urban-people.co.uk/wp-content/uploads/2015/04/foodfest1.jpg";
-    	break;
+      eventphoto = "http://www.urban-people.co.uk/wp-content/uploads/2015/04/foodfest1.jpg";
+      break;
     case "movies & art":
-    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f2/e1/78/f2e1783249efe7b2b0a1d8abf03e93b6.jpg";
-    	break;
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/f2/e1/78/f2e1783249efe7b2b0a1d8abf03e93b6.jpg";
+      break;
     case "theater & performance":
-    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2e/0b/6d/2e0b6dcfa198dfed546c19c11f1c111c.jpg";
-    	break;
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2e/0b/6d/2e0b6dcfa198dfed546c19c11f1c111c.jpg";
+      break;
     case "religious & cultural celebration":
-    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/ef/b7/c7/efb7c7d618619ce45f357d1eb5be8860.jpg";
-    	break;
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/ef/b7/c7/efb7c7d618619ce45f357d1eb5be8860.jpg";
+      break;
     case "sports":
-    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/b8/92/3b/b8923b793663d5584df61d619fad9d93.jpg";
-    	break;
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/b8/92/3b/b8923b793663d5584df61d619fad9d93.jpg";
+      break;
     case "other":
-    	eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
-    	break;
-   	default:
-   		eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
+      break;
+    default:
+      eventphoto = "https://s-media-cache-ak0.pinimg.com/564x/2d/e5/19/2de519935da8beaad7ceac2fd31cb2da.jpg";
     }
 
     String venuename = location;
@@ -249,10 +250,10 @@ public class DatabaseManager {
 
   public static boolean addAttendee(String userID, String eventID) {
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO going (eventID,username) " +
-    "SELECT ?, ? " +
-    "WHERE NOT EXISTS (SELECT 1 FROM going WHERE eventID = ? AND username = ?);";
-    
+    String query = "INSERT INTO going (eventID,username) "
+        + "SELECT ?, ? "
+        + "WHERE NOT EXISTS (SELECT 1 FROM going WHERE eventID = ? AND username = ?);";
+
     System.out.println(query);
     System.out.println(eventID);
     System.out.println(userID);
@@ -291,138 +292,137 @@ public class DatabaseManager {
     }
     return attendees;
   }
-  
-  public static boolean checkAttending(String eventID, String username) { 
-	  Connection conn = Database.getConnection();
-	  String query = "SELECT EXISTS(SELECT 1 FROM going WHERE eventID = ? AND username = ? LIMIT 1);";
-	  String isSavedString = null;
-	  
-	  try (PreparedStatement prep = conn.prepareStatement(query)) {
-		  prep.setString(1, eventID);
-		  prep.setString(2, username);
-		  try (ResultSet rs = prep.executeQuery()) {
-			  while (rs.next()) {
-				  isSavedString = rs.getString(1);
-			  }
-		  }
-	  } catch (SQLException s) {
-		  s.printStackTrace();
-	  }
-	  
-	  if (isSavedString.equals("1")) {
-		  return true;
-	  } else {
-		  return false;
-	  }
+
+  public static boolean checkAttending(String eventID, String username) {
+    Connection conn = Database.getConnection();
+    String query = "SELECT EXISTS(SELECT 1 FROM going WHERE eventID = ? AND username = ? LIMIT 1);";
+    String isSavedString = null;
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      prep.setString(2, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          isSavedString = rs.getString(1);
+        }
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+
+    if (isSavedString.equals("1")) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  
+
   public static boolean removeAttending(String userID, String eventID) {
-		
-	  Connection conn = Database.getConnection();
-	  String query = "DELETE FROM going " +
-			  "WHERE eventID = ? AND username = ?;";
-	  
-	  try (PreparedStatement prep = conn.prepareStatement(query)) {
-		  prep.setString(1, eventID);
-		  prep.setString(2, userID);
-		  prep.addBatch();
-		  prep.executeBatch();
-		  System.out.println(prep.toString());
-	  } catch (SQLException s) {
-		  s.printStackTrace();
-		  return false;
-	  }
-	  
-	  return true;
+
+    Connection conn = Database.getConnection();
+    String query = "DELETE FROM going " + "WHERE eventID = ? AND username = ?;";
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      prep.setString(2, userID);
+      prep.addBatch();
+      prep.executeBatch();
+      System.out.println(prep.toString());
+    } catch (SQLException s) {
+      s.printStackTrace();
+      return false;
+    }
+
+    return true;
   }
-  
+
   public static boolean addInterested(String userID, String eventID) {
-	    Connection conn = Database.getConnection();
-	    String query = "INSERT INTO interested (eventID,username) " +
-	    "SELECT ?, ? " +
-	    "WHERE NOT EXISTS (SELECT 1 FROM interested WHERE eventID = ? AND username = ?);";
-	    
-	    System.out.println(query);
-	    System.out.println(eventID);
-	    System.out.println(userID);
+    Connection conn = Database.getConnection();
+    String query = "INSERT INTO interested (eventID,username) "
+        + "SELECT ?, ? "
+        + "WHERE NOT EXISTS (SELECT 1 FROM interested WHERE eventID = ? AND username = ?);";
 
-	    try (PreparedStatement prep = conn.prepareStatement(query)) {
-	      prep.setString(1, eventID);
-	      prep.setString(2, userID);
-	      prep.setString(3, eventID);
-	      prep.setString(4, userID);
-	      prep.addBatch();
-	      prep.executeBatch();
-	      System.out.println(prep.toString());
-	    } catch (SQLException s) {
-	      s.printStackTrace();
-	      return false;
-	    }
-	    return true;
-	  }
-  
-  public static boolean removeInterested(String userID, String eventID) {
-	
-	  Connection conn = Database.getConnection();
-	  String query = "DELETE FROM interested " +
-			  "WHERE eventID = ? AND username = ?;";
-	  boolean didRemove = false;
-	  
-	  try (PreparedStatement prep = conn.prepareStatement(query)) {
-		  prep.setString(1, eventID);
-		  prep.setString(2, userID);
-		  prep.addBatch();
-		  prep.executeBatch();
-		  System.out.println(prep.toString());
-	  } catch (SQLException s) {
-		  s.printStackTrace();
-		  return false;
-	  }
-	  return true;
+    System.out.println(query);
+    System.out.println(eventID);
+    System.out.println(userID);
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      prep.setString(2, userID);
+      prep.setString(3, eventID);
+      prep.setString(4, userID);
+      prep.addBatch();
+      prep.executeBatch();
+      System.out.println(prep.toString());
+    } catch (SQLException s) {
+      s.printStackTrace();
+      return false;
+    }
+    return true;
   }
-  
-  public static List<User> getInterested(String eventID) {
-	    Connection conn = Database.getConnection();
-	    String query = "SELECT username FROM interested WHERE eventID=?;";
-	    List<User> attendees = new ArrayList<>();
 
-	    try (PreparedStatement prep = conn.prepareStatement(query)) {
-	      prep.setString(1, eventID);
-	      try (ResultSet rs = prep.executeQuery()) {
-	        while (rs.next()) {
-	          String username = rs.getString(1);
-	          User userproxy = new UserProxy(username);
-	          attendees.add(userproxy);
-	        }
-	      }
-	    } catch (SQLException s) {
-	      s.printStackTrace();
-	    }
-	    return attendees;
-	  }
-  
-  public static boolean checkInterested(String eventID, String username) { 
-	  Connection conn = Database.getConnection();
-	  String query = "SELECT EXISTS(SELECT 1 FROM interested WHERE eventID = ? AND username = ? LIMIT 1);";
-	  String isSavedString = null;
-	  
-	  try (PreparedStatement prep = conn.prepareStatement(query)) {
-		  prep.setString(1, eventID);
-		  prep.setString(2, username);
-		  try (ResultSet rs = prep.executeQuery()) {
-			  while (rs.next()) {
-				  isSavedString = rs.getString(1);
-			  }
-		  }
-	  } catch (SQLException s) {
-		  s.printStackTrace();
-	  }
-	  
-	  if (isSavedString.equals("1")) {
-		  return true;
-	  } else {
-		  return false;
-	  }
+  public static boolean removeInterested(String userID, String eventID) {
+
+    Connection conn = Database.getConnection();
+    String query = "DELETE FROM interested "
+        + "WHERE eventID = ? AND username = ?;";
+    boolean didRemove = false;
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      prep.setString(2, userID);
+      prep.addBatch();
+      prep.executeBatch();
+      System.out.println(prep.toString());
+    } catch (SQLException s) {
+      s.printStackTrace();
+      return false;
+    }
+    return true;
+  }
+
+  public static List<User> getInterested(String eventID) {
+    Connection conn = Database.getConnection();
+    String query = "SELECT username FROM interested WHERE eventID=?;";
+    List<User> attendees = new ArrayList<>();
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String username = rs.getString(1);
+          User userproxy = new UserProxy(username);
+          attendees.add(userproxy);
+        }
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+    return attendees;
+  }
+
+  public static boolean checkInterested(String eventID, String username) {
+    Connection conn = Database.getConnection();
+    String query = "SELECT EXISTS(SELECT 1 FROM interested WHERE eventID = ? AND username = ? LIMIT 1);";
+    String isSavedString = null;
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, eventID);
+      prep.setString(2, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          isSavedString = rs.getString(1);
+        }
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+
+    if (isSavedString.equals("1")) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public static List<Event> getEvents() {
@@ -495,11 +495,14 @@ public class DatabaseManager {
    * @param radius
    *          , double
    * @param username
-   * 		  , String
-   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps indicating the user's 'saved' and 'attending' statuses for all events
+   *          , String
+   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps
+   *         indicating the user's 'saved' and 'attending' statuses for all
+   *         events
    */
   public static BrowseResultsHolder getUpcomingEventsWithinProximitySortedByProximity(
-      double latitude, double longitude, double radius, int limit, String username) {
+      double latitude, double longitude, double radius, int limit,
+      String username) {
     List<Event> events = new ArrayList<>();
     HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
     HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
@@ -536,8 +539,8 @@ public class DatabaseManager {
         String eventID = (String) res.getRows().get(j).get("eventid");
         Event event = new EventProxy(eventID);
         events.add(event);
-        
-        userSavedEvents.put(eventID, checkInterested(eventID, username)); 
+
+        userSavedEvents.put(eventID, checkInterested(eventID, username));
         userAttendingEvents.put(eventID, checkAttending(eventID, username));
       }
     } catch (CartoDBException e) {
@@ -559,11 +562,14 @@ public class DatabaseManager {
    * @param radius
    *          , double
    * @param username
-   * 		  , String
-   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps indicating the user's 'saved' and 'attending' statuses for all events
+   *          , String
+   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps
+   *         indicating the user's 'saved' and 'attending' statuses for all
+   *         events
    */
   public static BrowseResultsHolder getUpcomingEventsWithinProximitySortedByPopularity(
-      double latitude, double longitude, double radius, int limit, String username) {
+      double latitude, double longitude, double radius, int limit,
+      String username) {
     List<Event> events = new ArrayList<>();
     HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
     HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
@@ -595,8 +601,8 @@ public class DatabaseManager {
         String eventID = (String) res.getRows().get(j).get("eventid");
         Event event = new EventProxy(eventID);
         events.add(event);
-        
-        userSavedEvents.put(eventID, checkInterested(eventID, username)); 
+
+        userSavedEvents.put(eventID, checkInterested(eventID, username));
         userAttendingEvents.put(eventID, checkAttending(eventID, username));
       }
     } catch (CartoDBException e) {
@@ -604,7 +610,81 @@ public class DatabaseManager {
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
-    
+
     return new BrowseResultsHolder(events, userSavedEvents, userAttendingEvents);
+  }
+
+  public static List<Event> getPastEvents(String username) {
+    List<Event> allevents = new ArrayList<>();
+    String query = String.format("SELECT eventid FROM going WHERE username=?;");
+    Connection conn = Database.getConnection();
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String eventID = rs.getString(1);
+          Event eventproxy = new EventProxy(eventID);
+          allevents.add(eventproxy);
+        }
+      } catch (ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+    Date currdate = new Date();
+    List<Event> pastevents = new ArrayList<>();
+    for (Event event : allevents) {
+      String endDate = event.getEndDate();
+      endDate = endDate.replace('T', ' ');
+      endDate = endDate.replaceAll("Z", "");
+      System.out.println(endDate);
+      Timestamp timestamp = Timestamp.valueOf(endDate);
+      if (currdate.getTime() > timestamp.getTime()) {
+        pastevents.add(event);
+      }
+    }
+    return pastevents;
+  }
+
+  public static List<Event> getFutureEvents(String username) {
+    List<Event> allevents = new ArrayList<>();
+    String query = String
+        .format("SELECT eventID FROM interested WHERE username=? UNION SELECT "
+            + "eventID FROM going WHERE username=?;");
+    Connection conn = Database.getConnection();
+
+    try (PreparedStatement prep = conn.prepareStatement(query)) {
+      prep.setString(1, username);
+      prep.setString(2, username);
+      try (ResultSet rs = prep.executeQuery()) {
+        while (rs.next()) {
+          String eventID = rs.getString(1);
+          Event eventproxy = new EventProxy(eventID);
+          allevents.add(eventproxy);
+        }
+      } catch (ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    } catch (SQLException s) {
+      s.printStackTrace();
+    }
+    Date currdate = new Date();
+    List<Event> futureevents = new ArrayList<>();
+    for (Event event : allevents) {
+
+      String endDate = event.getEndDate();
+      endDate = endDate.replace('T', ' ');
+      endDate = endDate.replaceAll("Z", "");
+      System.out.println(endDate);
+      Timestamp timestamp = Timestamp.valueOf(endDate);
+      if (currdate.getTime() < timestamp.getTime()) {
+        futureevents.add(event);
+      }
+    }
+    return futureevents;
   }
 }
