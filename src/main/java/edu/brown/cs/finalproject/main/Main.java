@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
-
 import com.stormpath.sdk.directory.CreateDirectoryRequest;
 import com.stormpath.sdk.directory.Directories;
 import com.stormpath.sdk.directory.Directory;
@@ -16,12 +13,15 @@ import com.stormpath.sdk.tenant.Tenant;
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
+import edu.brown.cs.finalproject.database.DatabaseFactory;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
 import edu.brown.cs.finalproject.search.FacebookDataManager2;
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
 
 public class Main {
   public static void main(String[] args) {
@@ -37,6 +37,7 @@ public class Main {
   private void run() {
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
+    parser.accepts("new");
     OptionSet options = parser.parse(args);
 
     StormPathApplication stormPathApp = new StormPathApplication(
@@ -62,12 +63,13 @@ public class Main {
     }
 
     /*
-     * This try block is for setting up the facebook directory on stormpath.
-     * Should only need to be used once.
+     * This try block is for setting up the facebook
+     * directory on stormpath. Should only need to be used
+     * once.
      */
     try {
-      Directory directory = stormPathApp.getStormPathClient().instantiate(
-          Directory.class);
+      Directory directory = stormPathApp.getStormPathClient()
+          .instantiate(Directory.class);
       directory.setName("facebook-directory");
       directory.setDescription("Facebook directory");
 
@@ -76,9 +78,9 @@ public class Main {
 
       CreateDirectoryRequest request = Directories
           .newCreateRequestFor(directory)
-          .forProvider(
-              Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
-                  .setClientSecret(FACEBOOK_SECRET).build()).build();
+          .forProvider(Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
+              .setClientSecret(FACEBOOK_SECRET).build())
+          .build();
 
       Tenant tenant = stormPathApp.getStormPathClient().getCurrentTenant();
       directory = tenant.createDirectory(request);
@@ -92,11 +94,13 @@ public class Main {
       e.printStackTrace();
       System.out.println("ERROR: Accessing the database file.");
     }
-    try {
-      System.out.println("here");
-      // DatabaseFactory.createAndIndexTables();
-    } catch (Exception e) {
-      System.out.println("Database already created.");
+    if (options.has("new")) {
+      try {
+        System.out.println("here");
+        DatabaseFactory.createAndIndexTables();
+      } catch (Exception e) {
+        System.out.println("Database already created.");
+      }
     }
     // new DatabaseFactory().createAndIndexTables();
     System.out.println("all done");

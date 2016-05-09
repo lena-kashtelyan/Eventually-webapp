@@ -57,9 +57,13 @@ a:hover {
 }
 
 .description {
-  font-family: 'Raleway', sans-serif; 
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
   line-height: 1.4;
+}
+
+#feed {
+  padding-top: 55px;
 }
 
 #event-popularity {
@@ -86,7 +90,7 @@ p {
   font-size: 20px;
 }
 
-#description {
+.description {
   word-wrap: break-word;
 }
 

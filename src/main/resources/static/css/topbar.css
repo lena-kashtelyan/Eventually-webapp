@@ -29,6 +29,7 @@
     .navbar {
       z-index:100;
       margin-bottom: 0px !important;
+      padding: 2px 18px !important;
     }
 
     .noshow {
