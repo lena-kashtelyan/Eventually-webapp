@@ -1,5 +1,6 @@
 package edu.brown.cs.finalproject.frontend;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -37,8 +38,8 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
           + REDIRECT_URI + "&client_secret=" + FACEBOOK_SECRET + "&code="
           + authCode;
       URL url = new URL(
-          "https://graph.facebook.com/v2.3/oauth/access_token?" + query);
-
+          "https://graph.facebook.com/v2.6/oauth/access_token?" + query);
+      System.out.println(query);
       // make connection
       URLConnection urlc = url.openConnection();
       urlc.setRequestProperty("Accept-Charset",
@@ -52,7 +53,7 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
         sb.append(responseBody);
       }
       String responseString = sb.toString();
-
+      System.out.println(responseString);
       // regular expressions for getting auth back from
       // response
       Pattern pattern = Pattern
@@ -74,11 +75,22 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
         System.out.println("email = " + account.getEmail());
         System.out.println("new account? =" + result.isNewAccount());
         if (result.isNewAccount()) {
-          DatabaseManager.addUser(account.getUsername(), account.getFullName(),
-              "http://sighttosee.com/images/vendor/default-profile.png",
-              authenticate);
+          String profilePic = getUserProfilePicture(authenticate);
+          if (profilePic != null) {
+            DatabaseManager.addUser(account.getUsername(),
+                account.getFullName(), profilePic, authenticate);
+          } else {
+            DatabaseManager.addUser(account.getUsername(),
+                account.getFullName(),
+                "http://sighttosee.com/images/vendor/default-profile.png",
+                authenticate);
+          }
         } else {
           dbManager.setUsersFBAccessToken(account.getUsername(), authenticate);
+          String profilePic = getUserProfilePicture(authenticate);
+          if (profilePic != null) {
+            dbManager.setUsersMediaPath(account.getUsername(), profilePic);
+          }
         }
         try {
           String username = account.getUsername();
@@ -110,5 +122,36 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
           "/login?" + "title=Login" + "error=" + e.getLocalizedMessage());
       return null;
     }
+  }
+
+  private String getUserProfilePicture(String authToken) throws IOException {
+    String query = "access_token=" + authToken + "&redirect=false&width=400";
+    System.out.println("https://graph.facebook.com/v2.6/me/picture?" + query);
+    URL url = new URL("https://graph.facebook.com/v2.6/me/picture?" + query);
+    URLConnection urlc = url.openConnection();
+    urlc.setRequestProperty("Accept-Charset",
+        java.nio.charset.StandardCharsets.UTF_8.name());
+
+    // get result
+    InputStream response = urlc.getInputStream();
+    StringBuilder sb = new StringBuilder();
+    try (Scanner scanner = new Scanner(response)) {
+      String responseBody = scanner.useDelimiter("\\A").next();
+      sb.append(responseBody);
+    }
+    String responseString = sb.toString();
+    System.out.println("resp = " + responseString);
+    // regular expressions for getting auth back from
+    // response
+    Pattern pattern = Pattern.compile("\\{\".*(url)\":\"([^\"]*)\"(.*)\\}");
+    Matcher match = pattern.matcher(responseString);
+    match.find();
+    // gets auth token from facebook
+    String profileURL = match.group(2);
+    // System.out.println(profileURL);
+    String replace = Matcher.quoteReplacement("\\/");
+    String filteredProfileURL = profileURL.replaceAll(replace, "/");
+    System.out.println(filteredProfileURL);
+    return filteredProfileURL;
   }
 }

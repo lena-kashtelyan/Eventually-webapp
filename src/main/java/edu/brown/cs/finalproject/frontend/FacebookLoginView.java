@@ -11,8 +11,9 @@ public class FacebookLoginView extends BackendInteraction implements Route {
 
   @Override
   public Object handle(Request req, Response res) {
-    res.redirect("https://www.facebook.com/dialog/oauth?client_id="
-        + FACEBOOK_ID + "&redirect_uri=" + REDIRECT_URI + "&scope=email");
+    res.redirect(
+        "https://www.facebook.com/dialog/oauth?client_id=" + FACEBOOK_ID
+            + "&redirect_uri=" + REDIRECT_URI + "&scope=email,public_profile");
     return null;
   }
 
