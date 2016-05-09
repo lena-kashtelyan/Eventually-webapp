@@ -67,13 +67,8 @@ public class MyEventsView extends BackendInteraction
           List<Event> past = DatabaseManager.getPastEvents(username);
           System.out.println("past: " + past.size());
           //list of suggested events, to be worked on later
-<<<<<<< HEAD
           List<Event> suggested = DatabaseManager.getSuggestedEvents(username, 41.8, -71.4);
-=======
-          List<Event> suggested = new ArrayList<Event>();
           System.out.println("suggested: " + suggested.size());
-
->>>>>>> 3a61e81781c98d2dd6e65981c4fef426ab0d2632
           
  //       try {
           // fill the lists
