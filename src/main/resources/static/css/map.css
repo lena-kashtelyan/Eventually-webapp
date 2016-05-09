@@ -18,6 +18,10 @@ html, body {
   height: 100%;
 }
 
+.leaflet-container img {
+    width:100%;
+}
+
 /*.cartodb-popup-content-wrapper {
   width: 100% !important;
   max-width: 100% !important;
