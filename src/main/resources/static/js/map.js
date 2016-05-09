@@ -132,12 +132,12 @@ window.onload = function() {
         "zoom" : currentUserZoom
       }
       $.post("/update-events-database", params, function() {
-        setInterval(reloadLocation, 25000);
+        reloadLocation();
       });
     } catch (e) {
-      setInterval(reloadLocation, 25000);
+      setInterval(reloadLocation, 5000);
     }
-    navigator.geolocation.getCurrentPosition(setLocation);
+    //navigator.geolocation.getCurrentPosition(setLocation);
   }
 
   reloadLocation();
