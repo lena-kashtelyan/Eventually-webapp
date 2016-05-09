@@ -9,7 +9,7 @@ var map_object;
 function embedMap(div, afterMapLoadCallback) {
     var tileURL;
 
-    var cartocssHeatmap = "#" + div + "{marker-fill:#f60;marker-width:10;marker-allow-overlap:true;}";
+    var simpleOrange = "#" + div + "{marker-fill:#f60;marker-width:10;marker-allow-overlap:true;}";
 
     var init = function(mapId) {
         tileURL = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
@@ -64,7 +64,7 @@ function embedMap(div, afterMapLoadCallback) {
                         refreshTime: 2500,
                         sublayers: [{
                             sql: "SELECT * FROM events",
-                            cartocss: cartocssHeatmap
+                            cartocss: simpleOrange
                         }],
                         infowindow: true
                     }).addTo(map_object)
