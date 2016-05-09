@@ -141,7 +141,7 @@ public class PublicFBEventsWriter {
       // System.out.println("venueProficePicture: " +
       // venueProficePicture);
       // System.out.println("eventId: " + eventId);
-       System.out.println("eventName: " + eventName);
+//       System.out.println("eventName: " + eventName);
 //      System.out.println("eventProfilePicture: " +
 //          eventProfilePicture);
       // System.out.println("eventDescription: " + eventDescription);

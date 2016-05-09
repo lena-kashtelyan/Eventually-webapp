@@ -18,7 +18,7 @@ public class FacebookDataManager2 {
 	public FacebookDataManager2() throws IOException {
 
 		File file = new File(System.getProperty("user.dir")
-				+ "/lib/node_modules/facebook-events-by-location");
+				+ "/node_modules/facebook-events-by-location");
 		Runtime.getRuntime().exec("npm start", null, file);
 
 		try {
@@ -53,6 +53,7 @@ public class FacebookDataManager2 {
 			System.out
 					.println("ERROR: Problem fetching facebook public events.");
 		}
+		System.out.println("Done with fetching public Facebook events.");
 
 		// System.out.println(publicEvents);
 		PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
@@ -99,7 +100,7 @@ public class FacebookDataManager2 {
 		}
 		in.close();
 
-		System.out.println("Done with fetching public Facebook events.");
+		
 
 		JsonParser parser = new JsonParser();
 		JsonObject results = parser.parse(response.toString())

@@ -6,7 +6,7 @@
 var currentUserLat, currentUserLng, currentUserZoom;
 var map_object;
 
-function embedMap(div) {
+function embedMap(div, afterMapLoadCallback) {
     var tileURL;
 
     var cartocssHeatmap = "#" + div + "{marker-fill:#f60;marker-width:10;marker-allow-overlap:true;}";
@@ -72,7 +72,8 @@ function embedMap(div) {
                         infowindowTemplate: $('#infowindow_template').html(),
                         templateType: 'mustache'
                       });
-                    });
+                      afterMapLoadCallback();
+                    })
                 }
 
                 if (!position.html5GeoLocation) {
@@ -111,13 +112,14 @@ function embedMap(div) {
 }
 
 window.onload = function() {
-  embedMap("map-container");
+  embedMap("map-container", reloadLocation);
 
   var setLocation = function(position) {
 
   }
+}
 
-  var reloadLocation = function() {
+var reloadLocation = function() {
     console.log("this");
     try {
       console.log(map_object.getCenter());
@@ -131,14 +133,19 @@ window.onload = function() {
         "longitude" : currentUserLng,
         "zoom" : currentUserZoom
       }
-      $.post("/update-events-database", params, function() {
-        setInterval(reloadLocation, 25000);
-      });
+      fetchFbEvents(params);
     } catch (e) {
-      setInterval(reloadLocation, 25000);
+        console.log("entered here");
+        // reloadLocation();
+      // setInterval(reloadLocation, 5000);
     }
-    navigator.geolocation.getCurrentPosition(setLocation);
+    //navigator.geolocation.getCurrentPosition(setLocation);
   }
 
-  reloadLocation();
+var fetchFbEvents = function(params) {
+    $.post("/update-events-database", params).done(function(res) {
+        console.log(res);
+        reloadLocation();
+        // setInterval(reloadLocation, 25000);
+      });
 }
