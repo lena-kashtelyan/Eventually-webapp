@@ -9,16 +9,13 @@
     <link rel="stylesheet" type="text/css" href="css/browse.css">
     <title>${title}</title>
     <style>
-      #description {
-        font-family: 'Oxygen', sans-serif;
-        font-size: 14px;
-      }
     </style>
   </head>
 
   <body>
     <#include "background.ftl">
     <#include "topbar.ftl">
+    <br>
     <div class="container-fluid" id="feed">
       <div class="row">
         <div class="col-md-8" id="event-panel">
@@ -89,7 +86,6 @@
                     <label for="dropzone-area">add photo/video:</label>
                     <div class="table table-striped" class="files" id="previews">
                       <div id="template" class="file-row">
-                        <!-- This is used as the file preview template -->
                         <div>
                             <span class="preview"><img data-dz-thumbnail /></span>
                         </div>
@@ -105,15 +101,15 @@
                         <div>
                           <button class="btn btn-default start">
                               <i class="glyphicon glyphicon-upload"></i>
-                              <span>Start</span>
+                              <span>upload</span>
                           </button>
                           <button data-dz-remove class="btn btn-default cancel">
                               <i class="glyphicon glyphicon-ban-circle"></i>
-                              <span>Cancel</span>
+                              <span>cancel</span>
                           </button>
                           <button data-dz-remove class="btn btn-default delete">
                             <i class="glyphicon glyphicon-trash"></i>
-                            <span>Delete</span>
+                            <span>delete</span>
                           </button>
                         </div>
                       </div>
@@ -124,6 +120,37 @@
             </li>
           </ul>
         </div>
+      </div>
+      <div class="row">
+        <ul class="list-group">
+          <#list stream as entry>
+            <li class="list-group-item">
+              <#if (entry.type == "comment")>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h2>comment:</h2>
+                  </div>
+                  <div class="panel-body">
+                  </div>
+                </div>
+              <#elseif (entry.type == "image")>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h2>photo:</h2>
+                  </div>
+                  <div class="panel-body">
+                  </div>
+                </div>
+              <#else>
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    something seems to have gone wrong on our part; try reloading the page!
+                  </div>
+                </div>
+              </#if>
+            </li>
+          </#list>
+        </ul>
       </div>
     </div>
 

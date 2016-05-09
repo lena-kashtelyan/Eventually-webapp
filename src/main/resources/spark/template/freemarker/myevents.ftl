@@ -3,15 +3,16 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/browse.css">
     <title>${title}</title>
     <style>
-      #description {
-        font-family: 'Oxygen', sans-serif;
-        font-size: 14px;
+      h4 {
+        font-family: 'Cabin', sans-serif;
+        font-size: 16px;
+        line-height: 1.4;
       }
     </style>
   </head>
