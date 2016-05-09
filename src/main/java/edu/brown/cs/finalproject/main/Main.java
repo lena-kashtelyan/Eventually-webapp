@@ -3,9 +3,6 @@ package edu.brown.cs.finalproject.main;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
-
 import com.stormpath.sdk.directory.CreateDirectoryRequest;
 import com.stormpath.sdk.directory.Directories;
 import com.stormpath.sdk.directory.Directory;
@@ -15,12 +12,13 @@ import com.stormpath.sdk.tenant.Tenant;
 import edu.brown.cs.finalproject.credentials.Authenticator;
 import edu.brown.cs.finalproject.credentials.StormPathApplication;
 import edu.brown.cs.finalproject.database.Database;
-import edu.brown.cs.finalproject.database.DatabaseFactory;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
 import edu.brown.cs.finalproject.search.FacebookDataManager2;
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
 
 public class Main {
   public static void main(String[] args) {
@@ -61,12 +59,13 @@ public class Main {
     }
 
     /*
-     * This try block is for setting up the facebook directory on stormpath.
-     * Should only need to be used once.
+     * This try block is for setting up the facebook
+     * directory on stormpath. Should only need to be used
+     * once.
      */
     try {
-      Directory directory = stormPathApp.getStormPathClient().instantiate(
-          Directory.class);
+      Directory directory = stormPathApp.getStormPathClient()
+          .instantiate(Directory.class);
       directory.setName("facebook-directory");
       directory.setDescription("Facebook directory");
 
@@ -75,9 +74,9 @@ public class Main {
 
       CreateDirectoryRequest request = Directories
           .newCreateRequestFor(directory)
-          .forProvider(
-              Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
-                  .setClientSecret(FACEBOOK_SECRET).build()).build();
+          .forProvider(Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
+              .setClientSecret(FACEBOOK_SECRET).build())
+          .build();
 
       Tenant tenant = stormPathApp.getStormPathClient().getCurrentTenant();
       directory = tenant.createDirectory(request);
@@ -93,7 +92,7 @@ public class Main {
     }
     try {
       System.out.println("here");
-//      DatabaseFactory.createAndIndexTables();
+      // DatabaseFactory.createAndIndexTables();
     } catch (Exception e) {
       System.out.println("Database already created.");
     }
@@ -127,29 +126,36 @@ public class Main {
       // new PublicFBEventsFinder();
       // } catch (Exception e1) {
       // e1.printStackTrace();
-      // System.out.println("ERROR: Problem with running the public events application.");
+      // System.out.println("ERROR: Problem with running the
+      // public events application.");
       // }
       //
       // JsonObject publicEvents = null;
       // try {
-      // publicEvents = PublicFBEventsFinder.requestEvents(42.3551, -71.0656,
+      // publicEvents =
+      // PublicFBEventsFinder.requestEvents(42.3551,
+      // -71.0656,
       // 1000);
       // } catch (IOException e1) {
       // e1.printStackTrace();
-      // System.out.println("ERROR: Fetching public Facebook events.");
+      // System.out.println("ERROR: Fetching public Facebook
+      // events.");
       // }
       //
       // System.out.println(publicEvents);
-      // PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
+      // PublicFBEventsWriter publicFBEventsWriter = new
+      // PublicFBEventsWriter();
       // try {
       // publicFBEventsWriter.updateDB(publicEvents);
       // } catch (SQLException | IOException e) {
       // e.printStackTrace();
-      // System.out.println("Problem updating database with public venues.");
+      // System.out.println("Problem updating database with
+      // public venues.");
       // }
 
       // try {
-      // Thread.sleep(1000); //1000 milliseconds is one second.
+      // Thread.sleep(1000); //1000 milliseconds is one
+      // second.
       // } catch(InterruptedException ex) {
       // Thread.currentThread().interrupt();
       // }
@@ -166,9 +172,11 @@ public class Main {
       // }
 
       // List<Event> events = dbManager.getUpcomingEvents();
-      // System.out.println("events queried: " + events.size());
+      // System.out.println("events queried: " +
+      // events.size());
       // EventsSorter eventSorter = new EventsSorter();
-      // List<Event> results = eventSorter.sortEventsByAttendingCount(events);
+      // List<Event> results =
+      // eventSorter.sortEventsByAttendingCount(events);
       // System.out.println("results :" + results.size());
 
     }

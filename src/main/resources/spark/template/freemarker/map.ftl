@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="css/topbar.css" />
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="js/map.js"></script>
+    <style id="jlkasjdlfjsalfd">
+
+    </style>
   </head>
 
   <body>

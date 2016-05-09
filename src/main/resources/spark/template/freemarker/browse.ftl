@@ -12,7 +12,7 @@
     <title>${title}</title>
   </head>
 
-  <body> 
+  <body>
     <#include "background.ftl">
     <#include "topbar.ftl">
     <#assign saves = userSavedEvents>
@@ -154,5 +154,3 @@
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
 </html>
-
-      
