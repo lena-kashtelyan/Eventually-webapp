@@ -49,3 +49,47 @@ $(document).ready(function () {
 		}
 	});
 });
+
+function initialize() {
+	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
+	new google.maps.LatLng(-33.8902, 151.1759),
+	new google.maps.LatLng(-33.8474, 151.2631));
+
+	var input = document.getElementById('search-location');
+	geocoder = new google.maps.Geocoder();
+
+	var searchBox = new google.maps.places.SearchBox(input, {
+	  bounds: defaultBounds
+	});
+}
+
+var radiusSlider;
+
+$(document).ready(function(){ 
+	initialize();
+	radiusSlider = $("#radius").slider();
+});
+
+$(document).ready(function(){ 
+	$('#search-refine-btn').on('click', function(e) {
+		e.preventDefault();
+		var sliderValue = radiusSlider.slider('getValue');
+		console.log(sliderValue);
+		var location = $("#search-location").val();
+		console.log(location); 
+		var floorTime = $("#floor-time").val();
+		console.log(floorTime);
+		var ceilingTime = $("#ceiling-time").val();
+		console.log(ceilingTime);
+		var params = { "auth" : auth, "username" : username, "location" : location, "radius" : sliderValue, "floorTime" : floorTime, "ceilingTime" : ceilingTime};
+		$.post("/search", params);
+	});
+});
+
+$(document).ready(function(){ 
+	$('#search-clear-btn').on('click', function(e) {
+		e.preventDefault();
+		//COMPLETE THIS!!!
+	});
+});
+

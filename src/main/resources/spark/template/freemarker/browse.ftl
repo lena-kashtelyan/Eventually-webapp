@@ -7,14 +7,80 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/browse.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.min.css">
     <title>${title}</title>
   </head>
 
   <body> 
     <#include "background.ftl">
     <#include "topbar.ftl">
-    <div class="container" id="feed">
+    <div class="container-fluid" id="feed">
       <ul class="list-group">
+        <li class="list-group-item">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-2 col-xs-2">
+                      <label class="control-label requiredField" for="search-location"><h2>near</h2></label>
+                    </div>
+                    <div class="col-md-12 col-sm-10 col-xs-10">
+                      <br>
+                      <input class="form-control form-control-inner input-lg" id="search-location" name="search-location" placeholder="location" type="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-2 col-xs-2">
+                      <label class="control-label requiredField" for="radius"><h2>within</h2></label>
+                    </div>
+                    <div class="col-md-12 col-sm-10 col-xs-10">
+                    <br>
+                      <b>0.1mi</b><input id="radius" data-slider-id='ex1Slider' type="text" data-slider-min="0.1" data-slider-max="50" data-slider-step="1" data-slider-value="14" data-placement="bottom"/><b>50mi</b>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-2 col-xs-2">
+                      <label class="control-label requiredField" for="floor-time"><h2>from</h2></label>
+                    </div>
+                    <div class="col-md-12 col-sm-10 col-xs-10">
+                      <br>
+                      <input class="form-control form-control-inner input-lg" id="floor-time" name="time" placeholder="time" type="time"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-2 col-xs-2">
+                      <label class="control-label requiredField" for="ceiling-time"><h2>until</h2></label>
+                    </div>
+                    <div class="col-md-12 col-sm-10 col-xs-10">
+                      <br>
+                      <input class="form-control form-control-inner input-lg" id="ceiling-time" name="time" placeholder="time" type="time"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-6 col-xs-6">
+                      <br>
+                      <button type="button" id="search-clear-btn" class="btn btn-default btn-lg btn-block">clear</button>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-6">
+                      <br>
+                      <button type="button" id="search-refine-btn" class="btn btn-default btn-lg btn-block">search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
       <#list events as event>
         <li class="list-group-item">
           <div class="panel panel-default">
@@ -68,6 +134,8 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABBUM2bl_qcqOiw6AWn_AZxob2YQ0g4AQ&libraries=places"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/bootstrap-slider.min.js"></script>
     <script src="js/browse.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>

@@ -36,6 +36,7 @@ public class UpdateEventsDatabase extends BackendInteraction implements Route {
         System.out.println("ERROR: Problem fetching public facebook events.");
       }
     }
+    System.out.println("Returning response.");
     return res;
   }
 

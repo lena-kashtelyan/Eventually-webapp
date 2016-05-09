@@ -30,7 +30,7 @@ public class SignupHandler extends BackendInteraction implements Route {
       AuthToken authToken = auth.createAccount(signup);
       if (auth.verifyAuthToken(username, authToken)) {
         System.out.println("here");
-        DatabaseManager.addUser(username, fullName, null, null);
+        DatabaseManager.addUser(username, fullName, "http://sighttosee.com/images/vendor/default-profile.png", null);
         Map<String, Object> data = ImmutableMap.<String, Object> builder()
             .put("title", "Map").put("auth", authToken.toString())
             .put("username", username).put("redirect", "/map.ftl").build();

@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -248,13 +249,22 @@ public class DatabaseManager {
 
   public static boolean addAttendee(String userID, String eventID) {
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO going VALUES(?,?);";
+    String query = "INSERT INTO going (eventID,username) " +
+    "SELECT ?, ? " +
+    "WHERE NOT EXISTS (SELECT 1 FROM going WHERE eventID = ? AND username = ?);";
+    
+    System.out.println(query);
+    System.out.println(eventID);
+    System.out.println(userID);
 
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, eventID);
       prep.setString(2, userID);
+      prep.setString(3, eventID);
+      prep.setString(4, userID);
       prep.addBatch();
       prep.executeBatch();
+      System.out.println(prep.toString());
     } catch (SQLException s) {
       s.printStackTrace();
       return false;
@@ -280,6 +290,108 @@ public class DatabaseManager {
       s.printStackTrace();
     }
     return attendees;
+  }
+  
+  public static boolean checkAttending(String eventID, String username) { 
+	  Connection conn = Database.getConnection();
+	  String query = "SELECT EXISTS(SELECT 1 FROM going WHERE eventID = ? AND username = ? LIMIT 1);";
+	  String isSavedString = null;
+	  
+	  try (PreparedStatement prep = conn.prepareStatement(query)) {
+		  prep.setString(1, eventID);
+		  prep.setString(2, username);
+		  try (ResultSet rs = prep.executeQuery()) {
+			  while (rs.next()) {
+				  isSavedString = rs.getString(1);
+			  }
+		  }
+	  } catch (SQLException s) {
+		  s.printStackTrace();
+	  }
+	  
+	  if (isSavedString.equals("1")) {
+		  return true;
+	  } else {
+		  return false;
+	  }
+  }
+  
+  public static boolean addInterested(String userID, String eventID) {
+	    Connection conn = Database.getConnection();
+	    String query = "INSERT INTO interested (eventID,username) " +
+	    "SELECT ?, ? " +
+	    "WHERE NOT EXISTS (SELECT 1 FROM interested WHERE eventID = ? AND username = ?);";
+	    
+	    System.out.println(query);
+	    System.out.println(eventID);
+	    System.out.println(userID);
+
+	    try (PreparedStatement prep = conn.prepareStatement(query)) {
+	      prep.setString(1, eventID);
+	      prep.setString(2, userID);
+	      prep.setString(3, eventID);
+	      prep.setString(4, userID);
+	      prep.addBatch();
+	      prep.executeBatch();
+	      System.out.println(prep.toString());
+	    } catch (SQLException s) {
+	      s.printStackTrace();
+	      return false;
+	    }
+	    return true;
+	  }
+  
+  public static boolean removeInterested(String userID, String eventID) {
+	
+	  
+	  
+	  
+	  
+	  return true;
+  }
+  
+  public static List<User> getInterested(String eventID) {
+	    Connection conn = Database.getConnection();
+	    String query = "SELECT username FROM interested WHERE eventID=?;";
+	    List<User> attendees = new ArrayList<>();
+
+	    try (PreparedStatement prep = conn.prepareStatement(query)) {
+	      prep.setString(1, eventID);
+	      try (ResultSet rs = prep.executeQuery()) {
+	        while (rs.next()) {
+	          String username = rs.getString(1);
+	          User userproxy = new UserProxy(username);
+	          attendees.add(userproxy);
+	        }
+	      }
+	    } catch (SQLException s) {
+	      s.printStackTrace();
+	    }
+	    return attendees;
+	  }
+  
+  public static boolean checkInterested(String eventID, String username) { 
+	  Connection conn = Database.getConnection();
+	  String query = "SELECT EXISTS(SELECT 1 FROM interested WHERE eventID = ? AND username = ? LIMIT 1);";
+	  String isSavedString = null;
+	  
+	  try (PreparedStatement prep = conn.prepareStatement(query)) {
+		  prep.setString(1, eventID);
+		  prep.setString(2, username);
+		  try (ResultSet rs = prep.executeQuery()) {
+			  while (rs.next()) {
+				  isSavedString = rs.getString(1);
+			  }
+		  }
+	  } catch (SQLException s) {
+		  s.printStackTrace();
+	  }
+	  
+	  if (isSavedString.equals("1")) {
+		  return true;
+	  } else {
+		  return false;
+	  }
   }
 
   public static List<Event> getEvents() {
@@ -351,11 +463,15 @@ public class DatabaseManager {
    *          , double
    * @param radius
    *          , double
-   * @return List<Event>
+   * @param username
+   * 		  , String
+   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps indicating the user's 'saved' and 'attending' statuses for all events
    */
-  public static List<Event> getUpcomingEventsWithinProximitySortedByProximity(
-      double latitude, double longitude, double radius, int limit) {
+  public static BrowseResultsHolder getUpcomingEventsWithinProximitySortedByProximity(
+      double latitude, double longitude, double radius, int limit, String username) {
     List<Event> events = new ArrayList<>();
+    HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
     try {
 
       DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -389,13 +505,16 @@ public class DatabaseManager {
         String eventID = (String) res.getRows().get(j).get("eventid");
         Event event = new EventProxy(eventID);
         events.add(event);
+        
+        userSavedEvents.put(eventID, checkInterested(eventID, username)); 
+        userAttendingEvents.put(eventID, checkAttending(eventID, username));
       }
     } catch (CartoDBException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
-    return events;
+    return new BrowseResultsHolder(events, userSavedEvents, userAttendingEvents);
   }
 
   /**
@@ -408,11 +527,15 @@ public class DatabaseManager {
    *          , double
    * @param radius
    *          , double
-   * @return List<Event>
+   * @param username
+   * 		  , String
+   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps indicating the user's 'saved' and 'attending' statuses for all events
    */
-  public static List<Event> getUpcomingEventsWithinProximitySortedByPopularity(
-      double latitude, double longitude, double radius, int limit) {
+  public static BrowseResultsHolder getUpcomingEventsWithinProximitySortedByPopularity(
+      double latitude, double longitude, double radius, int limit, String username) {
     List<Event> events = new ArrayList<>();
+    HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
     try {
 
       DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -441,12 +564,16 @@ public class DatabaseManager {
         String eventID = (String) res.getRows().get(j).get("eventid");
         Event event = new EventProxy(eventID);
         events.add(event);
+        
+        userSavedEvents.put(eventID, checkInterested(eventID, username)); 
+        userAttendingEvents.put(eventID, checkAttending(eventID, username));
       }
     } catch (CartoDBException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
-    return events;
+    
+    return new BrowseResultsHolder(events, userSavedEvents, userAttendingEvents);
   }
 }

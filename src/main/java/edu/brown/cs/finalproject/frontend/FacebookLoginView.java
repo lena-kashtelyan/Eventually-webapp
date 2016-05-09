@@ -7,7 +7,7 @@ import spark.Route;
 public class FacebookLoginView extends BackendInteraction implements Route {
 
   private static final String FACEBOOK_ID = "220099498366885";
-  private static final String REDIRECT_URI = "http://b8c4a6b0.ngrok.io/fbr";
+  private static final String REDIRECT_URI = "http://f28cfd24.ngrok.io/fbr";
 
   @Override
   public Object handle(Request req, Response res) {

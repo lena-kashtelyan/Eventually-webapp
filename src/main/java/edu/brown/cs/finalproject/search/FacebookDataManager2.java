@@ -104,5 +104,4 @@ public class FacebookDataManager2 {
 
     return results;
   }
-
 }
