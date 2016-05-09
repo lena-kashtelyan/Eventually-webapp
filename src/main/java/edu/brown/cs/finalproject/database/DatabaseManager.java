@@ -637,8 +637,11 @@ public class DatabaseManager {
     Date currdate = new Date();
     List<Event> pastevents = new ArrayList<>();
     for (Event event : allevents) {
-      System.out.println(event.getEndDate());
-      Timestamp timestamp = Timestamp.valueOf(event.getEndDate());
+      String endDate = event.getEndDate();
+      endDate = endDate.replace('T', ' ');
+      endDate = endDate.replaceAll("Z", "");
+      System.out.println(endDate);
+      Timestamp timestamp = Timestamp.valueOf(endDate);
       if (currdate.getTime() > timestamp.getTime()) {
         pastevents.add(event);
       }
