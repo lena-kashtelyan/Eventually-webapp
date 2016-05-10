@@ -59,11 +59,6 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
 
         // if location is null, then we present the default list of events
         if (location == null) {
-          // CHOOSE WHICHEVER YOU WOULD LIKE; WHEN WE ADD THE CUSTOMIZABLE BOX
-          // WE WILL USE WHICHEVER THE USER REQUESTS
-          // List<Event> events =
-          // DatabaseManager.getUpcomingEventsWithinProximitySortedByProximity(41.826144690402,
-          // -71.403125740801, 1000, 100);
           BrowseResultsHolder browseResults = DatabaseManager
               .getUpcomingEventsWithinProximitySortedByPopularity(
                   41.826144690402, -71.403125740801, 10000, 100, username);
@@ -74,14 +69,6 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           HashMap<String, Boolean> userAttendingEvents = browseResults
               .getUserAttendingEvents();
 
-          // for (String str : userSavedEvents.keySet()) {
-          // System.out.println(str + ": " + userSavedEvents.get(str));
-          // }
-          /*
-           * this will need to change once we get get the list of events all at
-           * once!
-           */
-          // System.out.println(events.size());
           Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "Browse").put("events", events)
               .put("auth", authToken.toString()).put("username", username)
@@ -92,14 +79,6 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           double radius = Double.valueOf(sliderValue) * 1609.34;
           String query = String.format(
               "SELECT cdb_geocode_street_point('%s');", location);
-
-//          String filter = String
-//              .format(
-//                  "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-//                      + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-//                      + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
-//                      + "ORDER BY attendingcount DESC", floorTime, ceilingTime,
-//                  -71.0589, 42.3601, radius);
 
           String geomPoint = new String("0101000020E61000009B45DE28E8D851C05F0CE544BBEA4440");
           try {
@@ -161,7 +140,7 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
            .put("userSavedEvents", userSavedEvents)
            .put("userAttendingEvents", userAttendingEvents).build();
 
-          return new ModelAndView(null, "browse.ftl");
+          return new ModelAndView(data, "browse.ftl");
 
         }
 
