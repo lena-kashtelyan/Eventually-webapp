@@ -81,6 +81,10 @@ $(document).ready(function(){
 $(document).ready(function(){ 
 	$('#search-refine-btn').on('click', function(e) {
 		e.preventDefault();
+		var auth = $("#auth").text();
+		var username = $("#username").text();
+		console.log(auth);
+		console.log(username);
 		var sliderValue = radiusSlider.slider('getValue');
 		console.log(sliderValue);
 		var location = $("#search-location").val();
@@ -90,9 +94,23 @@ $(document).ready(function(){
 		var ceilingTime = $("#ceiling-time").val();
 		console.log(ceilingTime);
 		var params = { "auth" : auth, "username" : username, "location" : location, "radius" : sliderValue, "floorTime" : floorTime, "ceilingTime" : ceilingTime};
-		$.post("/search", params);
+		// var params = { "auth" : auth, "username" : username, "location" : location, "radius" : sliderValue, "floorTime" : floorTime, "ceilingTime" : ceilingTime};
+		window.location = "/browse?" + $.param(params);
+		// $.post("/search", params, function(res) {
+			// console.log(res);
+		// });
 	});
 });
+
+// $(document).ready(function() {
+// 	$("#browse").on('click', function(e) {
+// 		e.preventDefault();
+// 		var auth = $("#auth").text();
+// 		var username = $("#username").text();
+// 		var params = {"auth" : auth, "username" : username};
+// 			window.location = "/browse?" + $.param(params);
+// 	});
+// });
 
 $(document).ready(function(){ 
 	$('#search-clear-btn').on('click', function(e) {

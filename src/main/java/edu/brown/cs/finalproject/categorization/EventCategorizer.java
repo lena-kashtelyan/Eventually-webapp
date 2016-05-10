@@ -29,7 +29,7 @@ public class EventCategorizer {
 			category = "workshop";
 		}
 		
-		if (textHolder.contains("food") || textHolder.contains("eat")) {
+		if (textHolder.contains("food") || textHolder.contains(" eat")) {
 			category = "food fest";
 		}
 		

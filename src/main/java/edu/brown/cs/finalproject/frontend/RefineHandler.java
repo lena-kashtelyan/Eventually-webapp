@@ -1,17 +1,5 @@
 package edu.brown.cs.finalproject.frontend;
 
-import java.util.Date;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Map;
-
-import org.apache.commons.lang3.time.DateUtils;
-
-import com.google.common.collect.ImmutableMap;
-
-import edu.brown.cs.finalproject.database.DatabaseManager;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -21,10 +9,25 @@ public class RefineHandler extends BackendInteraction implements Route {
 
     @Override
     public Object handle(Request req, Response res) {
-        System.out.println("in savehandler");
+    	System.out.println("in refinehandler");
+        QueryParamsMap qm = req.queryMap();
+        String authString = qm.value("auth");
+        String username = qm.value("username");
+
+        String location = qm.value("location");
+        String sliderValue = qm.value("radius");
+        String floorTime = qm.value("floorTime");
+        String ceilingTime = qm.value("ceilingTime");
+        
+        System.out.println("authString: " + authString);
+        System.out.println("username: " + username);
+        System.out.println("location: " + location);
+        System.out.println("sliderValue: " + sliderValue);
+        System.out.println("floorTime: " + floorTime);
+        System.out.println("ceilingTime: " + ceilingTime);
 
         //DO SOMETHING WITH THESE
-        return null;
+        return 5;
     }
 }
 

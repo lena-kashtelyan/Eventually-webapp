@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
+
 import com.stormpath.sdk.directory.CreateDirectoryRequest;
 import com.stormpath.sdk.directory.Directories;
 import com.stormpath.sdk.directory.Directory;
@@ -20,8 +23,6 @@ import edu.brown.cs.finalproject.frontend.BackendInteraction;
 import edu.brown.cs.finalproject.frontend.MapsSparkServer;
 import edu.brown.cs.finalproject.frontend.SparkServer;
 import edu.brown.cs.finalproject.search.FacebookDataManager2;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
 
 public class Main {
   public static void main(String[] args) {
@@ -63,13 +64,12 @@ public class Main {
     }
 
     /*
-     * This try block is for setting up the facebook
-     * directory on stormpath. Should only need to be used
-     * once.
+     * This try block is for setting up the facebook directory on stormpath.
+     * Should only need to be used once.
      */
     try {
-      Directory directory = stormPathApp.getStormPathClient()
-          .instantiate(Directory.class);
+      Directory directory = stormPathApp.getStormPathClient().instantiate(
+          Directory.class);
       directory.setName("facebook-directory");
       directory.setDescription("Facebook directory");
 
@@ -78,9 +78,9 @@ public class Main {
 
       CreateDirectoryRequest request = Directories
           .newCreateRequestFor(directory)
-          .forProvider(Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
-              .setClientSecret(FACEBOOK_SECRET).build())
-          .build();
+          .forProvider(
+              Providers.FACEBOOK.builder().setClientId(FACEBOOK_ID)
+                  .setClientSecret(FACEBOOK_SECRET).build()).build();
 
       Tenant tenant = stormPathApp.getStormPathClient().getCurrentTenant();
       directory = tenant.createDirectory(request);
@@ -119,7 +119,12 @@ public class Main {
       for (Event event : events) {
         System.out.println(event.getName());
       }
-
+      List<Event> suggestions = DatabaseManager.getSuggestedEvents(
+          "will_groves", 41.8, -71.4);
+      for (Event event : suggestions) {
+        System.out.println("Suggestion is:");
+        System.out.println(event.getName());
+      }
       // THIS IS HOW WE FETCH PUBLIC FACEBOOK EVENTS AND
       // UPDATE CARTODB events TABLE
 
