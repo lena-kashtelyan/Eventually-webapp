@@ -52,6 +52,15 @@ $(document).ready(function () {
 	});
 });
 
+$(document).ready(function() {
+	var elems = $(".description");
+	elems.each(function(index, elem) {
+		var text = $(elem).html();
+		var newtext = text.replace(/\\n/g, "<br />");
+		$(elem).html(newtext);
+	});
+});
+
 function initialize() {
 	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
 	new google.maps.LatLng(41, -72),

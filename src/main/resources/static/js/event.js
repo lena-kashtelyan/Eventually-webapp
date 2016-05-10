@@ -77,6 +77,13 @@ $(document).ready(function () {
 	});
 });
 
+$(document).ready(function() {
+	var elem = $(".description");
+	var text = elem.html()
+	var newtext = text.replace(/\\n/g, "<br />");
+	elem.html(newtext);
+});
+
 $(document).ready(function () {
 	var previewNode = document.querySelector("#template");
     previewNode.id = "";

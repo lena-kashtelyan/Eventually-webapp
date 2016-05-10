@@ -40,7 +40,7 @@ public class AccountView extends BackendInteraction
       if (auth.verifyAuthToken(username, authToken)) {
         String profilePic = dbManager.getUsersMediaPath(username);
         Map<Object, Object> data = ImmutableMap.builder()
-            .put("title", "Account").put("name", "Cole Hansen")
+            .put("title", "Account").put("name", username)
             .put("username", username).put("auth", authToken.toString())
             .put("profilePhoto", profilePic).build();
         return new ModelAndView(data, htmlUrl);
