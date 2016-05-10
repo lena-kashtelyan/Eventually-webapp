@@ -25,7 +25,7 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         try {
             CartoDBClientIF cartoDBCLient= new ApiKeyCartoDBClient("cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
             String query = String.format("select * from events where eventid='%s';", id);
-            System.out.println(query);
+//            System.out.println(query);
             res = cartoDBCLient.request(query);
         } catch (CartoDBException e) {
             e.printStackTrace();
@@ -33,16 +33,16 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         }
 
         String name = (String) res.getRows().get(0).get("name");
-        System.out.println(name);
+//        System.out.println(name);
         String venueName = (String) res.getRows().get(0).get("venuename");
-        System.out.println(venueName);
+//        System.out.println(venueName);
         String originType = (String) res.getRows().get(0).get("origintype");
         String creatorID = (String) res.getRows().get(0).get("creatorid");
-        System.out.println("before user creation");
+//        System.out.println("before user creation");
         User creator = new UserProxy(creatorID);
-        System.out.println("hello");
+//        System.out.println("hello");
         String startDate = (String) res.getRows().get(0).get("startdate");
-        System.out.println(startDate);
+//        System.out.println(startDate);
 //        double lat = (double) res.getRows().get(0).get("latitude");
 //        System.out.println("after lat");
 //        System.out.println(lat);
@@ -52,9 +52,9 @@ public class EventProxy extends EntityProxy<Event> implements Event {
         boolean isPublic = true;
         String category = (String) res.getRows().get(0).get("category");
         String description = (String) res.getRows().get(0).get("description");
-        System.out.println(description);
+//        System.out.println(description);
         int attendingCount = (int) res.getRows().get(0).get("attendingcount");
-        System.out.println(attendingCount);
+//        System.out.println(attendingCount);
         //    int invitedCount = (int) res.getRows().get(0).get("invitedcount");
         int maybeCount = (int) res.getRows().get(0).get("maybecount");
         int noReplyCount = (int) res.getRows().get(0).get("noreplycount");
