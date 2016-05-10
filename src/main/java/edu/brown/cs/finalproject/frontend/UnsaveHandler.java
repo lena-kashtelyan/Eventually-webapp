@@ -26,8 +26,6 @@ public class UnsaveHandler extends BackendInteraction implements Route {
         String authString = qm.value("auth");
         String username = qm.value("username");
         String eventID = qm.value("eventID");
-        //DO SOMETHING WITH THESE
-        
         return DatabaseManager.removeInterested(username, eventID);
     }
 }

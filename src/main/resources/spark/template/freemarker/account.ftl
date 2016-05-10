@@ -4,15 +4,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/account.css">
+    <style>
+      h4 {
+        color: white;
+      }
+    </style>
   </head>
 
   <body>
     <#include "background.ftl">
     <#include "topbar.ftl">
-
+  <div style="margin-top: 72px">
     <div class="container">
       <div class="col-md-1"></div>
       <div class="col-md-5">
@@ -50,10 +53,10 @@
                     <label class="control-label requiredField" for="currentPassword">
                       <h4>new password<span class="asteriskField"> *</span></h4>
                     </label>
-                    <div class="input-group">
-                      <input class="form-control input-lg" id="new-password" type="password">
+                    <div class="input-group input-group-lg">
+                      <input class="form-control" id="new-password" type="password">
                       <span class="input-group-btn">
-                        <button class="btn btn-default" id="submitLogin" type="button">>></button>
+                        <button class="btn btn-default" id="submitPassword" type="button">>></button>
                       </span>
                     </div>
                   </div>
@@ -72,8 +75,8 @@
                     <label class="control-label requiredField" for="currentPassword">
                       <h4>new username<span class="asteriskField"> *</span></h4>
                     </label>
-                    <div class="input-group">
-                      <input class="form-control input-lg" id="new-password" type="password">
+                    <div class="input-group input-group-lg">
+                      <input class="form-control" id="new-username" type="text">
                       <span class="input-group-btn">
                         <button class="btn btn-default" id="submitLogin" type="button">>></button>
                       </span>
@@ -87,6 +90,7 @@
       </div>
       <div class="col-md-1"></div>
     </div>
+  </div>
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
@@ -97,6 +101,6 @@
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
 
-    
+
   </body>
 </html>

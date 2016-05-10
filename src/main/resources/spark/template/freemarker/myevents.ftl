@@ -40,7 +40,7 @@
               <div class="panel panel-default" id="top-panel">
                 <div class="panel-body" id="top-panel-body">
                     <h4 class="description">your history with eventually is a blank slate,
-                      <a href="#" style="color: #F88017" id="check-out-browse"> many experiences to fill it with!</a></h4>
+                      <a class"check-out-browse" href=browse?auth=${auth}&username=${username} style="color: #F88017" id="check-out-browse"> many experiences to fill it with!</a></h4>
                 </div>
               </div>
             </li>
@@ -96,7 +96,7 @@
               <div class="panel panel-default" id="top-panel">
                 <div class="panel-body" id="top-panel-body">
                     <h4 class="description">you have not yet made any plans,
-                      <a href="#" style="color: #F88017" id="check-out-map"> check out what is going on around?</a></h4>
+                      <a href=map?auth=${auth}&username=${username} style="color: #F88017" id="check-out-map"> check out what is going on around?</a></h4>
                 </div>
               </div>
             </li>

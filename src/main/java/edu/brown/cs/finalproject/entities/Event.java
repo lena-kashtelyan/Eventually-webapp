@@ -24,6 +24,8 @@ public interface Event extends Entity {
   public String getEndDate();
 
   public int getAttendingCount();
+  
+  public int setAttendingCount(int newAttendingCount);
 
   public int getMaybeCount();
 

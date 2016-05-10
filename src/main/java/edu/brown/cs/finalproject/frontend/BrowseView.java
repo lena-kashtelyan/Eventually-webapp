@@ -61,7 +61,7 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
         if (location == null) {
           BrowseResultsHolder browseResults = DatabaseManager
               .getUpcomingEventsWithinProximitySortedByPopularity(
-                  41.826144690402, -71.403125740801, 10000, 100, username);
+                  41.826144690402, -71.403125740801, 1500, 30, username);
 
           List<Event> events = browseResults.getEvents();
           HashMap<String, Boolean> userSavedEvents = browseResults
