@@ -31,7 +31,7 @@
                     <div class="col-md-4 col-sm-3 col-xs-3">
                       <br>
                       <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right attend-btn"><#if (attending == true)>attending<#else>attend</#if></button>
-                      <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right save-btn"><#if (saved == true)>saved<#else>save</#if></button>
+                      <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right save-btn"><#if (saved == true)>saved<#else>save</#if></button>`
                     </div>
                   </div>
                 </div>
