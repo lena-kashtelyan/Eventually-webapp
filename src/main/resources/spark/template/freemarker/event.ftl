@@ -5,8 +5,8 @@
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/event.css">
     <title>${title}</title>
     <style>
     </style>
@@ -57,8 +57,16 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
-                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">${event.attendingCount}</div>
+                    <#assign date = "date">
+                    <#assign time = "time">
+                    <#assign temp = "temp">
+                    <#list event.getStartDate()?split("T") as dt>
+                        <#assign date = temp>
+                        <#assign time = dt>
+                        <#assign temp = dt>
+                    </#list>
+                      <div class="col-md-8 col-sm-8 col-xs-8" id="venue-name">${date},  ${time?substring(0,5)}<br>${event.venueName}</div>
+                      <div class="col-md-4 col-sm-4 col-xs-4 pull-right" id="event-popularity"><br>~ ${event.attendingCount} going</div>
                   </div>
                 </div>
               </div>
@@ -120,9 +128,9 @@
                   <br>
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <#list stream as entry>
-                      <div class="row">
+                      <div class="row comment">
                         <#if (entry.type == "comment")>
-                          <h4><b>${entry.getUserName()}</b> commented: ${entry.path}</h4>
+                          <h4><b>${entry.getUserName()}</b> : ${entry.path}</h4>
                         </#if>
                       </div>
                     </#list>
@@ -134,54 +142,6 @@
         </ul>
       </div>
 
-      <!-- <#assign count = 0>
-      <#assign row = 0>
-      <#assign row_count = 0>
-        <#list stream as entry>
-          <#if (entry.type == "image")>
-            <#if (count%9 == 0)><div class="row"></#if>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <#if (count%3 == 0)>
-                <div class="panel panel-default storystream-panel">
-                  <div class="panel-heading">
-                    <h4>@${entry.getUserName()} posted:</h4>
-                  </div>
-                  <div class="panel-body">
-                    <img src=${entry.path} class="img-responsive" alt="Responsive image">
-                  </div>
-                </div>
-              </#if>
-              <#assign count = count+1>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <#if (count%3 == 0)>
-                <div class="panel panel-default storystream-panel">
-                  <div class="panel-heading">
-                    <h4>@${entry.getUserName()} posted:</h4>
-                  </div>
-                  <div class="panel-body">
-                    <img src=${entry.path} class="img-responsive" alt="Responsive image">
-                  </div>
-                </div>
-              </#if>
-              <#assign count = count+1>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <#if (count%3 == 0)>
-                <div class="panel panel-default storystream-panel">
-                  <div class="panel-heading">
-                    <h4>@${entry.getUserName()} posted:</h4>
-                  </div>
-                  <div class="panel-body">
-                    <img src=${entry.path} class="img-responsive" alt="Responsive image">
-                  </div>
-                </div>
-                </#if>
-              <#assign count = count+1>
-            </div>
-            <#if (count%9 == 0)></div></#if>
-          </#if>
-        </#list> -->
       </div>
       <div id="wrapper">
         <div id="columns">
