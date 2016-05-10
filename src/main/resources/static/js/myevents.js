@@ -16,9 +16,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-
 	$('.save-btn').on('click', function(e) {
-
 		var auth = $("#auth").text();
 		var username = $("#username").text();
 		var eventID = $(this).attr("name");
@@ -37,9 +35,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-
 	$('.attend-btn').on('click', function(e) {
-
 		var auth = $("#auth").text();
 		var username = $("#username").text();
 		var eventID = $(this).attr("name");
