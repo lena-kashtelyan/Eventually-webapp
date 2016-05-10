@@ -37,6 +37,55 @@ public class PublicFBEventsWriter {
       throws SQLException, IOException {
     JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"),
         JsonArray.class);
+    
+//    System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+//    System.out.println(eventsArray);
+//    System.out.println(eventsArray.size());
+//    
+//    int eventsArraySize = eventsArray.size();
+//    
+//		if (eventsArraySize > 40) {
+//
+//			int firstStart = 0;
+//			int firstEnd = eventsArraySize / 4;
+//			int secondStart = firstEnd + 1;
+//			int secondEnd = eventsArraySize / 2;
+//			int thirdStart = secondEnd + 1;
+//			int thirdEnd = 3 * eventsArraySize / 4;
+//			int fourthStart = thirdEnd + 1;
+//			int fourthEnd = eventsArraySize - 1;
+//
+//			System.out.println(firstStart);
+//			System.out.println(firstEnd);
+//			System.out.println(secondStart);
+//			System.out.println(secondEnd);
+//			System.out.println(thirdStart);
+//			System.out.println(thirdEnd);
+//			System.out.println(fourthStart);
+//			System.out.println(fourthEnd);
+//			
+//			JsonArray firstArray = new JsonArray();
+//			for (int i = firstStart; i < firstEnd; i++) {
+//				firstArray.add(eventsArray.get(i));
+//			}
+//			
+//			JsonArray secondArray = new JsonArray();
+//			for (int i = secondStart; i < secondEnd; i++) {
+//				secondArray.add(eventsArray.get(i));
+//			}
+//			
+//			JsonArray thirdArray = new JsonArray();
+//			for (int i = thirdStart; i < thirdEnd; i++) {
+//				thirdArray.add(eventsArray.get(i));
+//			}
+//			
+//			JsonArray fourthArray = new JsonArray();
+//			for (int i = fourthStart; i < fourthEnd; i++) {
+//				fourthArray.add(eventsArray.get(i));
+//			}
+//			
+//		}
+//    JsonArray firstArray = new JsonArray();
 
     // System.out.println(eventsArray);
 

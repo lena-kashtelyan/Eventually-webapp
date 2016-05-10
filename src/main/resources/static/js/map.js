@@ -57,7 +57,7 @@ function embedMap(div, afterMapLoadCallback) {
                 var setupMap = function(options) {
                     var createSelector = function(layer) {
                       var cartocss = "";
-                      var $options = $(".layer_selector").find("li");
+                      var $options = $(".layer_selector").find("button > li");
                       $options.click(function(e) {
                         var $li = $(e.target);
                         var selected = $li.attr('data');
