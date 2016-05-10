@@ -1,10 +1,8 @@
 package edu.brown.cs.finalproject.frontend;
 
-import java.util.Date;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -30,32 +28,36 @@ public class CreateHandler extends BackendInteraction implements Route {
     String description = qm.value("description");
     String[] dates = date.split("/");
     String[] times = time.split(":");
-    String datetime = String.format("'%s-%s-%s %s:%s:00'", dates[2], dates[0], dates[1], times[0], times[1]);
+    String datetime = String.format("'%s-%s-%s %s:%s:00'", dates[2], dates[0],
+        dates[1], times[0], times[1]);
 
     String startdatetimePrep = datetime.replace("'", "");
-    SimpleDateFormat formatter = new SimpleDateFormat(
-        "yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Date eventStarttime = null;
     try {
       eventStarttime = formatter.parse(startdatetimePrep);
       System.out.println(eventStarttime);
     } catch (ParseException e) {
       e.printStackTrace();
-      System.out
-      .println("ERROR: Unable to convert a date string into a java.util.Date.");
+      System.out.println(
+          "ERROR: Unable to convert a date string into a java.util.Date.");
     }
-    // Calculating the end time of an event by adding four hours to the starting time
+    // Calculating the end time of an event by adding four
+    // hours to the starting time
     Date eventEndtime = DateUtils.addHours(eventStarttime, 4);
 
     String eventEndtimeString = eventEndtime.toString();
-    eventEndtimeString = eventEndtimeString.substring(4).replaceAll("E[D,S]T", "");
+    eventEndtimeString = eventEndtimeString.substring(4).replaceAll("E[D,S]T",
+        "");
 
-    String enddatetimeString = String.format("to_timestamp('%s','Mon DD HH24:MI:SS  YYYY')", eventEndtimeString);
+    String enddatetimeString = String.format(
+        "to_timestamp('%s','Mon DD HH24:MI:SS  YYYY')", eventEndtimeString);
 
     System.out.println(enddatetimeString);
     System.out.println("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}]");
 
-    String timestamp = String.format("to_timestamp(%s,'YYYY-MM-dd HH24:MI:SS')", datetime);
+    String timestamp = String.format("to_timestamp(%s,'YYYY-MM-dd HH24:MI:SS')",
+        datetime);
     String location = qm.value("location");
     String facebookAdd = qm.value("facebookAdd");
     String type;
@@ -66,18 +68,21 @@ public class CreateHandler extends BackendInteraction implements Route {
     }
     String category = qm.value("category");
     String photoID = qm.value("photoid");
-    String url = "http://res.cloudinary.com/df1bylm3l/image/upload/"+photoID;
+    String url = "http://res.cloudinary.com/df1bylm3l/image/upload/" + photoID;
 
-    boolean result = DatabaseManager.addEvent(eventName, creatorID, timestamp, enddatetimeString, 
-        location, category, description, type, url);
+    String result = DatabaseManager.addEvent(eventName, creatorID, timestamp,
+        enddatetimeString, location, category, description, type, url);
     System.out.println(result);
-    if (result) {
+    if (result != null) {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()
-          .put("redirect", "/map.ftl").build();
+          .put("redirect", "/event?auth=" + qm.value("auth") + "&username="
+              + creatorID + "&eventID=" + result)
+          .build();
       return GSON.toJson(data);
     } else {
       Map<String, Object> data = ImmutableMap.<String, Object> builder()
-          .put("redirect", "/create.ftl").build();
+          .put("redirect", "/create.ftl?auth" + auth + "&username=" + creatorID)
+          .build();
       return GSON.toJson(data);
     }
   }

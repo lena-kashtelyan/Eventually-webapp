@@ -30,18 +30,18 @@ import edu.brown.cs.finalproject.entities.User;
 import edu.brown.cs.finalproject.entities.UserProxy;
 
 public class DatabaseManager {
-  private Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-      "cloud_name", "df1bylm3l", "api_key", "411248546735325", "api_secret",
-      "M04dGcHdQhfUDM95fOQVXiG_Vjk"));
+  private Cloudinary cloudinary = new Cloudinary(
+      ObjectUtils.asMap("cloud_name", "df1bylm3l", "api_key", "411248546735325",
+          "api_secret", "M04dGcHdQhfUDM95fOQVXiG_Vjk"));
 
   public DatabaseManager() {
     // Empty Constructor for Now
   }
 
   @SuppressWarnings("deprecation")
-  public static boolean addEvent(String Name, String creatorID,
-      String startDate, String endDate, String location, String category,
-      String description, String origintype, String url) {
+  public static String addEvent(String Name, String creatorID, String startDate,
+      String endDate, String location, String category, String description,
+      String origintype, String url) {
 
     String eventID = UUID.randomUUID().toString();
     String eventphoto;
@@ -96,17 +96,16 @@ public class DatabaseManager {
     description = URLEncoder.encode(description);
     description.replaceAll("[^a-zA-Z0-9% ]", "");
 
-    String query = String
-        .format(
-            "INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate,public,venuename) "
-                + "VALUES ('%s', decode_url_part('%s'), '%s', decode_url_part('%s'), %s, '%s', decode_url_part('%s'), 0, 0, 0, 0, '%s',%s,false,decode_url_part('%s'));",
-            eventID, Name, origintype, creatorID, startDate, category,
-            description, eventphoto, endDate, venuename);
+    String query = String.format(
+        "INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate,public,venuename) "
+            + "VALUES ('%s', decode_url_part('%s'), '%s', decode_url_part('%s'), %s, '%s', decode_url_part('%s'), 0, 0, 0, 0, '%s',%s,false,decode_url_part('%s'));",
+        eventID, Name, origintype, creatorID, startDate, category, description,
+        eventphoto, endDate, venuename);
     query = query.replace("+", "%20");
 
     System.out.println(query);
-    String update = String.format(
-        "UPDATE events SET the_geom = cdb_geocode_street_point('%s') "
+    String update = String
+        .format("UPDATE events SET the_geom = cdb_geocode_street_point('%s') "
             + "WHERE eventid = '%s';", location, eventID);
     System.out.println(update);
     update = update.replace("+", "%20");
@@ -119,7 +118,7 @@ public class DatabaseManager {
     } catch (CartoDBException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-      return false;
+      return null;
     }
 
     Event newEvent;
@@ -128,9 +127,9 @@ public class DatabaseManager {
     } catch (ClassNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-      return false;
+      return null;
     }
-    return true;
+    return eventID;
   }
 
   public static String addUser(String username, String fullname,
@@ -214,7 +213,8 @@ public class DatabaseManager {
     }
   }
 
-  public String setUsersFBAccessToken(String username, String newFBAccessToken) {
+  public String setUsersFBAccessToken(String username,
+      String newFBAccessToken) {
     Connection conn = Database.getConnection();
     String query = "UPDATE users SET fbAccessToken=? WHERE username=?;";
 
@@ -266,8 +266,7 @@ public class DatabaseManager {
 
   public static boolean addAttendee(String userID, String eventID) {
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO going (eventID,username) "
-        + "SELECT ?, ? "
+    String query = "INSERT INTO going (eventID,username) " + "SELECT ?, ? "
         + "WHERE NOT EXISTS (SELECT 1 FROM going WHERE eventID = ? AND username = ?);";
 
     System.out.println(query);
@@ -387,8 +386,7 @@ public class DatabaseManager {
 
   public static boolean addInterested(String userID, String eventID) {
     Connection conn = Database.getConnection();
-    String query = "INSERT INTO interested (eventID,username) "
-        + "SELECT ?, ? "
+    String query = "INSERT INTO interested (eventID,username) " + "SELECT ?, ? "
         + "WHERE NOT EXISTS (SELECT 1 FROM interested WHERE eventID = ? AND username = ?);";
 
     System.out.println(query);
@@ -498,7 +496,8 @@ public class DatabaseManager {
   }
 
   // changed getEvents into getUpcomingEvents (Ivaylo)
-  // fetches from CartoDB all events with an enddate timestamp after the
+  // fetches from CartoDB all events with an enddate
+  // timestamp after the
   // current time
   public static List<Event> getUpcomingEvents() {
     List<Event> events = new ArrayList<>();
@@ -506,7 +505,8 @@ public class DatabaseManager {
 
       DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
       Date date = new Date();
-      // System.out.println(dateFormat.format(date)); //2014/08/06
+      // System.out.println(dateFormat.format(date));
+      // //2014/08/06
       // 15:59:48
 
       StringBuilder queryBuilder = new StringBuilder();
@@ -534,9 +534,9 @@ public class DatabaseManager {
   }
 
   /**
-   * Returns a List<Event> the specified number of upcoming events within a
-   * specified proximity to a specified location; sorted by proximity
-   * 
+   * Returns a List<Event> the specified number of upcoming
+   * events within a specified proximity to a specified
+   * location; sorted by proximity
    * @param latitute
    *          , double
    * @param longitude
@@ -545,9 +545,9 @@ public class DatabaseManager {
    *          , double
    * @param username
    *          , String
-   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps
-   *         indicating the user's 'saved' and 'attending' statuses for all
-   *         events
+   * @return BrowseResultsHolder, which contains List
+   *         <Event>, and two HashMaps indicating the user's
+   *         'saved' and 'attending' statuses for all events
    */
   public static BrowseResultsHolder getUpcomingEventsWithinProximitySortedByProximity(
       double latitude, double longitude, double radius, int limit,
@@ -564,15 +564,15 @@ public class DatabaseManager {
       queryBuilder
           .append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
       queryBuilder.append(dateFormat.format(date));
-      queryBuilder
-          .append("', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
+      queryBuilder.append(
+          "', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
       queryBuilder.append(longitude);
       queryBuilder.append(", ");
       queryBuilder.append(latitude);
       queryBuilder.append("),4326)::geography) < ");
       queryBuilder.append(radius);
-      queryBuilder
-          .append(" ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
+      queryBuilder.append(
+          " ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
       queryBuilder.append(longitude);
       queryBuilder.append(", ");
       queryBuilder.append(latitude);
@@ -597,13 +597,14 @@ public class DatabaseManager {
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
-    return new BrowseResultsHolder(events, userSavedEvents, userAttendingEvents);
+    return new BrowseResultsHolder(events, userSavedEvents,
+        userAttendingEvents);
   }
 
   /**
-   * Returns a List<Event> the specified number of upcoming events within a
-   * specified proximity to a specified location; sorted by popularity
-   * 
+   * Returns a List<Event> the specified number of upcoming
+   * events within a specified proximity to a specified
+   * location; sorted by popularity
    * @param latitute
    *          , double
    * @param longitude
@@ -612,9 +613,9 @@ public class DatabaseManager {
    *          , double
    * @param username
    *          , String
-   * @return BrowseResultsHolder, which contains List<Event>, and two HashMaps
-   *         indicating the user's 'saved' and 'attending' statuses for all
-   *         events
+   * @return BrowseResultsHolder, which contains List
+   *         <Event>, and two HashMaps indicating the user's
+   *         'saved' and 'attending' statuses for all events
    */
   public static BrowseResultsHolder getUpcomingEventsWithinProximitySortedByPopularity(
       double latitude, double longitude, double radius, int limit,
@@ -631,8 +632,8 @@ public class DatabaseManager {
       queryBuilder
           .append("SELECT eventid FROM events WHERE enddate>to_timestamp('");
       queryBuilder.append(dateFormat.format(date));
-      queryBuilder
-          .append("', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
+      queryBuilder.append(
+          "', 'YYYY/MM/dd HH24:MI:SS') AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(");
       queryBuilder.append(longitude);
       queryBuilder.append(", ");
       queryBuilder.append(latitude);
@@ -660,7 +661,8 @@ public class DatabaseManager {
       e.printStackTrace();
     }
 
-    return new BrowseResultsHolder(events, userSavedEvents, userAttendingEvents);
+    return new BrowseResultsHolder(events, userSavedEvents,
+        userAttendingEvents);
   }
 
   public static List<Event> getPastEvents(String username) {
@@ -844,13 +846,12 @@ public class DatabaseManager {
     System.out.println(cat2);
     System.out.println(cat3);
 
-    String filter = String
-        .format(
-            "SELECT eventid FROM events WHERE enddate>to_timestamp('%s', 'YYYY/MM/dd HH24:MI:SS')"
-                + "AND (category='%s' OR category='%s' OR category='%s')"
-                + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < 16100"
-                + "ORDER BY attendingcount DESC LIMIT 10",
-            dateFormat.format(date), cat1, cat2, cat3, lng, lat);
+    String filter = String.format(
+        "SELECT eventid FROM events WHERE enddate>to_timestamp('%s', 'YYYY/MM/dd HH24:MI:SS')"
+            + "AND (category='%s' OR category='%s' OR category='%s')"
+            + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < 16100"
+            + "ORDER BY attendingcount DESC LIMIT 10",
+        dateFormat.format(date), cat1, cat2, cat3, lng, lat);
     List<Event> suggested = new ArrayList<>();
 
     try {
@@ -880,13 +881,12 @@ public class DatabaseManager {
     HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
     startDate = startDate.replaceAll(" AM", "");
     endDate = endDate.replaceAll(" PM", "");
-    String filter = String
-        .format(
-            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
-                + "AND enddate< to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
-                + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
-                + "ORDER BY attendingcount DESC", startDate, endDate, lng, lat,
-            radius);
+    String filter = String.format(
+        "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
+            + "AND enddate< to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
+            + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
+            + "ORDER BY attendingcount DESC",
+        startDate, endDate, lng, lat, radius);
 
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
@@ -914,13 +914,12 @@ public class DatabaseManager {
     HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
     HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
 
-    String filter = String
-        .format(
-            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
-                + "AND enddate< to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
-                + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
-                + "ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) ASC",
-            startDate, endDate, lng, lat, radius, lng, lat);
+    String filter = String.format(
+        "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
+            + "AND enddate< to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
+            + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
+            + "ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) ASC",
+        startDate, endDate, lng, lat, radius, lng, lat);
 
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
