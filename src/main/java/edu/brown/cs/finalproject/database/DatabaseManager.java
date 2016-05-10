@@ -920,7 +920,7 @@ public class DatabaseManager {
                 + "AND enddate< to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
                 + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
                 + "ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) ASC",
-            startDate, endDate, lng, lat, radius);
+            startDate, endDate, lng, lat, radius, lng, lat);
 
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(

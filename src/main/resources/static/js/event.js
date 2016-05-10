@@ -68,10 +68,12 @@ $(document).ready(function () {
 		var auth = $("#auth").text();
 		var username = $("#username").text();
 		var comment = $("#comment").val();
-		var timestamp = Date.now()/1000 | 0;
-		var params = { "auth" : auth, "username" : username, "eventID" : eventID, "url" : comment, "timestamp" : timestamp, "type" : "comment"};
-		$.post("/media", params);
-		window.location = "/event?" + $.param({"auth" : auth, "username" : username, "eventID" : eventID});
+		if (comment != "") {
+			var timestamp = Date.now()/1000 | 0;
+			var params = { "auth" : auth, "username" : username, "eventID" : eventID, "url" : comment, "timestamp" : timestamp, "type" : "comment"};
+			$.post("/media", params);
+			window.location = "/event?" + $.param({"auth" : auth, "username" : username, "eventID" : eventID});
+		}
 	});
 });
 
