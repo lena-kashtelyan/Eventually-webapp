@@ -20,35 +20,37 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-	$("#save-btn").on('click', function(e) {
-		var eventID = $("#eventID").text();
+	$('.save-btn').on('click', function(e) {
 		var auth = $("#auth").text();
 		var username = $("#username").text();
-		if ($(this).text() == "save") {
-			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+		var eventID = $(this).attr("name");
+		var btn = document.getElementById("save"+eventID);
+		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+		console.log(btn.innerHTML);
+		if (btn.innerHTML == "save") {
 			$.post("/save", params);
-			document.getElementById("save-btn").innerHTML="saved";
-		} else if ($(this).text() == "saved") {
-			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-			$.post("/ussave", params);
-			document.getElementById("save-btn").innerHTML="save";
+			btn.innerHTML = "saved";
+		} else if (btn.innerHTML == "saved") {
+			$.post("/unsave", params);
+			btn.innerHTML = "save";
 		}
 	});
 });
 
 $(document).ready(function () {
-	$("#attend-btn").on('click', function(e) {
-		var eventID = $("#eventID").text();
+	$('.attend-btn').on('click', function(e) {
 		var auth = $("#auth").text();
 		var username = $("#username").text();
-		if ($(this).text() == "attend") {
-			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+		var eventID = $(this).attr("name");
+		var btn = document.getElementById("attend"+eventID);
+		var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+		console.log(btn.innerHTML);
+		if (btn.innerHTML == "attend") {
 			$.post("/attend", params);
-			document.getElementById("attend-btn").innerHTML="attending";
-		} else if ($(this).text() == "attending") {
-			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
+			btn.innerHTML = "attending";
+		} else if (btn.innerHTML == "attending") {
 			$.post("/unattend", params);
-			document.getElementById("attend-btn").innerHTML="attend";
+			btn.innerHTML = "attend";
 		}
 	});
 });
