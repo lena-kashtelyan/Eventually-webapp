@@ -58,8 +58,8 @@ public class MyEventsView extends BackendInteraction
       if (auth.verifyAuthToken(username, authToken)) {
           BrowseResultsHolder browseResults = DatabaseManager.getUpcomingEventsWithinProximitySortedByPopularity(41.826144690402, -71.403125740801, 10000, 100, username);
 
-          HashMap<String, Boolean> userSavedEvents = browseResults.getUserSavedEvents();
-          HashMap<String, Boolean> userAttendingEvents = browseResults.getUserAttendingEvents();
+          HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
+          HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
           //list of events marked "saved" and "attending" in chronological order (most immediate on top)
           List<Event> upcoming = DatabaseManager.getFutureEvents(username);
           System.out.println("upcoming: " + upcoming.size());
@@ -70,8 +70,24 @@ public class MyEventsView extends BackendInteraction
           List<Event> suggested = DatabaseManager.getSuggestedEvents(username, 41.8, -71.4);
           System.out.println("suggested: " + suggested.size());
           
- //       try {
-          // fill the lists
+          for (Event event : upcoming) {
+        	  String eventID = event.getID();
+        	  userSavedEvents.put(eventID, DatabaseManager.checkInterested(eventID, username));
+        	  userAttendingEvents.put(eventID, DatabaseManager.checkAttending(eventID, username));	  
+          }
+          
+          for (Event event : past) {
+        	  String eventID = event.getID();
+        	  userSavedEvents.put(eventID, DatabaseManager.checkInterested(eventID, username));
+        	  userAttendingEvents.put(eventID, DatabaseManager.checkAttending(eventID, username));	  
+          }
+          
+          for (Event event : suggested) {
+        	  String eventID = event.getID();
+        	  userSavedEvents.put(eventID, DatabaseManager.checkInterested(eventID, username));
+        	  userAttendingEvents.put(eventID, DatabaseManager.checkAttending(eventID, username));	  
+          }
+
           Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "My Events").put("upcoming", upcoming)
               .put("past", past).put("suggested", suggested)

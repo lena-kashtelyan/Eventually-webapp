@@ -7,13 +7,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>${title}</title>
-    <style>
-      h4 {
-        font-family: 'Cabin', sans-serif;
-        font-size: 16px;
-        line-height: 1.4;
-      }
-    </style>
   </head>
 
   <body>
@@ -22,11 +15,9 @@
     <#assign saves = userSavedEvents>
     <#assign attends = userAttendingEvents>
     <div class="container-fluid" id="everything">
-      <div class="row">
-        <br>
         <ul class="list-group">
           <li class="list-group-item">
-            <div class="panel panel-default" id="top-panel">
+            <div class="panel panel-default" id="everything">
               <div class="panel-body" id="top-panel-body">
                 <div class="col-md-4">
                   <h2 style="text-align: center; color: white">memories</h2>
@@ -41,7 +32,6 @@
             </div>
           </li>
         </ul>
-      </div>
       <div class="row">
         <div class="col-md-4" id="past-events">
           <ul class="list-group">
@@ -60,23 +50,27 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <div class="row" id="event-name">
-                      <h2 id="event-link">
-                        <div class="col-md-8">
+                      <div id="event-link">
+                        <div class="col-md-7">
                           <#assign id = event.ID>
                           <a class="event-link" href=${event.ID}>${event.name}</a>
                         </div>
-                        <div class="col-md-4">
-                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true) >attending<#else>attend</#if></button>
-                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
+                        <div class="col-md-7">
+                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-sm btn-default pull-right attend-btn"><#if attends[id]>attending<#else>attend</#if></button>
+                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-sm btn-default pull-right save-btn"><#if saves[id]>saved<#else>save</#if></button>
                         </div>
-                      </h2>
+                      </div>
                     </div>
                   </div>
                   <div class="panel-body">
                     <div class="row">
                       <div class="col-md-12">
-                        <div class="wrapper">
+                        <div>
                           <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+                        </div>
+                        <br>
+                        <div class="col-md-8 col-sm-9 col-sx-3" id="venue-name">
+                          ${event.venueName}
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
                           ${event.attendingCount}
@@ -106,23 +100,27 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <div class="row" id="event-name">
-                      <h2 id="event-link">
-                        <div class="col-md-8">
+                      <div id="event-link">
+                        <div class="col-md-7">
                           <#assign id = event.ID>
                           <a class="event-link" href=${event.ID}>${event.name}</a>
                         </div>
-                        <div class="col-md-4">
-                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true) >attending<#else>attend</#if></button>
-                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
+                        <div class="col-md-5">
+                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-sm btn-default pull-right attend-btn"><#if attends[id]>attending<#else>attend</#if></button>
+                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-sm btn-default pull-right save-btn"><#if saves[id]>saved<#else>save</#if></button>
                         </div>
-                      </h2>
+                      </div>
                     </div>
                   </div>
                   <div class="panel-body">
                     <div class="row">
                       <div class="col-md-12">
-                        <div class="wrapper">
+                        <div>
                           <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+                        </div>
+                        <br>
+                        <div class="col-md-8 col-sm-9 col-sx-3" id="venue-name">
+                          ${event.venueName}
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
                           ${event.attendingCount}
@@ -151,23 +149,27 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <div class="row" id="event-name">
-                      <h2 id="event-link">
-                        <div class="col-md-8">
+                      <div id="event-link">
+                        <div class="col-md-7">
                           <#assign id = event.ID>
                           <a class="event-link" href=${event.ID}>${event.name}</a>
                         </div>
-                        <div class="col-md-4">
-                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true) >attending<#else>attend</#if></button>
-                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
+                        <div class="col-md-5">
+                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-sm btn-default pull-right attend-btn"><#if attends[id]>attending<#else>attend</#if></button>
+                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-sm btn-default pull-right save-btn"><#if saves[id]>saved<#else>save</#if></button>
                         </div>
-                      </h2>
+                      </div>
                     </div>
                   </div>
                   <div class="panel-body">
                     <div class="row">
                       <div class="col-md-12">
-                        <div class="wrapper">
+                        <div>
                           <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
+                        </div>
+                        <br>
+                        <div class="col-md-8 col-sm-9 col-sx-3" id="venue-name">
+                          ${event.venueName}
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
                           ${event.attendingCount}
@@ -188,12 +190,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/event.js"></script>
-<!--<script src='jquery.min.js' type='text/javascript'></script>
-    <script src='jquery.ui.widget.js' type='text/javascript'></script>
-    <script src='jquery.iframe-transport.js' type='text/javascript'></script>
-    <script src='jquery.fileupload.js' type='text/javascript'></script>
-    <script src='jquery.cloudinary.js' type='text/javascript'></script> -->
+    <script src="js/myevents.js"></script>
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
