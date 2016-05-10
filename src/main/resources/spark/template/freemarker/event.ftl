@@ -187,6 +187,7 @@
         <div id="columns">
           <#list stream as entry>
             <!-- <div class="col-md-4 col-sm-3"></div> -->
+            <#if (entry.type == "image")>
             <div class="pin">
               <div class="panel panel-default storystream-panel">
               <div class="panel-heading">
@@ -197,6 +198,7 @@
               </div>
               </div>
             </div>
+            </#if>
             <!-- <div class="col-md-4 col-sm-3"></div> -->
           </#list>
         </div>

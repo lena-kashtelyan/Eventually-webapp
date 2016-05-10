@@ -80,65 +80,75 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           String query = String.format(
               "SELECT cdb_geocode_street_point('%s');", location);
 
-          String geomPoint = new String("0101000020E61000009B45DE28E8D851C05F0CE544BBEA4440");
+          String geomPoint = new String(
+              "0101000020E61000009B45DE28E8D851C05F0CE544BBEA4440");
           try {
             CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
                 "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
             geomPoint = cartoDBCLient.request(query).getRows().get(0)
                 .toString();
-            geomPoint = geomPoint.substring(geomPoint.indexOf("=") + 1, geomPoint.length() - 1);
+            geomPoint = geomPoint.substring(geomPoint.indexOf("=") + 1,
+                geomPoint.length() - 1);
           } catch (CartoDBException e) {
             e.printStackTrace();
           }
-          
-          query = String.format(
-        		  "SELECT ST_AsLatLonText('%s', 'D.DDDDDDDD ')", geomPoint);
-          
+
+          query = String.format("SELECT ST_AsLatLonText('%s', 'D.DDDDDDDD ')",
+              geomPoint);
+
           double latitude = 41.825772;
           double longitude = -71.403278;
           try {
-              CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
-                  "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
-              geomPoint = cartoDBCLient.request(query).getRows().get(0)
-                  .toString();             
-              int latStart = geomPoint.indexOf("=") + 1;
-              int latEnd = geomPoint.indexOf(" ");
-              try {
-              latitude = Double.parseDouble(geomPoint.substring(latStart, latEnd));
-              } catch (NumberFormatException e) {
-            	  e.printStackTrace();
-              }
-              
-              geomPoint = geomPoint.substring(latEnd + 2);
-              int lngEnd = geomPoint.indexOf(" ");
-              try {
-            	  longitude = Double.parseDouble(geomPoint.substring(0, lngEnd));
-              } catch (NumberFormatException e) {
-            	  e.printStackTrace();
-              }
-            } catch (CartoDBException e) {
+            CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+                "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+            geomPoint = cartoDBCLient.request(query).getRows().get(0)
+                .toString();
+            int latStart = geomPoint.indexOf("=") + 1;
+            int latEnd = geomPoint.indexOf(" ");
+            try {
+              latitude = Double.parseDouble(geomPoint.substring(latStart,
+                  latEnd));
+            } catch (NumberFormatException e) {
               e.printStackTrace();
             }
 
+            geomPoint = geomPoint.substring(latEnd + 2);
+            int lngEnd = geomPoint.indexOf(" ");
+            try {
+              longitude = Double.parseDouble(geomPoint.substring(0, lngEnd));
+            } catch (NumberFormatException e) {
+              e.printStackTrace();
+            }
+          } catch (CartoDBException e) {
+            e.printStackTrace();
+          }
+          System.out.println(floorTime);
+          System.out.println(ceilingTime);
+          System.out.println(latitude);
+          System.out.println(longitude);
+          System.out.println(radius);
+          System.out.println(username);
+
           BrowseResultsHolder browseResults = null;
           if (byProximity.equals("false")) {
-        	  browseResults = DatabaseManager.filterOrderByPopularity(
-        	           floorTime, ceilingTime, latitude, longitude, radius, username); 
+            browseResults = DatabaseManager.filterOrderByPopularity(floorTime,
+                ceilingTime, latitude, longitude, radius, username);
           } else {
-        	  browseResults = DatabaseManager.filterOrderByLocation(floorTime, ceilingTime, latitude, longitude, radius, username);
+            browseResults = DatabaseManager.filterOrderByLocation(floorTime,
+                ceilingTime, latitude, longitude, radius, username);
           }
-          
+
           List<Event> events = browseResults.getEvents();
           HashMap<String, Boolean> userSavedEvents = browseResults
               .getUserSavedEvents();
           HashMap<String, Boolean> userAttendingEvents = browseResults
               .getUserAttendingEvents();
-          
-           Map<Object, Object> data = ImmutableMap.builder()
-           .put("title", "Browse").put("events", events)
-           .put("auth", authToken.toString()).put("username", username)
-           .put("userSavedEvents", userSavedEvents)
-           .put("userAttendingEvents", userAttendingEvents).build();
+
+          Map<Object, Object> data = ImmutableMap.builder()
+              .put("title", "Browse").put("events", events)
+              .put("auth", authToken.toString()).put("username", username)
+              .put("userSavedEvents", userSavedEvents)
+              .put("userAttendingEvents", userAttendingEvents).build();
 
           return new ModelAndView(data, "browse.ftl");
 

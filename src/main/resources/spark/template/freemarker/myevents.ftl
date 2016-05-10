@@ -190,7 +190,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/event.js"></script>
+    <script src="js/myevents.js"></script>
 <!--<script src='jquery.min.js' type='text/javascript'></script>
     <script src='jquery.ui.widget.js' type='text/javascript'></script>
     <script src='jquery.iframe-transport.js' type='text/javascript'></script>
