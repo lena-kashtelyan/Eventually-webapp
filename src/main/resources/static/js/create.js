@@ -36,7 +36,7 @@ function validateForm(e) {
         	submitEvent()
         }
     });
-    console.log("val" + validation); 
+    console.log("val" + validation);
     return validation;
 }
 
@@ -63,7 +63,7 @@ function submitEvent() {
 	console.log(facebookAdd);
 	var params = {"auth" : auth, "username" : username, "eventName" : name, "date" : date, "description" : description, "time" : time, "location" : location, "category" : category, "facebookAdd" : facebookAdd};
 	$.post("/create", params, function(responseJSON){
-	});				
+	});
 }
 
 $(document).ready(function () {
@@ -85,8 +85,8 @@ $(document).ready(function(){
 
 function initialize() {
 	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
-	new google.maps.LatLng(-33.8902, 151.1759),
-	new google.maps.LatLng(-33.8474, 151.2631));
+	new google.maps.LatLng(41, -72),
+	new google.maps.LatLng(42, -71));
 
 	var input = document.getElementById('location');
 	geocoder = new google.maps.Geocoder();

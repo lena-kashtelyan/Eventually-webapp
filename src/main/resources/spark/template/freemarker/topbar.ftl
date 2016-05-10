@@ -1,4 +1,4 @@
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" id="brand" href="#"><span style="color:#F88017">event</span>ually</a>
@@ -12,7 +12,8 @@
       <div class="collapse navbar-collapse navbar-right" id="navbar-inner">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" id="now">map</a></li>
-          <li><a href="#" id="browse">events</a></li>
+          <li><a href="#" id="myevents">my events</a></li>
+          <li><a href="#" id="browse">browse</a></li>
           <li><a href="#" id="create">create</a></li>
           <li><a href="#" id="account">account</a></li>
         </ul>

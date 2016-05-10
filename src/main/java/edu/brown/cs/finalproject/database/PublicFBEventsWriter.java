@@ -109,8 +109,9 @@ public class PublicFBEventsWriter {
       // .replace("=",
       // "a").replace(".","a").replace(":","a").replace("-","a").replace("_",
       // "a").replaceAll("[^a-zA-Z ]", "");
-      String eventDescription = eventJSON.get("eventDescription").toString().replace("\\", "*").replaceAll("[^a-zA-Z0-9,.;-_><|:'!?$*() ]", "").replace("*", "/");	//.replaceAll("[^a-zA-Z0-9,.;:'"!?$()\\ ]", "");//// .replace("\"",
-      // "'");
+
+      String eventDescription = eventJSON.get("eventDescription").toString().replace("\\", "*").replaceAll("[^a-zA-Z0-9,.;-_><|:'!?$*() ]", "").replace("*", "/");
+      
       if (eventDescription.length() > 4500) {
         eventDescription = eventDescription.substring(0, 4500);
         eventDescription += "...";

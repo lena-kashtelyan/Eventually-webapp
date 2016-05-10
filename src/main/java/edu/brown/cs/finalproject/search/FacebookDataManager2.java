@@ -50,7 +50,7 @@ public class FacebookDataManager2 {
       publicEvents = queryEvents(latitude, longitude, radius);
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println("ERROR: Problem fetching facebook public events.");
+      //System.out.println("ERROR: Problem fetching facebook public events.");
     }
 
 //     System.out.println(publicEvents);

@@ -20,15 +20,15 @@ li, .list-group-item {
 .btn-default {
   background-color: #222 !important;
   border-color: white !important;
-  font-size: 20px !important;
+  font-size: 100% !important;
   color: white !important;
 }
 
 .panel {
-  background-color: rgba(255, 255, 255, 0.6) !important;
+  /*background-color: rgba(255, 255, 255, 0.6) !important;*/
   font-family: 'Poiret One', cursive;
   color: black;
-  font-size: 14px;
+  font-size: 100% !important;
 }
 
 #refine-panel {
@@ -53,24 +53,36 @@ a:hover {
 }
 
 #event-name {
-  font-size: 26px;
+  font-size: 100% !important;
 }
 
-#event-description {
-  font-family: 'Oxygen', sans-serif;
-  font-size: 14px;
+.description {
+<<<<<<< HEAD
+  font-family: 'Raleway', sans-serif; 
+  font-size: 100% !important;
+=======
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+>>>>>>> aab2538dad0d62f5b6c6ce833416c300f62742ae
+  line-height: 1.4;
+}
+
+#feed {
+  padding-top: 55px;
 }
 
 #event-popularity {
-  font-family: 'Poiret One', cursive;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
   color: #F88017;
-  font-size: 26px;
+  font-size: 100% !important;
 }
 
 #venue-name {
-  font-family: 'Poiret One', cursive;
-  color: black;
-  font-size: 26px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  color: white;
+  font-size: 20px;
 }
 
 p {
@@ -80,14 +92,27 @@ p {
 .bootstrap-iso, .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form {
   font-family: 'Poiret One', cursive;
   color: white;
-  font-size: 20px;
+  font-size: 100% !important;
+}
+
+.description {
+  word-wrap: break-word;
+  color: white;
+}
+
+.panel {
+  background-color: rgba(0,0,0, 0.68) !important;
+}
+
+.description p {
+  color: white;
+}
+
+#expand-btn {
+  color: white;
 }
 
 .form-control::-webkit-input-placeholder { font-family: 'Poiret One', font-size: 16px; cursive; color: gray; text-align: left; }
 .form-control:-moz-placeholder { font-family: 'Poiret One', cursive; font-size: 16px; color: gray; text-align: left; }
 .form-control::-moz-placeholder { font-family: 'Poiret One', cursive; font-size: 16px; color: gray; text-align: left; }
 .form-control:-ms-input-placeholder { font-family: 'Poiret One', cursive; font-size: 16px; color: gray; text-align: left; }
-
-
-
-

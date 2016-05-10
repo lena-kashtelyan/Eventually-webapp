@@ -1,0 +1,21 @@
+#main-container {
+  padding-top: 52px;
+}
+
+::-webkit-input-placeholder {
+ text-align: center !important;
+}
+:-moz-placeholder {
+ text-align: center !important;
+}
+::-moz-placeholder {
+ text-align: center !important;
+}
+:-ms-input-placeholder {
+ text-align: center !important;
+}
+
+input {
+  color: black !important;
+  font-size: 20px !important;
+}

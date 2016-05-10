@@ -1,0 +1,11 @@
+div#top-panel-body, div#top-panel-body a {
+    color: white;
+}
+
+div#top-panel-body a:hover {
+    color: #F88017;
+}
+
+#everything {
+  padding-top: 52px;
+}

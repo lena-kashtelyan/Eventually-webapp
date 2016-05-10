@@ -38,10 +38,11 @@ public class AccountView extends BackendInteraction
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(username, authToken)) {
+        String profilePic = dbManager.getUsersMediaPath(username);
         Map<Object, Object> data = ImmutableMap.builder()
-            .put("title", "Account").put("name", "John Jannotti")
+            .put("title", "Account").put("name", "Cole Hansen")
             .put("username", username).put("auth", authToken.toString())
-            .build();
+            .put("profilePhoto", profilePic).build();
         return new ModelAndView(data, htmlUrl);
       } else {
         // malicious user, redirect to login

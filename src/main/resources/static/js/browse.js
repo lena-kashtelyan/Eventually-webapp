@@ -68,6 +68,12 @@ function initialize() {
 var radiusSlider;
 
 $(document).ready(function(){ 
+	$(function () {
+	    $('#datetimepicker1').datetimepicker();
+	});
+	$(function () {
+	    $('#datetimepicker2').datetimepicker();
+	});
 	initialize();
 	radiusSlider = $("#radius").slider();
 });
