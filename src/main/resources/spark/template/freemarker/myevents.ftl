@@ -69,11 +69,17 @@
                           <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                         </div>
                         <br>
-                        <div class="col-md-8 col-sm-9 col-sx-3" id="venue-name">
-                          ${event.venueName}
-                        </div>
-                        <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
-                          ${event.attendingCount}
+                        <div class="row">
+                        <#assign date = "date">
+                        <#assign time = "time">
+                        <#assign temp = "temp">
+                        <#list event.getStartDate()?split("T") as dt>
+                            <#assign date = temp>
+                            <#assign time = dt>
+                            <#assign temp = dt>
+                        </#list>
+                          <div class="col-md-8 col-sm-8 col-xs-8" id="venue-name">${date},  ${time?substring(0,5)}<br>${event.venueName}</div>
+                          <div class="col-md-4 col-sm-4 col-xs-4 pull-right" id="event-popularity">~ ${event.attendingCount} going</div>
                         </div>
                       </div>
                     </div>
@@ -119,11 +125,17 @@
                           <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                         </div>
                         <br>
-                        <div class="col-md-8 col-sm-9 col-sx-3" id="venue-name">
-                          ${event.venueName}
-                        </div>
-                        <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
-                          ${event.attendingCount}
+                        <div class="row">
+                        <#assign date = "date">
+                        <#assign time = "time">
+                        <#assign temp = "temp">
+                        <#list event.getStartDate()?split("T") as dt>
+                            <#assign date = temp>
+                            <#assign time = dt>
+                            <#assign temp = dt>
+                        </#list>
+                          <div class="col-md-8 col-sm-8 col-xs-8" id="venue-name">${date},  ${time?substring(0,5)}<br>${event.venueName}</div>
+                          <div class="col-md-4 col-sm-4 col-xs-4 pull-right" id="event-popularity">~ ${event.attendingCount} going</div>
                         </div>
                       </div>
                     </div>
@@ -168,11 +180,17 @@
                           <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                         </div>
                         <br>
-                        <div class="col-md-8 col-sm-9 col-sx-3" id="venue-name">
-                          ${event.venueName}
-                        </div>
-                        <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
-                          ${event.attendingCount}
+                        <div class="row">
+                        <#assign date = "date">
+                        <#assign time = "time">
+                        <#assign temp = "temp">
+                        <#list event.getStartDate()?split("T") as dt>
+                            <#assign date = temp>
+                            <#assign time = dt>
+                            <#assign temp = dt>
+                        </#list>
+                          <div class="col-md-8 col-sm-8 col-xs-8" id="venue-name">${date},  ${time?substring(0,5)}<br>${event.venueName}</div>
+                          <div class="col-md-4 col-sm-4 col-xs-4 pull-right" id="event-popularity">~ ${event.attendingCount} going</div>
                         </div>
                       </div>
                     </div>
