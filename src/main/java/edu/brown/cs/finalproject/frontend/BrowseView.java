@@ -39,9 +39,10 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     String username = qm.value("username");
     String location = qm.value("location");
     String sliderValue = qm.value("radius");
-
     String floorTime = qm.value("floorTime");
     String ceilingTime = qm.value("ceilingTime");
+    String byProximity = qm.value("byProximity");
+    String byPopularity = qm.value("byPopularity");
 
     System.out.println("authString: " + authString);
     System.out.println("username: " + username);
@@ -49,6 +50,8 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     System.out.println("sliderValue: " + sliderValue);
     System.out.println("floorTime: " + floorTime);
     System.out.println("ceilingTime: " + ceilingTime);
+    System.out.println("byProximity: " + byProximity);
+    System.out.println("byPopularity: " + byPopularity);
 
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
@@ -56,11 +59,6 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
 
         // if location is null, then we present the default list of events
         if (location == null) {
-          // CHOOSE WHICHEVER YOU WOULD LIKE; WHEN WE ADD THE CUSTOMIZABLE BOX
-          // WE WILL USE WHICHEVER THE USER REQUESTS
-          // List<Event> events =
-          // DatabaseManager.getUpcomingEventsWithinProximitySortedByProximity(41.826144690402,
-          // -71.403125740801, 1000, 100);
           BrowseResultsHolder browseResults = DatabaseManager
               .getUpcomingEventsWithinProximitySortedByPopularity(
                   41.826144690402, -71.403125740801, 10000, 100, username);
@@ -71,14 +69,6 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           HashMap<String, Boolean> userAttendingEvents = browseResults
               .getUserAttendingEvents();
 
-          // for (String str : userSavedEvents.keySet()) {
-          // System.out.println(str + ": " + userSavedEvents.get(str));
-          // }
-          /*
-           * this will need to change once we get get the list of events all at
-           * once!
-           */
-          // System.out.println(events.size());
           Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "Browse").put("events", events)
               .put("auth", authToken.toString()).put("username", username)
@@ -90,29 +80,67 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           String query = String.format(
               "SELECT cdb_geocode_street_point('%s');", location);
 
+          String geomPoint = new String("0101000020E61000009B45DE28E8D851C05F0CE544BBEA4440");
           try {
             CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
                 "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
-            String resp = cartoDBCLient.request(query).getRows().get(0)
+            geomPoint = cartoDBCLient.request(query).getRows().get(0)
                 .toString();
-            int equalSignPos = resp.indexOf("=");
-            resp = resp.substring(equalSignPos + 1, resp.length() - 1);
-            System.out.println(resp);
-            // System.out.println(resp.getRows().get(0).toString());
-            System.out.println("^^^^^^^^^^^^^^^^^");
+            geomPoint = geomPoint.substring(geomPoint.indexOf("=") + 1, geomPoint.length() - 1);
           } catch (CartoDBException e) {
             e.printStackTrace();
           }
+          
+          query = String.format(
+        		  "SELECT ST_AsLatLonText('%s', 'D.DDDDDDDD ')", geomPoint);
+          
+          double latitude = 41.825772;
+          double longitude = -71.403278;
+          try {
+              CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+                  "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+              geomPoint = cartoDBCLient.request(query).getRows().get(0)
+                  .toString();             
+              int latStart = geomPoint.indexOf("=") + 1;
+              int latEnd = geomPoint.indexOf(" ");
+              try {
+              latitude = Double.parseDouble(geomPoint.substring(latStart, latEnd));
+              } catch (NumberFormatException e) {
+            	  e.printStackTrace();
+              }
+              
+              geomPoint = geomPoint.substring(latEnd + 2);
+              int lngEnd = geomPoint.indexOf(" ");
+              try {
+            	  longitude = Double.parseDouble(geomPoint.substring(0, lngEnd));
+              } catch (NumberFormatException e) {
+            	  e.printStackTrace();
+              }
+            } catch (CartoDBException e) {
+              e.printStackTrace();
+            }
 
-          // List<Event> events = DatabaseManager.filterOrderByPopularity(
-          // floorTime, ceilingTime, lat, lng, radius);
-          //
-          // Map<Object, Object> data = ImmutableMap.builder()
-          // .put("title", "Browse").put("events", events)
-          // .put("auth", authToken.toString()).put("username", username)
-          // .put("userSavedEvents", userSavedEvents)
-          // .put("userAttendingEvents", userAttendingEvents).build();
-          return new ModelAndView(null, "browse.ftl");
+          BrowseResultsHolder browseResults = null;
+          if (byProximity.equals("false")) {
+        	  browseResults = DatabaseManager.filterOrderByPopularity(
+        	           floorTime, ceilingTime, latitude, longitude, radius, username); 
+          } else {
+        	  browseResults = DatabaseManager.filterOrderByLocation(floorTime, ceilingTime, latitude, longitude, radius, username);
+          }
+          
+          List<Event> events = browseResults.getEvents();
+          HashMap<String, Boolean> userSavedEvents = browseResults
+              .getUserSavedEvents();
+          HashMap<String, Boolean> userAttendingEvents = browseResults
+              .getUserAttendingEvents();
+          
+           Map<Object, Object> data = ImmutableMap.builder()
+           .put("title", "Browse").put("events", events)
+           .put("auth", authToken.toString()).put("username", username)
+           .put("userSavedEvents", userSavedEvents)
+           .put("userAttendingEvents", userAttendingEvents).build();
+
+          return new ModelAndView(data, "browse.ftl");
 
         }
 

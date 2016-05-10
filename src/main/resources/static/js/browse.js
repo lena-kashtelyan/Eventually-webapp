@@ -100,16 +100,6 @@ $(document).ready(function(){
 	});
 });
 
-// $(document).ready(function() {
-// 	$("#browse").on('click', function(e) {
-// 		e.preventDefault();
-// 		var auth = $("#auth").text();
-// 		var username = $("#username").text();
-// 		var params = {"auth" : auth, "username" : username};
-// 			window.location = "/browse?" + $.param(params);
-// 	});
-// });
-
 $(document).ready(function(){ 
 	$('#search-clear-btn').on('click', function(e) {
 		e.preventDefault();

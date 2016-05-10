@@ -863,6 +863,9 @@ public class DatabaseManager {
         Event event = new EventProxy(eventID);
         suggested.add(event);
       }
+      
+      
+      
     } catch (CartoDBException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
@@ -900,7 +903,6 @@ public class DatabaseManager {
     } catch (CartoDBException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return new BrowseResultsHolder(filtered, userSavedEvents,
@@ -936,7 +938,6 @@ public class DatabaseManager {
       e.printStackTrace();
       return null;
     } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return null;
     }
