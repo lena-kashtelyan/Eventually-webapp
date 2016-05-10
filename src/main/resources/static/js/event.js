@@ -36,6 +36,7 @@ $(document).ready(function () {
 			$.post("/unsave", params);
 			btn.innerHTML = "save";
 		}
+		window.location.reload();
 	});
 });
 
@@ -56,6 +57,7 @@ $(document).ready(function () {
 			$.post("/unattend", params);
 			btn.innerHTML = "attend";
 		}
+		window.location.reload();
 	});
 });
 
