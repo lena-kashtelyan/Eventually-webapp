@@ -39,7 +39,6 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     String username = qm.value("username");
     String location = qm.value("location");
     String sliderValue = qm.value("radius");
-//    double radius = Double.valueOf(sliderValue) * 1609.34;
     String floorTime = qm.value("floorTime");
     String ceilingTime = qm.value("ceilingTime");
     String byProximity = qm.value("byProximity");
@@ -90,9 +89,10 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
               .put("userAttendingEvents", userAttendingEvents).build();
           return new ModelAndView(data, "browse.ftl");
         } else {
-
+          double radius = Double.valueOf(sliderValue) * 1609.34;
           String query = String.format(
               "SELECT cdb_geocode_street_point('%s');", location);
+
 //          String filter = String
 //              .format(
 //                  "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
@@ -140,7 +140,27 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
             } catch (CartoDBException e) {
               e.printStackTrace();
             }
+
+          BrowseResultsHolder browseResults = null;
+          if (byProximity.equals("false")) {
+        	  browseResults = DatabaseManager.filterOrderByPopularity(
+        	           floorTime, ceilingTime, latitude, longitude, radius, username); 
+          } else {
+        	  browseResults = DatabaseManager.filterOrderByLocation(floorTime, ceilingTime, latitude, longitude, radius, username);
+          }
           
+          List<Event> events = browseResults.getEvents();
+          HashMap<String, Boolean> userSavedEvents = browseResults
+              .getUserSavedEvents();
+          HashMap<String, Boolean> userAttendingEvents = browseResults
+              .getUserAttendingEvents();
+          
+           Map<Object, Object> data = ImmutableMap.builder()
+           .put("title", "Browse").put("events", events)
+           .put("auth", authToken.toString()).put("username", username)
+           .put("userSavedEvents", userSavedEvents)
+           .put("userAttendingEvents", userAttendingEvents).build();
+
           return new ModelAndView(null, "browse.ftl");
 
         }

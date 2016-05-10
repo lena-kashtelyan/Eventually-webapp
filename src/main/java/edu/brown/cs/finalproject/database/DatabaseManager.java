@@ -39,7 +39,7 @@ public class DatabaseManager {
   }
 
   @SuppressWarnings("deprecation")
-public static boolean addEvent(String Name, String creatorID,
+  public static boolean addEvent(String Name, String creatorID,
       String startDate, String endDate, String location, String category,
       String description, String origintype, String url) {
 
@@ -86,7 +86,7 @@ public static boolean addEvent(String Name, String creatorID,
     if (venuename.contains(",")) {
       venuename = venuename.substring(0, venuename.indexOf(","));
     }
-    
+
     creatorID = URLEncoder.encode(creatorID);
     creatorID.replaceAll("[^a-zA-Z0-9% ]", "");
     Name = URLEncoder.encode(Name);
@@ -579,7 +579,7 @@ public static boolean addEvent(String Name, String creatorID,
       queryBuilder.append("),4326)::geography) ASC LIMIT ");
       queryBuilder.append(limit);
       String query = queryBuilder.toString();
-//      System.out.println(query);
+      // System.out.println(query);
 
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
           "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
@@ -641,7 +641,7 @@ public static boolean addEvent(String Name, String creatorID,
       queryBuilder.append(" ORDER BY attendingCount DESC LIMIT ");
       queryBuilder.append(limit);
       String query = queryBuilder.toString();
-//      System.out.println(query);
+      // System.out.println(query);
 
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
           "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
@@ -806,6 +806,7 @@ public static boolean addEvent(String Name, String creatorID,
     ratios.put("theater & performace", theaterandperformance);
     ratios.put("religious & cultural celebration", religiousandcultural);
     ratios.put("sports", sports);
+    ratios.put("other", other);
 
     // List<String> categories = new ArrayList<>();
     int max = Integer.MIN_VALUE;
@@ -862,6 +863,9 @@ public static boolean addEvent(String Name, String creatorID,
         Event event = new EventProxy(eventID);
         suggested.add(event);
       }
+      
+      
+      
     } catch (CartoDBException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
@@ -869,6 +873,76 @@ public static boolean addEvent(String Name, String creatorID,
     }
 
     return suggested;
+  }
+
+  public static BrowseResultsHolder filterOrderByPopularity(String startDate,
+      String endDate, double lat, double lng, double radius, String username) {
+    List<Event> filtered = new ArrayList<>();
+    HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
+
+    String filter = String
+        .format(
+            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+                + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+                + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
+                + "ORDER BY attendingcount DESC", startDate, endDate, lng, lat,
+            radius);
+
+    try {
+      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(filter);
+      for (int j = 0; j < res.getTotal_rows(); j++) {
+        String eventID = (String) res.getRows().get(j).get("eventid");
+        Event event = new EventProxy(eventID);
+        filtered.add(event);
+        userSavedEvents.put(eventID, checkInterested(eventID, username));
+        userAttendingEvents.put(eventID, checkAttending(eventID, username));
+      }
+    } catch (CartoDBException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return new BrowseResultsHolder(filtered, userSavedEvents,
+        userAttendingEvents);
+  }
+
+  public static BrowseResultsHolder filterOrderByLocation(String startDate,
+      String endDate, double lat, double lng, double radius, String username) {
+    List<Event> filtered = new ArrayList<>();
+    HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
+
+    String filter = String
+        .format(
+            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+                + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+                + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
+                + "ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) ASC",
+            startDate, endDate, lng, lat, radius);
+
+    try {
+      CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+          "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+      CartoDBResponse<Map<String, Object>> res = cartoDBCLient.request(filter);
+      for (int j = 0; j < res.getTotal_rows(); j++) {
+        String eventID = (String) res.getRows().get(j).get("eventid");
+        Event event = new EventProxy(eventID);
+        filtered.add(event);
+        userSavedEvents.put(eventID, checkInterested(eventID, username));
+        userAttendingEvents.put(eventID, checkAttending(eventID, username));
+      }
+    } catch (CartoDBException e) {
+      e.printStackTrace();
+      return null;
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+      return null;
+    }
+    return new BrowseResultsHolder(filtered, userSavedEvents,
+        userAttendingEvents);
   }
 
 }
