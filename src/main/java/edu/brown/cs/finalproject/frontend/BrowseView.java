@@ -39,9 +39,11 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     String username = qm.value("username");
     String location = qm.value("location");
     String sliderValue = qm.value("radius");
-    double radius = Double.valueOf(sliderValue) * 1609.34;
+//    double radius = Double.valueOf(sliderValue) * 1609.34;
     String floorTime = qm.value("floorTime");
     String ceilingTime = qm.value("ceilingTime");
+    String byProximity = qm.value("byProximity");
+    String byPopularity = qm.value("byPopularity");
 
     System.out.println("authString: " + authString);
     System.out.println("username: " + username);
@@ -49,6 +51,8 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     System.out.println("sliderValue: " + sliderValue);
     System.out.println("floorTime: " + floorTime);
     System.out.println("ceilingTime: " + ceilingTime);
+    System.out.println("byProximity: " + byProximity);
+    System.out.println("byPopularity: " + byPopularity);
 
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
@@ -89,28 +93,54 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
 
           String query = String.format(
               "SELECT cdb_geocode_street_point('%s');", location);
-          String filter = String
-              .format(
-                  "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-                      + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-                      + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
-                      + "ORDER BY attendingcount DESC", floorTime, ceilingTime,
-                  -71.0589, 42.3601, radius);
+//          String filter = String
+//              .format(
+//                  "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+//                      + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+//                      + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
+//                      + "ORDER BY attendingcount DESC", floorTime, ceilingTime,
+//                  -71.0589, 42.3601, radius);
 
+          String geomPoint = new String("0101000020E61000009B45DE28E8D851C05F0CE544BBEA4440");
           try {
             CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
                 "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
-            String resp = cartoDBCLient.request(query).getRows().get(0)
+            geomPoint = cartoDBCLient.request(query).getRows().get(0)
                 .toString();
-            int equalSignPos = resp.indexOf("=");
-            resp = resp.substring(equalSignPos + 1, resp.length() - 1);
-            System.out.println(resp);
-            // System.out.println(resp.getRows().get(0).toString());
-            System.out.println("^^^^^^^^^^^^^^^^^");
+            geomPoint = geomPoint.substring(geomPoint.indexOf("=") + 1, geomPoint.length() - 1);
           } catch (CartoDBException e) {
             e.printStackTrace();
           }
-
+          
+          query = String.format(
+        		  "SELECT ST_AsLatLonText('%s', 'D.DDDDDDDD ')", geomPoint);
+          
+          double latitude = 41.825772;
+          double longitude = -71.403278;
+          try {
+              CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+                  "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+              geomPoint = cartoDBCLient.request(query).getRows().get(0)
+                  .toString();             
+              int latStart = geomPoint.indexOf("=") + 1;
+              int latEnd = geomPoint.indexOf(" ");
+              try {
+              latitude = Double.parseDouble(geomPoint.substring(latStart, latEnd));
+              } catch (NumberFormatException e) {
+            	  e.printStackTrace();
+              }
+              
+              geomPoint = geomPoint.substring(latEnd + 2);
+              int lngEnd = geomPoint.indexOf(" ");
+              try {
+            	  longitude = Double.parseDouble(geomPoint.substring(0, lngEnd));
+              } catch (NumberFormatException e) {
+            	  e.printStackTrace();
+              }
+            } catch (CartoDBException e) {
+              e.printStackTrace();
+            }
+          
           return new ModelAndView(null, "browse.ftl");
 
         }
