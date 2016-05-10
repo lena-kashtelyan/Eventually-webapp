@@ -20,7 +20,9 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
 	$('.save-btn').on('click', function(e) {
+
 		var auth = $("#auth").text();
 		var username = $("#username").text();
 		var eventID = $(this).attr("name");
@@ -38,7 +40,9 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
 	$('.attend-btn').on('click', function(e) {
+
 		var auth = $("#auth").text();
 		var username = $("#username").text();
 		var eventID = $(this).attr("name");
@@ -58,6 +62,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 	$("#comment-btn").on('click', function(e) {
 		e.preventDefault();
+		
 		var eventID = $("#eventID").text();
 		console.log(eventID);
 		var auth = $("#auth").text();
@@ -80,7 +85,7 @@ $(document).ready(function () {
 		uploadMultiple: false, 
 		acceptedFiles:'.jpg,.png,.jpeg,.gif',
 		parallelUploads: 6,
-		url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload',
+		url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload/',
 		thumbnailWidth: 80,
 		thumbnailHeight: 80,
 		parallelUploads: 20,

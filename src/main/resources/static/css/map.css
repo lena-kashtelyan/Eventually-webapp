@@ -66,8 +66,18 @@ div.cartodb-legend {
 }
 
 .remove-circle-icon {
-  
+
 }
+
+/*#slider-container {
+  /*position: fixed;
+  left:100px;
+  top: 100px;
+}
+
+.slider {
+  width: 300px;
+}*/
 
 /*.cartodb-popup-content-wrapper {
   width: 100% !important;
