@@ -68,8 +68,8 @@
                           <a class="event-link" href=${event.ID}>${event.name}</a>
                         </div>
                         <div class="col-md-4">
-                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true) >attending<#else>attend</#if></button>
-                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
+                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if attends[id]>attending<#else>attend</#if></button>
+                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if saves[id]>saved<#else>save</#if></button>
                         </div>
                       </h2>
                     </div>
@@ -114,8 +114,8 @@
                           <a class="event-link" href=${event.ID}>${event.name}</a>
                         </div>
                         <div class="col-md-4">
-                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true) >attending<#else>attend</#if></button>
-                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
+                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if attends[id]>attending<#else>attend</#if></button>
+                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if saves[id]>saved<#else>save</#if></button>
                         </div>
                       </h2>
                     </div>
@@ -159,8 +159,8 @@
                           <a class="event-link" href=${event.ID}>${event.name}</a>
                         </div>
                         <div class="col-md-4">
-                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true) >attending<#else>attend</#if></button>
-                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
+                          <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if attends[id]>attending<#else>attend</#if></button>
+                          <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if saves[id]>saved<#else>save</#if></button>
                         </div>
                       </h2>
                     </div>
