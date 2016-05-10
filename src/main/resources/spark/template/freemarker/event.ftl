@@ -25,7 +25,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="row" id="event-name">
-                    <div class="col-md-8 col-sm-9 col-xs-9">
+                    <div class="col-md-8 col-sm-9 col-xs-9" style="color:white;">
                       <h3><a id="event-link" href=${event.ID}>${event.name}</a></h3>
                     </div>
                     <div class="col-md-4 col-sm-3 col-xs-3">
@@ -122,7 +122,7 @@
                     <#list stream as entry>
                       <div class="row">
                         <#if (entry.type == "comment")>
-                          <h4 >@${entry.getUserName()} commented: ${entry.path}</h4>
+                          <h4><b>${entry.getUserName()}</b> commented: ${entry.path}</h4>
                         </#if>
                       </div>
                     </#list>
@@ -134,7 +134,7 @@
         </ul>
       </div>
 
-      <#assign count = 0>
+      <!-- <#assign count = 0>
       <#assign row = 0>
       <#assign row_count = 0>
         <#list stream as entry>
@@ -181,10 +181,27 @@
             </div>
             <#if (count%9 == 0)></div></#if>
           </#if>
-        </#list>
+        </#list> -->
       </div>
-    </div>
-      
+      <div id="wrapper">
+        <div id="columns">
+          <#list stream as entry>
+            <!-- <div class="col-md-4 col-sm-3"></div> -->
+            <div class="pin">
+              <div class="panel panel-default storystream-panel">
+              <div class="panel-heading">
+              <h4><b>${entry.getUserName()}</b> posted:</h4>
+              </div>
+              <div class="panel-body">
+              <img src=${entry.path} class="img-responsive" alt="Responsive image">
+              </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-4 col-sm-3"></div> -->
+          </#list>
+        </div>
+      </div>
+
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>

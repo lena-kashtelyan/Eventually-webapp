@@ -62,7 +62,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 	$("#comment-btn").on('click', function(e) {
 		e.preventDefault();
-		
+
 		var eventID = $("#eventID").text();
 		console.log(eventID);
 		var auth = $("#auth").text();
@@ -82,7 +82,7 @@ $(document).ready(function () {
     previewNode.parentNode.removeChild(previewNode);
 
 	var myDropzone = new Dropzone(document.body, {
-		uploadMultiple: false, 
+		uploadMultiple: false,
 		acceptedFiles:'.jpg,.png,.jpeg,.gif',
 		parallelUploads: 6,
 		url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload/',
