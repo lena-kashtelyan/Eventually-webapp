@@ -3,13 +3,12 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
-    <link rel="stylesheet" type="text/css" href="css/browse.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>${title}</title>
   </head>
 
@@ -60,7 +59,7 @@
                     <div class="col-md-12 col-sm-8 col-xs-10">
                       <br>
                       <div class="input-append date form_datetime" id="floor" data-date="2016-05-10T15:25:00Z">
-                        <input class="input input-lg input-block" style="color:black; font-family: raleway; font-weight: 400; font-size: 14px; padding: 5px" type="text" id="floorDT">
+                        <input class="input input-lg input-block" style="color:black; font-family: montserrat; font-weight: 200; font-size: 14px; padding: 5px" type="text" id="floorDT">
                         <span class="add-on"><i class="icon-remove"></i></span>
                         <span class="add-on"><i class="icon-th"></i></span>
                       </div>
@@ -85,7 +84,7 @@
                 <div class="col-md-2 col-sm-12 col-xs-12">
                   <div class="row">
                     <div class="col-md-0 col-sm-7 col-xs-0"></div>
-                    <h4><div class="col-md-12 col-sm-4 col-xs-3"></div>
+                    <h4><div class="col-md-12 col-sm-4 col-xs-2"></div>
                     <div class="col-md-12 col-sm-2 col-xs-3">
                       <div class="radio">
                         <label>
@@ -114,16 +113,15 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="row" id="event-name">
-                <h2 id="event-link">
-                  <div class="col-md-8">
-                    <#assign id = event.ID>
-                    <a class="event-link" href=${event.ID}>${event.name}</a>
-                  </div>
-                  <div class="col-md-4">
-                    <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default pull-right attend-btn"><#if (attends[id] == true)>attending<#else>attend</#if></button>
-                    <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
-                  </div>
-                </h2>
+                <div class="col-md-8">
+                  <#assign id = event.ID>
+                  <h2><a class="event-link" href=${event.ID}>${event.name}</a></h2>
+                </div>
+                <div class="col-md-4">
+                  <br>
+                  <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right attend-btn"><#if (attends[id] == true)>attending<#else>attend</#if></button>
+                  <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right save-btn"><#if (saves[id] == true)>saved<#else>save</#if></button>
+                </div>
               </div>
             </div>
             <div class="panel-body">
@@ -131,9 +129,7 @@
                 <div class="col-md-4">
                   <div class="row" id="event-image">
                     <div class="col-md-12">
-                      <div class="wrapper">
-                        <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
-                      </div>
+                      <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                     </div>
                   </div>
                 </div>
@@ -148,8 +144,9 @@
                     ${event.description}
                   </#if>
                   <div class="row">
-                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
-                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">
+                    <br>
+                    <div class="col-md-10 col-sm-10 col-xs-9" id="venue-name">${event.venueName}</div>
+                    <div class="col-md-2 col-sm-2 col-xs-3 pull-right" id="event-popularity">
                     ${event.attendingCount}</div>
                   </div>
                 </div>

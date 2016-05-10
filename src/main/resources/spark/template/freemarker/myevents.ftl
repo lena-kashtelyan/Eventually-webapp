@@ -5,9 +5,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
-    <link rel="stylesheet" type="text/css" href="css/browse.css">
-    <link rel="stylesheet" type="text/css" href="css/myevents.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>${title}</title>
     <style>
       h4 {
@@ -31,13 +29,13 @@
             <div class="panel panel-default" id="top-panel">
               <div class="panel-body" id="top-panel-body">
                 <div class="col-md-4">
-                  <h2 style="text-align: center">memories</h2>
+                  <h2 style="text-align: center; color: white">memories</h2>
                 </div>
                 <div class="col-md-4">
-                  <h2 style="text-align: center">plans</h2>
+                  <h2 style="text-align: center; color: white">plans</h2>
                 </div>
                 <div class="col-md-4">
-                  <h2 style="text-align: center">possibilities</h2>
+                  <h2 style="text-align: center; color: white">possibilities</h2>
                 </div>
               </div>
             </div>
@@ -51,8 +49,8 @@
             <li class="list-group-item">
               <div class="panel panel-default" id="top-panel">
                 <div class="panel-body" id="top-panel-body">
-                    <h4>your history with eventually is a blank slate,
-                      <a href="#" id="check-out-browse"> many experiences to fill it with!</a></h4>
+                    <h4 class="description">your history with eventually is a blank slate,
+                      <a href="#" style="color: #F88017" id="check-out-browse"> many experiences to fill it with!</a></h4>
                 </div>
               </div>
             </li>
@@ -97,8 +95,8 @@
             <li class="list-group-item">
               <div class="panel panel-default" id="top-panel">
                 <div class="panel-body" id="top-panel-body">
-                    <h4>you have not yet made any plans,
-                      <a href="#" id="check-out-map"> check out what is going on around?</a></h4>
+                    <h4 class="description">you have not yet made any plans,
+                      <a href="#" style="color: #F88017" id="check-out-map"> check out what is going on around?</a></h4>
                 </div>
               </div>
             </li>
@@ -143,7 +141,7 @@
             <li class="list-group-item">
               <div class="panel panel-default" id="top-panel">
                 <div class="panel-body" id="top-panel-body">
-                    <h4>at the moment we do not have enough information to suggest events we think you would enjoy, but stay tuned!</h4>
+                    <h4 class="description">at the moment we do not have enough information to suggest events we think you would enjoy, but stay tuned!</h4>
                 </div>
               </div>
             </li>

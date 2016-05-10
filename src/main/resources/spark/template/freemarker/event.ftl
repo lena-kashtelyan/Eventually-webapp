@@ -3,11 +3,10 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/topbar.css">
-    <link rel="stylesheet" type="text/css" href="css/browse.css">
-    <link rel="stylesheet" type="text/css" href="css/event.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>${title}</title>
     <style>
     </style>
@@ -31,7 +30,7 @@
                     <div class="col-md-4 col-sm-3 col-xs-3">
                       <br>
                       <button type="button" data-placement="bottom" id="attend${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right attend-btn"><#if (attending == true)>attending<#else>attend</#if></button>
-                      <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right save-btn"><#if (saved == true)>saved<#else>save</#if></button>`
+                      <button type="button" data-placement="bottom" id="save${event.ID}" name=${event.ID} class="btn btn-default btn-lg pull-right save-btn"><#if (saved == true)>saved<#else>save</#if></button>
                     </div>
                   </div>
                 </div>
@@ -40,26 +39,27 @@
                     <div class="col-md-12">
                       <img src=${event.eventphoto} class="img-responsive" alt="Responsive image">
                     </div>
-                    <h2></h2>
-                    <div class="col-md-2 col-sm-3 col-xs-3" id="event-popularity">
-                      ${event.attendingCount}
+                  </div>
+                  <h4></h4>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="description">
+                        <#assign description = event.description>
+                        <#if (description?length > 881)>
+                          <p>${description[0..880]}<a href="#full-description" data-toggle="collapse">...</a>
+                          <div id="full-description" class="collapse">
+                              ${description[881..]}
+                          </div></p>
+                        <#else>
+                          <p>${event.description}</p>
+                        </#if>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div id="description">
-                  <#assign description = event.description>
-                  <#if (description?length > 881)>
-                    <p>${description[0..880]}<a href="#full-description" data-toggle="collapse">...</a>
-                    <div id="full-description" class="collapse">
-                        ${description[881..]}
-                    </div></p>
-                  <#else>
-                    ${event.description}
-                  </#if>
-                </div>
-                <div class="row">
-                  <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
-                  <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity"></div>
+                  <div class="row">
+                    <div class="col-md-10 col-sm-9 col-xs-9" id="venue-name">${event.venueName}</div>
+                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right" id="event-popularity">${event.attendingCount}</div>
+                  </div>
                 </div>
               </div>
             </li>

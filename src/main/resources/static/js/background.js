@@ -4,6 +4,7 @@ $(document).ready(function() {
 	pager: '#smallnav',
 	pause:   1,
 	speed: 1800,
-	timeout:  5000
+	timeout:  8000,
+	random: true
 	});
 });
