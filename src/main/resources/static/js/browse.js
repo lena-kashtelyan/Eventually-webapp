@@ -54,8 +54,8 @@ $(document).ready(function () {
 
 function initialize() {
 	var defaultBounds = new google.maps.LatLngBounds(  //THINK ABOUT BOUNDS AND CHANGING THEM
-	new google.maps.LatLng(-33.8902, 151.1759),
-	new google.maps.LatLng(-33.8474, 151.2631));
+	new google.maps.LatLng(41, -72),
+	new google.maps.LatLng(42, -71));
 
 	var input = document.getElementById('search-location');
 	geocoder = new google.maps.Geocoder();
@@ -67,7 +67,7 @@ function initialize() {
 
 var radiusSlider;
 
-$(document).ready(function(){ 
+$(document).ready(function(){
 	$(".form_datetime").datetimepicker({
         format: "dd MM yyyy - HH:ii P",
         showMeridian: true,
@@ -82,7 +82,7 @@ $(document).ready(function(){
 	radiusSlider = $("#radius").slider();
 });
 
-$(document).ready(function(){ 
+$(document).ready(function(){
 	$('#search-refine-btn').on('click', function(e) {
 		e.preventDefault();
 		var auth = $("#auth").text();
@@ -100,10 +100,9 @@ $(document).ready(function(){
 	});
 });
 
-$(document).ready(function(){ 
+$(document).ready(function(){
 	$('#search-clear-btn').on('click', function(e) {
 		e.preventDefault();
 		//COMPLETE THIS!!!
 	});
 });
-

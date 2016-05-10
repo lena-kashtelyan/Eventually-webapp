@@ -63,6 +63,8 @@ function submitEvent() {
 	console.log(facebookAdd);
 	var params = {"auth" : auth, "username" : username, "eventName" : name, "date" : date, "description" : description, "time" : time, "location" : location, "category" : category, "facebookAdd" : facebookAdd};
 	$.post("/create", params, function(responseJSON){
+		var responseObject = JSON.parse(responseJSON);
+		window.location = responseObject.redirect;
 	});
 }
 

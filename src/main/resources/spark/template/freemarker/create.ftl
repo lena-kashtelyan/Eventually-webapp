@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css">
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/create.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>${title}</title>
   </head>
 
@@ -85,16 +85,6 @@
                       <span class="asteriskField">*</span>
                     </label>
                     <input class="form-control form-control-inner input-lg" id="location" name="location" placeholder="location" type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="input-group input-group-lg">
-                    <span class="input-group-addon">
-                      <input type="checkbox" aria-label="add to facebook">
-                    </span>
-                    <input type="text" class="form-control form-control-black" aria-label="add to facebook" id="facebookAdd" value="add to facebook       " readonly>
                   </div>
                 </div>
               </div>
