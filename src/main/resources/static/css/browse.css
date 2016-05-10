@@ -57,13 +57,8 @@ a:hover {
 }
 
 .description {
-<<<<<<< HEAD
-  font-family: 'Raleway', sans-serif; 
-  font-size: 100% !important;
-=======
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
->>>>>>> aab2538dad0d62f5b6c6ce833416c300f62742ae
   line-height: 1.4;
 }
 

@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
-    <link rel="stylesheet" type="text/css" href="css/browse.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/css/bootstrap-slider.min.css">
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="css/topbar.css">
+    <link rel="stylesheet" type="text/css" href="css/browse.css">
     <title>${title}</title>
   </head>
 
@@ -52,48 +52,55 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-2 col-sm-12 col-xs-12">
+                <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="row">
-                    <div class="col-md-12 col-sm-2 col-xs-2">
+                    <div class="col-md-12 col-sm-4 col-xs-2">
                       <label class="control-label requiredField" for="floor-time"><h2>from</h2></label>
                     </div>
-                    <div class="col-md-12 col-sm-9 col-xs-9">
+                    <div class="col-md-12 col-sm-8 col-xs-10">
                       <br>
-                      <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
+                      <div class="input-append date form_datetime" id="floor" data-date="2016-05-10T15:25:00Z">
+                        <input class="input input-lg input-block" style="color:black; font-family: raleway; font-weight: 400; font-size: 14px; padding: 5px" type="text" id="floorDT">
+                        <span class="add-on"><i class="icon-remove"></i></span>
+                        <span class="add-on"><i class="icon-th"></i></span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-2 col-sm-12 col-xs-12">
+                <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="row">
-                    <div class="col-md-12 col-sm-2 col-xs-2">
+                    <div class="col-md-12 col-sm-4 col-xs-2">
                       <label class="control-label requiredField" for="ceiling-time"><h2>until</h2></label>
                     </div>
-                    <div class="col-md-12 col-sm-9 col-xs-9">
+                    <div class="col-md-12 col-sm-8 col-xs-10">
                       <br>
-                      <div class='input-group date' id='datetimepicker2'>
-                          <input type='text' class="form-control" />
-                          <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                          </span>
+                      <div class="input-append date form_datetime" id="ceiling" data-date="2016-05-10T15:25:00Z">
+                        <input class="input input-lg input-block" style="color:black; font-family: raleway; font-weight: 400; font-size: 14px; padding: 5px" type="text" id="ceilingDT">
+                        <span class="add-on"><i class="icon-remove"></i></span>
+                        <span class="add-on"><i class="icon-th"></i></span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-2 col-sm-12 col-xs-12">
                   <div class="row">
-                    <div class="col-md-12 col-sm-6 col-xs-6">
-                      <br>
-                      <button type="button" id="search-clear-btn" class="btn btn-default btn-lg btn-block">clear</button>
+                    <div class="col-md-0 col-sm-7 col-xs-0"></div>
+                    <h4><div class="col-md-12 col-sm-4 col-xs-3"></div>
+                    <div class="col-md-12 col-sm-2 col-xs-3">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="bp" value="byProximity" id="prox" checked> by proximity
+                        </label>
+                      </div>
                     </div>
-                    <div class="col-md-12 col-sm-6 col-xs-6">
-                      <br>
+                    <div class="col-md-12 col-sm-2 col-xs-3">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="bp" value="byPopularity" id="pop"> by popularity
+                        </label>
+                      </div>
+                    </div></h4>
+                    <div class="col-md-12 col-sm-3 col-xs-3">
                       <button type="button" id="search-refine-btn" class="btn btn-default btn-lg btn-block">search</button>
                     </div>
                   </div>
@@ -110,7 +117,6 @@
                 <h2 id="event-link">
                   <div class="col-md-8">
                     <#assign id = event.ID>
-
                     <a class="event-link" href=${event.ID}>${event.name}</a>
                   </div>
                   <div class="col-md-4">
@@ -157,12 +163,11 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script src="js/bootstrap-datetimepicker.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABBUM2bl_qcqOiw6AWn_AZxob2YQ0g4AQ&libraries=places"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/bootstrap-slider.min.js"></script>
-    <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script src="js/browse.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>

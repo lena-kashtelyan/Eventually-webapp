@@ -10,6 +10,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/map.css" />
     <link rel="stylesheet" href="css/topbar.css" />
+    <!-- <link rel="stylesheet" href="jQRangeSlider-5.7.2/css/classic.css" type="text/css" /> -->
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="js/map.js"></script>
     <style type="cartocss/text" id="simpleOrange">
@@ -145,44 +146,49 @@
       </div>
       <div id="color-legend" class='cartodb-legend category noshow'>
       <ul>
-        <li>
+        <!-- <li id="category-category">
         <div class="bullet" style="background: #A6CEE3"></div> category
-        </li>
-        <li>
+        </li> -->
+        <li id="category-food-fest">
         <div class="bullet" style="background: #1F78B4"></div> food fest
         </li>
-        <li>
+        <li id="category-movies-and-art">
         <div class="bullet" style="background: #B2DF8A"></div> movies and art
         </li>
-        <li>
+        <li id="category-nightlife">
         <div class="bullet" style="background: #33A02C"></div> nightlife
         </li>
-        <li>
-        <div class="bullet" style="background: #FB9A99"></div> other
-        </li>
-        <li>
+        <li id="category-public-lecture">
         <div class="bullet" style="background: #E31A1C"></div> public lecture
         </li>
-        <li>
+        <li id="category-religious-and-cultural">
         <div class="bullet" style="background: #FDBF6F"></div> religious and cultural
         </li>
-        <li>
+        <li id="category-sports">
         <div class="bullet" style="background: #FF7F00"></div> sports
         </li>
-        <li>
+        <li id="category-theater-and-performance">
         <div class="bullet" style="background: #CAB2D6"></div> theater and performance
         </li>
-        <li>
+        <li id="category-workshop">
         <div class="bullet" style="background: #6A3D9A"></div> workshop
+        </li>
+        <li id="category-other">
+        <div class="bullet" style="background: #FB9A99"></div> other
         </li>
       </ul>
       </div>
+      <!-- <div class="container" id="slider-container">
+        <div id="slider" class="slider noshow"></div>
+      </div class="container"> -->
     </div>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"</script> -->
     <script src="js/topbar.js"></script>
     <script src="js/background.js"></script>
+    <!-- <script src="jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script> -->
     <script type="infowindow/html" id="infowindow_template">
       <div class="cartodb-popup v2">
         <a href="#close" class="cartodb-popup-close-button close">x</a>
@@ -196,6 +202,9 @@
         <div class="cartodb-popup-tip-container"></div>
       </div>
     </script>
+    <!-- <script>
+    $("#slider").dateRangeSlider();
+    </script> -->
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
