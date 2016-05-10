@@ -31,6 +31,8 @@ public class UpdateEventsDatabase extends BackendInteraction implements Route {
         double lng = Double.parseDouble(lngStr);
         int zoom = Integer.parseInt(zoomStr);
         int radius = zoomToRadius(zoom);
+        System.out.println(zoom);
+        System.out.println(radius);
         facebookDataManager.requestPublicEvents(lat, lng, radius);
       } catch (Exception e) {
         System.out.println("ERROR: Problem fetching public facebook events.");
@@ -41,6 +43,13 @@ public class UpdateEventsDatabase extends BackendInteraction implements Route {
   }
 
   private int zoomToRadius(int zoom) {
+	  if (zoom <= 16) {
+		  return 2500;
+	  }
+	  
+	  if (zoom <= 13) {
+		  return 4000;
+	  }
     return 1000;
   }
 

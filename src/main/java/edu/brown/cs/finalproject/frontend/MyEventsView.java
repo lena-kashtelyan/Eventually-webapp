@@ -70,6 +70,18 @@ public class MyEventsView extends BackendInteraction
           List<Event> suggested = DatabaseManager.getSuggestedEvents(username, 41.8, -71.4);
           System.out.println("suggested: " + suggested.size());
           
+          for (Event event : upcoming) {
+        	  String eventID = event.getID();
+        	  userSavedEvents.put(eventID, DatabaseManager.checkInterested(eventID, username));
+        	  userAttendingEvents.put(eventID, DatabaseManager.checkAttending(eventID, username));	  
+          }
+          
+          for (Event event : past) {
+        	  String eventID = event.getID();
+        	  userSavedEvents.put(eventID, DatabaseManager.checkInterested(eventID, username));
+        	  userAttendingEvents.put(eventID, DatabaseManager.checkAttending(eventID, username));	  
+          }
+          
           for (Event event : suggested) {
         	  String eventID = event.getID();
         	  userSavedEvents.put(eventID, DatabaseManager.checkInterested(eventID, username));

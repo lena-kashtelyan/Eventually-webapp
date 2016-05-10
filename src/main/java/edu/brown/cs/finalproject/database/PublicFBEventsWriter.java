@@ -38,13 +38,14 @@ public class PublicFBEventsWriter {
     JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"),
         JsonArray.class);
     
-//    System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-//    System.out.println(eventsArray);
-//    System.out.println(eventsArray.size());
-//    
-//    int eventsArraySize = eventsArray.size();
-//    
+    System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    System.out.println(eventsArray);
+    System.out.println(eventsArray.size());
+    
+    int eventsArraySize = eventsArray.size();
+    
 //		if (eventsArraySize > 40) {
+//			System.out.println("started building lists");
 //
 //			int firstStart = 0;
 //			int firstEnd = eventsArraySize / 4;
@@ -85,6 +86,8 @@ public class PublicFBEventsWriter {
 //			}
 //			
 //		}
+//		
+//		System.out.println("done building lists");
 //    JsonArray firstArray = new JsonArray();
 
     // System.out.println(eventsArray);
