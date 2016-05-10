@@ -138,6 +138,12 @@ public class EventBean extends EntityBean implements Event {
   public int getAttendingCount() {
     return attendingCount;
   }
+  
+  @Override
+  public int setAttendingCount(int newAttendingCount) {
+	  attendingCount = newAttendingCount;
+	  return attendingCount;
+  }
 
   @Override
   public int getMaybeCount() {

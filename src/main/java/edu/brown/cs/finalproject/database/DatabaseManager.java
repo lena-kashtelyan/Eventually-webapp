@@ -290,6 +290,7 @@ public class DatabaseManager {
       Event currevent = new EventProxy(eventID);
       int attendingcount = currevent.getAttendingCount();
       attendingcount += 1;
+      currevent.setAttendingCount(attendingcount);
       String update = String.format(
           "UPDATE events SET attendingcount= %d WHERE eventid='%s'", attendingcount, eventID);
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
@@ -394,10 +395,25 @@ public class DatabaseManager {
       System.out.println(prep.toString());
     } catch (SQLException s) {
       s.printStackTrace();
-      return false;
+      
     }
 
-    return true;
+    try {
+        Event currevent = new EventProxy(eventID);
+        int attendingcount = currevent.getAttendingCount();
+        attendingcount -= 1;
+        currevent.setAttendingCount(attendingcount);
+        String update = String.format(
+            "UPDATE events SET attendingcount= %d WHERE eventid='%s'", attendingcount, eventID);
+        CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
+            "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
+        cartoDBCLient.request(update);
+        return true;
+      } catch (CartoDBException | ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+        return false;
+      }
   }
 
   public static boolean addInterested(String userID, String eventID) {

@@ -183,6 +183,12 @@ public class EventProxy extends EntityProxy<Event> implements Event {
     getInternal();
     return internal.getAttendingCount();
   }
+  
+  @Override
+  public int setAttendingCount(int newAttendingCount) {
+	  getInternal();
+	  return internal.setAttendingCount(newAttendingCount);
+  }
 
   @Override
   public int getMaybeCount() {
