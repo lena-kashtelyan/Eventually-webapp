@@ -39,7 +39,7 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     String username = qm.value("username");
     String location = qm.value("location");
     String sliderValue = qm.value("radius");
-    double radius = Double.valueOf(sliderValue) * 1609.34;
+
     String floorTime = qm.value("floorTime");
     String ceilingTime = qm.value("ceilingTime");
 
@@ -86,16 +86,9 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
               .put("userAttendingEvents", userAttendingEvents).build();
           return new ModelAndView(data, "browse.ftl");
         } else {
-
+          double radius = Double.valueOf(sliderValue) * 1609.34;
           String query = String.format(
               "SELECT cdb_geocode_street_point('%s');", location);
-          String filter = String
-              .format(
-                  "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-                      + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-                      + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
-                      + "ORDER BY attendingcount DESC", floorTime, ceilingTime,
-                  -71.0589, 42.3601, radius);
 
           try {
             CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
@@ -111,6 +104,14 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
             e.printStackTrace();
           }
 
+          // List<Event> events = DatabaseManager.filterOrderByPopularity(
+          // floorTime, ceilingTime, lat, lng, radius);
+          //
+          // Map<Object, Object> data = ImmutableMap.builder()
+          // .put("title", "Browse").put("events", events)
+          // .put("auth", authToken.toString()).put("username", username)
+          // .put("userSavedEvents", userSavedEvents)
+          // .put("userAttendingEvents", userAttendingEvents).build();
           return new ModelAndView(null, "browse.ftl");
 
         }
