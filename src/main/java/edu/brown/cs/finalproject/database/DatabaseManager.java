@@ -863,9 +863,7 @@ public class DatabaseManager {
         Event event = new EventProxy(eventID);
         suggested.add(event);
       }
-      
-      
-      
+
     } catch (CartoDBException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
@@ -880,11 +878,12 @@ public class DatabaseManager {
     List<Event> filtered = new ArrayList<>();
     HashMap<String, Boolean> userSavedEvents = new HashMap<String, Boolean>();
     HashMap<String, Boolean> userAttendingEvents = new HashMap<String, Boolean>();
-
+    startDate = startDate.replaceAll(" AM", "");
+    endDate = endDate.replaceAll(" PM", "");
     String filter = String
         .format(
-            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-                + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
+                + "AND enddate< to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
                 + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
                 + "ORDER BY attendingcount DESC", startDate, endDate, lng, lat,
             radius);
@@ -917,11 +916,11 @@ public class DatabaseManager {
 
     String filter = String
         .format(
-            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'YYYY MM DD HH12:MI')"
-                + "AND enddate< to_timestamp('%s', 'YYYY MM DD HH12:MI')"
+            "SELECT eventid FROM events WHERE enddate> to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
+                + "AND enddate< to_timestamp('%s', 'DDMonthYYYY - HH12:MI')"
                 + "AND ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) < %f"
                 + "ORDER BY ST_Distance(the_geom::geography, ST_SetSRID(ST_Point(%f, %f), 4326)::geography) ASC",
-            startDate, endDate, lng, lat, radius);
+            startDate, endDate, lng, lat, radius, lng, lat);
 
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(

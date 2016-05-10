@@ -3,9 +3,7 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/topbar.css">
-    <link rel="stylesheet" type="text/css" href="css/create.css">
-    <link rel="stylesheet" type="text/css" href="css/signup.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>${title}</title>
   </head>
 
@@ -17,7 +15,7 @@
       <div class="container" id="main-container">
         <div class="row">
           <div class="col-md-3"></div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="center-box">
           <form id="formSignup" class="form-horizontal">
             <div class="form-group">
               <label for="firstName" class="col-sm-2 control-label">first name: </label>
