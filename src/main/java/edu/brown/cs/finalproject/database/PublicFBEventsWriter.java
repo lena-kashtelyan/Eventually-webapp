@@ -39,7 +39,7 @@ public class PublicFBEventsWriter {
 				JsonArray.class);
 
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-		System.out.println(eventsArray.size());
+		System.out.println("number of events: " + eventsArray.size());
 
 		int eventsArraySize = eventsArray.size();
 
@@ -54,16 +54,6 @@ public class PublicFBEventsWriter {
 			int thirdEnd = 3 * eventsArraySize / 4;
 			int fourthStart = thirdEnd + 1;
 			int fourthEnd = eventsArraySize - 1;
-			
-			System.out.println(firstStart);
-			System.out.println(firstEnd);
-			System.out.println(secondStart);
-			System.out.println(secondEnd);
-			System.out.println(thirdStart);
-			System.out.println(thirdEnd);
-			System.out.println(fourthStart);
-			System.out.println(fourthEnd);
-
 
 			JsonArray firstArray = new JsonArray();
 			for (int i = firstStart; i <= firstEnd; i++) {
