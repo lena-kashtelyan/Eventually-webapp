@@ -53,7 +53,7 @@ public class FacebookDataManager2 {
       //System.out.println("ERROR: Problem fetching facebook public events.");
     }
 
-    // System.out.println(publicEvents);
+//     System.out.println(publicEvents);
     PublicFBEventsWriter publicFBEventsWriter = new PublicFBEventsWriter();
     try {
       publicFBEventsWriter.updateDB(publicEvents);

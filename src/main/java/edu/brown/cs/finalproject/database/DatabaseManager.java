@@ -1,5 +1,6 @@
 package edu.brown.cs.finalproject.database;
 
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +38,8 @@ public class DatabaseManager {
     // Empty Constructor for Now
   }
 
-  public static boolean addEvent(String Name, String creatorID,
+  @SuppressWarnings("deprecation")
+public static boolean addEvent(String Name, String creatorID,
       String startDate, String endDate, String location, String category,
       String description, String origintype, String url) {
 
@@ -84,19 +86,30 @@ public class DatabaseManager {
     if (venuename.contains(",")) {
       venuename = venuename.substring(0, venuename.indexOf(","));
     }
+    
+    creatorID = URLEncoder.encode(creatorID);
+    creatorID.replaceAll("[^a-zA-Z0-9% ]", "");
+    Name = URLEncoder.encode(Name);
+    Name.replaceAll("[^a-zA-Z0-9% ]", "");
+    venuename = URLEncoder.encode(venuename);
+    venuename.replaceAll("[^a-zA-Z0-9% ]", "");
+    description = URLEncoder.encode(description);
+    description.replaceAll("[^a-zA-Z0-9% ]", "");
 
     String query = String
         .format(
             "INSERT INTO events (eventid,name,origintype,creatorid,startdate,category,description,attendingcount,declinedcount,maybecount,noreplycount,eventphoto,enddate,public,venuename) "
-                + "VALUES ('%s', '%s', '%s', '%s', %s, '%s', '%s', 0, 0, 0, 0, '%s',%s,false,'%s');",
+                + "VALUES ('%s', decode_url_part('%s'), '%s', decode_url_part('%s'), %s, '%s', decode_url_part('%s'), 0, 0, 0, 0, '%s',%s,false,decode_url_part('%s'));",
             eventID, Name, origintype, creatorID, startDate, category,
             description, eventphoto, endDate, venuename);
+    query = query.replace("+", "%20");
 
     System.out.println(query);
     String update = String.format(
         "UPDATE events SET the_geom = cdb_geocode_street_point('%s') "
             + "WHERE eventid = '%s';", location, eventID);
     System.out.println(update);
+    update = update.replace("+", "%20");
 
     try {
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
@@ -566,7 +579,7 @@ public class DatabaseManager {
       queryBuilder.append("),4326)::geography) ASC LIMIT ");
       queryBuilder.append(limit);
       String query = queryBuilder.toString();
-      System.out.println(query);
+//      System.out.println(query);
 
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
           "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
@@ -628,7 +641,7 @@ public class DatabaseManager {
       queryBuilder.append(" ORDER BY attendingCount DESC LIMIT ");
       queryBuilder.append(limit);
       String query = queryBuilder.toString();
-      System.out.println(query);
+//      System.out.println(query);
 
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
           "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");

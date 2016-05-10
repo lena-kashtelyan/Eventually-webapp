@@ -110,6 +110,7 @@
                 <h2 id="event-link">
                   <div class="col-md-8">
                     <#assign id = event.ID>
+
                     <a class="event-link" href=${event.ID}>${event.name}</a>
                   </div>
                   <div class="col-md-4">
