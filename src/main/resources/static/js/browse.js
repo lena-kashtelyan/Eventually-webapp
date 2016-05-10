@@ -68,12 +68,16 @@ function initialize() {
 var radiusSlider;
 
 $(document).ready(function(){ 
-	$(function () {
-	    $('#datetimepicker1').datetimepicker();
-	});
-	$(function () {
-	    $('#datetimepicker2').datetimepicker();
-	});
+	$(".form_datetime").datetimepicker({
+        format: "dd MM yyyy - HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+    });
+	$(".form_datetime").datetimepicker({
+        format: "dd MM yyyy - HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+    });
 	initialize();
 	radiusSlider = $("#radius").slider();
 });
@@ -83,22 +87,16 @@ $(document).ready(function(){
 		e.preventDefault();
 		var auth = $("#auth").text();
 		var username = $("#username").text();
-		console.log(auth);
-		console.log(username);
 		var sliderValue = radiusSlider.slider('getValue');
-		console.log(sliderValue);
 		var location = $("#search-location").val();
-		console.log(location); 
-		var floorTime = $("#floor-time").val();
-		console.log(floorTime);
-		var ceilingTime = $("#ceiling-time").val();
-		console.log(ceilingTime);
-		var params = { "auth" : auth, "username" : username, "location" : location, "radius" : sliderValue, "floorTime" : floorTime, "ceilingTime" : ceilingTime};
-		// var params = { "auth" : auth, "username" : username, "location" : location, "radius" : sliderValue, "floorTime" : floorTime, "ceilingTime" : ceilingTime};
+		var floorTime = $("#floorDT").val();
+		var ceilingTime = $("#ceilingDT").val();
+		var prox = document.getElementById("prox").checked;
+		console.log(prox);
+		var pop = document.getElementById("pop").checked;
+		console.log(pop);
+		var params = { "auth" : auth, "username" : username, "location" : location, "radius" : sliderValue, "floorTime" : floorTime, "ceilingTime" : ceilingTime, "byProximity" : prox, "byPopularity" : pop};
 		window.location = "/browse?" + $.param(params);
-		// $.post("/search", params, function(res) {
-			// console.log(res);
-		// });
 	});
 });
 
