@@ -21,6 +21,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	$("#save-btn").on('click', function(e) {
+		console.log("in save");
 		var eventID = $("#eventID").text();
 		var auth = $("#auth").text();
 		var username = $("#username").text();
@@ -30,7 +31,7 @@ $(document).ready(function () {
 			document.getElementById("save-btn").innerHTML="saved";
 		} else if ($(this).text() == "saved") {
 			var params = { "auth" : auth, "username" : username, "eventID" : eventID};
-			$.post("/ussave", params);
+			$.post("/unsave", params);
 			document.getElementById("save-btn").innerHTML="save";
 		}
 	});
@@ -38,6 +39,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 	$("#attend-btn").on('click', function(e) {
+		console.log("in attend");
 		var eventID = $("#eventID").text();
 		var auth = $("#auth").text();
 		var username = $("#username").text();
@@ -56,6 +58,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 	$("#comment-btn").on('click', function(e) {
 		e.preventDefault();
+		
 		var eventID = $("#eventID").text();
 		console.log(eventID);
 		var auth = $("#auth").text();
@@ -78,7 +81,7 @@ $(document).ready(function () {
 		uploadMultiple: false, 
 		acceptedFiles:'.jpg,.png,.jpeg,.gif',
 		parallelUploads: 6,
-		url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload',
+		url: 'https://api.cloudinary.com/v1_1/df1bylm3l/image/upload/',
 		thumbnailWidth: 80,
 		thumbnailHeight: 80,
 		parallelUploads: 20,
