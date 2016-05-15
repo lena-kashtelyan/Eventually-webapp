@@ -34,9 +34,6 @@ public class PublicFBEventsWriter {
     JsonArray eventsArray = new Gson().fromJson(jsonResults.get("events"),
         JsonArray.class);
 
-    System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    System.out.println("number of events: " + eventsArray.size());
-
     int eventsArraySize = eventsArray.size();
 
     if (eventsArraySize > 40) {

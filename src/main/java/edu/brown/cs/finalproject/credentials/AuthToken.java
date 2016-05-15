@@ -16,7 +16,8 @@ public class AuthToken {
 
   private AuthToken(Account account) {
     /*
-     * Code that adds auth token to our database.
+     * Code that adds auth token to our database. Actually,
+     * just using an in-memory hashmap.
      */
     String username = account.getUsername();
     UUID token = UUID.randomUUID();

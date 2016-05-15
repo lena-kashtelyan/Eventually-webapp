@@ -10,14 +10,11 @@ public class EventsSorter {
   }
 
   /**
-   * <<<<<<< HEAD Sorts a list of events based on location;
-   * uses a priority queue
+   * Sorts a list of events based on location; uses a
+   * priority queue
    * @param List<Event>
-   *          ======= Sorts a list of events based on
-   *          location; uses a priority queue
-   * @param List
-   *          <Event> >>>>>>>
-   *          faf483a16e094ac3ce9229c2a616091fbb2148be
+   *          Sorts a list of events based on location; uses
+   *          a priority queue
    * @return List<Event>
    */
   public List<Event> sortEventsByLocation(List<Event> unsortedEventsList,
@@ -25,36 +22,14 @@ public class EventsSorter {
 
     ResultsCollection resultsCollection = new ResultsCollection();
 
-    // for (Event tempEvent : unsortedEventsList) {
-    //
-    // double euclideanDistance =
-    // this.findDistance(currLatitute, currLongitude,
-    // tempEvent.getLatitude(), tempEvent.getLongitude());
-    //
-    // PQNode tempPQNode = new PQNode(new
-    // Priority(euclideanDistance), tempEvent);
-    // resultsCollection.add(tempPQNode);
-    // }
-
     List<Event> outcome = resultsCollection.returnEventsWithLowestPriority();
-
-    // for (Event e : outcome) {
-    // System.out.println(e.getID() + " " +
-    // this.findDistance(currLatitute, currLongitude,
-    // e.getLatitude(), e.getLongitude()));
-    // System.out.println(e.getID() + " " +
-    // this.findDistance(currLatitute,
-    // currLongitude, e.getLatitude(), e.getLongitude()));
-    // }
 
     return outcome;
   }
 
   /**
-   * <<<<<<< HEAD Sorts a list of events based on attending
-   * count; uses a priority queue ======= Sorts a list of
-   * events based on attending count; uses a priority queue
-   * >>>>>>> faf483a16e094ac3ce9229c2a616091fbb2148be
+   * Sorts a list of events based on attending count; uses a
+   * priority queue
    * @param unsortedEventsList
    * @return
    */
@@ -71,21 +46,18 @@ public class EventsSorter {
 
     List<Event> outcome = resultsCollection.returnEventsWithHighestPriority();
 
-    for (Event e : outcome) {
-      System.out.println(e.getID() + " " + e.getAttendingCount());
-    }
+    // for (Event e : outcome) {
+    // System.out.println(e.getID() + " " +
+    // e.getAttendingCount());
+    // }
 
     return outcome;
 
   }
 
   /**
-   * <<<<<<< HEAD Finds the square of the Euclidean distance
-   * between two points; works for a universe of two
-   * dimensions ======= Finds the square of the Euclidean
-   * distance between two points; works for a universe of
-   * two dimensions >>>>>>>
-   * faf483a16e094ac3ce9229c2a616091fbb2148be
+   * Finds the square of the Euclidean distance between two
+   * points; works for a universe of two dimensions
    * @param firstPointLat
    * @param firstPointLng
    * @param secondPointLat

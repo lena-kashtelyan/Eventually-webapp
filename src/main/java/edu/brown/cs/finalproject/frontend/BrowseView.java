@@ -4,12 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.TemplateViewRoute;
-
 import com.cartodb.CartoDBClientIF;
 import com.cartodb.CartoDBException;
 import com.cartodb.impl.ApiKeyCartoDBClient;
@@ -19,14 +13,20 @@ import edu.brown.cs.finalproject.credentials.AuthToken;
 import edu.brown.cs.finalproject.database.BrowseResultsHolder;
 import edu.brown.cs.finalproject.database.DatabaseManager;
 import edu.brown.cs.finalproject.entities.Event;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.TemplateViewRoute;
 
 /**
- * Private visible class to handle the serving of the login ftl template.
+ * Private visible class to handle the serving of the login
+ * ftl template.
  */
-public class BrowseView extends BackendInteraction implements TemplateViewRoute {
+public class BrowseView extends BackendInteraction
+    implements TemplateViewRoute {
   /**
    * The handle method.
-   * 
    * @param req
    *          The request object.
    * @param res
@@ -44,20 +44,12 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
     String byProximity = qm.value("byProximity");
     String byPopularity = qm.value("byPopularity");
 
-    System.out.println("authString: " + authString);
-    System.out.println("username: " + username);
-    System.out.println("location: " + location);
-    System.out.println("sliderValue: " + sliderValue);
-    System.out.println("floorTime: " + floorTime);
-    System.out.println("ceilingTime: " + ceilingTime);
-    System.out.println("byProximity: " + byProximity);
-    System.out.println("byPopularity: " + byPopularity);
-
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
       if (auth.verifyAuthToken(username, authToken)) {
 
-        // if location is null, then we present the default list of events
+        // if location is null, then we present the default
+        // list of events
         if (location == null) {
           BrowseResultsHolder browseResults = DatabaseManager
               .getUpcomingEventsWithinProximitySortedByPopularity(
@@ -77,8 +69,8 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           return new ModelAndView(data, "browse.ftl");
         } else {
           double radius = Double.valueOf(sliderValue) * 1609.34;
-          String query = String.format(
-              "SELECT cdb_geocode_street_point('%s');", location);
+          String query = String.format("SELECT cdb_geocode_street_point('%s');",
+              location);
 
           String geomPoint = new String(
               "0101000020E61000009B45DE28E8D851C05F0CE544BBEA4440");
@@ -106,8 +98,8 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
             int latStart = geomPoint.indexOf("=") + 1;
             int latEnd = geomPoint.indexOf(" ");
             try {
-              latitude = Double.parseDouble(geomPoint.substring(latStart,
-                  latEnd));
+              latitude = Double
+                  .parseDouble(geomPoint.substring(latStart, latEnd));
             } catch (NumberFormatException e) {
               e.printStackTrace();
             }

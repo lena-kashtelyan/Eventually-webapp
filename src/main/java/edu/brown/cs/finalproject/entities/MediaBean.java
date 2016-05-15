@@ -19,31 +19,26 @@ public class MediaBean extends EntityBean implements Media {
 
   @Override
   public String getEventID() {
-    // TODO Auto-generated method stub
     return eventID;
   }
 
   @Override
   public String getUserName() {
-    // TODO Auto-generated method stub
     return username;
   }
 
   @Override
   public String getPath() {
-    // TODO Auto-generated method stub
     return path;
   }
 
   @Override
   public String getType() {
-    // TODO Auto-generated method stub
     return type;
   }
 
   @Override
   public String getTimeStamp() {
-    // TODO Auto-generated method stub
     return timestamp;
   }
 

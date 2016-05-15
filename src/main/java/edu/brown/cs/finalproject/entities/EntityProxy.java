@@ -1,11 +1,8 @@
 package edu.brown.cs.finalproject.entities;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import edu.brown.cs.finalproject.database.Database;
 
 public abstract class EntityProxy<E extends Entity> implements Entity {
   protected String id;
@@ -22,11 +19,12 @@ public abstract class EntityProxy<E extends Entity> implements Entity {
   public String getID() {
     return id;
   }
-  
-  public Map<String,Entity> getCache() {
-	  return cache;
+
+  public Map<String, Entity> getCache() {
+    return cache;
   }
 
+  @SuppressWarnings("unchecked")
   private void loadCache() {
     if (internal != null) {
       return;
