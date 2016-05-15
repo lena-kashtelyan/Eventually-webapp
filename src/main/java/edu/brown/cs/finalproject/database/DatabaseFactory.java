@@ -4,8 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * A class to instantiate the local database for the application
+ *
+ */
 public final class DatabaseFactory {
 
+	/**
+	 * A method that instantiates the local database for the application
+	 */
   public static void createAndIndexTables() {
     try {
       createusersTable();

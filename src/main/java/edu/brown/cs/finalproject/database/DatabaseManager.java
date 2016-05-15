@@ -29,13 +29,13 @@ import edu.brown.cs.finalproject.entities.MediaProxy;
 import edu.brown.cs.finalproject.entities.User;
 import edu.brown.cs.finalproject.entities.UserProxy;
 
+/**
+ * A class that manages the backend work with all of our databases
+ *
+ */
 public class DatabaseManager {
-  private Cloudinary cloudinary = new Cloudinary(
-      ObjectUtils.asMap("cloud_name", "df1bylm3l", "api_key", "411248546735325",
-          "api_secret", "M04dGcHdQhfUDM95fOQVXiG_Vjk"));
 
   public DatabaseManager() {
-    // Empty Constructor for Now
   }
 
   @SuppressWarnings("deprecation")
@@ -116,7 +116,6 @@ public class DatabaseManager {
       cartoDBCLient.request(query);
       cartoDBCLient.request(update);
     } catch (CartoDBException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return null;
     }
@@ -125,7 +124,6 @@ public class DatabaseManager {
     try {
       newEvent = new EventProxy(eventID);
     } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return null;
     }
@@ -298,7 +296,6 @@ public class DatabaseManager {
       cartoDBCLient.request(update);
       return true;
     } catch (CartoDBException | ClassNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return false;
     }
@@ -331,7 +328,6 @@ public class DatabaseManager {
       cartoDBCLient.request(query);
       return true;
     } catch (CartoDBException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return false;
     }
@@ -410,7 +406,6 @@ public class DatabaseManager {
         cartoDBCLient.request(update);
         return true;
       } catch (CartoDBException | ClassNotFoundException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
         return false;
       }
@@ -445,7 +440,6 @@ public class DatabaseManager {
     Connection conn = Database.getConnection();
     String query = "DELETE FROM interested "
         + "WHERE eventID = ? AND username = ?;";
-    boolean didRemove = false;
 
     try (PreparedStatement prep = conn.prepareStatement(query)) {
       prep.setString(1, eventID);
@@ -518,28 +512,24 @@ public class DatabaseManager {
         events.add(event);
       }
     } catch (CartoDBException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return events;
   }
 
-  // changed getEvents into getUpcomingEvents (Ivaylo)
-  // fetches from CartoDB all events with an enddate
-  // timestamp after the
-  // current time
+  /**
+   * fetches from CartoDB all events with an enddate timestamp after the current time
+   * @return List<Event>, a list of all upcoming events
+   */
+
   public static List<Event> getUpcomingEvents() {
     List<Event> events = new ArrayList<>();
     try {
 
       DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
       Date date = new Date();
-      // System.out.println(dateFormat.format(date));
-      // //2014/08/06
-      // 15:59:48
 
       StringBuilder queryBuilder = new StringBuilder();
       queryBuilder
@@ -611,7 +601,6 @@ public class DatabaseManager {
       queryBuilder.append("),4326)::geography) ASC LIMIT ");
       queryBuilder.append(limit);
       String query = queryBuilder.toString();
-      // System.out.println(query);
 
       CartoDBClientIF cartoDBCLient = new ApiKeyCartoDBClient(
           "cs32finalproject", "ad54038628d84dceb55a7adb81eddfcf9976e994");
@@ -749,7 +738,6 @@ public class DatabaseManager {
           allevents.add(eventproxy);
         }
       } catch (ClassNotFoundException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     } catch (SQLException s) {
@@ -789,7 +777,6 @@ public class DatabaseManager {
           allevents.add(eventproxy);
         }
       } catch (ClassNotFoundException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     } catch (SQLException s) {
@@ -842,7 +829,6 @@ public class DatabaseManager {
     ratios.put("sports", sports);
     ratios.put("other", other);
 
-    // List<String> categories = new ArrayList<>();
     int max = Integer.MIN_VALUE;
     String cat1 = null;
     String cat2 = null;
@@ -854,7 +840,6 @@ public class DatabaseManager {
         cat1 = category;
       }
     }
-    // categories.add(cat1);
     max = Integer.MIN_VALUE;
     for (String category : ratios.keySet()) {
       if (ratios.get(category) > max && !category.equals(cat1)) {
@@ -862,7 +847,6 @@ public class DatabaseManager {
         cat2 = category;
       }
     }
-    // categories.add(cat2);
     max = Integer.MIN_VALUE;
     for (String category : ratios.keySet()) {
       if (ratios.get(category) > max && !category.equals(cat1)
@@ -871,7 +855,6 @@ public class DatabaseManager {
         cat3 = category;
       }
     }
-    // categories.add(cat3);
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
     System.out.println(cat1);

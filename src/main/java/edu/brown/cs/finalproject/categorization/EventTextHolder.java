@@ -1,14 +1,14 @@
 package edu.brown.cs.finalproject.categorization;
 
+/**
+ * Helper class to unite a name and a description of an event in one.
+ *
+ */
 class EventTextHolder {
-	
-	private String name;
-	private String description;
+
 	private String textHolder;
 	
 	EventTextHolder(String name, String description) {
-		this.name = name;
-		this.description = description;
 		this.textHolder = name + " " + description;
 		textHolder = textHolder.toLowerCase();
 	}

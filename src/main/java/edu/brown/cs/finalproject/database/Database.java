@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * A class to provide the connection to our local database
+ *
+ */
 public final class Database {
 
   private static Connection conn;
