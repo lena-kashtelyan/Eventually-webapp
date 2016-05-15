@@ -128,6 +128,8 @@ public class BrowseView extends BackendInteraction implements TemplateViewRoute 
           System.out.println(longitude);
           System.out.println(radius);
           System.out.println(username);
+          
+          facebookDataManager.requestPublicEvents(latitude, longitude, (int) radius);
 
           BrowseResultsHolder browseResults = null;
           if (byProximity.equals("false")) {

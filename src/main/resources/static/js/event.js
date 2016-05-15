@@ -36,6 +36,7 @@ $(document).ready(function () {
 			$.post("/unsave", params);
 			btn.innerHTML = "save";
 		}
+		window.location.reload();
 	});
 });
 
@@ -56,6 +57,7 @@ $(document).ready(function () {
 			$.post("/unattend", params);
 			btn.innerHTML = "attend";
 		}
+		window.location.reload();
 	});
 });
 
@@ -75,6 +77,13 @@ $(document).ready(function () {
 			window.location = "/event?" + $.param({"auth" : auth, "username" : username, "eventID" : eventID});
 		}
 	});
+});
+
+$(document).ready(function() {
+	var elem = $(".description");
+	var text = elem.html()
+	var newtext = text.replace(/\\n/g, "<br />");
+	elem.html(newtext);
 });
 
 $(document).ready(function () {
