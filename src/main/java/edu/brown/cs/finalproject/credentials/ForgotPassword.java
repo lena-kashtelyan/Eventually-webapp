@@ -7,6 +7,9 @@ import java.sql.SQLException;
 
 import edu.brown.cs.finalproject.database.Database;
 
+/*
+ * I think this class is unused.
+ */
 public class ForgotPassword {
 
   public static boolean checkUserName(String username) {

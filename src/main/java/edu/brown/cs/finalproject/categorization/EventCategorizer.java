@@ -6,7 +6,7 @@ public class EventCategorizer {
 	
 	public EventCategorizer() {
 		
-	}
+	} 
 	
 	public String categorize(String name, String description) {
 		

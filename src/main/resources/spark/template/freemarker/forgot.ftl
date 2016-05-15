@@ -38,12 +38,10 @@
     <script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
-    <script src="js/browse.js"></script>
+    <script src="js/forgot.js"></script>
     <script src="js/topbar-min.js"></script>
     <script src="js/background.js"></script>
     <#if auth??><span id="auth" class="noshow">${auth}</span></#if>
     <#if username??><span id="username" class="noshow">${username}</span></#if>
   </body>
  </html>
-
-

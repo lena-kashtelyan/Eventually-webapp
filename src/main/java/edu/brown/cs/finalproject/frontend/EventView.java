@@ -3,12 +3,6 @@ package edu.brown.cs.finalproject.frontend;
 import java.util.List;
 import java.util.Map;
 
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.TemplateViewRoute;
-
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.finalproject.credentials.AuthToken;
@@ -17,9 +11,15 @@ import edu.brown.cs.finalproject.entities.Event;
 import edu.brown.cs.finalproject.entities.EventProxy;
 import edu.brown.cs.finalproject.entities.Media;
 import edu.brown.cs.finalproject.entities.User;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.TemplateViewRoute;
 
 /**
- * Private visible class to handle the serving of the login ftl template.
+ * Private visible class to handle the serving of the login
+ * ftl template.
  */
 public class EventView extends BackendInteraction implements TemplateViewRoute {
 
@@ -31,7 +31,6 @@ public class EventView extends BackendInteraction implements TemplateViewRoute {
 
   /**
    * The handle method.
-   * 
    * @param req
    *          The request object.
    * @param res
@@ -44,9 +43,6 @@ public class EventView extends BackendInteraction implements TemplateViewRoute {
     String authString = qm.value("auth");
     String username = qm.value("username");
     String eventID = qm.value("eventID");
-    System.out.println("auth: " + authString);
-    System.out.println("username: " + username);
-    System.out.println("event ID: " + eventID);
     // String eventID = req.params(":something");
     if (authString != null) {
       AuthToken authToken = AuthToken.generateAuthToken(authString);
@@ -59,19 +55,19 @@ public class EventView extends BackendInteraction implements TemplateViewRoute {
           attendees = DatabaseManager.getAttendees(eventID);
           storystream = DatabaseManager.getMedia(eventID);
           System.out.println(storystream.size());
-          
+
           boolean isSaved = DatabaseManager.checkInterested(eventID, username);
-          boolean isAttending = DatabaseManager.checkAttending(eventID, username);
-          
+          boolean isAttending = DatabaseManager.checkAttending(eventID,
+              username);
+
           Map<Object, Object> data = ImmutableMap.builder()
-              .put("title", "Event").put("event", event)
-              .put("eventID", eventID).put("stream", storystream)
-              .put("saved", isSaved).put("attending", isAttending)
-              .put("username", username).put("auth", authToken.toString())
-              .put("attendees", attendees).build();
+              .put("title", "Event").put("event", event).put("eventID", eventID)
+              .put("stream", storystream).put("saved", isSaved)
+              .put("attending", isAttending).put("username", username)
+              .put("auth", authToken.toString()).put("attendees", attendees)
+              .build();
           return new ModelAndView(data, htmlUrl);
         } catch (ClassNotFoundException e) {
-          // TODO Auto-generated catch block
           e.printStackTrace();
           Map<Object, Object> data = ImmutableMap.builder()
               .put("title", "Ooops").build();

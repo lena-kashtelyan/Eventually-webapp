@@ -148,7 +148,6 @@ public class FacebookLoginResponse extends BackendInteraction implements Route {
     match.find();
     // gets auth token from facebook
     String profileURL = match.group(2);
-    // System.out.println(profileURL);
     String replace = Matcher.quoteReplacement("\\/");
     String filteredProfileURL = profileURL.replaceAll(replace, "/");
     System.out.println(filteredProfileURL);

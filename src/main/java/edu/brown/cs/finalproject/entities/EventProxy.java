@@ -29,30 +29,17 @@ public class EventProxy extends EntityProxy<Event> implements Event {
     }
 
     String name = (String) res.getRows().get(0).get("name");
-    // System.out.println(name);
     String venueName = (String) res.getRows().get(0).get("venuename");
-    // System.out.println(venueName);
     String originType = (String) res.getRows().get(0).get("origintype");
     String creatorID = (String) res.getRows().get(0).get("creatorid");
-    // System.out.println("before user creation");
     User creator = new UserProxy(creatorID);
-    // System.out.println("hello");
     String startDate = (String) res.getRows().get(0).get("startdate");
     String endDate = (String) res.getRows().get(0).get("enddate");
-    // System.out.println(startDate);
-    // double lat = (double) res.getRows().get(0).get("latitude");
-    // System.out.println("after lat");
-    // System.out.println(lat);
-    // double lng = (double) res.getRows().get(0).get("longitude");
-    // boolean isPublic = (boolean) res.getRows().get(0).get("public");
 
     boolean isPublic = true;
     String category = (String) res.getRows().get(0).get("category");
     String description = (String) res.getRows().get(0).get("description");
-    // System.out.println(description);
     int attendingCount = (int) res.getRows().get(0).get("attendingcount");
-    // System.out.println(attendingCount);
-    // int invitedCount = (int) res.getRows().get(0).get("invitedcount");
     int maybeCount = (int) res.getRows().get(0).get("maybecount");
     int noReplyCount = (int) res.getRows().get(0).get("noreplycount");
     int declinedCount = (int) res.getRows().get(0).get("declinedcount");
@@ -159,35 +146,16 @@ public class EventProxy extends EntityProxy<Event> implements Event {
     return internal.setDescription(newDescription);
   }
 
-  // @Override
-  // public double getLatitude() {
-  // getInternal();
-  // return internal.getLatitude();
-  // }
-  //
-  // @Override
-  // public double getLongitude() {
-  // getInternal();
-  // return internal.getLongitude();
-  // }
-
-  // @Override
-  // public int getInvitedCount() {
-  // // TODO Auto-generated method stub
-  // getInternal();
-  // return internal.getInvitedCount();
-  // }
-
   @Override
   public int getAttendingCount() {
     getInternal();
     return internal.getAttendingCount();
   }
-  
+
   @Override
   public int setAttendingCount(int newAttendingCount) {
-	  getInternal();
-	  return internal.setAttendingCount(newAttendingCount);
+    getInternal();
+    return internal.setAttendingCount(newAttendingCount);
   }
 
   @Override
